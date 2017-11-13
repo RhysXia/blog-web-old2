@@ -10,4 +10,5 @@
             text-align center
             background-color #fff
             line-height 50px
+            font-size 14px
 </style>
