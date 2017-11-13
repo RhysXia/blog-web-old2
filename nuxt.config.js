@@ -11,19 +11,19 @@ module.exports = {
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-      {rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css'},
-      {rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'}
+      {rel: 'stylesheet', href: '/css/normalize.css'},
+      {rel: 'stylesheet', href: '/css/font-awesome.min.css'}
     ]
   },
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['~assets/stylus/main.styl'],
   /*
   ** Customize the progress-bar color
   */
   loading: {color: '#3B8070'},
   plugins: [
-    '~/plugins/vuebar'
+    '~/plugins/filters'
   ]
 }

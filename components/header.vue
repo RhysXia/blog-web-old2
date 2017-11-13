@@ -1,38 +1,44 @@
 <template lang="pug">
-    header.header
-        nav.nav
-            nuxt-link(to="/").nav-header
-                h1.logo Ryths
-                span.info Coding All My Life
-            .nav-link
-                nuxt-link(to="/register").btn 注册
-                nuxt-link(to="/login").btn 登陆
+    header.nav
+        .nav-main
+            nuxt-link.nav-logo(to="/")
+                img(src="~assets/img/logo.png")
+            nuxt-link.nav-logo-info(to="/") Coding All My Life
+            ul.nav-menu.right
+                li
+                    nuxt-link.menu-item(to="/register") 注册
+                li
+                    nuxt-link.menu-item(to="/login") 登录
 </template>
+<script>
+  export default {}
+</script>
 <style lang="stylus" scoped>
-    .header
-        background-color hsla(0,0%,100%,.6)
+    .nav
         position sticky
-        width 100%
         top 0
-        .nav
+        height 50px
+        width 100%
+        background-color hsla(0, 0%, 100%, .6)
+        .nav-main
             display flex
             flex-direction row
             align-items center
-            height 50px
-            width 80%
+            width 1000px
             margin 0 auto
-            justify-content space-between
-            .nav-header
-                display flex
-                flex-direction row
-                align-items center
-                text-decoration none
-                .logo
-                    font-size 20px
-                    font-weight bold
-                    padding-right 10px
-                .info
-                    font-size 14px
-                    &:hover
-                        text-decoration underline
+            .nav-logo
+                img
+                    height 40px
+                margin-right 10px
+            .nav-logo-info
+                padding-top 10px
+            .nav-menu
+                li
+                    display inline-block
+                    a
+                        padding 0 10px
+            .right
+                margin-left auto
+                margin-right 0
+
 </style>
