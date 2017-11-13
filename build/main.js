@@ -89,7 +89,7 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#3B8070' },
-  plugins: ['~/plugins/filters']
+  plugins: ['~/plugins/filters', '~/plugins/main']
 };
 
 /***/ },

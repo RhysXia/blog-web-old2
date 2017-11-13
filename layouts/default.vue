@@ -3,7 +3,8 @@
         r-header
         main.main
             r-aside
-            nuxt
+            .content-wrapper
+                nuxt
             r-panel(:articles="hotArticles")
         r-footer
 </template>
@@ -49,5 +50,11 @@
             flex-direction row
             width 1000px
             margin 10px auto
-
+            justify-content center
+            >*
+                margin-right 10px
+                &:last-child
+                    margin-right 0
+            .content-wrapper
+                width 550px
 </style>

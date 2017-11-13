@@ -4,7 +4,7 @@
         .hasmore.panel(v-if="hasMore && !isLoading",@click="loadMore") 加载更多
         .nomore.panel(v-if="!hasMore") 没有更多
         .loading.panel(v-if="hasMore && isLoading")
-            Icon.icon-loading(type="load-c" size=18)
+            i.fa.fa-circle-o-notch
             span Loading
 </template>
 
@@ -47,9 +47,9 @@
         >*
             margin 1rem 0
             &:first-child
-                margin-top 0
+                margin-top inherit
             &:last-child
-                margin-bottom 0
+                margin-bottom inherit
         .panel
             padding 5px
             text-align center
@@ -58,7 +58,7 @@
         .hasmore
         .loading
             background-color #fff
-            .icon-loading
+            .fa-circle-o-notch
                 margin-right 5px
                 transform-origin 50% 50%
                 animation circle 1s linear infinite

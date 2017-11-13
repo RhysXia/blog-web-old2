@@ -5,19 +5,19 @@
         .pannel
             nuxt-link(:to="'/articles/'+article.id")
                 .title {{article.title}}
-            .summary {{article.summary}}
+            .summary {{article.info}}
             .info
                 .data
-                    Icon(type="ios-clock")
+                    i.fa.fa-clock-o
                     span.label {{article.updateDate | formatDate}}
                 .read
-                    Icon(type="ios-book")
+                    i.fa.fa-book
                     span.label {{article.readNum}}
                 .praise
-                    Icon(type="ios-heart")
+                    i.fa.fa-heart
                     span.label {{article.praiseNum}}
                 .tag(v-if="article.tags != null")
-                    Icon(type="ios-pricetag")
+                    i.fa.fa-tag
                     span.label(v-for="(tag,index) in article.tags",:key="index")
                         nuxt-link(:to="'tags/'+tag.id") {{tag.name}}
 
@@ -43,7 +43,7 @@
         background-color #FFF
         padding 0.5rem
         a
-            color #000
+            color inherit
             text-decoration none
         &:hover
             background-color #ddd

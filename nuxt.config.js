@@ -24,6 +24,7 @@ module.exports = {
   */
   loading: {color: '#3B8070'},
   plugins: [
-    '~/plugins/filters'
+    '~/plugins/filters',
+    '~/plugins/main'
   ]
 }
