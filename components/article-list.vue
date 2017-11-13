@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import RArticle from './article'
+  import RArticle from './article-item'
   export default {
     props: {
       articles: {

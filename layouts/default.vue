@@ -4,6 +4,7 @@
         main.main
             r-aside
             nuxt
+            r-panel(:articles="hotArticles")
         r-footer
 </template>
 
@@ -11,12 +12,14 @@
   import RHeader from '~/components/header'
   import RFooter from '~/components/footer'
   import RAside from '~/components/aside'
+  import RPanel from '~/components/panel'
 
   export default {
     components: {
       RHeader,
       RFooter,
-      RAside
+      RAside,
+      RPanel
     },
     data () {
       return {
@@ -45,6 +48,6 @@
             display flex
             flex-direction row
             width 1000px
-            margin 0 auto
+            margin 10px auto
 
 </style>

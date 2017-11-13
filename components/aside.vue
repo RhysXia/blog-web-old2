@@ -21,7 +21,7 @@
     .aside
         .menu
             .menu-item
-                margin 10px 0
+                margin 15px 0
                 a
                     font-size 14px
                     font-weight bold
@@ -29,5 +29,9 @@
                     padding 5px 30px
                 a.nuxt-link-active
                     background-color #fff
+                &:first-child
+                    margin-top 0
+                &:last-child
+                    margin-bottom 0
 </style>
 
