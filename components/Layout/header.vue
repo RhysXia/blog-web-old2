@@ -1,5 +1,5 @@
 <template lang="pug">
-    header.nav
+    header.header-container
         .nav-main
             nuxt-link.nav-logo(to="/")
                 img(src="~assets/img/logo.png")
@@ -14,7 +14,9 @@
   export default {}
 </script>
 <style lang="stylus" scoped>
-    .nav
+    @import "~assets/stylus/variables.styl"
+
+    .header-container
         position sticky
         top 0
         height 50px
@@ -24,7 +26,7 @@
             display flex
             flex-direction row
             align-items center
-            width 1000px
+            width $width
             margin 0 auto
             .nav-logo
                 img

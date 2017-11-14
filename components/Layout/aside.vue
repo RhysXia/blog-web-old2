@@ -1,47 +1,59 @@
 <template lang="pug">
-    aside.aside
-        ul.menu
-            li.menu-item
-                nuxt-link(to="/")
-                    i.fa.fa-home
-                    | 首页
-            li.menu-item
-                nuxt-link(to="/tags")
-                    i.fa.fa-tag
-                    | 分类
-            li.menu-item
-                nuxt-link(to="/about")
-                    i.fa.fa-user
-                    | 关于
+    .aside-container
+        .articles
+            h3.title 热门文章
+            ul.list
+                li.item(v-for="(article,index) in articles",:key="index")
+                    span.index {{index+1}}
+                    nuxt-link(:to="'/articles/'+article.id")
+                        span.article-title {{article.title}}
 </template>
 <script>
-  export default {}
+  export default {
+    props: {
+      articles: {
+        type: Array,
+        default: () => {
+          return []
+        }
+      }
+    }
+  }
 </script>
 <style lang="stylus" scoped>
-    .aside
-        width 200px
-        .menu
-            .menu-item
-                margin-bottom 10px
-                a
-                    display block
-                    font-size 14px
-                    font-weight bold
-                    border-radius 5px
-                    padding 5px 30px
-                    color inherit
-                    &:hover
-                        color #41b883
-                a.nuxt-link-active
-                    background-color #fff
-                    color #41b883
-                &:first-child
-                    margin-top 0
-                &:last-child
-                    margin-bottom 0
-            &:first-child
-                margin-top inherit
-            &:last-child
-                margin-bottom inherit
-</style>
+    @import "~assets/stylus/variables.styl"
 
+    .aside-container
+        width $aside-width
+        .articles
+            background-color $bg-color
+            padding 0 10px
+            border-radius 5px
+            .title
+                font-size $font-size-m
+                padding 10px 0
+                border-bottom 1px solid $border-color
+                margin 0
+            .list
+                .item
+                    padding 5px 0
+                    font-size $font-size-m
+                    .index
+                        display inline-block
+                        background-color $bg-dark-active-color
+                        width 20px
+                        text-align center
+                        margin-right 10px
+                        line-height 20px
+                    a
+                        display inline-block
+                        transition all 0.4s
+                        &:hover
+                            transform translateX(10px)
+                            text-decoration underline
+                    a.nuxt-link-exact-active
+                        transform translateX(10px)
+                        text-decoration underline
+
+
+</style>

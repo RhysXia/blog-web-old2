@@ -1,21 +1,17 @@
 <template lang="pug">
-    .list
-        r-article(v-for="(article,index) in articles",:key="index",:article="article")
-        .hasmore.panel(v-if="hasMore && !isLoading",@click="loadMore") 加载更多
-        .nomore.panel(v-if="!hasMore") 没有更多
+    .load-more-container
+        slot
+        .has-more.panel(v-if="hasMore && !isLoading",@click="loadMore") 加载更多
+        .no-more.panel(v-if="!hasMore") 已经没有了
         .loading.panel(v-if="hasMore && isLoading")
             i.fa.fa-circle-o-notch
             span Loading
 </template>
 
 <script>
-  import RArticle from './article-item'
+
   export default {
     props: {
-      articles: {
-        type: Array,
-        default: []
-      },
       hasMore: {
         type: Boolean,
         default: true
@@ -36,15 +32,14 @@
     model: {
       prop: 'isLoading',
       event: 'on-load'
-    },
-    components: {
-      RArticle
     }
   }
 </script>
 <style lang="stylus" scoped>
-    .list
-        >*
+    @import "~assets/stylus/variables.styl"
+
+    .load-more-container
+        > *
             margin 1rem 0
             &:first-child
                 margin-top inherit
@@ -54,23 +49,24 @@
             padding 5px
             text-align center
             border-radius 5px
-            font-size 14px
-        .hasmore
+            font-size $font-size-s
+        .has-more
         .loading
-            background-color #fff
+            background-color $bg-color
             .fa-circle-o-notch
                 margin-right 5px
                 transform-origin 50% 50%
                 animation circle 1s linear infinite
-        .hasmore
+        .has-more
             cursor pointer
             &:hover
-                background-color #ddd
+                background-color $bg-dark-active-color
         .loading
-        .nomore
+        .no-more
             cursor not-allowed
-        .nomore
-            background-color #f7f7f7
+        .no-more
+            background-color $bg-dark-active-color
+
     @keyframes circle
         from
             transform rotate(0deg)

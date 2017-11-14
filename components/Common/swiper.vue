@@ -20,8 +20,8 @@
     data () {
       return {
         swiperOption: {
-          autoplay: 5000,
-          initialSlide: 1,
+          autoplay: 3000,
+          initialSlide: 0,
           loop: true,
           pagination: '.swiper-pagination',
           onSlideChangeEnd: swiper => {

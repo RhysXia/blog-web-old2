@@ -12,3 +12,8 @@ export const actions = {
     }
   }
 }
+
+export const store = () => ({
+  showPanel: true
+
+})

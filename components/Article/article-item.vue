@@ -1,8 +1,8 @@
 <template lang="pug">
-    .container
+    .article-item-container
         nuxt-link(:to="'/articles/'+article.id")
             img.poster(:src="article.poster")
-        .pannel
+        .panel
             nuxt-link(:to="'/articles/'+article.id")
                 .title {{article.title}}
             .summary {{article.info}}
@@ -25,6 +25,7 @@
 
 <script>
   import NuxtLink from '../../.nuxt/components/nuxt-link'
+
   export default {
     props: {
       article: {
@@ -37,23 +38,25 @@
   }
 </script>
 <style lang="stylus" scoped>
-    .container
+    @import "~assets/stylus/variables.styl"
+
+    .article-item-container
         display flex
         flex-direction row
-        background-color #FFF
+        background-color $bg-color
         padding 0.5rem
         a
             color inherit
             text-decoration none
         &:hover
-            background-color #ddd
+            background-color $bg-dark-active-color
         .poster
             width 8rem
             height 8rem
             transition transform 0.4s
             &:hover
                 transform scale(1.1)
-        .pannel
+        .panel
             padding-left 1rem
             display flex
             flex-direction column

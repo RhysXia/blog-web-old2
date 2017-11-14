@@ -1,24 +1,27 @@
 <template lang="pug">
     .content
-        .swiper-wrapper
+        .swiper-container
             r-swiper(:list="hotArticles")
                 template(scope="{item}")
                     nuxt-link.article-wrapper(:to="'/articles/'+item.id")
                         img.poster(:src="item.poster")
                         span.title {{item.title}}
-        r-article-list(:articles="articles",:hasMore="hasMore",:v-model="isLoading",@on-load="onLoad")
+        r-load-more(:hasMore="hasMore",:v-model="isLoading",@on-load="onLoad")
+            r-article-item(v-for="(article,index) in articles",:key="index",:article="article")
 
 </template>
 <script>
 
   import ArticleApi from '~/api/article-api'
-  import RArticleList from '~/components/ArticleList/article-list'
+  import RLoadMore from '~/components/Common/load-more'
   import RSwiper from '~/components/Common/swiper'
+  import RArticleItem from '~/components/Article/article-item'
 
   export default {
     components: {
-      RArticleList,
-      RSwiper
+      RLoadMore,
+      RSwiper,
+      RArticleItem
     },
     computed: {
       hotArticles () {
@@ -40,8 +43,8 @@
             this.page++
             this.hasMore = res.data.result.totalPages > this.page
           }
+          this.isLoading = false
         })
-        this.isLoading = false
       }
     },
     async asyncData () {
@@ -66,13 +69,14 @@
 </script>
 
 <style lang="stylus">
+    @import "~assets/stylus/variables.styl"
+
     .content
-        .swiper-wrapper
+        .swiper-container
             height 200px
             margin-bottom 10px
-            width 100%
+            width $main-width
             .article-wrapper
-                position relative
                 display block
                 width 100%
                 height 100%
@@ -88,5 +92,5 @@
                     padding 5px 10px
                     top 10px
                     right 10px
-                    background-color #ddd
+                    background-color $bg-dark-active-color
 </style>

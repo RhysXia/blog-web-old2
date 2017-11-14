@@ -1,5 +1,5 @@
 <template lang="pug">
-    .article
+    .article-container
         .header
             h1.title {{article.title}}
             .info
@@ -58,16 +58,18 @@
   }
 </script>
 <style lang="stylus" scoped>
-    .article
-        background #fff
+    @import "~assets/stylus/variables.styl"
+
+    .article-container
+        background $bg-color
         padding 20px
-        border-radius 5px
+        border-radius $border-radius
         .header
-            border-bottom 1px solid #000
+            border-bottom 1px solid $border-color
             padding 10px 0
             .title
                 text-align center
-                font-size 20px
+                font-size $font-size-xxl
             .info
                 display flex
                 flex-direction row
@@ -80,7 +82,7 @@
             padding 10px 0
             .poster-wrapper
                 padding 5px 10px
-                background-color #ddd
+                background-color $bg-dark-active-color
                 overflow hidden
                 .poster
                     width 100%
@@ -89,30 +91,29 @@
                     &:hover
                         transform scale(1.1) rotate(-5deg)
 
-
         .footer
             .info
                 display flex
                 flex-direction row
-                >*
-                    font-size 14px
+                > *
+                    font-size $font-size-xs
                     margin-right 10px
                     padding 5px 10px
                     background-color #dbe1ec
                     &.like
-                        color #41BEB4
+                        color $link-color
                         border none
                         outline none
                         &:hover
                             background-color #7f828b
                             cursor pointer
-                    >i
+                    > i
                         padding-right 5px
 </style>
 <style lang="stylus">
     /*显示滚动条，防止内容超出*/
     pre
-        code[class^=lang-]
+        code
             display block
             overflow-x auto
             background-color #dbe1ec

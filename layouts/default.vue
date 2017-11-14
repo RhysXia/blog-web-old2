@@ -2,25 +2,26 @@
     .layout
         r-header
         main.main
-            r-aside
+            r-menu
             .content-wrapper
                 nuxt
-            r-panel(:articles="hotArticles")
+
+            r-aside(:articles="hotArticles")
         r-footer
 </template>
 
 <script>
   import RHeader from '~/components/Layout/header'
   import RFooter from '~/components/Layout/footer'
+  import RMenu from '~/components/Layout/menu'
   import RAside from '~/components/Layout/aside'
-  import RPanel from '~/components/Layout/panel'
 
   export default {
     components: {
       RHeader,
       RFooter,
       RAside,
-      RPanel
+      RMenu
     },
     data () {
       return {
@@ -30,6 +31,9 @@
     computed: {
       hotArticles () {
         return this.$store.state.article.hotArticles
+      },
+      showPanel () {
+        return this.$store.state.showPanel
       }
     },
     mounted () {
@@ -42,20 +46,20 @@
   }
 </script>
 <style lang="stylus" scoped>
+    @import "~assets/stylus/variables.styl"
+
     .layout
         display flex
         flex-direction column
         .main
             display flex
             flex-direction row
-            width 1000px
-            margin 10px auto
+            margin $margin auto
             justify-content center
-            >*
-                margin-right 10px
+            width $width
+            > *
+                margin-right $margin
                 &:last-child
                     margin-right 0
-            .content-wrapper
-                width 600px
 
 </style>
