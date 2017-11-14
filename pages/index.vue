@@ -1,15 +1,19 @@
 <template lang="pug">
     .content
         .swiper-wrapper
-            r-swiper(:articles="hotArticles")
+            r-swiper(:list="hotArticles")
+                template(scope="{item}")
+                    nuxt-link.article-wrapper(:to="'/articles/'+item.id")
+                        img.poster(:src="item.poster")
+                        span.title {{item.title}}
         r-article-list(:articles="articles",:hasMore="hasMore",:v-model="isLoading",@on-load="onLoad")
 
 </template>
 <script>
 
   import ArticleApi from '~/api/article-api'
-  import RArticleList from '~/components/article-list'
-  import RSwiper from '~/components/swiper'
+  import RArticleList from '~/components/ArticleList/article-list'
+  import RSwiper from '~/components/Common/swiper'
 
   export default {
     components: {
@@ -66,4 +70,23 @@
         .swiper-wrapper
             height 200px
             margin-bottom 10px
+            width 100%
+            .article-wrapper
+                position relative
+                display block
+                width 100%
+                height 100%
+                .poster
+                    width 100%
+                    height 100%
+                    transition transform 0.4s
+                    &:hover
+                        transform rotate(-5deg) scale(1.1)
+                .title
+                    position absolute
+                    display block
+                    padding 5px 10px
+                    top 10px
+                    right 10px
+                    background-color #ddd
 </style>

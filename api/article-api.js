@@ -12,4 +12,8 @@ articleApi.getArticles = (page, size, sort = null) => {
   })
 }
 
+articleApi.getArticleById = id => {
+  return http.get(`/articles/${id}`)
+}
+
 export default articleApi

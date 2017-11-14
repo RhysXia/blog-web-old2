@@ -10,10 +10,10 @@
 </template>
 
 <script>
-  import RHeader from '~/components/header'
-  import RFooter from '~/components/footer'
-  import RAside from '~/components/aside'
-  import RPanel from '~/components/panel'
+  import RHeader from '~/components/Layout/header'
+  import RFooter from '~/components/Layout/footer'
+  import RAside from '~/components/Layout/aside'
+  import RPanel from '~/components/Layout/panel'
 
   export default {
     components: {
@@ -56,5 +56,6 @@
                 &:last-child
                     margin-right 0
             .content-wrapper
-                width 550px
+                width 600px
+
 </style>

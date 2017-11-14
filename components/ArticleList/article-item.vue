@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import NuxtLink from '../.nuxt/components/nuxt-link'
+  import NuxtLink from '../../.nuxt/components/nuxt-link'
   export default {
     props: {
       article: {
