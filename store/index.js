@@ -1,7 +1,8 @@
 import ArticleApi from '~/api/article-api'
 
 export const actions = {
-  async nuxtServerInit ({commit, state}) {
+  async nuxtServerInit ({commit, state}, {req}) {
+    // 初始化热门文章列表
     const hotArticles = state.article.hotArticles
     if (hotArticles.length === 0) {
       await ArticleApi.getArticles(0, 8, 'praiseNum,DESC').then(res => {
@@ -13,7 +14,12 @@ export const actions = {
   }
 }
 
-export const store = () => ({
+export const state = () => ({
   showPanel: true
-
 })
+
+export const mutations = {
+  setShowPanel (state, showPanel) {
+    state.showPanel = showPanel
+  }
+}

@@ -5,8 +5,7 @@
             r-menu
             .content-wrapper
                 nuxt
-
-            r-aside(:articles="hotArticles")
+            r-aside(:articles="hotArticles",v-show="showPanel")
         r-footer
 </template>
 
