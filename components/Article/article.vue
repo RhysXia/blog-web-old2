@@ -23,7 +23,7 @@
                 .read
                     i.fa.fa-book
                     | {{article.readNum}}人阅读
-                .like
+                button.like
                     i.fa.fa-heart
                     | {{article.praiseNum}}人喜欢
 </template>
@@ -101,6 +101,8 @@
                     background-color #dbe1ec
                     &.like
                         color #41BEB4
+                        border none
+                        outline none
                         &:hover
                             background-color #7f828b
                             cursor pointer
