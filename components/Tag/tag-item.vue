@@ -20,7 +20,7 @@
 <style lang="stylus" scoped>
     @import "~assets/stylus/variables.styl"
 
-    $item-width = ($width - $menu-width - $margin * 5) / 4
+    $item-width = ($width - $menu-width - $margin * 6) / 4
     .tag-item-container
         background-color $bg-color
         width $item-width

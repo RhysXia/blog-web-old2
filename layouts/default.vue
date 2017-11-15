@@ -4,8 +4,10 @@
         main.main
             r-menu
             .content-wrapper
-                nuxt
-            r-aside(:articles="hotArticles",v-show="showPanel")
+                keep-alive
+                    nuxt
+                transition(name="aside")
+                    r-aside(:articles="hotArticles",v-show="showAside")
         r-footer
 </template>
 
@@ -31,16 +33,9 @@
       hotArticles () {
         return this.$store.state.article.hotArticles
       },
-      showPanel () {
-        return this.$store.state.showPanel
+      showAside () {
+        return this.$store.state.showAside
       }
-    },
-    mounted () {
-      // 设置高度，使滚动条生效
-//      this.height = window.document.body.offsetHeight
-//      window.onresize = e => {
-//        this.height = window.document.body.offsetHeight
-//      }
     }
   }
 </script>
@@ -60,5 +55,25 @@
                 margin-right $margin
                 &:last-child
                     margin-right 0
-
+            .content-wrapper
+                display flex
+                flex-direction row
+                width $width - $menu-width - $margin
+                > *
+                    margin-right $margin
+                    &:last-child
+                        margin-right 0
+                .aside-enter-active
+                .aside-leave-active
+                    transition all 0.5s
+            
+                .aside-enter
+                .aside-leave-to
+                    opacity 0
+                    transform translateX(100%)
+            
+                .aside-enter-to
+                .aside-leave
+                    opacity 1
+                    transform translateX(0)
 </style>

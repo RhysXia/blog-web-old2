@@ -1,5 +1,5 @@
 <template lang="pug">
-    .content
+    .index-container
         .swiper-container
             r-swiper(:list="hotArticles")
                 template(scope="{item}")
@@ -64,6 +64,9 @@
         }
       })
       return data
+    },
+    mounted () {
+      this.$store.commit('setShowAside', true)
     }
   }
 </script>
@@ -71,11 +74,11 @@
 <style lang="stylus">
     @import "~assets/stylus/variables.styl"
 
-    .content
+    .index-container
         .swiper-container
             height 200px
             margin-bottom 10px
-            width $main-width
+            width $middle-width
             .article-wrapper
                 display block
                 width 100%

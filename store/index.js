@@ -15,11 +15,11 @@ export const actions = {
 }
 
 export const state = () => ({
-  showPanel: true
+  showAside: true
 })
 
 export const mutations = {
-  setShowPanel (state, showPanel) {
-    state.showPanel = showPanel
+  setShowAside (state, showAside) {
+    state.showAside = showAside
   }
 }

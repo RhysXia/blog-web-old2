@@ -19,13 +19,8 @@
                 img.poster(:src="article.poster")
             .content(v-html="content")
         .footer
-            .info
-                .read
-                    i.fa.fa-book
-                    | {{article.readNum}}人阅读
-                button.like
-                    i.fa.fa-heart
-                    | {{article.praiseNum}}人喜欢
+            slot(:article="article")
+
 </template>
 <script>
   import marked from 'marked'
@@ -91,24 +86,7 @@
                     &:hover
                         transform scale(1.1) rotate(-5deg)
 
-        .footer
-            .info
-                display flex
-                flex-direction row
-                > *
-                    font-size $font-size-xs
-                    margin-right 10px
-                    padding 5px 10px
-                    background-color #dbe1ec
-                    &.like
-                        color $link-color
-                        border none
-                        outline none
-                        &:hover
-                            background-color #7f828b
-                            cursor pointer
-                    > i
-                        padding-right 5px
+
 </style>
 <style lang="stylus">
     /*显示滚动条，防止内容超出*/

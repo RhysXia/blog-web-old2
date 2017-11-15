@@ -1,6 +1,17 @@
 <template lang="pug">
-    .article-id-container
+    .article-id-container(:style="style")
         r-article(:article="article")
+            template(scope="props")
+                .info
+                    .read
+                        i.fa.fa-book
+                        | {{article.readNum}}人阅读
+                    button.like.btn
+                        i.fa.fa-heart
+                        | {{article.praiseNum}}人喜欢
+                    buttom.btn(@click="readStyleClick")
+                        i.fa.fa-book
+                        | {{showAside?'通栏阅读':'关闭通栏'}}
         .comments-container(v-if="commentNum >0")
             .header
                 h2.title 评论列表
@@ -59,6 +70,14 @@
         isLoading: false
       }
     },
+    computed: {
+      showAside () {
+        return this.$store.state.showAside
+      },
+      style () {
+        return this.showAside ? '' : 'width:100%'
+      }
+    },
     methods: {
       onLoad () {
         ArticleApi.getCommentsByArticleId(this.$route.params.id, this.page, this.size, 'floorNum,DESC').then(res => {
@@ -71,7 +90,13 @@
           }
           this.isLoading = false
         })
+      },
+      readStyleClick () {
+        this.$store.commit('setShowAside', !this.showAside)
       }
+    },
+    mounted () {
+      this.$store.commit('setShowAside', true)
     }
   }
 </script>
@@ -79,11 +104,28 @@
     @import "~assets/stylus/variables.styl"
 
     .article-id-container
-        width $main-width
+        width $middle-width
         > *
             margin-bottom 20px
         &:last-child
             margin-bottom inherit
+        .info
+            display flex
+            flex-direction row
+            > *
+                font-size $font-size-xs
+                margin-right 10px
+                padding 5px 10px
+                background-color #dbe1ec
+                > i
+                    padding-right 5px
+            .btn
+                color $link-color
+                border none
+                outline none
+                &:hover
+                    background-color #7f828b
+                    cursor pointer
         .comments-container
             .header
                 background-color $bg-color

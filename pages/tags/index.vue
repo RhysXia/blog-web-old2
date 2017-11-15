@@ -22,21 +22,15 @@
       RTagItem
     },
     mounted () {
-      this.$store.commit('setShowPanel', false)
-    },
-    beforeDestroy () {
-      this.$store.commit('setShowPanel', true)
+      this.$store.commit('setShowAside', false)
     }
   }
 </script>
 <style lang="stylus" scoped>
     @import "~assets/stylus/variables.styl"
-    $tags-width = $width - $menu-width - $margin
     .tags-container
-        width $tags-width
-        display flex
-        flex-direction row
-        flex-wrap wrap
+        width 100%
+        display inline-block
         >*
             margin-right $margin
             margin-bottom $margin

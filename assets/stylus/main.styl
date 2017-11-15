@@ -17,3 +17,17 @@ ul
   padding-left 0
   list-style none
 
+
+.page-enter-active
+.page-leave-active
+    transition all 0.5s
+
+.page-enter
+.page-leave-to
+  opacity 0
+  transform translateX(100%)
+
+.page-enter-to
+.page-leave
+  opacity 1
+  transform translateX(0)
