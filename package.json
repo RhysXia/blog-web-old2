@@ -18,8 +18,7 @@
     "koa": "^2.3.0",
     "marked": "^0.3.6",
     "nuxt": "^1.0.0-rc3",
-    "source-map-support": "^0.4.15",
-    "vue-awesome-swiper": "^2.6.7"
+    "source-map-support": "^0.4.15"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -35,7 +34,7 @@
     "pug": "^2.0.0-rc.4",
     "pug-loader": "^2.3.0",
     "scmp": "^2.0.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1"
+    "less-loader": "^4.0.5",
+    "less": "^2.7.3"
   }
 }
