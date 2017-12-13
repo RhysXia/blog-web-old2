@@ -1,6 +1,5 @@
 @import "../css/normalize.css";
 @import "variables";
-@import "grid";
 
 html {
   font-size: 14px;
@@ -8,6 +7,11 @@ html {
   color: #555;
   font-family: DINRegular, -apple-system, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, \\5FAE\8F6F\96C5\9ED1, sans-serif;
   background-color: $color-background-dark;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0;
 }
 
 ul,
@@ -23,7 +27,7 @@ a {
   cursor: pointer;
   transition: color $time-transition ease;
   &:hover,
-  &:active{
+  &:active {
     color: $color-primary-dark;
     outline: 0;
     text-decoration: none;

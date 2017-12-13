@@ -71,5 +71,55 @@
     }
   }
 </script>
-<style lang="less">
+<style lang="scss" scoped>
+    @import "~assets/scss/variables";
+
+    .#{$grid-row-prefixCls} {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .#{$grid-row-prefixCls}-flex {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        &:before,
+        &:after {
+            display: flex;
+        }
+        // x轴原点
+        &-start {
+            justify-content: flex-start;
+        }
+        // x轴居中
+        &-center {
+            justify-content: center;
+        }
+        // x轴反方向
+        &-end {
+            justify-content: flex-end;
+        }
+        // x轴平分
+        &-space-between {
+            justify-content: space-between;
+        }
+        // x轴有间隔地平分
+        &-space-around {
+            justify-content: space-around;
+        }
+        // 顶部对齐
+        &-top {
+            align-items: flex-start;
+        }
+        // 居中对齐
+        &-middle {
+            align-items: center;
+        }
+        // 底部对齐
+        &-bottom {
+            align-items: flex-end;
+        }
+    }
 </style>

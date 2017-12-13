@@ -67,7 +67,7 @@
     },
     methods: {
       updateGutter () {
-        const Row = findComponentUpward(this, 'Row')
+        const Row = findComponentUpward(this, 'row')
         if (Row) {
           Row.updateGutter(Row.gutter)
         }
@@ -81,5 +81,16 @@
     }
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+    @import "~assets/scss/variables";
+    @import "~assets/scss/mixins";
+
+    .#{$grid-col-prefixCls} {
+        position: relative;
+        display: block;
+    }
+
+    @include create-col()
+
+    @include create-media-col()
 </style>

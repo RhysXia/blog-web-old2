@@ -1,5 +1,5 @@
 <template lang="pug">
-    c-row.header-container(type="flex",align="middle",justify="center")
+    c-row.c-header-container(type="flex",align="middle",justify="center")
         c-col(:span="20")
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
@@ -17,7 +17,7 @@
     @import "~assets/scss/variables";
 
     $height-header: 55px;
-    .header-container {
+    .c-header-container {
         background-color: $color-background;
         height: $height-header;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
