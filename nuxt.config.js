@@ -20,13 +20,16 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [],
+  css: [
+    '~/assets/scss/public.scss'
+  ],
   /*
   ** Customize the progress-bar color
   */
   loading: {color: '#3B8070'},
   plugins: [
-    '~/plugins/http'
+    '~/plugins/http',
+    '~/plugins/components'
   ],
   build: {
     extractCSS: true

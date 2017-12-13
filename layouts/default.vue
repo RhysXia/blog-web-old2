@@ -1,7 +1,9 @@
 <template lang="pug">
     .layout
         c-header
-        nuxt
+        c-row(type="flex",align="top",justify="center")
+            c-col(:span="20")
+                nuxt
         c-footer
 </template>
 

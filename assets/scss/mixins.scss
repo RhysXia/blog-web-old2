@@ -1,0 +1,47 @@
+@import "variables";
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+
+//grid
+@mixin create-col($index:24,$total:24) {
+  @while ($index>0) {
+    .#{$grid-col-prefixCls}-span-#{$index} {
+      width: 100% * $index / $total;
+    }
+    .#{$grid-col-prefixCls}-push-#{$index} {
+      left: 100% * $index / $total;
+    }
+    .#{$grid-col-prefixCls}-pull-#{$index} {
+      right: 100% * $index / $total;
+    }
+    $index: $index - 1;
+  }
+  .#{$grid-col-prefixCls}-span-#{$index} {
+    display: none;
+  }
+}
+
+@mixin create-media-col($index:24,$total:24) {
+  @each $point in map_keys($grid-breakpoints) {
+    $_index: $index;
+    @while ($_index > 0) {
+      .#{$grid-col-prefixCls}-span-#{$point}-#{$_index} {
+        @media (min-width: map_get($grid-breakpoints, $point)) {
+          width: 100% * $_index / $total;
+        }
+      }
+      $_index: $_index - 1;
+    }
+    .#{$grid-col-prefixCls}-span-#{$point}-#{$_index} {
+      display: none;
+    }
+  }
+}
+
+

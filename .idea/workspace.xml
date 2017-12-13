@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dcd18d12-8d33-45ae-a8a4-7f4fa1c09320" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/components/common/row.vue" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/components/layout/footer.vue" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/components/layout/header.vue" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" afterPath="$PROJECT_DIR$/.eslintrc.js" />
+    <list default="true" id="dcd18d12-8d33-45ae-a8a4-7f4fa1c09320" name="Default" comment="row">
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/normalize.css" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/scss/grid.scss" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/scss/mixins.scss" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/scss/public.scss" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/scss/variables.scss" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/components/grid/col.vue" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/components/grid/row.vue" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/plugins/components.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/utils/utils.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/api/article.js" afterPath="$PROJECT_DIR$/api/article.js" />
+      <change beforePath="$PROJECT_DIR$/build/main.js" afterPath="$PROJECT_DIR$/build/main.js" />
+      <change beforePath="$PROJECT_DIR$/build/main.map" afterPath="$PROJECT_DIR$/build/main.map" />
+      <change beforePath="$PROJECT_DIR$/components/common/row.vue" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/components/layout/header.vue" afterPath="$PROJECT_DIR$/components/layout/header.vue" />
       <change beforePath="$PROJECT_DIR$/layouts/default.vue" afterPath="$PROJECT_DIR$/layouts/default.vue" />
-      <change beforePath="$PROJECT_DIR$/plugins/http.js" afterPath="$PROJECT_DIR$/plugins/http.js" />
+      <change beforePath="$PROJECT_DIR$/nuxt.config.js" afterPath="$PROJECT_DIR$/nuxt.config.js" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,11 +32,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="row.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/components/common/row.vue">
+      <file leaf-file-name="default.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/layouts/default.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+            <state relative-caret-position="102">
+              <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mixins.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/scss/mixins.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="94">
+              <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="col.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/grid/col.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1122">
+              <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="row.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/grid/row.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="952">
+              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/layout/header.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -61,6 +110,8 @@
       <find>nuxtSe</find>
       <find>index</find>
       <find>plugin</find>
+      <find>h1</find>
+      <find>h2</find>
     </findStrings>
     <replaceStrings>
       <replace>;</replace>
@@ -86,22 +137,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/plugins/store.js" />
-        <option value="$PROJECT_DIR$/assets/css/simplemde.min.css" />
-        <option value="$PROJECT_DIR$/plugins/simplemde.js" />
-        <option value="$PROJECT_DIR$/components/common/markdown.vue" />
-        <option value="$PROJECT_DIR$/components/common/markdown/index.js" />
-        <option value="$PROJECT_DIR$/components/common/markdown/style.css" />
-        <option value="$PROJECT_DIR$/assets/less/iview.less" />
-        <option value="$PROJECT_DIR$/pages/user/write.vue" />
-        <option value="$PROJECT_DIR$/components/header.vue" />
-        <option value="$PROJECT_DIR$/components/article/list.vue" />
-        <option value="$PROJECT_DIR$/plugins/filters.js" />
-        <option value="$PROJECT_DIR$/plugins/marked.js" />
-        <option value="$PROJECT_DIR$/components/common/markdown/markdown.vue" />
-        <option value="$PROJECT_DIR$/utils/marked.js" />
-        <option value="$PROJECT_DIR$/assets/less/marked.less" />
-        <option value="$PROJECT_DIR$/components/layout/menu.vue" />
         <option value="$PROJECT_DIR$/modules/demo.js" />
         <option value="$PROJECT_DIR$/modules/axios.js" />
         <option value="$PROJECT_DIR$/api/auth-api.js" />
@@ -125,18 +160,34 @@
         <option value="$PROJECT_DIR$/pages/user/self.vue" />
         <option value="$PROJECT_DIR$/pages/user/self/index.vue" />
         <option value="$PROJECT_DIR$/pages/about.vue" />
-        <option value="$PROJECT_DIR$/assets/less/variables.less" />
         <option value="$PROJECT_DIR$/components/article/item.vue" />
-        <option value="$PROJECT_DIR$/nuxt.config.js" />
         <option value="$PROJECT_DIR$/store/index.js" />
         <option value="$PROJECT_DIR$/pages/index.vue" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/layouts/default.vue" />
         <option value="$PROJECT_DIR$/components/layout/footer.vue" />
-        <option value="$PROJECT_DIR$/components/layout/header.vue" />
         <option value="$PROJECT_DIR$/plugins/http.js" />
         <option value="$PROJECT_DIR$/api/article.js" />
+        <option value="$PROJECT_DIR$/assets/less/public.less" />
         <option value="$PROJECT_DIR$/components/common/row.vue" />
+        <option value="$PROJECT_DIR$/assets/less/mixins.less" />
+        <option value="$PROJECT_DIR$/assets/less/grid.less" />
+        <option value="$PROJECT_DIR$/components/common/grid/grid.less" />
+        <option value="$PROJECT_DIR$/assets/less/variables.less" />
+        <option value="$PROJECT_DIR$/assets/less/variables.sass" />
+        <option value="$PROJECT_DIR$/assets/less/mixins.sass" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/assets/less/mixins.scss" />
+        <option value="$PROJECT_DIR$/nuxt.config.js" />
+        <option value="$PROJECT_DIR$/plugins/components.js" />
+        <option value="$PROJECT_DIR$/utils/utils.js" />
+        <option value="$PROJECT_DIR$/assets/css/normalize.css" />
+        <option value="$PROJECT_DIR$/components/grid/col.vue" />
+        <option value="$PROJECT_DIR$/assets/scss/grid.scss" />
+        <option value="$PROJECT_DIR$/assets/scss/variables.scss" />
+        <option value="$PROJECT_DIR$/assets/scss/public.scss" />
+        <option value="$PROJECT_DIR$/components/grid/row.vue" />
+        <option value="$PROJECT_DIR$/assets/scss/mixins.scss" />
+        <option value="$PROJECT_DIR$/layouts/default.vue" />
+        <option value="$PROJECT_DIR$/components/layout/header.vue" />
       </list>
     </option>
   </component>
@@ -150,8 +201,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="813" />
-    <option name="y" value="25" />
+    <option name="x" value="954" />
+    <option name="y" value="70" />
     <option name="width" value="1271" />
     <option name="height" value="875" />
   </component>
@@ -173,7 +224,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -185,18 +235,19 @@
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="scss" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
@@ -207,7 +258,7 @@
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="grid" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
@@ -219,11 +270,6 @@
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
@@ -240,12 +286,18 @@
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="store" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -258,19 +310,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.updates" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\workspace\IntellijIDEA\blog-web\components" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\assets\scss" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\grid" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\utils" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\components\layout" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\workspace\IntellijIDEA\blog-web\components\grid" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\layouts" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\store" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\middleware" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\api" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\markdown" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\workspace\IntellijIDEA\blog-web\utils" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\layout" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\pages\article" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\markdown" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\assets\img" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -406,7 +458,8 @@
       <workItem from="1512819332228" duration="23575000" />
       <workItem from="1512974969301" duration="16055000" />
       <workItem from="1513061832629" duration="13121000" />
-      <workItem from="1513089871900" duration="954000" />
+      <workItem from="1513089871900" duration="20080000" />
+      <workItem from="1513145582961" duration="6546000" />
     </task>
     <task id="LOCAL-00001" summary="修复文章编辑界面的样式问题">
       <created>1511256819400</created>
@@ -534,14 +587,21 @@
       <option name="project" value="LOCAL" />
       <updated>1513075472307</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="row">
+      <created>1513090848386</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1513090848386</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="189035000" />
+    <option name="totallyTimeSpent" value="214707000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="813" y="25" width="1271" height="875" extended-state="0" />
+    <frame x="954" y="70" width="1271" height="875" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -551,20 +611,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5109489" sideWeight="0.5062552" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40415704" sideWeight="0.4937448" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5109489" sideWeight="0.4937448" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33722627" sideWeight="0.49422634" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19015847" sideWeight="0.49253732" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1943286" sideWeight="0.49253732" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20992908" sideWeight="0.5074627" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -623,7 +683,8 @@
     <MESSAGE value="正在开发关于页" />
     <MESSAGE value="重构api" />
     <MESSAGE value="优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化" />
+    <MESSAGE value="row" />
+    <option name="LAST_COMMIT_MESSAGE" value="row" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -632,12 +693,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/components/Layout/menu.vue" />
-    <entry file="file://$PROJECT_DIR$/modules/axios.js" />
-    <entry file="file://$PROJECT_DIR$/plugins/store.js" />
-    <entry file="file://$PROJECT_DIR$/plugins/api.js" />
-    <entry file="file://$PROJECT_DIR$/middleware/axios.js" />
-    <entry file="file://$PROJECT_DIR$/api/category-api.js" />
     <entry file="file://$PROJECT_DIR$/api/tag-api.js" />
     <entry file="file://$PROJECT_DIR$/api/http.js" />
     <entry file="file://$PROJECT_DIR$/.nuxt/empty.js">
@@ -663,7 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -719,26 +773,16 @@
     <entry file="file://$PROJECT_DIR$/components/category/add.vue" />
     <entry file="file://$PROJECT_DIR$/layouts/noaside.vue" />
     <entry file="file://$PROJECT_DIR$/layouts/noall.vue" />
-    <entry file="file://$PROJECT_DIR$/assets/less/public.less" />
     <entry file="file://$PROJECT_DIR$/pages/auth/login.vue" />
     <entry file="file://$PROJECT_DIR$/pages/auth/find.vue" />
     <entry file="file://$PROJECT_DIR$/pages/auth/register.vue" />
     <entry file="file://$PROJECT_DIR$/pages/user/self/index.vue" />
     <entry file="file://$PROJECT_DIR$/pages/user/self.vue" />
-    <entry file="file://$PROJECT_DIR$/assets/less/variables.less" />
     <entry file="file://$PROJECT_DIR$/components/Article/item.vue" />
     <entry file="file://$PROJECT_DIR$/server/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="31" column="41" lean-forward="true" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nuxt.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="63" lean-forward="false" selection-start-line="12" selection-start-column="63" selection-end-line="12" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -765,14 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="11" column="43" lean-forward="false" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/layout/footer.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -781,29 +817,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/layout/header.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/layouts/default.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-          <folding>
-            <element signature="e#105#153#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,10 +848,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/row.vue">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        <state relative-caret-position="400">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/components.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="5" column="26" lean-forward="false" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#21#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nuxt.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="42" column="8" lean-forward="false" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/normalize.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="42" column="42" lean-forward="false" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/variables.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/grid.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/public.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="6" lean-forward="true" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/layout/header.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/grid/row.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/grid/col.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/mixins.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/layouts/default.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
           <folding />
         </state>
       </provider>

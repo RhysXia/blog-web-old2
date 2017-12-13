@@ -1,0 +1,31 @@
+@import "../css/normalize.css";
+@import "variables";
+@import "grid";
+
+html {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #555;
+  font-family: DINRegular, -apple-system, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, \\5FAE\8F6F\96C5\9ED1, sans-serif;
+  background-color: $color-background-dark;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: $color-primary;
+  background: transparent;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  transition: color $time-transition ease;
+  &:hover,
+  &:active{
+    color: $color-primary-dark;
+    outline: 0;
+    text-decoration: none;
+  }
+}
