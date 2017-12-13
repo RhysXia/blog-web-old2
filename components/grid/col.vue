@@ -7,7 +7,7 @@
 
   const prefixCls = 'c-col-container'
   export default {
-    name: 'Col',
+    name: 'col',
     props: {
       span: [Number, String],
       order: [Number, String],
@@ -20,12 +20,11 @@
       md: [Number, Object],
       lg: [Number, Object]
     },
-    data () {
-      return {
-        gutter: 0
-      }
-    },
     computed: {
+      gutter () {
+        const parent = findComponentUpward(this, 'row')
+        return parent ? parent.gutter : 0
+      },
       classes () {
         let classList = [
           `${prefixCls}`,
@@ -64,20 +63,6 @@
         }
         return style
       }
-    },
-    methods: {
-      updateGutter () {
-        const Row = findComponentUpward(this, 'row')
-        if (Row) {
-          Row.updateGutter(Row.gutter)
-        }
-      }
-    },
-    mounted () {
-      this.updateGutter()
-    },
-    beforeDestroy () {
-      this.updateGutter()
     }
   }
 </script>
@@ -86,8 +71,10 @@
     @import "~assets/scss/mixins";
 
     .#{$grid-col-prefixCls} {
+        float: left;
         position: relative;
         display: block;
+        box-sizing: border-box;
     }
 
     @include create-col()

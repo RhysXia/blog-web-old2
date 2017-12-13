@@ -1,11 +1,12 @@
 <template lang="pug">
-    .layout-container
+    .layout-container(v-cloak)
         c-header
         c-row.layout-main(type="flex",align="top",justify="center",:gutter="16")
             c-col(:span="4")
                 c-menu
             c-col(:span="12")
-                nuxt
+                keep-alive
+                    nuxt
             c-col(:span="4")
                 c-aside(:articles="hotArticles",:tags="hotTags")
         c-footer
@@ -36,8 +37,14 @@
 </script>
 <style lang="scss" scoped>
     .layout-container {
+
         .layout-main {
             margin: 1rem 0;
         }
+    }
+</style>
+<style lang="scss">
+    [v-cloak] {
+        display: none;
     }
 </style>

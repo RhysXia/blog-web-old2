@@ -3,11 +3,11 @@
         slot
 </template>
 <script>
-  import { findComponentsDownward, oneOf } from '../../utils/utils'
+  import { oneOf } from '../../utils/utils'
 
   const prefixCls = 'c-row-container'
   export default {
-    name: 'Row',
+    name: 'row',
     props: {
       type: {
         validator (value) {
@@ -27,7 +27,8 @@
       gutter: {
         type: Number,
         default: 0
-      }
+      },
+      className: String
     },
     computed: {
       classes () {
@@ -51,28 +52,12 @@
         }
         return style
       }
-    },
-    methods: {
-      updateGutter (val) {
-        const Cols = findComponentsDownward(this, 'Col')
-        if (Cols.length) {
-          Cols.forEach((child) => {
-            if (val !== 0) {
-              child.gutter = val
-            }
-          })
-        }
-      }
-    },
-    watch: {
-      gutter (val) {
-        this.updateGutter(val)
-      }
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
+    @import "~assets/scss/mixins";
 
     .#{$grid-row-prefixCls} {
         width: 100%;

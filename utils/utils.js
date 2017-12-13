@@ -1,46 +1,31 @@
-// Find components upward
-export function findComponentUpward (context, componentName, componentNames) {
-  if (typeof componentName === 'string') {
-    componentNames = [componentName]
-  } else {
-    componentNames = componentName
-  }
-
+export function findComponentUpward (context, componentName) {
   let parent = context.$parent
-  let name = parent.$options.name
-  while (parent && (!name || componentNames.indexOf(name) < 0)) {
+  while (parent && parent.$options.name !== componentName) {
     parent = parent.$parent
-    if (parent) name = parent.$options.name
   }
   return parent
 }
 
-// Find component downward
-export function findComponentDownward (context, componentName) {
-  const childrens = context.$children
-  let children = null
-
-  if (childrens.length) {
-    for (const child of childrens) {
-      const name = child.$options.name
-      if (name === componentName) {
-        children = child
-        break
-      } else {
-        children = findComponentDownward(child, componentName)
-        if (children) break
-      }
-    }
+/**
+ * 向下查找指定名称的组件
+ * @param context
+ * @param componentName
+ * @param depth 查询深度，不传则查询所有
+ */
+export function findComponentsDownward (context, componentName, depth) {
+  if (depth !== undefined && depth <= 0) {
+    return []
   }
-  return children
-}
-
-export function findComponentsDownward (context, componentName) {
-  return context.$children.reduce((components, child) => {
-    if (child.$options.name === componentName) components.push(child)
-    const foundChilds = findComponentsDownward(child, componentName)
-    return components.concat(foundChilds)
-  }, [])
+  const components = []
+  context.$children.forEach(item => {
+    if (item.$options.name === componentName) {
+      components.push(item)
+      findComponentsDownward(item, componentName, depth ? depth - 1 : undefined).forEach(item2 => {
+        components.push(item2)
+      })
+    }
+  })
+  return components
 }
 
 export function oneOf (value, arrays) {
