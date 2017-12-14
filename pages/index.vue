@@ -9,6 +9,11 @@
   import CCarousel from '~/components/common/carousel'
 
   export default {
+    data () {
+      return {
+        articles: []
+      }
+    },
     computed: {
       hotArticles () {
         return this.$store.state.hotArticles
@@ -21,10 +26,10 @@
   }
 </script>
 <style lang="scss" scoped>
-.index-container{
-    .article-image{
-        width: 100%;
-        height: 100%;
+    .index-container {
+        .article-image {
+            width: 100%;
+            height: 100%;
+        }
     }
-}
 </style>

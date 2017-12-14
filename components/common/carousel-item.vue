@@ -30,6 +30,11 @@
       if (this.parent) {
         this.parent.resetChildren()
       }
+    },
+    beforeDestroy () {
+      if (this.parent) {
+        this.parent.resetChildren()
+      }
     }
   }
 </script>
