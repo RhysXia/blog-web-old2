@@ -1,9 +1,13 @@
 <template lang="pug">
-    .c-carousel-container(:style="styles")
-        .content-wrapper(ref="contentWrapper")
-            .item-wrapper(:class="{'is-animating':index===0||activated}",:style="wrapperStyles",ref="wrapper")
+    .c-carousel-container(:style="styles",@mouseenter="mouseenter",@mouseleave="mouseleave")
+        .c-content-wrapper(ref="contentWrapper")
+            .c-item-wrapper(:class="{'is-animating':index===0||activated}",:style="wrapperStyles",ref="wrapper")
                 slot
-            .item-wrapper(:class="{'is-animating':index===0||!activated}",:style="wrapperStylesCopy",ref="copyWrapper")
+            .c-item-wrapper(:class="{'is-animating':index===0||!activated}",:style="wrapperStylesCopy",ref="copyWrapper")
+        .c-index-wrapper(v-if="childNum>0")
+            .c-index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
+                .c-index-item
+
 </template>
 
 <script>
@@ -28,7 +32,8 @@
         rHeight: 0,
         children: [],
         index: 0,
-        activated: true
+        activated: true,
+        timer: null
       }
     },
     computed: {
@@ -73,10 +78,21 @@
       }
     },
     methods: {
+      moveTo (index) {
+        this.index = index
+      },
+      mouseenter () {
+        if (this.timer) {
+          clearTimeout(this.timer)
+          this.timer = null
+        }
+      },
+      mouseleave () {
+        this.timer = setInterval(this.rollOneTime, 1000)
+      },
       resetChildren () {
         this.$nextTick(() => {
           this.children = findComponentsDownward(this, 'carousel-item', 1)
-          this.$refs.copyWrapper.innerHTML = this.$refs.wrapper.innerHTML
         })
       },
       init () {
@@ -84,6 +100,7 @@
         this.rHeight = this.$el.offsetHeight
       },
       rollOneTime () {
+        this.$refs.copyWrapper.innerHTML = this.$refs.wrapper.innerHTML
         if (this.childNum <= 1) {
           return
         }
@@ -96,25 +113,28 @@
         }
         this.index++
       }
-    },
+    }
+    ,
     mounted () {
       this.init()
       this.$nextTick(() => {
-        setInterval(this.rollOneTime, 1000)
+        this.timer = setInterval(this.rollOneTime, 1000)
       })
     }
   }
 </script>
 
 <style lang="scss" scoped>
+    @import "~assets/scss/variables";
+
     .c-carousel-container {
         position: relative;
-        .content-wrapper {
+        .c-content-wrapper {
             position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            .item-wrapper {
+            .c-item-wrapper {
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -123,6 +143,25 @@
                 transition: transform 0.5s ease;
             }
         }
+        .c-index-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            z-index: 1000;
+            .c-index {
+                padding: 5px;
+                .c-index-item {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background-color: $color-info;
+                }
+            }
 
+        }
     }
 </style>
