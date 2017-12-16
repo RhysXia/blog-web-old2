@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dcd18d12-8d33-45ae-a8a4-7f4fa1c09320" name="Default" comment="初步完成轮播">
+    <list default="true" id="dcd18d12-8d33-45ae-a8a4-7f4fa1c09320" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/build/main.js" afterPath="$PROJECT_DIR$/build/main.js" />
       <change beforePath="$PROJECT_DIR$/components/common/carousel.vue" afterPath="$PROJECT_DIR$/components/common/carousel.vue" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,10 +40,10 @@
       <file leaf-file-name="carousel.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/components/common/carousel.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="155" column="29" lean-forward="true" selection-start-line="155" selection-start-column="29" selection-end-line="155" selection-end-column="29" />
+            <state relative-caret-position="152">
+              <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
               <folding>
-                <element signature="e#3509#3853#0" expanded="false" />
+                <element signature="e#3502#3846#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -207,8 +205,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="822" />
-    <option name="y" value="38" />
+    <option name="x" value="274" />
+    <option name="y" value="15" />
     <option name="width" value="1370" />
     <option name="height" value="892" />
   </component>
@@ -454,7 +452,7 @@
       <workItem from="1513160191691" duration="18834000" />
       <workItem from="1513431018355" duration="358000" />
       <workItem from="1513431414447" duration="623000" />
-      <workItem from="1513432629979" duration="2906000" />
+      <workItem from="1513432629979" duration="3490000" />
     </task>
     <task id="LOCAL-00001" summary="修复文章编辑界面的样式问题">
       <created>1511256819400</created>
@@ -610,14 +608,21 @@
       <option name="project" value="LOCAL" />
       <updated>1513176453357</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="初步完成轮播">
+      <created>1513435621045</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1513435621045</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243660000" />
+    <option name="totallyTimeSpent" value="244244000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="822" y="38" width="1370" height="892" extended-state="0" />
+    <frame x="274" y="15" width="1370" height="892" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -703,7 +708,8 @@
     <MESSAGE value="完成row col header" />
     <MESSAGE value="完成整体布局" />
     <MESSAGE value="carousel" />
-    <option name="LAST_COMMIT_MESSAGE" value="carousel" />
+    <MESSAGE value="初步完成轮播" />
+    <option name="LAST_COMMIT_MESSAGE" value="初步完成轮播" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -974,10 +980,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/components/common/carousel.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="155" column="29" lean-forward="true" selection-start-line="155" selection-start-column="29" selection-end-line="155" selection-end-column="29" />
+        <state relative-caret-position="152">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
           <folding>
-            <element signature="e#3509#3853#0" expanded="false" />
+            <element signature="e#3502#3846#0" expanded="false" />
           </folding>
         </state>
       </provider>

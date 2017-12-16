@@ -7,9 +7,7 @@
         .c-index-wrapper(v-if="childNum>0")
             .c-index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
                 .c-index-item
-
 </template>
-
 <script>
   import { findComponentsDownward } from '../../utils/utils'
 
@@ -113,8 +111,7 @@
         }
         this.index++
       }
-    }
-    ,
+    },
     mounted () {
       this.init()
       this.$nextTick(() => {
