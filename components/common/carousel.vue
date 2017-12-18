@@ -1,12 +1,12 @@
 <template lang="pug">
-    .c-carousel-container(:style="styles",@mouseenter="mouseenter",@mouseleave="mouseleave")
-        .c-content-wrapper(ref="contentWrapper")
-            .c-item-wrapper(:class="{'is-animating':index===0||activated}",:style="wrapperStyles",ref="wrapper")
-                slot
-            .c-item-wrapper(:class="{'is-animating':index===0||!activated}",:style="wrapperStylesCopy",ref="copyWrapper")
+    .c-carousel-container(:style="styles",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
+        .c-content-wrapper
+            slot
+            i.c-direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
+            i.c-direction.fa.fa-angle-right(@click="moveTo(activeIndex+1)")
         .c-index-wrapper(v-if="childNum>0")
             .c-index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
-                .c-index-item
+                .c-index-item(:class="{'is-active':index-1===activeIndex}")
 </template>
 <script>
   import { findComponentsDownward } from '../../utils/utils'
@@ -21,6 +21,10 @@
       height: {
         type: String,
         default: '100%'
+      },
+      interval: {
+        type: Number,
+        default: 2000
       }
     },
     data () {
@@ -29,8 +33,7 @@
         rWidth: 0,
         rHeight: 0,
         children: [],
-        index: 0,
-        activated: true,
+        activeIndex: 0,
         timer: null
       }
     },
@@ -45,39 +48,29 @@
           height: this.height
         }
         return style
-      },
-      wrapperStyles () {
-        let style = {
-          width: this.rWidth * this.childNum + 'px',
-          height: this.rHeight + 'px'
-        }
-        if (this.activated) {
-          style.transform = `translateX(${-this.index * this.rWidth}px)`
-        } else if (this.index === 0) {
-          style.transform = `translateX(${-(this.childNum) * this.rWidth}px)`
-        } else {
-          style.transform = `translateX(${this.rWidth}px)`
-        }
-        return style
-      },
-      wrapperStylesCopy () {
-        let style = {
-          width: this.rWidth * this.childNum + 'px',
-          height: this.rHeight + 'px'
-        }
-        if (!this.activated) {
-          style.transform = `translateX(${-this.index * this.rWidth}px)`
-        } else if (this.index === 0) {
-          style.transform = `translateX(${-(this.childNum) * this.rWidth}px)`
-        } else {
-          style.transform = `translateX(${this.rWidth}px)`
-        }
-        return style
       }
     },
     methods: {
       moveTo (index) {
-        this.index = index
+        if (this.childNum <= 0) {
+          return
+        }
+        //将所有children的动画关闭
+        this.children.forEach(child => {
+          child.isAnimated = false
+        })
+        index = index < 0 ? this.childNum - 1 : index > this.childNum - 1 ? 0 : index
+        if ((index === 0 && this.activeIndex === this.childNum - 1) || (index === this.childNum - 1 && this.activeIndex === 0)) {
+          this.children[0].isAnimated = true
+          this.children[this.childNum - 1].isAnimated = true
+        } else {
+          const max = index > this.activeIndex ? index : this.activeIndex
+          const min = index > this.activeIndex ? this.activeIndex : index
+          for (let i = min; i <= max; i++) {
+            this.children[i].isAnimated = true
+          }
+        }
+        this.activeIndex = index
       },
       mouseenter () {
         if (this.timer) {
@@ -86,11 +79,14 @@
         }
       },
       mouseleave () {
-        this.timer = setInterval(this.rollOneTime, 1000)
+        this.timer = setInterval(this.rollOneTime, this.interval)
       },
       resetChildren () {
         this.$nextTick(() => {
           this.children = findComponentsDownward(this, 'carousel-item', 1)
+          for (let i = 0; i < this.children.length; i++) {
+            this.children[i].index = i
+          }
         })
       },
       init () {
@@ -98,24 +94,14 @@
         this.rHeight = this.$el.offsetHeight
       },
       rollOneTime () {
-        this.$refs.copyWrapper.innerHTML = this.$refs.wrapper.innerHTML
-        if (this.childNum <= 1) {
-          return
-        }
-        // 如果已经滚动到末尾
-        if (this.index === this.childNum - 1) {
-          // 将第一组元素放到末尾
-          this.activated = !this.activated
-          this.index = 0
-          return
-        }
-        this.index++
+        this.moveTo(this.activeIndex + 1)
       }
     },
     mounted () {
       this.init()
+      window.onresize = this.init
       this.$nextTick(() => {
-        this.timer = setInterval(this.rollOneTime, 1000)
+        this.timer = setInterval(this.rollOneTime, this.interval)
       })
     }
   }
@@ -131,13 +117,25 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            .c-item-wrapper {
+            display: flex;
+            .c-direction {
                 position: absolute;
-                left: 0;
-                top: 0;
-            }
-            .is-animating {
-                transition: transform 0.5s ease;
+                z-index: 1001;
+                display: flex;
+                align-self: center;
+                font-size: 40px;
+                color: $color-text;
+                opacity: 0.5;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.8;
+                }
+                &.fa-angle-left {
+                    left: 0.5rem;
+                }
+                &.fa-angle-right {
+                    right: 0.5rem;
+                }
             }
         }
         .c-index-wrapper {
@@ -149,13 +147,18 @@
             bottom: 10%;
             left: 50%;
             z-index: 1000;
+            cursor: pointer;
             .c-index {
                 padding: 5px;
                 .c-index-item {
                     width: 5px;
                     height: 5px;
                     border-radius: 50%;
-                    background-color: $color-info;
+                    background-color: $color-border-base;
+                    opacity: 0.3;
+                    &.is-active {
+                        opacity: 1;
+                    }
                 }
             }
 

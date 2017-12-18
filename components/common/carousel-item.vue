@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-carousel-item-container(:style="styles")
+    .c-carousel-item-container(:style="[styles]")
         slot
 </template>
 
@@ -10,22 +10,39 @@
     name: 'carousel-item',
     data () {
       return {
-        parent: null
+        parent: null,
+        index: 0,
+        isAnimated: false
       }
     },
     computed: {
       styles () {
-        let style = {}
-        if (this.parent) {
-          style = {
-            height: this.parent.rHeight + 'px',
-            width: this.parent.rWidth + 'px'
-          }
+        const styles = {}
+        const parent = this.parent
+        if (!parent) {
+          return styles
         }
-        return style
+        const isLast = this.index === parent.childNum - 1
+        const isFirst = this.index === 0
+        if (this.activeIndex === 0 && isLast) {
+          styles.transform = `translateX(-${parent.rWidth}px)`
+        } else if (this.activeIndex === parent.childNum - 1 && isFirst) {
+          styles.transform = `translateX(${parent.rWidth}px)`
+        } else {
+          styles.transform = `translateX(${(this.index - this.activeIndex) * parent.rWidth}px)`
+        }
+        if (this.isAnimated) {
+          styles.transition = `transform 0.4s ease`
+        }
+        return styles
+      },
+      activeIndex () {
+        if (this.parent) {
+          return this.parent.activeIndex
+        }
       }
     },
-    mounted () {
+    created () {
       this.parent = findComponentUpward(this, 'carousel')
       if (this.parent) {
         this.parent.resetChildren()
@@ -41,6 +58,11 @@
 
 <style lang="scss" scoped>
     .c-carousel-item-container {
-        float: left;
+        // 必须设置position，否则z-index无效
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>
