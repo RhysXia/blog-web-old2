@@ -66,7 +66,7 @@
     }
 
     .#{$grid-row-prefixCls}-flex {
-        position: relative;
+        /*position: relative;*/
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

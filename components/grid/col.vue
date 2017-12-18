@@ -20,10 +20,14 @@
       md: [Number, Object],
       lg: [Number, Object]
     },
+    data () {
+      return {
+        parent: null
+      }
+    },
     computed: {
       gutter () {
-        const parent = findComponentUpward(this, 'row')
-        return parent ? parent.gutter : 0
+        return this.parent ? this.parent.gutter : 0
       },
       classes () {
         let classList = [
@@ -63,6 +67,9 @@
         }
         return style
       }
+    },
+    created () {
+      this.parent = findComponentUpward(this, 'row')
     }
   }
 </script>

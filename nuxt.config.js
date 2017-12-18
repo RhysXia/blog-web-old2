@@ -30,7 +30,8 @@ module.exports = {
   loading: {color: '#3B8070'},
   plugins: [
     '~/plugins/http',
-    '~/plugins/components'
+    '~/plugins/components',
+    '~/plugins/filters'
   ],
   build: {
     extractCSS: true

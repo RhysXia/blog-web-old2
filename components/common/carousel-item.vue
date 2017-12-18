@@ -22,6 +22,8 @@
         if (!parent) {
           return styles
         }
+        styles.height = parent.rHeight + 'px'
+        styles.width = parent.rWidth + 'px'
         const isLast = this.index === parent.childNum - 1
         const isFirst = this.index === 0
         if (this.activeIndex === 0 && isLast) {

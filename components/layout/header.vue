@@ -11,7 +11,9 @@
 
 </template>
 <script>
-  export default {}
+  export default {
+    name: 'header'
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -21,13 +23,16 @@
         background-color: $color-background;
         height: $height-header;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
         .logo {
             font-size: 1.4rem;
             color: $color-primary;
         }
-        .action{
+        .action {
             margin-right: -1rem;
-            a{
+            a {
                 padding-right: 1rem;
             }
         }

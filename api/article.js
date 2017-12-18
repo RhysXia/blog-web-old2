@@ -10,6 +10,8 @@ export default http => {
       }
     })
   }
-
+  article.count = () => {
+    return http.get('/articles/count')
+  }
   return article
 }

@@ -2,10 +2,10 @@
     .c-carousel-container(:style="styles",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
         .c-content-wrapper
             slot
-            i.c-direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
-            i.c-direction.fa.fa-angle-right(@click="moveTo(activeIndex+1)")
-        .c-index-wrapper(v-if="childNum>0")
-            .c-index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
+        i.c-direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
+        i.c-direction.fa.fa-angle-right(@click="moveTo(activeIndex+1)")
+        ul.c-index-wrapper(v-if="childNum>0")
+            li.c-index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
                 .c-index-item(:class="{'is-active':index-1===activeIndex}")
 </template>
 <script>
@@ -24,7 +24,7 @@
       },
       interval: {
         type: Number,
-        default: 2000
+        default: 3000
       }
     },
     data () {
@@ -55,7 +55,7 @@
         if (this.childNum <= 0) {
           return
         }
-        //将所有children的动画关闭
+        // 将所有children的动画关闭
         this.children.forEach(child => {
           child.isAnimated = false
         })
@@ -117,38 +117,34 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            display: flex;
-            .c-direction {
-                position: absolute;
-                z-index: 1001;
-                display: flex;
-                align-self: center;
-                font-size: 40px;
-                color: $color-text;
-                opacity: 0.5;
-                cursor: pointer;
-                &:hover {
-                    opacity: 0.8;
-                }
-                &.fa-angle-left {
-                    left: 0.5rem;
-                }
-                &.fa-angle-right {
-                    right: 0.5rem;
-                }
+        }
+        .c-direction {
+            position: absolute;
+            top:50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: $color-text;
+            opacity: 0.5;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.8;
+            }
+            &.fa-angle-left {
+                left: 0.5rem;
+            }
+            &.fa-angle-right {
+                right: 0.5rem;
             }
         }
         .c-index-wrapper {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
+            display: block;
             position: absolute;
-            bottom: 10%;
-            left: 50%;
-            z-index: 1000;
+            bottom: 1rem;
             cursor: pointer;
+            left: 50%;
+            transform: translateX(-50%);
             .c-index {
+                display: inline-block;
                 padding: 5px;
                 .c-index-item {
                     width: 5px;
@@ -157,6 +153,11 @@
                     background-color: $color-border-base;
                     opacity: 0.3;
                     &.is-active {
+                        opacity: 1;
+                    }
+                }
+                &:hover{
+                    .c-index-item {
                         opacity: 1;
                     }
                 }
