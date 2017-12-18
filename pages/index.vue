@@ -1,17 +1,21 @@
 <template lang="pug">
-    .index-container
-        .c-carousel-wrapper
-            c-carousel(width="100%",height="200px")
-                c-carousel-item(v-for="(article,index) in  hotArticles",:key="index")
-                    nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
-                        img.article-image(:src="article.poster")
-                        span.title {{article.title}}
-        c-article-list(:articles="articles",:hasMore="hasMore",:loadMore="loadMore")
+    c-row(:gutter="16")
+        c-col.index-container(:span="18")
+            .carousel-wrapper
+                c-carousel(width="100%",height="200px")
+                    c-carousel-item(v-for="(article,index) in  hotArticles",:key="index")
+                        nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
+                            img.article-image(:src="article.poster")
+                            span.title {{article.title}}
+            c-article-list(:articles="articles",:hasMore="hasMore",:loadMore="loadMore")
+        c-col(:span="6")
+            c-aside(:articles="hotArticles",:tags="hotTags")
 </template>
 <script>
   import CCarouselItem from '~/components/common/carousel-item'
   import CCarousel from '~/components/common/carousel'
   import CArticleList from '~/components/article/list'
+  import CAside from '~/components/layout/aside'
 
   export default {
     head () {
@@ -24,7 +28,9 @@
         articles: [],
         pageNum: 1,
         pageSize: 5,
-        articleCount: 0
+        articleCount: 0,
+        hotArticles: [],
+        hotTags: []
       }
       await store.$api.article.count().then(data => {
         result.articleCount = data.data
@@ -35,6 +41,20 @@
         sorts: 'updateTime DESC'
       }).then(data => {
         result.articles = data.data
+      })
+      await store.$api.article.getAll({
+        pageSize: 10,
+        pageNum: 1,
+        sorts: 'likeCount DESC'
+      }).then(data => {
+        result.hotArticles = data.data
+      })
+      await store.$api.tag.getAll({
+        pageSize: 10,
+        pageNum: 1,
+        sorts: 'articleCount DESC'
+      }).then(data => {
+        result.hotTags = data.data
       })
       return result
     },
@@ -58,9 +78,6 @@
       }
     },
     computed: {
-      hotArticles () {
-        return this.$store.state.hotArticles
-      },
       hasMore () {
         return this.pageNum * this.pageSize < this.articleCount
       }
@@ -68,7 +85,8 @@
     components: {
       CCarousel,
       CCarouselItem,
-      CArticleList
+      CArticleList,
+      CAside
     }
   }
 </script>
@@ -82,7 +100,7 @@
                 margin-bottom: 0;
             }
         }
-        .c-carousel-wrapper{
+        .carousel-wrapper {
             padding: 0.5rem;
             background-color: $color-background;
             .article-image-wrapper {

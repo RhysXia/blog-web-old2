@@ -93,7 +93,8 @@ module.exports = {
   plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters'],
   build: {
     extractCSS: true
-  }
+  },
+  router: {}
 };
 
 /***/ },

@@ -1,14 +1,13 @@
 <template lang="pug">
     .layout-container(v-cloak)
+        .particlesJS
         c-header
         c-row.layout-main(type="flex",align="top",justify="center",:gutter="16")
             c-col(:span="4")
                 c-menu
-            c-col(:span="12")
+            c-col(:span="16")
                 keep-alive
                     nuxt
-            c-col(:span="4")
-                c-aside(:articles="hotArticles",:tags="hotTags")
         c-footer
 </template>
 
@@ -16,22 +15,28 @@
   import CHeader from '~/components/layout/header'
   import CMenu from '~/components/layout/menu'
   import CFooter from '~/components/layout/footer'
-  import CAside from '~/components/layout/aside'
 
   export default {
-    computed: {
-      hotArticles () {
-        return this.$store.state.hotArticles
-      },
-      hotTags () {
-        return this.$store.state.hotTags
+    methods: {
+      tabChange () {
+        let originTitle
+        document.addEventListener('visibilitychange', event => {
+          if (event.target.hidden || event.target.webkitHidden) {
+            originTitle = document.title
+            document.title = '皮皮虾，快回来！'
+          } else {
+            document.title = originTitle
+          }
+        }, false)
       }
+    },
+    mounted () {
+      this.tabChange()
     },
     components: {
       CHeader,
       CFooter,
-      CMenu,
-      CAside
+      CMenu
     }
   }
 </script>

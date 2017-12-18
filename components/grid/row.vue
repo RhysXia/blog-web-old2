@@ -63,6 +63,7 @@
         width: 100%;
         margin-left: auto;
         margin-right: auto;
+        @include clearfix
     }
 
     .#{$grid-row-prefixCls}-flex {
