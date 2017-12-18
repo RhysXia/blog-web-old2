@@ -3,7 +3,8 @@
         c-col(:span="20")
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
-                    h1.logo Ryths Blog
+                    nuxt-link(to="/")
+                        h1.logo Ryths Blog
                 c-col
                     .action
                         nuxt-link(to="/auth/login") 登录

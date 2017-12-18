@@ -50,6 +50,7 @@
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
+    @import "~assets/scss/mixins";
 
     .c-article-list-container {
         > * {
@@ -65,12 +66,12 @@
             &.no-more,
             &.loading {
                 cursor: not-allowed;
-                background-color: $color-background - 50;
+                background-color: color-active($color-background);
             }
             &.has-more {
                 cursor: pointer;
                 &:hover {
-                    background-color: $color-background - 50;
+                    background-color: color-active($color-background);
                 }
             }
         }

@@ -28,6 +28,7 @@ export default ({store}, inject) => {
     let data
     if (error.response && error.response.data) {
       data = error.response.data
+      error.message = data.message
     } else {
       data = {message: error.message}
     }

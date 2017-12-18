@@ -31,11 +31,11 @@ module.exports = {
   plugins: [
     '~/plugins/http',
     '~/plugins/components',
-    '~/plugins/filters'
+    '~/plugins/filters',
+    {src: '~/plugins/token', ssr: false}
   ],
   build: {
     extractCSS: true
   },
-  router: {
-  }
+  router: {}
 }

@@ -3,11 +3,15 @@
         .particlesJS
         c-header
         c-row.layout-main(type="flex",align="top",justify="center",:gutter="16")
-            c-col(:span="4")
-                c-menu
-            c-col(:span="16")
+            transition(name="menu")
+                c-col(:span="4",v-show="isMenuShow")
+                    c-menu
+            c-col(:span="mainSpan")
                 keep-alive
                     nuxt
+            transition(name="aside")
+                c-col(:span="4",v-show="isAsideShow")
+                    c-aside(:articles="hotArticles",:tags="hotTags")
         c-footer
 </template>
 
@@ -15,8 +19,35 @@
   import CHeader from '~/components/layout/header'
   import CMenu from '~/components/layout/menu'
   import CFooter from '~/components/layout/footer'
+  import CAside from '~/components/layout/aside'
 
   export default {
+    computed: {
+      isMenuShow () {
+        const pageNames = ['auth-login']
+        return !pageNames.includes(this.$route.name)
+      },
+      isAsideShow () {
+        const pageNames = ['auth-login','about']
+        return !pageNames.includes(this.$route.name)
+      },
+      mainSpan () {
+        let span = 20
+        if (this.isAsideShow) {
+          span -= 4
+        }
+        if (this.isMenuShow) {
+          span -= 4
+        }
+        return span
+      },
+      hotArticles () {
+        return this.$store.state.hotArticles
+      },
+      hotTags () {
+        return this.$store.state.hotTags
+      }
+    },
     methods: {
       tabChange () {
         let originTitle
@@ -36,7 +67,8 @@
     components: {
       CHeader,
       CFooter,
-      CMenu
+      CMenu,
+      CAside
     }
   }
 </script>
@@ -45,6 +77,39 @@
 
         .layout-main {
             margin: 1rem 0;
+        }
+        .menu-enter-active,
+        .menu-leave-active {
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        .menu-enter,
+        .menu-leave-to {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .menu-enter-to,
+        .menu-leave {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .aside-enter-active,
+        .aside-leave-active {
+            transition: transform 0.4s ease, opacity 0.4s ease;
+
+        }
+
+        .aside-enter,
+        .aside-leave-to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .aside-enter-to,
+        .aside-leave {
+            transform: translateX(0);
+            opacity: 1;
         }
     }
 </style>

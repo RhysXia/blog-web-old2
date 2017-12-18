@@ -1,5 +1,6 @@
 @import "../css/normalize.css";
 @import "variables";
+@import "mixins";
 
 html {
   font-size: 14px;
@@ -28,15 +29,41 @@ a {
   transition: color $time-transition ease;
   &:hover,
   &:active {
-    color: $color-primary-dark;
+    color: color-active($color-primary);
     outline: 0;
     text-decoration: none;
   }
 }
 
+input {
+  outline: none;
+  box-sizing: border-box;
+  border: 1px solid $color-border-base;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  transition: border-color $time-transition ease;
+  background-color: transparent;
+  font-size: 1rem;
+  &:focus {
+    border-color: $color-primary;
+  }
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 0.25rem 0.8rem;
+  border-radius: 3px;
+  transition: background-color $time-transition ease;
+  cursor: pointer;
+  &:hover {
+    background-color: color-active($color-border-base);
+  }
+}
+
 .page-enter-active,
 .page-leave-active {
-  transition: transform 0.4s ease,opacity 0.4s ease;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 .page-enter,
