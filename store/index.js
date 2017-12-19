@@ -20,6 +20,11 @@ export const mutations = {
     state.hotTags = tags
   }
 }
+export const getters = {
+  isLogin (state) {
+    return state.user !== null
+  }
+}
 export const actions = {
   async nuxtServerInit ({commit}) {
     await this.$api.article.getAll({
@@ -60,5 +65,12 @@ export const actions = {
         commit('setUser', data.data)
       })
     }
+  },
+  logout ({commit}) {
+    return this.$api.auth.logout().then(data => {
+      commit('setToken', '')
+      commit('setUser', null)
+      localStorage.removeItem('ryths-blog-token')
+    })
   }
 }

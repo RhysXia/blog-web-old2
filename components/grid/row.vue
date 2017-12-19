@@ -34,7 +34,7 @@
       classes () {
         return [
           {
-            [`${prefixCls}`]: !this.type,
+            [`${prefixCls}`]: true,
             [`${prefixCls}-${this.type}`]: !!this.type,
             [`${prefixCls}-${this.type}-${this.align}`]: !!this.align,
             [`${prefixCls}-${this.type}-${this.justify}`]: !!this.justify,
@@ -60,20 +60,17 @@
     @import "~assets/scss/mixins";
 
     .#{$grid-row-prefixCls} {
+        position: relative;
         width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+        box-sizing: border-box;
         @include clearfix
     }
 
     .#{$grid-row-prefixCls}-flex {
-        /*position: relative;*/
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
         &:before,
         &:after {
-            display: flex;
+            display: none;
         }
         // x轴原点
         &-start {

@@ -26,10 +26,15 @@
       width: 100% * $index / $total;
     }
     .#{$grid-col-prefixCls}-push-#{$index} {
+      position: relative;
       left: 100% * $index / $total;
     }
     .#{$grid-col-prefixCls}-pull-#{$index} {
+      position: relative;
       right: 100% * $index / $total;
+    }
+    .#{$grid-col-prefixCls}-offset-#{$index} {
+      margin-left: 100% * $index / $total;
     }
     $index: $index - 1;
   }
@@ -55,4 +60,44 @@
   }
 }
 
+//transition
+
+@mixin slide($className,$direction:bottom,$duration:0.4s) {
+  .#{$className}-enter-active,
+  .#{$className}-leave-active {
+    transition: transform #{$duration} ease-in-out, opacity #{$duration} ease-in-out;
+    @if($direction == bottom){
+      transform-origin: 0 0;
+    }
+    @else if($direction == top){
+      transform-origin: 0% 100%;
+    }
+    @else if($direction == left){
+      transform-origin: 100% 0;
+    }
+    @else{
+      transform-origin: 0% 0%;
+    }
+  }
+  .#{$className}-enter,
+  .#{$className}-leave-to {
+    opacity: 0;
+    @if($direction == bottom or $direction == top){
+      transform: scaleY(0);
+    }
+    @else{
+      transform: scaleX(0);
+    }
+  }
+  .#{$className}-leave,
+  .#{$className}-enter-to {
+    opacity: 1;
+    @if($direction == bottom or $direction == top){
+      transform: scaleY(1);
+    }
+    @else{
+      transform: scaleX(1);
+    }
+  }
+}
 

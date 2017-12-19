@@ -28,7 +28,6 @@
     },
     methods: {
       submit () {
-        console.log(1)
         this.$store.dispatch('login', this.user).then(() => {
           // 获取跳转来的路径
           const from = this.$route.meta.from

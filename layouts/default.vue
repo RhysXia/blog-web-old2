@@ -2,11 +2,11 @@
     .layout-container(v-cloak)
         .particlesJS
         c-header
-        c-row.layout-main(type="flex",align="top",justify="center",:gutter="16")
+        c-row.layout-main(type="flex",:gutter="16")
             transition(name="menu")
-                c-col(:span="4",v-show="isMenuShow")
+                c-col(:span="4",v-show="isMenuShow",:offset="2")
                     c-menu
-            c-col(:span="mainSpan")
+            c-col(:span="mainSpan",:offset="isMenuShow?0:2")
                 keep-alive
                     nuxt
             transition(name="aside")
@@ -28,7 +28,7 @@
         return !pageNames.includes(this.$route.name)
       },
       isAsideShow () {
-        const pageNames = ['auth-login','about']
+        const pageNames = ['auth-login', 'about']
         return !pageNames.includes(this.$route.name)
       },
       mainSpan () {

@@ -9,8 +9,7 @@
         c-article-list(:articles="articles",:hasMore="hasMore",:loadMore="loadMore")
 </template>
 <script>
-  import CCarouselItem from '~/components/common/carousel-item'
-  import CCarousel from '~/components/common/carousel'
+  import { CCarouselItem, CCarousel } from '~/components/common/carousel'
   import CArticleList from '~/components/article/list'
 
   export default {

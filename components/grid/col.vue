@@ -79,9 +79,8 @@
 
     .#{$grid-col-prefixCls} {
         float: left;
-        position: relative;
-        display: block;
         box-sizing: border-box;
+        @include clearfix;
     }
 
     @include create-col()

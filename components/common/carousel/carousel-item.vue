@@ -4,7 +4,7 @@
 </template>
 
 <script>
-  import { findComponentUpward } from '../../utils/utils'
+  import { findComponentUpward } from '../../../utils/utils'
 
   export default {
     name: 'carousel-item',

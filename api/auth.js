@@ -8,5 +8,9 @@ export default http => {
     })
   }
 
+  auth.logout = () => {
+    return http.get('/auth/logout')
+  }
+
   return auth
 }
