@@ -1,6 +1,5 @@
 <template lang="pug">
     .layout-container(v-cloak)
-        .particlesJS
         c-header
         c-row.layout-main(type="flex",:gutter="16")
             transition(name="menu")
@@ -74,40 +73,33 @@
 </script>
 <style lang="scss" scoped>
     .layout-container {
-
         .layout-main {
             margin: 1rem 0;
         }
-        .menu-enter-active,
-        .menu-leave-active {
+        .menu-enter-active {
             transition: transform 0.4s ease, opacity 0.4s ease;
         }
 
-        .menu-enter,
-        .menu-leave-to {
+        .menu-enter {
             transform: translateX(-100%);
             opacity: 0;
         }
 
-        .menu-enter-to,
-        .menu-leave {
+        .menu-enter-to {
             transform: translateX(0);
             opacity: 1;
         }
-        .aside-enter-active,
-        .aside-leave-active {
+        .aside-enter-active {
             transition: transform 0.4s ease, opacity 0.4s ease;
 
         }
 
-        .aside-enter,
-        .aside-leave-to {
+        .aside-enter {
             transform: translateX(100%);
             opacity: 0;
         }
 
-        .aside-enter-to,
-        .aside-leave {
+        .aside-enter-to {
             transform: translateX(0);
             opacity: 1;
         }

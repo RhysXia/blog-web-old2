@@ -1,8 +1,8 @@
 <template lang="pug">
-    .c-dropdown-container(v-clickoutside="handleClose")
+    .c-dropdown-container(v-clickoutside="handleClose",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
         .c-dropdown-ref(@click="refClick")
             slot
-        transition(:name="'c-dropdown-slide-'+position")
+        transition(name="c-dropdown-slide")
             .c-dropdown-list(v-show="visible",:class="'c-dropdown-list-'+position")
                 slot(name="list")
 </template>
@@ -19,6 +19,12 @@
       position: {
         type: String,
         default: 'bottom'
+      },
+      trigger: {
+        validator (val) {
+          return ['click', 'hover'].includes(val)
+        },
+        default: 'hover'
       }
     },
     data () {
@@ -32,6 +38,16 @@
       },
       refClick () {
         this.visible = true
+      },
+      mouseenter () {
+        if (this.trigger === 'hover') {
+          this.visible = true
+        }
+      },
+      mouseleave () {
+        if (this.trigger === 'hover') {
+          this.visible = false
+        }
       }
     }
   }
@@ -43,6 +59,8 @@
 
     .c-dropdown-container {
         position: relative;
+        background-color: $color-background;
+        cursor: pointer;
         .c-dropdown-ref {
 
         }
@@ -52,23 +70,21 @@
         .c-dropdown-list-bottom {
             top: 100%;
             left: 0;
+            margin-top: 0.15rem;
         }
         .c-dropdown-list-top {
             bottom: 100%;
             left: 0;
+            margin-bottom: 0.15rem;
         }
         .c-dropdown-list-left {
             right: 100%;
-            top: 0
+            top: 0;
         }
         .c-dropdown-list-right {
             left: 100%;
-            top: 0
+            top: 0;
         }
-        @include slide(c-dropdown-slide-bottom, bottom);
-        @include slide(c-dropdown-slide-right, right);
-        @include slide(c-dropdown-slide-left, left);
-        @include slide(c-dropdown-slide-top, top);
-
+        @include slide(c-dropdown-slide, bottom);
     }
 </style>

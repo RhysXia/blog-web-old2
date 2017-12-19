@@ -6,28 +6,33 @@
                     nuxt-link(to="/")
                         h1.logo Ryths Blog
                 c-col
-                    .action(v-if="isLogin")
+                    .action(v-if="!isLogin")
                         nuxt-link(to="/auth/login") 登录
                         nuxt-link(to="/auth/register") 注册
                     .action(v-else)
                         c-dropdown
-                            span Test
+                            c-avatar(:imgUrl="user.avatar")
                             c-dropdown-menu(slot="list")
-                                c-dropdown-item xxx
-                                c-dropdown-item xxx
-                                c-dropdown-item xxx
+                                c-dropdown-item
+                                    nuxt-link(to="/user/self") 个人中心
+                                c-dropdown-item
+                                    nuxt-link(to="/user/write") 写文章
 
                         button.btn(@click="logout") 注销
         c-message
 </template>
 <script>
   import { CDropdown, CDropdownItem, CDropdownMenu } from '~/components/common/dropdown'
+  import CAvatar from '~/components/common/avatar'
 
   export default {
     name: 'header',
     computed: {
       isLogin () {
         return this.$store.getters.isLogin
+      },
+      user () {
+        return this.$store.state.user
       }
     },
     methods: {
@@ -40,7 +45,8 @@
     components: {
       CDropdown,
       CDropdownItem,
-      CDropdownMenu
+      CDropdownMenu,
+      CAvatar
     }
   }
 </script>

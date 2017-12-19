@@ -6,22 +6,31 @@
                 .error(v-show="error") {{error}}
                 .input-wrapper
                     span.label 用户名
-                    input(type="text",v-model="user.username",placeholder="请输入用户名")
+                    input(v-focus,type="text",v-model="user.username",placeholder="请输入用户名")
                 .input-wrapper
                     span.label 密码
                     input(type="password",v-model="user.password",placeholder="请输入密码")
+                .checkbox-wrapper
+                    input(type="checkbox",v-model="user.remember")
+                    label.label(@click="user.remember=!user.remember") 记住我
                 .action
                     button.login(@click="submit") 登陆
 
 </template>
 
 <script>
+  import focus from '~/utils/directive/focus'
+
   export default {
+    directives: {
+      focus
+    },
     data () {
       return {
         user: {
           username: '',
-          password: ''
+          password: '',
+          remember: false
         },
         error: ''
       }
@@ -74,26 +83,42 @@
                 color: $color-text-white;
                 text-align: center;
             }
-            .input-wrapper {
-                margin-bottom: 1rem;
-                .label {
-                    font-weight: bold;
+            .form {
+                > * {
+                    margin-bottom: 1rem;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
                 }
-                input {
-                    width: 100%;
+                .input-wrapper {
+                    .label {
+                        font-weight: bold;
+                    }
+                    input {
+                        width: 100%;
+                    }
                 }
-            }
-            .action {
-                .login {
-                    background-color: $color-primary;
-                    color: $color-text-white;
-                    width: 100%;
-                    padding: 0.35rem 1rem;
-                    &:hover {
-                        background-color: color-active($color-primary);
+                .checkbox-wrapper {
+                    display: flex;
+                    align-items: center;
+                    .label {
+                        margin-left: 0.5rem;
+                        cursor: pointer;
+                    }
+                }
+                .action {
+                    .login {
+                        background-color: $color-primary;
+                        color: $color-text-white;
+                        width: 100%;
+                        padding: 0.35rem 1rem;
+                        &:hover {
+                            background-color: color-active($color-primary);
+                        }
                     }
                 }
             }
+
         }
     }
 </style>

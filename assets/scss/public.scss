@@ -44,6 +44,7 @@ input {
   transition: border-color $time-transition ease;
   background-color: transparent;
   font-size: 1rem;
+  color: $color-text;
   &:focus {
     border-color: $color-primary;
   }

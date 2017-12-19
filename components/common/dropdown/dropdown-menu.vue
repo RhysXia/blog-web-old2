@@ -20,7 +20,11 @@
 </script>
 
 <style lang="scss" scoped>
-    .c-dropdown-menu-container {
+    @import "~assets/scss/variables";
 
+    .c-dropdown-menu-container {
+        background-color: $color-background;
+        padding: 1rem 0.5rem;
+        border-radius: 3px;
     }
 </style>

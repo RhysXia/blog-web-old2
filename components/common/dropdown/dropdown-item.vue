@@ -9,6 +9,12 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .c-dropdown-item-container{
+        word-break: keep-all;
+        margin-bottom: 0.5rem;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
 </style>
