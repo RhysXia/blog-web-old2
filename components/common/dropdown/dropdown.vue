@@ -59,10 +59,10 @@
 
     .c-dropdown-container {
         position: relative;
-        background-color: $color-background;
         cursor: pointer;
         .c-dropdown-ref {
-
+            position: relative;
+            background-color: $color-background;
         }
         .c-dropdown-list {
             position: absolute;

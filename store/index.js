@@ -3,7 +3,9 @@ export const state = () => ({
   token: '',
   user: null,
   hotArticles: [],
-  hotTags: []
+  hotTags: [],
+  isMenuShow: true,
+  isAsideShow: true
 })
 
 export const mutations = {
@@ -18,6 +20,12 @@ export const mutations = {
   },
   setHotTags (state, tags) {
     state.hotTags = tags
+  },
+  showMenu (state, flag) {
+    state.isMenuShow = flag
+  },
+  showAside (state, flag) {
+    state.isAsideShow = flag
   }
 }
 export const getters = {

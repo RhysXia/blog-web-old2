@@ -1,0 +1,42 @@
+@import "~assets/scss/variables";
+@import "~assets/scss/mixins";
+
+.code-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: $color-background;
+  margin: 1rem 0;
+  .code-title {
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: $color-info;
+    padding: 0.5rem 0;
+    color: $color-text-white;
+    margin: 0;
+  }
+  .code-main {
+    position: relative;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid $color-border-base;
+    border-top-width: 0;
+    margin: 0;
+    >*{
+      padding: 0.5rem 0;
+    }
+    .code-lines {
+      display: block;
+      list-style: none;
+      background-color: $color-background-dark;
+      min-width: 2.5rem;
+      text-align: center;
+      margin-right: 1rem;
+    }
+  }
+}
+
+.list-wrapper {
+  margin-left: 2rem;
+}

@@ -21,7 +21,7 @@
 
     .c-menu-container {
         padding-left: 0;
-
+        list-style: none;
         li {
             a {
                 display: block;

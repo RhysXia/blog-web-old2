@@ -94,7 +94,9 @@ module.exports = {
   build: {
     extractCSS: true
   },
-  router: {}
+  router: {
+    middleware: ['change-col-page']
+  }
 };
 
 /***/ },

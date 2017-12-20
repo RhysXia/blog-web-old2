@@ -13,5 +13,9 @@ export default http => {
   article.count = () => {
     return http.get('/articles/count')
   }
+
+  article.getById = id => {
+    return http.get(`/articles/${id}`)
+  }
   return article
 }

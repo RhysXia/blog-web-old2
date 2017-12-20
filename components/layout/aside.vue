@@ -45,7 +45,8 @@
               margin-right: -0.5rem;
             }
             .article-item {
-                margin-bottom: 0.5rem;
+                margin: 0.3rem 0;
+                padding: 0;
                 .index {
                     display: inline-block;
                     background-color: $color-background-dark;

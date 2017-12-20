@@ -23,12 +23,10 @@
   export default {
     computed: {
       isMenuShow () {
-        const pageNames = ['auth-login']
-        return !pageNames.includes(this.$route.name)
+        return this.$store.state.isMenuShow
       },
       isAsideShow () {
-        const pageNames = ['auth-login', 'about']
-        return !pageNames.includes(this.$route.name)
+        return this.$store.state.isAsideShow
       },
       mainSpan () {
         let span = 20

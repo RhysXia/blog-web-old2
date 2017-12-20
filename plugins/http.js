@@ -28,7 +28,7 @@ export default ({store}, inject) => {
     let data
     if (error.response && error.response.data) {
       data = error.response.data
-      error.message = data.message
+      error.message = data.message || '服务器错误'
     } else {
       data = {message: error.message}
     }

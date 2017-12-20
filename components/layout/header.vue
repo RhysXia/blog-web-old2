@@ -11,7 +11,7 @@
                         nuxt-link(to="/auth/register") 注册
                     .action(v-else)
                         c-dropdown
-                            c-avatar(:imgUrl="user.avatar")
+                            c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                             c-dropdown-menu(slot="list")
                                 c-dropdown-item
                                     nuxt-link(to="/user/self") 个人中心
