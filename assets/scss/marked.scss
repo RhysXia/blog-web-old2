@@ -35,16 +35,56 @@
       text-align: center;
       margin-right: 1rem;
     }
+    .code-content {
+
+    }
   }
 }
 
 .marked-list-wrapper {
   margin-left: 2rem;
-  list-style: disc;
+  &.ol{
+    list-style-type: decimal;
+  }
+  &.ul{
+    list-style-type: disc;
+  }
 }
 
 .marked-blockquote {
   padding: 0 1rem;
   margin: 0 0 1rem 0;
   border-left: 0.25rem solid $color-border-base;
+  background-color: $color-background-dark;
+}
+
+.marked-table-wrapper {
+  position: relative;
+  overflow-x: auto;
+  .table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    cursor: pointer;
+    .thead {
+      background-color: $color-background-dark;
+    }
+    .tbody {
+
+    }
+    td, th {
+      border: 1px solid $color-border-base;
+      padding: 0.3rem 0.5rem;
+    }
+  }
+}
+
+.marked-img {
+  max-width: 100%;
+}
+
+.marked-hr {
+  height: 1px;
+  border: none;
+  background-color: $color-border-base;
+  margin: 1rem 0;
 }

@@ -17,18 +17,57 @@ renderer.code = (code, lang) => {
                   <code class="code-content">${content}\n</code>
                 </pre>
             </div>
-          `.replace('\n', '')
+          `.replace('\n', ' ')
 }
 
 renderer.list = (body, ordered) => {
   if (ordered) {
-    return `<ol class="marked-list-wrapper">${body}</ol>`
+    return `<ol class="marked-list-wrapper ol">${body}</ol>`
   }
-  return `<ul class="marked-list-wrapper">${body}</ul>`
+  return `<ul class="marked-list-wrapper ul">${body}</ul>`.replace(/\s+/g, ' ')
 }
 
 renderer.blockquote = quote => {
-  return `<blockquote class="marked-blockquote">${quote}</blockquote>`
+  return `<blockquote class="marked-blockquote">${quote}</blockquote>`.replace(/\s+/g, ' ')
+}
+
+// 连接进行处理，防外链
+renderer.link = (href, title, text) => {
+  const isSelf = href.includes('ryths.cn')
+  const textIsImage = text.includes('<img')
+  const str = `
+                <a class="marked-link" href="${href}"
+                    target="_blank" 
+                    title="${title || (textIsImage ? href : text)}" 
+                    ${isSelf ? '' : 'rel="external nofollow noopenter"'}>
+                    ${text}
+                </a>
+              `
+  return str.replace(/\s+/g, ' ')
+}
+
+renderer.image = (src, title, alt) => {
+  return `
+          <img class="marked-img" src="${src}"
+            title="${title || alt || 'ryths.cn'}"
+            alt="${alt || title || src}"
+          />
+         `.replace(/\s+/g, ' ')
+}
+
+renderer.table = (header, body) => {
+  return `
+          <div class="marked-table-wrapper">
+            <table class="table">
+              <thead class="thead">${header}</thead>
+              <tbody class="tbody">${body}</tbody>
+            </table>
+          </div>
+        `.replace(/\s+/g, ' ')
+}
+
+renderer.hr = () => {
+  return `<hr class="marked-hr"/>`
 }
 
 marked.setOptions({
@@ -39,7 +78,7 @@ marked.setOptions({
   pedantic: false,
   sanitize: false,
   smartLists: true,
-  smartypants: false
+  smartypants: true
 })
 
 export default content => marked(content)
