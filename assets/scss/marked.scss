@@ -1,7 +1,8 @@
 @import "~assets/scss/variables";
 @import "~assets/scss/mixins";
+@import 'highlight.js/styles/vs2015.css';
 
-.code-wrapper {
+.marked-code-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -23,7 +24,7 @@
     border: 1px solid $color-border-base;
     border-top-width: 0;
     margin: 0;
-    >*{
+    > * {
       padding: 0.5rem 0;
     }
     .code-lines {
@@ -37,6 +38,13 @@
   }
 }
 
-.list-wrapper {
+.marked-list-wrapper {
   margin-left: 2rem;
+  list-style: disc;
+}
+
+.marked-blockquote {
+  padding: 0 1rem;
+  margin: 0 0 1rem 0;
+  border-left: 0.25rem solid $color-border-base;
 }

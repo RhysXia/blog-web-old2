@@ -14,13 +14,13 @@ html {
 //  margin: 0;
 //  padding: 0;
 //}
-ul,ol{
+ul, ol {
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
-
-a {
+a, .link {
   color: $color-primary;
   background: transparent;
   text-decoration: none;
@@ -30,7 +30,8 @@ a {
   &:hover,
   &:active {
     color: color-active($color-primary);
-    outline: 0;
+    outline: none;
+    background-color: transparent;
     text-decoration: none;
   }
 }

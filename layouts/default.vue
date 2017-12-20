@@ -74,30 +74,44 @@
         .layout-main {
             margin: 1rem 0;
         }
-        .menu-enter-active {
+        .menu-enter-active,
+        .menu-leave-active {
             transition: transform 0.4s ease, opacity 0.4s ease;
         }
 
-        .menu-enter {
+        .menu-enter,
+        .menu-leave-to {
             transform: translateX(-100%);
             opacity: 0;
         }
+        .menu-leave-active{
+            position: absolute;
+            left: 0;
+        }
 
-        .menu-enter-to {
+        .menu-enter-to,
+        .menu-leave {
             transform: translateX(0);
             opacity: 1;
         }
-        .aside-enter-active {
+        .aside-enter-active,
+        .aside-leave-active {
             transition: transform 0.4s ease, opacity 0.4s ease;
 
         }
+        .aside-leave-active {
+            position: absolute;
+            right: 0;
+        }
 
-        .aside-enter {
+        .aside-enter,
+        .aside-leave-to {
             transform: translateX(100%);
             opacity: 0;
         }
 
-        .aside-enter-to {
+        .aside-enter-to,
+        .aside-leave {
             transform: translateX(0);
             opacity: 1;
         }

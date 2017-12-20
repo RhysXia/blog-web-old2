@@ -1,6 +1,5 @@
 import marked from 'marked'
 import highlight from 'highlight.js'
-import 'highlight.js/styles/vs2015.css'
 import '~/assets/scss/marked.scss'
 
 const renderer = new marked.Renderer()
@@ -11,7 +10,7 @@ renderer.code = (code, lang) => {
     return `<li class="code-line-num">${num + 1}</li>`
   }).join('')
   return `
-            <div class="code-wrapper">
+            <div class="marked-code-wrapper">
                 <h2 class="code-title">${lang} Language</h2>
                 <pre class="code-main ${lang ? 'lang-' + lang : ''}">
                   <ul class="code-lines">${lineNums}</ul>
@@ -23,9 +22,13 @@ renderer.code = (code, lang) => {
 
 renderer.list = (body, ordered) => {
   if (ordered) {
-    return `<ol class="list-wrapper">${body}</ol>`
+    return `<ol class="marked-list-wrapper">${body}</ol>`
   }
-  return `<ul class="list-wrapper">${body}</ul>`
+  return `<ul class="marked-list-wrapper">${body}</ul>`
+}
+
+renderer.blockquote = quote => {
+  return `<blockquote class="marked-blockquote">${quote}</blockquote>`
 }
 
 marked.setOptions({
