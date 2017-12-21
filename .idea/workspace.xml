@@ -2,9 +2,93 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcd18d12-8d33-45ae-a8a4-7f4fa1c09320" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_AMS-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_AMS-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_AMS-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_AMS-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Bold.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Bold.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Bold.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Bold.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Caligraphic-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Bold.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Bold.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Bold.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Bold.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Fraktur-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Bold.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Bold.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Bold.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Bold.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Italic.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Italic.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Italic.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Italic.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Main-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-BoldItalic.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-BoldItalic.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-BoldItalic.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-BoldItalic.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Italic.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Italic.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Italic.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Italic.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Math-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Bold.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Bold.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Bold.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Bold.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Italic.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Italic.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Italic.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Italic.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_SansSerif-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Script-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Script-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Script-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Script-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size1-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size1-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size1-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size1-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size2-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size2-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size2-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size2-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size3-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size3-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size3-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size3-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size4-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size4-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size4-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Size4-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Typewriter-Regular.eot" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Typewriter-Regular.ttf" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Typewriter-Regular.woff" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/fonts/KaTeX_Typewriter-Regular.woff2" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/assets/css/katex/katex.css" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/utils/markdown/index.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/marked.scss" afterPath="$PROJECT_DIR$/assets/scss/marked.scss" />
-      <change beforePath="$PROJECT_DIR$/utils/marked.js" afterPath="$PROJECT_DIR$/utils/marked.js" />
+      <change beforePath="$PROJECT_DIR$/assets/scss/marked.scss" afterPath="$PROJECT_DIR$/assets/scss/markdown.scss" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change beforePath="$PROJECT_DIR$/pages/article/_id.vue" afterPath="$PROJECT_DIR$/pages/article/_id.vue" />
+      <change beforePath="$PROJECT_DIR$/utils/marked.js" afterPath="$PROJECT_DIR$/utils/markdown/markdown.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,96 +101,7 @@
     <favorites_list name="blog-web" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="_id.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="marked.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/utils/marked.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="69" lean-forward="true" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="69" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-                <marker date="1513781296888" expanded="true" signature="422:718" ph="..." />
-                <marker date="1513781296888" expanded="true" signature="553:699" ph="..." />
-                <marker date="1513781296888" expanded="true" signature="1295:1523" ph="..." />
-                <marker date="1513781296888" expanded="true" signature="1675:1778" ph="..." />
-                <marker date="1513781296888" expanded="true" signature="1906:2082" ph="..." />
-                <marker date="1513781296888" expanded="true" signature="1940:2065" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="marked.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/scss/marked.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="49" column="19" lean-forward="false" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="variables.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/scss/variables.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="change-col-page.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/middleware/change-col-page.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="default.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/layouts/default.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1445">
-              <caret line="88" column="20" lean-forward="false" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="public.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/scss/public.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/store/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="28" lean-forward="false" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -118,14 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$</find>
-      <find>=</find>
-      <find>a</find>
-      <find>success</find>
-      <find>font</find>
-      <find>tint</find>
-      <find>color</find>
-      <find />
       <find>fa.fa-</find>
       <find>hlight</find>
       <find>highlightAuto</find>
@@ -142,6 +129,20 @@
       <find>ul</find>
       <find>li</find>
       <find>render</find>
+      <find>marked</find>
+      <find>lin</find>
+      <find>ex</find>
+      <find>unescapeAll</find>
+      <find>link_open</find>
+      <find>renderer</find>
+      <find>idx</find>
+      <find>getAttr(token,</find>
+      <find>console</find>
+      <find>border</find>
+      <find>vlist</find>
+      <find>mord</find>
+      <find>katex</find>
+      <find>accent-vec</find>
     </findStrings>
     <replaceStrings>
       <replace>;</replace>
@@ -150,6 +151,7 @@
       <replace>err.message</replace>
       <replace>menu</replace>
       <replace>aside</replace>
+      <replace>md</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -169,17 +171,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/assets/scss/aside.vue" />
-        <option value="$PROJECT_DIR$/api/tag.js" />
-        <option value="$PROJECT_DIR$/components/common/panel.vue" />
-        <option value="$PROJECT_DIR$/assets/scss/grid.scss" />
-        <option value="$PROJECT_DIR$/components/common/carousel/carousel.vue" />
         <option value="$PROJECT_DIR$/utils/utils.js" />
         <option value="$PROJECT_DIR$/components/common/carousel.vue" />
         <option value="$PROJECT_DIR$/components/article/item.vue" />
         <option value="$PROJECT_DIR$/components/common/carousel-item.vue" />
         <option value="$PROJECT_DIR$/plugins/particlesJS.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/static/html/map.html" />
         <option value="$PROJECT_DIR$/pages/about.vue" />
         <option value="$PROJECT_DIR$/api/user.js" />
@@ -209,17 +205,23 @@
         <option value="$PROJECT_DIR$/components/layout/header.vue" />
         <option value="$PROJECT_DIR$/api/article.js" />
         <option value="$PROJECT_DIR$/plugins/http.js" />
-        <option value="$PROJECT_DIR$/nuxt.config.js" />
         <option value="$PROJECT_DIR$/store/index.js" />
         <option value="$PROJECT_DIR$/components/layout/menu.vue" />
         <option value="$PROJECT_DIR$/components/layout/aside.vue" />
         <option value="$PROJECT_DIR$/components/common/affix.vue" />
-        <option value="$PROJECT_DIR$/pages/article/_id.vue" />
         <option value="$PROJECT_DIR$/middleware/change-col-page.js" />
-        <option value="$PROJECT_DIR$/assets/scss/public.scss" />
         <option value="$PROJECT_DIR$/layouts/default.vue" />
         <option value="$PROJECT_DIR$/assets/scss/marked.scss" />
         <option value="$PROJECT_DIR$/utils/marked.js" />
+        <option value="$PROJECT_DIR$/utils/markdown/index.js" />
+        <option value="$PROJECT_DIR$/pages/article/_id.vue" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/assets/css/katex.css" />
+        <option value="$PROJECT_DIR$/nuxt.config.js" />
+        <option value="$PROJECT_DIR$/assets/scss/public.scss" />
+        <option value="$PROJECT_DIR$/assets/css/katex/katex.css" />
+        <option value="$PROJECT_DIR$/assets/scss/markdown.scss" />
+        <option value="$PROJECT_DIR$/utils/markdown/markdown.js" />
       </list>
     </option>
   </component>
@@ -239,8 +241,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="647" />
-    <option name="y" value="198" />
+    <option name="x" value="927" />
+    <option name="y" value="29" />
     <option name="width" value="1564" />
     <option name="height" value="874" />
   </component>
@@ -275,6 +277,19 @@
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+              <item name="katex" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
@@ -324,6 +339,12 @@
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="markdown" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -346,19 +367,19 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules/eslint" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\workspace\IntellijIDEA\blog-web\assets\css\katex" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\utils\markdown" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\avatar" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\carousel" />
+      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\workspace\IntellijIDEA\blog-web\assets\css" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\avatar" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\api" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\assets\img" />
       <recent name="F:\workspace\IntellijIDEA\blog-web\components\article" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\grid" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\avatar" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common\carousel" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\common" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components\layout" />
-      <recent name="F:\workspace\IntellijIDEA\blog-web\components" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -502,7 +523,7 @@
       <workItem from="1513432629979" duration="3490000" />
       <workItem from="1513557017861" duration="67412000" />
       <workItem from="1513693010262" duration="23669000" />
-      <workItem from="1513761672550" duration="8298000" />
+      <workItem from="1513761672550" duration="27563000" />
     </task>
     <task id="LOCAL-00001" summary="修复文章编辑界面的样式问题">
       <created>1511256819400</created>
@@ -721,43 +742,49 @@
       <option name="project" value="LOCAL" />
       <updated>1513758194600</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="优化marked">
+      <created>1513783547095</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1513783547096</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="344375000" />
+    <option name="totallyTimeSpent" value="363640000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="647" y="198" width="1564" height="874" extended-state="0" />
-    <editor active="true" />
+    <frame x="927" y="29" width="1564" height="874" extended-state="0" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5109489" sideWeight="0.5062552" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294412" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294412" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40234947" sideWeight="0.4937448" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32748538" sideWeight="0.49422634" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.211126" sideWeight="0.49253732" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.211126" sideWeight="0.49253732" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20992908" sideWeight="0.5074627" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329927" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970026" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -795,7 +822,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="完成登录的全部功能" />
     <MESSAGE value="完成注册功能" />
     <MESSAGE value="正在实现个人主页" />
     <MESSAGE value="正在实现文章写作页" />
@@ -820,7 +846,8 @@
     <MESSAGE value="修改menu和aside的过渡动画，防止页面过渡时menu和aside被压缩" />
     <MESSAGE value="自定义marked样式" />
     <MESSAGE value="完成文章的展示，优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成文章的展示，优化" />
+    <MESSAGE value="优化marked" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化marked" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -829,130 +856,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/plugins/particlesJS.js" />
-    <entry file="file://$PROJECT_DIR$/static/html/map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/about.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="96" column="13" lean-forward="false" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/token.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="39" lean-forward="false" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/article/list.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="61" column="17" lean-forward="false" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/carousel/carousel-item.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/carousel/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/message/message.vue" />
-    <entry file="file://$PROJECT_DIR$/components/common/message/index.js" />
-    <entry file="file://$PROJECT_DIR$/plugins/components.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/dropdown/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/avatar/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/dropdown/dropdown-menu.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/dropdown/dropdown-item.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="28" lean-forward="false" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/carousel/carousel.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="101" lean-forward="false" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/grid/row.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/filters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="37" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/directive/clickoutside.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1053,14 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nuxt.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="41" column="22" lean-forward="false" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/article/item.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -1068,14 +963,6 @@
           <folding>
             <element signature="n#script#0;n#!!top" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1090,6 +977,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="47" column="27" lean-forward="false" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1104,6 +992,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1131,42 +1020,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/scss/public.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/layouts/default.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1445">
           <caret line="88" column="20" lean-forward="false" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/scss/variables.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/scss/marked.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="49" column="19" lean-forward="false" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1176,23 +1033,234 @@
         <state relative-caret-position="815">
           <caret line="826" column="17" lean-forward="true" selection-start-line="826" selection-start-column="17" selection-end-line="826" selection-end-column="17" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/marked.js">
+    <entry file="file://$PROJECT_DIR$/utils/markdown/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="69" lean-forward="true" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="69" />
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/rules_inline/image.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/common/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="112" column="20" lean-forward="false" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="20" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
-            <marker date="1513781296888" expanded="true" signature="422:718" ph="..." />
-            <marker date="1513781296888" expanded="true" signature="553:699" ph="..." />
-            <marker date="1513781296888" expanded="true" signature="1295:1523" ph="..." />
-            <marker date="1513781296888" expanded="true" signature="1675:1778" ph="..." />
-            <marker date="1513781296888" expanded="true" signature="1906:2082" ph="..." />
-            <marker date="1513781296888" expanded="true" signature="1940:2065" ph="..." />
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/parser_block.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/parser_core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-306">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/parser_inline.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="94" column="5" lean-forward="true" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/rules_inline/link.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="12" lean-forward="true" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/renderer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3742">
+          <caret line="97" column="4" lean-forward="false" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="274" column="4" lean-forward="true" selection-start-line="274" selection-start-column="4" selection-end-line="274" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/ruler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-459">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/rules_block/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="186" column="46" lean-forward="false" selection-start-line="186" selection-start-column="30" selection-end-line="186" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="30" lean-forward="false" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/rules_block/blockquote.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2754">
+          <caret line="255" column="3" lean-forward="true" selection-start-line="255" selection-start-column="3" selection-end-line="255" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="47" column="33" lean-forward="true" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/rules_block/table.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="136" column="36" lean-forward="false" selection-start-line="136" selection-start-column="26" selection-end-line="136" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it@8.4.0@markdown-it/lib/rules_block/hr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-408">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it-checkbox@1.1.0@markdown-it-checkbox/index.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nuxt.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it-katex@2.0.3@markdown-it-katex/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3045">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/public.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="18" column="12" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/variables.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/katex/katex.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="122" column="27" lean-forward="false" selection-start-line="122" selection-start-column="27" selection-end-line="122" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/markdown.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/markdown/markdown.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="71" column="1" lean-forward="true" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <marker date="1513841758004" expanded="true" signature="1133:1405" ph="..." />
+            <marker date="1513841758004" expanded="true" signature="1256:1390" ph="..." />
+            <marker date="1513841758004" expanded="true" signature="2291:4475" ph="..." />
           </folding>
         </state>
       </provider>

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import marked from '~/utils/marked'
+  import markdown from '~/utils/markdown'
 
   export default {
     validate ({params}) {
@@ -62,7 +62,7 @@
       content () {
         const content = this.article.content
         if (this.article.contentType === 'MARKDOWN') {
-          return marked(this.article.content)
+          return markdown(this.article.content)
         } else {
           return content
         }

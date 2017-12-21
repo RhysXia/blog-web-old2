@@ -2,7 +2,7 @@
 @import "~assets/scss/mixins";
 @import 'highlight.js/styles/vs2015.css';
 
-.marked-code-wrapper {
+.md-code-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -41,34 +41,33 @@
   }
 }
 
-.marked-list-wrapper {
+.md-list {
   margin-left: 2rem;
-  &.ol{
+  &.md-ol {
     list-style-type: decimal;
   }
-  &.ul{
+  &.md-ul {
     list-style-type: disc;
   }
 }
 
-.marked-blockquote {
+.md-blockquote {
   padding: 0 1rem;
   margin: 0 0 1rem 0;
   border-left: 0.25rem solid $color-border-base;
   background-color: $color-background-dark;
 }
 
-.marked-table-wrapper {
-  position: relative;
-  overflow-x: auto;
-  .table {
+.md-table-wrapper {
+  //position: relative;
+  .md-table {
     border-collapse: collapse;
     border-spacing: 0;
     cursor: pointer;
-    .thead {
+    thead {
       background-color: $color-background-dark;
     }
-    .tbody {
+    tbody {
 
     }
     td, th {
@@ -78,13 +77,33 @@
   }
 }
 
-.marked-img {
+.md-img {
   max-width: 100%;
 }
 
-.marked-hr {
+.md-hr {
   height: 1px;
   border: none;
   background-color: $color-border-base;
   margin: 1rem 0;
+}
+
+.md-code-inline {
+  color: $color-danger;
+  padding: 2px 4px;
+  font-size: 0.9rem;
+  background-color: $color-danger + 120;
+}
+
+.md-code-block {
+  border: 1px solid $color-border-base;
+  padding: 1rem;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.md-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
