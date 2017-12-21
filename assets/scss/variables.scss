@@ -19,6 +19,8 @@ $color-info: #2db7f5;
 $color-background-dark: #eee;
 $color-background: hsla(0, 0%, 100%, .6);
 $color-text: #555;
+$color-text-light: $color-text + 30;
+$color-text-deep: $color-text - 30;
 $color-text-white: #fff;
 $color-border-base: #d7dde4;
 $color-disabled: #c3cbd6;

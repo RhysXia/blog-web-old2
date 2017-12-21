@@ -1,16 +1,18 @@
 <template lang="pug">
     .layout-container(v-cloak)
         c-header
-        c-row.layout-main(type="flex",:gutter="16")
-            transition(name="menu")
-                c-col(:span="4",v-show="isMenuShow",:offset="2")
-                    c-menu
-            c-col(:span="mainSpan",:offset="isMenuShow?0:2")
-                keep-alive
-                    nuxt
-            transition(name="aside")
-                c-col(:span="4",v-show="isAsideShow")
-                    c-aside(:articles="hotArticles",:tags="hotTags")
+        c-row.layout-main(type="flex",align="middle",justify="center")
+            c-col(:span="20")
+                c-row(:gutter="16")
+                    transition(name="menu")
+                        c-col(:span="5",v-show="isMenuShow")
+                            c-menu
+                    c-col(:span="mainSpan")
+                        keep-alive
+                            nuxt
+                    transition(name="aside")
+                        c-col(:span="5",v-show="isAsideShow")
+                            c-aside(:articles="hotArticles",:tags="hotTags")
         c-footer
 </template>
 <script>
@@ -28,12 +30,12 @@
         return this.$store.state.isAsideShow
       },
       mainSpan () {
-        let span = 20
+        let span = 24
         if (this.isAsideShow) {
-          span -= 4
+          span -= 5
         }
         if (this.isMenuShow) {
-          span -= 4
+          span -= 5
         }
         return span
       },

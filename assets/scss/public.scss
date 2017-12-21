@@ -5,7 +5,7 @@
 html {
   font-size: 14px;
   line-height: 1.4;
-  color: #555;
+  color: $color-text;
   font-family: DINRegular, -apple-system, BlinkMacSystemFont, PingFang SC, Helvetica Neue, Hiragino Sans GB, Segoe UI, Microsoft YaHei, \\5FAE\8F6F\96C5\9ED1, sans-serif;
   background-color: $color-background-dark;
 }
@@ -58,6 +58,7 @@ button {
   border-radius: 3px;
   transition: background-color $time-transition ease;
   cursor: pointer;
+  color: $color-text;
   &:hover {
     background-color: color-active($color-border-base);
   }

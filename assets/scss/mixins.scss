@@ -61,7 +61,6 @@
 }
 
 //transition
-
 @mixin slide($className,$direction:bottom,$duration:0.4s) {
   .#{$className}-enter-active,
   .#{$className}-leave-active {

@@ -61,7 +61,6 @@
 
     .#{$grid-row-prefixCls} {
         position: relative;
-        width: 100%;
         box-sizing: border-box;
         @include clearfix
     }

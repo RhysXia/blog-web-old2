@@ -46,6 +46,9 @@
                     b {{commentCount}}
                     | 条评论
             .body
+                .write(v-if="isLogin")
+                    .left
+                        c-avatar(:imgUrl="user.avatar")
                 template(v-if="!commentCount")
                     .item.no-content 好可怜，都没人理我~
                 template(v-else)
@@ -55,6 +58,7 @@
 <script>
   import markdown from '~/utils/markdown'
   import CCommentList from '~/components/comment/list'
+  import CAvatar from '~/components/common/avatar'
 
   export default {
     validate ({params}) {
@@ -66,6 +70,12 @@
       }
     },
     computed: {
+      user () {
+        return this.$store.state.user
+      },
+      isLogin () {
+        return this.$store.state.isLogin
+      },
       fullPage () {
         const isMenuShow = this.$store.state.isMenuShow
         const isAsideShow = this.$store.state.isAsideShow
@@ -77,13 +87,12 @@
         return isMenuShow && !isAsideShow
       },
       content () {
-        return this.article.content
-        // const content = this.article.content
-        // if (this.article.contentType === 'MARKDOWN') {
-        //   return markdown(content)
-        // } else {
-        //   return content
-        // }
+        const content = this.article.content
+        if (this.article.contentType === 'MARKDOWN') {
+          return markdown(content)
+        } else {
+          return content
+        }
       }
     },
     methods: {
@@ -128,7 +137,8 @@
       return result
     },
     components: {
-      CCommentList
+      CCommentList,
+      CAvatar
     }
   }
 </script>
@@ -195,18 +205,21 @@
             }
         }
         .comment-wrapper {
-            padding: 1rem;
             .header {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
+                background-color: $color-background;
+                border-radius: 5px;
                 .title {
                     font-size: 1.2rem;
+                    margin: 0;
+                    padding: 0.5rem;
                 }
-                border-bottom: 1px solid $color-border-base;
             }
             .body {
+                margin-top: 1rem;
                 .item {
                     height: 55px;
                     text-align: center;
