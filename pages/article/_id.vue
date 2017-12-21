@@ -49,16 +49,18 @@
                 .write(v-if="isLogin")
                     .left
                         c-avatar(:imgUrl="user.avatar")
+                    .right
+                        c-min-editor
                 template(v-if="!commentCount")
-                    .item.no-content 好可怜，都没人理我~
+                    .no-content 好可怜，都没人理我~
                 template(v-else)
                     c-comment-list(:comments="comments")
-
 </template>
 <script>
   import markdown from '~/utils/markdown'
   import CCommentList from '~/components/comment/list'
   import CAvatar from '~/components/common/avatar'
+  import CMinEditor from '~/components/common/min-editor'
 
   export default {
     validate ({params}) {
@@ -74,7 +76,7 @@
         return this.$store.state.user
       },
       isLogin () {
-        return this.$store.state.isLogin
+        return this.$store.getters.isLogin
       },
       fullPage () {
         const isMenuShow = this.$store.state.isMenuShow
@@ -138,7 +140,8 @@
     },
     components: {
       CCommentList,
-      CAvatar
+      CAvatar,
+      CMinEditor
     }
   }
 </script>
@@ -220,9 +223,33 @@
             }
             .body {
                 margin-top: 1rem;
-                .item {
-                    height: 55px;
+                >*{
+                  margin-bottom: 1rem;
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+                .write {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    background-color: $color-background;
+                    padding: 0.7rem;
+                    width: 100%;
+                    .left {
+                        margin-right: 0.5rem;
+                    }
+                    .right {
+                        width: 100%;
+
+                    }
+                }
+                .no-content {
+                    height: 80px;
                     text-align: center;
+                    line-height: 80px;
+                    font-weight: bold;
+                    background-color: $color-background;
 
                 }
             }
