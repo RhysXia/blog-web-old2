@@ -130,16 +130,16 @@
                 opacity: 0.8;
             }
             &.fa-angle-left {
-                left: 0.5rem;
+                left: 0.5em;
             }
             &.fa-angle-right {
-                right: 0.5rem;
+                right: 0.5em;
             }
         }
         .c-index-wrapper {
             display: block;
             position: absolute;
-            bottom: 1rem;
+            bottom: 1em;
             cursor: pointer;
             left: 50%;
             transform: translateX(-50%);

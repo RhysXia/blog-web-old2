@@ -70,12 +70,12 @@
         .c-dropdown-list-bottom {
             top: 100%;
             left: 0;
-            margin-top: 0.15rem;
+            margin-top: 0.15em;
         }
         .c-dropdown-list-top {
             bottom: 100%;
             left: 0;
-            margin-bottom: 0.15rem;
+            margin-bottom: 0.15em;
         }
         .c-dropdown-list-left {
             right: 100%;

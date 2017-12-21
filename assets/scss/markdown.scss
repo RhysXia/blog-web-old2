@@ -7,12 +7,12 @@
   display: flex;
   flex-direction: column;
   background-color: $color-background;
-  margin: 1rem 0;
+  margin: 1em 0;
   .code-title {
-    font-size: 1.2rem;
+    font-size: 1.2em;
     text-align: center;
     background-color: $color-info;
-    padding: 0.5rem 0;
+    padding: 0.5em 0;
     color: $color-text-white;
     margin: 0;
   }
@@ -25,15 +25,15 @@
     border-top-width: 0;
     margin: 0;
     > * {
-      padding: 0.5rem 0;
+      padding: 0.5em 0;
     }
     .code-lines {
       display: block;
       list-style: none;
       background-color: $color-background-dark;
-      min-width: 2.5rem;
+      min-width: 2.5em;
       text-align: center;
-      margin-right: 1rem;
+      margin-right: 1em;
     }
     .code-content {
 
@@ -42,7 +42,7 @@
 }
 
 .md-list {
-  margin-left: 2rem;
+  margin-left: 2em;
   &.md-ol {
     list-style-type: decimal;
   }
@@ -52,9 +52,9 @@
 }
 
 .md-blockquote {
-  padding: 0 1rem;
-  margin: 0 0 1rem 0;
-  border-left: 0.25rem solid $color-border-base;
+  padding: 0 1em;
+  margin: 0 0 1em 0;
+  border-left: 0.25em solid $color-border-base;
   background-color: $color-background-dark;
 }
 
@@ -72,7 +72,7 @@
     }
     td, th {
       border: 1px solid $color-border-base;
-      padding: 0.3rem 0.5rem;
+      padding: 0.3em 0.5em;
     }
   }
 }
@@ -85,19 +85,19 @@
   height: 1px;
   border: none;
   background-color: $color-border-base;
-  margin: 1rem 0;
+  margin: 1em 0;
 }
 
 .md-code-inline {
   color: $color-danger;
   padding: 2px 4px;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   background-color: $color-danger + 120;
 }
 
 .md-code-block {
   border: 1px solid $color-border-base;
-  padding: 1rem;
+  padding: 1em;
   border-radius: 5px;
   overflow-x: auto;
 }

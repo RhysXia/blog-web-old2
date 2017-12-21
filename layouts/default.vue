@@ -13,7 +13,6 @@
                     c-aside(:articles="hotArticles",:tags="hotTags")
         c-footer
 </template>
-
 <script>
   import CHeader from '~/components/layout/header'
   import CMenu from '~/components/layout/menu'

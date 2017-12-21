@@ -22,9 +22,9 @@
 
     .c-panel-container {
         background-color: $color-background;
-        padding: 0.5rem;
+        padding: 0.5em;
         .title {
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.5em;
             border-bottom: 1px solid $color-border-base;
         }
     }

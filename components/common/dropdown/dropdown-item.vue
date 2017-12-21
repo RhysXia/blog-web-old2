@@ -12,7 +12,7 @@
 <style lang="scss" scoped>
     .c-dropdown-item-container{
         word-break: keep-all;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.5em;
         &:last-child{
             margin-bottom: 0;
         }

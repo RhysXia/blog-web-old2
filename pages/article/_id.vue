@@ -9,10 +9,10 @@
                         | 创建{{article.createTime | formatDate}};
                         | 更新{{article.updateTime | formatDate}}
                     .right
-                        button.link(@click="fullPageClick")
+                        button.btn.link(@click="fullPageClick")
                             i.fa(:class="fullPage?'fa-compress':'fa-arrows-alt'")
                             | 全屏阅读
-                        button.link(@click="partFullPageClick")
+                        button.btn.link(@click="partFullPageClick")
                             i.fa(:class="partFullPage?'fa-compress':'fa-expand'")
                             | 通栏阅读
                 .info
@@ -34,10 +34,27 @@
                         nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
             .body
                 .content(v-html="content")
-</template>
+            .footer
+                button.btn.link
+                    i.fa.fa-hand-pointer-o
+                    | 点赞一下
+        .comment-wrapper
+            .header
+                h2.title 评论列表
+                span.info(v-if="commentCount")
+                    | 共
+                    b {{commentCount}}
+                    | 条评论
+            .body
+                template(v-if="!commentCount")
+                    .item.no-content 好可怜，都没人理我~
+                template(v-else)
+                    c-comment-list(:comments="comments")
 
+</template>
 <script>
   import markdown from '~/utils/markdown'
+  import CCommentList from '~/components/comment/list'
 
   export default {
     validate ({params}) {
@@ -60,12 +77,13 @@
         return isMenuShow && !isAsideShow
       },
       content () {
-        const content = this.article.content
-        if (this.article.contentType === 'MARKDOWN') {
-          return markdown(this.article.content)
-        } else {
-          return content
-        }
+        return this.article.content
+        // const content = this.article.content
+        // if (this.article.contentType === 'MARKDOWN') {
+        //   return markdown(content)
+        // } else {
+        //   return content
+        // }
       }
     },
     methods: {
@@ -82,23 +100,49 @@
     },
     async asyncData ({route, store}) {
       const result = {
-        article: {}
+        article: {},
+        commentCount: 0,
+        comments: [],
+        pageNum: 1,
+        pageSize: 10
       }
       const id = route.params.id
       await store.$api.article.getById(id).then(data => {
         result.article = data.data
       }).catch(() => {})
+      const articleId = result.article.id
+      if (articleId) {
+        await store.$api.comment.getCountByArticleId(articleId).then(data => {
+          result.commentCount = data.data
+        }).catch(() => {})
+        if (result.commentCount > 0) {
+          await store.$api.comment.getAllByArticleId({
+            articleId,
+            pageSize: result.pageSize,
+            pageNum: result.pageNum
+          }).then(data => {
+            result.comments = data.data
+          }).catch(() => {})
+        }
+      }
       return result
     },
-    components: {}
+    components: {
+      CCommentList
+    }
   }
 </script>
-
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
 
     .article-id-container {
+        > * {
+            margin-bottom: 1rem;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
         .article-wrapper {
             background-color: $color-background;
             padding: 1rem;
@@ -133,17 +177,44 @@
                         justify-content: flex-end;
                         align-items: center;
                     }
-                    button {
-                        padding: 0.3rem 0.5rem;
-                        i {
-                            padding-right: 0.25rem;
-                        }
-                        &:hover {
-                            background-color: color-active($color-background);
-                        }
-                    }
+
+                }
+            }
+            .footer {
+                border-top: 1px solid $color-border-base;
+                padding-top: 1rem;
+            }
+        }
+        .btn {
+            padding: 0.3rem 0.5rem;
+            i {
+                padding-right: 0.25rem;
+            }
+            &:hover {
+                background-color: color-active($color-background);
+            }
+        }
+        .comment-wrapper {
+            padding: 1rem;
+            .header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                .title {
+                    font-size: 1.2rem;
+                }
+                border-bottom: 1px solid $color-border-base;
+            }
+            .body {
+                .item {
+                    height: 55px;
+                    text-align: center;
+
                 }
             }
         }
     }
+
+
 </style>

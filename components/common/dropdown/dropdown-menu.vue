@@ -24,7 +24,7 @@
 
     .c-dropdown-menu-container {
         background-color: $color-background;
-        padding: 1rem 0.5rem;
+        padding: 1em 0.5em;
         border-radius: 3px;
     }
 </style>

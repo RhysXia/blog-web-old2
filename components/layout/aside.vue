@@ -40,7 +40,6 @@
             margin-bottom: 0;
         }
         .content {
-            padding-top: 0.5rem;
             &.tag-content{
               margin-right: -0.5rem;
             }

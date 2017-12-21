@@ -34,13 +34,13 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    $article-item-height: 10rem;
+    $article-item-height: 10em;
     .c-article-item-container {
         display: flex;
         flex-direction: row;
         height: $article-item-height;
         background-color: $color-background;
-        padding: 0.5rem;
+        padding: 0.5em;
 
         .left {
             .poster {
@@ -51,13 +51,13 @@
         .right {
             display: flex;
             flex-direction: column;
-            margin-left: 0.5rem;
+            margin-left: 0.5em;
             .title {
                 font-weight: bold;
-                font-size: 1.2rem;
+                font-size: 1.2em;
             }
             .info {
-                font-size: 1.1rem;
+                font-size: 1.1em;
                 display: flex;
                 flex: 1 1 auto;
             }
@@ -66,9 +66,9 @@
                 align-self: flex-end;
                 align-items: center;
                 span {
-                    margin-right: 0.8rem;
+                    margin-right: 0.8em;
                     i {
-                        padding-right: 0.3rem;
+                        padding-right: 0.3em;
                     }
                 }
             }

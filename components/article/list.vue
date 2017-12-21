@@ -54,14 +54,14 @@
 
     .c-article-list-container {
         > * {
-            margin-bottom: 1rem;
+            margin-bottom: 1em;
             &:last-child {
                 margin-bottom: 0;
             }
         }
         .action {
             background-color: $color-background;
-            padding: 0.5rem 0;
+            padding: 0.5em 0;
             text-align: center;
             &.no-more,
             &.loading {
