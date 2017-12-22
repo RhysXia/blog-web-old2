@@ -50,7 +50,7 @@
                     .left
                         c-avatar(:imgUrl="user.avatar")
                     .right
-                        c-min-editor(:imageUpload="commentImageUpload")
+                        c-min-editor(:imageUpload="commentImageUpload",@submit="commentSubmit")
                 template(v-if="!commentCount")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
@@ -98,6 +98,23 @@
       }
     },
     methods: {
+      commentSubmit (content) {
+        const articleId = this.article.id
+        this.$api.comment.add({
+          content,
+          contentType: 'MARKDOWN',
+          articleId
+        }).then(data => {
+          this.$api.comment.getAllByArticleId({
+            articleId,
+            pageSize: this.pageSize,
+            pageNum: 1,
+            sorts: 'floorNum DESC'
+          }).then(data => {
+            this.comments = data.data
+          }).catch(() => {})
+        })
+      },
       commentImageUpload (files) {
         return new Promise((resolve, reject) => {
           if (files.length === 0) {
@@ -143,7 +160,8 @@
           await store.$api.comment.getAllByArticleId({
             articleId,
             pageSize: result.pageSize,
-            pageNum: result.pageNum
+            pageNum: result.pageNum,
+            sorts: 'floorNum DESC'
           }).then(data => {
             result.comments = data.data
           }).catch(() => {})

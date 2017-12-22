@@ -21,6 +21,12 @@ export default http => {
       }
     })
   }
+  comment.add = ({content, contentType, articleId}) => {
+    return http.post(`/articles/${articleId}/comments`, {
+      content,
+      contentType
+    })
+  }
 
   return comment
 }
