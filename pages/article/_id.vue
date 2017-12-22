@@ -50,7 +50,7 @@
                     .left
                         c-avatar(:imgUrl="user.avatar")
                     .right
-                        c-min-editor
+                        c-min-editor(:imageUpload="commentImageUpload")
                 template(v-if="!commentCount")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
@@ -98,6 +98,19 @@
       }
     },
     methods: {
+      commentImageUpload (files) {
+        return new Promise((resolve, reject) => {
+          if (files.length === 0) {
+
+            return reject(new Error('没有选择文件'))
+          }
+          const formDate = new FormData()
+          formDate.append('image', files[0])
+          this.$api.comment.uploadImage(formDate).then(data => {
+            return resolve(data.data)
+          })
+        })
+      },
       fullPageClick () {
         const flag = this.fullPage
         this.$store.commit('showMenu', flag)
@@ -223,9 +236,10 @@
             }
             .body {
                 margin-top: 1rem;
-                >*{
-                  margin-bottom: 1rem;
-                    &:last-child{
+                font-size: 1rem;
+                > * {
+                    margin-bottom: 0.9rem;
+                    &:last-child {
                         margin-bottom: 0;
                     }
                 }
@@ -235,7 +249,6 @@
                     align-items: flex-start;
                     background-color: $color-background;
                     padding: 0.7rem;
-                    width: 100%;
                     .left {
                         margin-right: 0.5rem;
                     }
