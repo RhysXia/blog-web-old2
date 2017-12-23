@@ -20,7 +20,10 @@
                 button
                     i.fa.fa-hand-pointer-o
                     | 顶
-            button.more(v-show="contentHidden",@click="isOpen = !isOpen")
+                button.delete(@click="$emit('item-delete')",v-if="isLogin && user.id===comment.author.id")
+                    i.fa.fa-remove
+                    | 删除
+            button.more(v-show="contentHidden || isOpen",@click="isOpen=!isOpen")
                 template(v-if="isOpen")
                     i.fa.fa-arrow-up
                     | 关闭显示全部
@@ -47,6 +50,12 @@
       }
     },
     computed: {
+      isLogin () {
+        return this.$store.getters.isLogin
+      },
+      user () {
+        return this.$store.state.user
+      },
       content () {
         const content = this.comment.content
         if (this.comment.contentType === 'MARKDOWN') {
@@ -67,6 +76,9 @@
       }
     },
     methods: {
+      open () {
+        this.isOpen = !this.isOpen
+      },
       checkOverflow () {
         const content = this.$refs.content
         this.contentHidden = content.scrollHeight > content.clientHeight
@@ -154,6 +166,12 @@
                     }
                     i {
                         padding-right: 0.25em;
+                    }
+                }
+                .delete {
+                    color: $color-danger;
+                    &:hover {
+                        color: color-active($color-danger);
                     }
                 }
             }

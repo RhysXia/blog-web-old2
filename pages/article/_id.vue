@@ -40,7 +40,7 @@
                     | 点赞一下
         .comment-wrapper
             .header
-                h2.title 评论列表
+                h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
                 span.info(v-if="commentCount")
                     | 共
                     b {{commentCount}}
@@ -54,7 +54,7 @@
                 template(v-if="!commentCount")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
-                    c-comment-list(:comments="comments",:hasMore="hasMore",:loadMore="loadMore")
+                    c-comment-list(:comments="comments",:hasMore="hasMore",:loadMore="loadMore",@item-delete="itemDelete")
 </template>
 <script>
   import markdown from '~/utils/markdown'
@@ -107,6 +107,28 @@
       }
     },
     methods: {
+      itemDelete (index) {
+        const articleId = this.article.id
+        this.$api.comment.deleteById(this.comments[index].id).then(data => {
+          this.$api.comment.getCountByArticleId(articleId).then(data => {
+            this.commentCount = data.data
+            if (this.hasMore) {
+              this.$api.comment.getAllByArticleId({
+                articleId,
+                pageSize: this.pageSize,
+                pageNum: this.pageNum,
+                sorts: 'floorNum DESC'
+              }).then(data => {
+                const comments = this.comments.splice(0, (this.pageNum - 1) * this.pageSize)
+                data.data.forEach(item => {
+                  comments.push(item)
+                })
+                this.comments = comments
+              })
+            }
+          }).catch(() => {})
+        }).catch(() => {})
+      },
       async loadMore () {
         const articleId = this.article.id
         this.pageNum += 1

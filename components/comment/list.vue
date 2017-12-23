@@ -1,7 +1,7 @@
 <template lang="pug">
     .c-comment-list-container
         transition-group(name="list",tag="div")
-            item.item(v-for="(comment,index) in comments",:key="index",:comment="comment")
+            item.item(v-for="(comment,index) in comments",:key="index",:comment="comment",@item-delete="$emit('item-delete',index)")
         .action.has-more(v-if="hasMore&&!isLoading",@click="loadClick") 加载更多
         .action.loading(v-else-if="isLoading") 正在加载
         .action.no-more(v-else) 已经到底了

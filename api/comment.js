@@ -27,6 +27,9 @@ export default http => {
       contentType
     })
   }
+  comment.deleteById = id => {
+    return http.delete(`/comments/${id}`)
+  }
 
   return comment
 }
