@@ -4,7 +4,8 @@ const API = require.context('~/api', false, /\.js$/)
 export default ({store}, inject) => {
   const serverURL = store.state.serverURL
   const http = axios.create({
-    baseURL: serverURL
+    baseURL: serverURL,
+    timeout: 0
   })
 
   http.interceptors.request.use(config => {

@@ -8,8 +8,10 @@ export default {
   },
   methods: {
     checkOverflow () {
-      const content = this.$refs.content
-      this.contentHidden = content.scrollHeight > content.clientHeight
+      this.$nextTick(() => {
+        const content = this.$refs.content
+        this.contentHidden = content.scrollHeight > content.clientHeight
+      })
     }
   },
   computed: {

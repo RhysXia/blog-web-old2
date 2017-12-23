@@ -27,6 +27,7 @@
       }
       await store.$api.article.count().then(data => {
         result.articleCount = data.data
+      }).catch((err) => {
       })
       await store.$api.article.getAll({
         pageSize: result.pageSize,
@@ -34,7 +35,7 @@
         sorts: 'updateTime DESC'
       }).then(data => {
         result.articles = data.data
-      })
+      }).catch(() => {})
 
       return result
     },

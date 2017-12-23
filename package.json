@@ -21,10 +21,12 @@
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-katex": "^2.0.3",
     "nuxt": "^1.0.0-rc3",
+    "offline-plugin": "^4.8.5",
     "source-map-support": "^0.4.15"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "babel-preset-stage-2": "^6.24.1",
     "backpack-core": "^0.3.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",

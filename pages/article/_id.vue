@@ -279,12 +279,15 @@
     @keyframes move {
         0% {
             transform: translateY(0.5rem);
+            opacity: 1;
         }
         50% {
             transform: translateY(-0.5rem);
+            opacity: 0.75;
         }
         100% {
             transform: translateY(0.5rem);
+            opacity: 1;
         }
     }
 

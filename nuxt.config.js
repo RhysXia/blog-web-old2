@@ -5,8 +5,13 @@ module.exports = {
   head: {
     title: 'Ryths Blog',
     titleTemplate: '%s | ryths.cn',
+    htmlAttrs: {
+      xmlns: 'http://www.w3.org/1999/xhtml',
+      lang: 'zh'
+    },
     meta: [
       {charset: 'utf-8'},
+      {'http-equiv': 'X-UA-Compatible', content: 'IE=edge'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
       {name: 'author', content: 'Ryths,postmaster@ryths.cn'},
       {name: 'keywords', content: 'blog,Ryths,IT,JAVA,Vue,前端,后端,研究生'},
@@ -16,6 +21,9 @@ module.exports = {
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
       {rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'}
+    ],
+    noscript: [
+      {innerHTML: 'This website requires JavaScript.'}
     ]
   },
   /*
@@ -28,16 +36,23 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: {color: '#4dce9b'},
+  offline: true,
   plugins: [
     '~/plugins/http',
     '~/plugins/components',
     '~/plugins/filters',
-    {src: '~/plugins/token', ssr: false}
+    {src: '~/plugins/token', ssr: false},
+    {src: '~/plugins/offline', ssr: false}
   ],
   build: {
-    extractCSS: true
+    extractCSS: true,
+    extend (webpackConfig, {isDev, isClient, isServer}) {
+    }
   },
   router: {
+    scrollBehavior (to, from, savedPosition) {
+      return {x: 0, y: 0}
+    },
     middleware: [
       'change-col-page'
     ]

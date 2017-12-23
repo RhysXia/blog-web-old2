@@ -79,8 +79,13 @@ module.exports = {
   head: {
     title: 'Ryths Blog',
     titleTemplate: '%s | ryths.cn',
-    meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { name: 'author', content: 'Ryths,postmaster@ryths.cn' }, { name: 'keywords', content: 'blog,Ryths,IT,JAVA,Vue,前端,后端,研究生' }, { name: 'description', content: '个人技术博客，分享知识，寻找志同道合的朋友' }, { name: 'copyright', content: 'Ryths Xia' }],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css' }]
+    htmlAttrs: {
+      xmlns: 'http://www.w3.org/1999/xhtml',
+      lang: 'zh'
+    },
+    meta: [{ charset: 'utf-8' }, { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { name: 'author', content: 'Ryths,postmaster@ryths.cn' }, { name: 'keywords', content: 'blog,Ryths,IT,JAVA,Vue,前端,后端,研究生' }, { name: 'description', content: '个人技术博客，分享知识，寻找志同道合的朋友' }, { name: 'copyright', content: 'Ryths Xia' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css' }],
+    noscript: [{ innerHTML: 'This website requires JavaScript.' }]
   },
   /*
   ** Global CSS
@@ -90,11 +95,21 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#4dce9b' },
-  plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', { src: '~/plugins/token', ssr: false }],
+  offline: true,
+  plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', { src: '~/plugins/token', ssr: false }, { src: '~/plugins/offline', ssr: false }],
   build: {
-    extractCSS: true
+    extractCSS: true,
+    extend: function extend(webpackConfig, _ref) {
+      var isDev = _ref.isDev,
+          isClient = _ref.isClient,
+          isServer = _ref.isServer;
+    }
   },
   router: {
+    scrollBehavior: function scrollBehavior(to, from, savedPosition) {
+      return { x: 0, y: 0 };
+    },
+
     middleware: ['change-col-page']
   }
 };
