@@ -76,6 +76,9 @@
       this.checkOverflow()
       window.addEventListener('resize', this.checkOverflow)
     },
+    updated () {
+      this.checkOverflow()
+    },
     beforeDestroy () {
       window.removeEventListener('resize', this.checkOverflow)
     },

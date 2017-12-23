@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="dcd18d12-8d33-45ae-a8a4-7f4fa1c09320" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/api/comment.js" afterPath="$PROJECT_DIR$/api/comment.js" />
+      <change beforePath="$PROJECT_DIR$/components/article/list.vue" afterPath="$PROJECT_DIR$/components/article/list.vue" />
+      <change beforePath="$PROJECT_DIR$/components/comment/item.vue" afterPath="$PROJECT_DIR$/components/comment/item.vue" />
+      <change beforePath="$PROJECT_DIR$/components/comment/list.vue" afterPath="$PROJECT_DIR$/components/comment/list.vue" />
+      <change beforePath="$PROJECT_DIR$/components/common/min-editor.vue" afterPath="$PROJECT_DIR$/components/common/min-editor.vue" />
       <change beforePath="$PROJECT_DIR$/pages/article/_id.vue" afterPath="$PROJECT_DIR$/pages/article/_id.vue" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,117 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="_id.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="104" column="32" lean-forward="false" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="32" />
-              <folding>
-                <element signature="e#2370#2409#0" expanded="true" />
-                <element signature="e#2756#3486#0" expanded="false" />
-                <element signature="e#5873#5992#0" expanded="false" />
-                <element signature="e#6018#7367#0" expanded="false" />
-                <element signature="e#6148#7228#0" expanded="false" />
-                <element signature="e#7381#7601#0" expanded="false" />
-                <element signature="e#7649#8056#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="min-editor.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/common/min-editor.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="75" column="20" lean-forward="true" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
-              <folding>
-                <element signature="e#953#992#0" expanded="true" />
-                <element signature="e#3828#5106#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="comment.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/comment.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clip.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/clip.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dropdown.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/common/dropdown/dropdown.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="77" column="34" lean-forward="false" selection-start-line="77" selection-start-column="34" selection-end-line="77" selection-end-column="34" />
-              <folding>
-                <element signature="n#script#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="public.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/scss/public.scss">
+      <file leaf-file-name="list.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/components/article/list.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="47" column="21" lean-forward="true" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/comment/item.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="109" column="14" lean-forward="false" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
-              <folding>
-                <element signature="e#1157#1194#0" expanded="true" />
-                <element signature="e#2437#2603#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="col.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/grid/col.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="85" column="18" lean-forward="false" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="row.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/grid/row.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="57" column="26" lean-forward="false" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mixins.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/scss/mixins.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="62" column="12" lean-forward="false" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="12" />
+              <caret line="44" column="6" lean-forward="true" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -217,7 +114,6 @@
         <option value="$PROJECT_DIR$/components/common/avatar/index.js" />
         <option value="$PROJECT_DIR$/components/common/avatar/avatar.vue" />
         <option value="$PROJECT_DIR$/utils/directive/focus.js" />
-        <option value="$PROJECT_DIR$/pages/index.vue" />
         <option value="$PROJECT_DIR$/middleware/change-col.js" />
         <option value="$PROJECT_DIR$/pages/auth/login.vue" />
         <option value="$PROJECT_DIR$/api/article.js" />
@@ -235,8 +131,6 @@
         <option value="$PROJECT_DIR$/assets/css/katex/katex.css" />
         <option value="$PROJECT_DIR$/utils/markdown/markdown.js" />
         <option value="$PROJECT_DIR$/components/article/item.vue" />
-        <option value="$PROJECT_DIR$/components/article/list.vue" />
-        <option value="$PROJECT_DIR$/components/comment/list.vue" />
         <option value="$PROJECT_DIR$/components/common/carousel/carousel.vue" />
         <option value="$PROJECT_DIR$/components/common/dropdown/dropdown.vue" />
         <option value="$PROJECT_DIR$/components/common/dropdown/dropdown-item.vue" />
@@ -245,7 +139,6 @@
         <option value="$PROJECT_DIR$/assets/scss/markdown.scss" />
         <option value="$PROJECT_DIR$/components/layout/aside.vue" />
         <option value="$PROJECT_DIR$/assets/scss/variables.scss" />
-        <option value="$PROJECT_DIR$/components/comment/item.vue" />
         <option value="$PROJECT_DIR$/components/layout/header.vue" />
         <option value="$PROJECT_DIR$/assets/scss/mixins.scss" />
         <option value="$PROJECT_DIR$/components/grid/col.vue" />
@@ -253,9 +146,13 @@
         <option value="$PROJECT_DIR$/components/grid/row.vue" />
         <option value="$PROJECT_DIR$/utils/clip.js" />
         <option value="$PROJECT_DIR$/assets/scss/public.scss" />
-        <option value="$PROJECT_DIR$/components/common/min-editor.vue" />
         <option value="$PROJECT_DIR$/api/comment.js" />
+        <option value="$PROJECT_DIR$/pages/index.vue" />
         <option value="$PROJECT_DIR$/pages/article/_id.vue" />
+        <option value="$PROJECT_DIR$/components/common/min-editor.vue" />
+        <option value="$PROJECT_DIR$/components/comment/item.vue" />
+        <option value="$PROJECT_DIR$/components/comment/list.vue" />
+        <option value="$PROJECT_DIR$/components/article/list.vue" />
       </list>
     </option>
   </component>
@@ -275,8 +172,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="38" />
-    <option name="y" value="413" />
+    <option name="x" value="680" />
+    <option name="y" value="12" />
     <option name="width" value="1564" />
     <option name="height" value="874" />
   </component>
@@ -327,6 +224,12 @@
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="article" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
@@ -573,7 +476,7 @@
       <workItem from="1513432629979" duration="3490000" />
       <workItem from="1513557017861" duration="67412000" />
       <workItem from="1513693010262" duration="23669000" />
-      <workItem from="1513761672550" duration="60692000" />
+      <workItem from="1513761672550" duration="65232000" />
     </task>
     <task id="LOCAL-00001" summary="修复文章编辑界面的样式问题">
       <created>1511256819400</created>
@@ -834,14 +737,22 @@
       <option name="project" value="LOCAL" />
       <updated>1513952744738</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="完成评论功能">
+      <created>1513956497977</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1513956497977</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="396769000" />
+    <option name="totallyTimeSpent" value="401309000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="38" y="413" width="1564" height="874" extended-state="0" />
+    <frame x="680" y="12" width="1564" height="874" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -852,7 +763,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294412" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40204677" sideWeight="0.4937448" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32748538" sideWeight="0.49422634" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32748538" sideWeight="0.49422634" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.211126" sideWeight="0.49253732" order="0" side_tool="false" content_ui="combo" />
@@ -907,7 +818,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="修复bug，完成首页" />
     <MESSAGE value="正在开发关于页" />
     <MESSAGE value="重构api" />
     <MESSAGE value="优化" />
@@ -932,7 +842,8 @@
     <MESSAGE value="修复row布局宽度偏小的问题" />
     <MESSAGE value="正在制作迷你编辑器" />
     <MESSAGE value="完成迷你编辑器" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成迷你编辑器" />
+    <MESSAGE value="完成评论功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成评论功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -941,14 +852,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/store/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="28" lean-forward="false" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/change-col-page.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1178,22 +1081,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/article/list.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/comment/list.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="25" column="31" lean-forward="false" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/common/avatar/avatar.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -1312,17 +1199,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/comment/item.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="109" column="14" lean-forward="false" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
-          <folding>
-            <element signature="e#1157#1194#0" expanded="true" />
-            <element signature="e#2437#2603#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/clip.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1349,38 +1225,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/common/min-editor.vue">
+    <entry file="file://$PROJECT_DIR$/pages/index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="75" column="20" lean-forward="true" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
+        <state relative-caret-position="119">
+          <caret line="7" column="52" lean-forward="true" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
           <folding>
-            <element signature="e#953#992#0" expanded="true" />
-            <element signature="e#3828#5106#0" expanded="false" />
+            <element signature="n#script#0;n#!!top" expanded="false" />
+            <element signature="e#2274#2817#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="52" column="60" lean-forward="false" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="60" />
+          <folding>
+            <element signature="e#2435#2474#0" expanded="false" />
+            <element signature="e#2918#3740#0" expanded="false" />
+            <element signature="e#6918#7037#0" expanded="false" />
+            <element signature="e#7063#8412#0" expanded="false" />
+            <element signature="e#7193#8273#0" expanded="false" />
+            <element signature="e#8426#8646#0" expanded="false" />
+            <element signature="e#8694#9101#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/comment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
+        <state relative-caret-position="459">
           <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
+    <entry file="file://$PROJECT_DIR$/components/common/min-editor.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="104" column="32" lean-forward="false" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="32" />
+        <state relative-caret-position="170">
+          <caret line="88" column="8" lean-forward="true" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
           <folding>
-            <element signature="e#2370#2409#0" expanded="true" />
-            <element signature="e#2756#3486#0" expanded="false" />
-            <element signature="e#5873#5992#0" expanded="false" />
-            <element signature="e#6018#7367#0" expanded="false" />
-            <element signature="e#6148#7228#0" expanded="false" />
-            <element signature="e#7381#7601#0" expanded="false" />
-            <element signature="e#7649#8056#0" expanded="false" />
+            <element signature="e#953#992#0" expanded="true" />
+            <element signature="e#4089#5367#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/comment/item.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="71" column="51" lean-forward="true" selection-start-line="71" selection-start-column="51" selection-end-line="71" selection-end-column="51" />
+          <folding>
+            <element signature="e#1157#1194#0" expanded="true" />
+            <element signature="e#2488#2654#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/comment/list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding>
+            <element signature="n#script#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/article/list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="44" column="6" lean-forward="true" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>

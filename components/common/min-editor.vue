@@ -35,14 +35,17 @@
       imageUpload: {
         type: Function,
         default: () => {
-          return new Promise()
+          return new Promise((resolve) => {
+            resolve()
+          })
         }
-      }
+      },
+      value: ''
     },
     data () {
       return {
         showEmoji: false,
-        content: '',
+        content: this.value,
         emojis: [
           ':(', ':")', '</3', ':/', ':,(', ':(', '<3', ']:(',
           'o:)', ':\'D', ':*', 'x-)', ':|', ':o', ':@', ':D',
@@ -66,6 +69,14 @@
         return markdown(this.content)
       }
     },
+    watch: {
+      value (val) {
+        this.content = val
+      },
+      content (val) {
+        this.$emit('input', val)
+      }
+    },
     methods: {
       submit () {
         this.$emit('submit', this.content)
@@ -77,8 +88,10 @@
         this.insert('```lang\n\n\n```', 3, 7)
       },
       inputImage (e) {
-        const files = (e.target || e.srcElement).files
+        const ele = (e.target || e.srcElement)
+        const files = ele.files
         this.imageUpload(files).then(url => {
+          ele.value = ''
           this.insert(`![name](${url})`, 2, 6)
         }).catch(() => {})
       },
@@ -174,6 +187,13 @@
             z-index: -1;
             width: 0;
             height: 0;
+            margin: 0;
+            padding: 0;
+            top: 0;
+            left: 0;
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
     }
 </style>

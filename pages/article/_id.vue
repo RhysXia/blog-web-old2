@@ -50,11 +50,11 @@
                     .left
                         c-avatar(:imgUrl="user.avatar")
                     .right
-                        c-min-editor(:imageUpload="commentImageUpload",@submit="commentSubmit")
+                        c-min-editor(v-model="commentContent",:imageUpload="commentImageUpload",@submit="commentSubmit")
                 template(v-if="!commentCount")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
-                    c-comment-list(:comments="comments")
+                    c-comment-list(:comments="comments",:hasMore="hasMore",:loadMore="loadMore")
 </template>
 <script>
   import markdown from '~/utils/markdown'
@@ -71,7 +71,16 @@
         title: this.article.title
       }
     },
+    data () {
+      return {
+        commentContent: '',
+        isLoading: false
+      }
+    },
     computed: {
+      hasMore () {
+        return this.commentCount > this.pageNum * this.pageSize
+      },
       user () {
         return this.$store.state.user
       },
@@ -98,27 +107,48 @@
       }
     },
     methods: {
-      commentSubmit (content) {
+      async loadMore () {
         const articleId = this.article.id
-        this.$api.comment.add({
+        this.pageNum += 1
+        return this.$api.comment.getAllByArticleId({
+          articleId,
+          pageSize: this.pageSize,
+          pageNum: this.pageNum,
+          sorts: 'floorNum DESC'
+        }).then(data => {
+          data.data.forEach(item => {
+            this.comments.push(item)
+          })
+          this.$api.comment.getCountByArticleId(articleId).then(data => {
+            this.commentCount = data.data
+          }).catch(() => {})
+        }).catch(() => {})
+      },
+      commentSubmit (content) {
+        this.pageNum = 1
+        const articleId = this.article.id
+        return this.$api.comment.add({
           content,
           contentType: 'MARKDOWN',
           articleId
         }).then(data => {
+          this.commentContent = ''
           this.$api.comment.getAllByArticleId({
             articleId,
             pageSize: this.pageSize,
-            pageNum: 1,
+            pageNum: this.pageNum,
             sorts: 'floorNum DESC'
           }).then(data => {
             this.comments = data.data
+            this.$api.comment.getCountByArticleId(articleId).then(data => {
+              this.commentCount = data.data
+            }).catch(() => {})
           }).catch(() => {})
         })
       },
       commentImageUpload (files) {
         return new Promise((resolve, reject) => {
           if (files.length === 0) {
-
             return reject(new Error('没有选择文件'))
           }
           const formDate = new FormData()
@@ -145,7 +175,7 @@
         commentCount: 0,
         comments: [],
         pageNum: 1,
-        pageSize: 10
+        pageSize: 5
       }
       const id = route.params.id
       await store.$api.article.getById(id).then(data => {

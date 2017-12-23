@@ -1,6 +1,7 @@
 <template lang="pug">
     .c-article-list-container
-        item(v-for="(article,index) in articles",:key="index",:article="article")
+        transition-group(name="list",tag="div")
+            item.item(v-for="(article,index) in articles",:key="index",:article="article")
         .action.has-more(v-if="hasMore&&!isLoading",@click="loadClick") 加载更多
         .action.loading(v-else-if="isLoading") 正在加载
         .action.no-more(v-else) 已经到底了
@@ -53,11 +54,22 @@
     @import "~assets/scss/mixins";
 
     .c-article-list-container {
-        > * {
+        .item{
             margin-bottom: 1em;
-            &:last-child {
-                margin-bottom: 0;
-            }
+        }
+        .list-enter-active,
+        .list-leave-active {
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+        .list-enter,
+        .list-leave-to {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        .list-enter-to,
+        .list-leave {
+            opacity: 1;
+            transform: translateX(0);
         }
         .action {
             background-color: $color-background;
