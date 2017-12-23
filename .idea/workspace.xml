@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcd18d12-8d33-45ae-a8a4-7f4fa1c09320" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/utils/mixins/load-more.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/api/article.js" afterPath="$PROJECT_DIR$/api/article.js" />
-      <change beforePath="$PROJECT_DIR$/components/comment/item.vue" afterPath="$PROJECT_DIR$/components/comment/item.vue" />
-      <change beforePath="$PROJECT_DIR$/pages/article/_id.vue" afterPath="$PROJECT_DIR$/pages/article/_id.vue" />
+      <change beforePath="$PROJECT_DIR$/assets/scss/markdown.scss" afterPath="$PROJECT_DIR$/assets/scss/markdown.scss" />
+      <change beforePath="$PROJECT_DIR$/utils/markdown/markdown.js" afterPath="$PROJECT_DIR$/utils/markdown/markdown.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,38 +17,7 @@
     <favorites_list name="blog-web" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="_id.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="218" column="12" lean-forward="true" selection-start-line="218" selection-start-column="12" selection-end-line="218" selection-end-column="12" />
-              <folding>
-                <element signature="e#3204#3248#0" expanded="false" />
-                <element signature="e#3262#3326#0" expanded="false" />
-                <element signature="e#3494#4316#0" expanded="false" />
-                <element signature="e#4331#7602#0" expanded="false" />
-                <element signature="e#7838#8713#0" expanded="false" />
-                <element signature="e#9377#9496#0" expanded="false" />
-                <element signature="e#9652#10732#0" expanded="false" />
-                <element signature="e#11225#11445#0" expanded="false" />
-                <element signature="e#11493#11900#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="article.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/article.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -146,14 +113,12 @@
         <option value="$PROJECT_DIR$/assets/css/katex.css" />
         <option value="$PROJECT_DIR$/nuxt.config.js" />
         <option value="$PROJECT_DIR$/assets/css/katex/katex.css" />
-        <option value="$PROJECT_DIR$/utils/markdown/markdown.js" />
         <option value="$PROJECT_DIR$/components/article/item.vue" />
         <option value="$PROJECT_DIR$/components/common/carousel/carousel.vue" />
         <option value="$PROJECT_DIR$/components/common/dropdown/dropdown.vue" />
         <option value="$PROJECT_DIR$/components/common/dropdown/dropdown-item.vue" />
         <option value="$PROJECT_DIR$/components/common/dropdown/dropdown-menu.vue" />
         <option value="$PROJECT_DIR$/components/common/panel.vue" />
-        <option value="$PROJECT_DIR$/assets/scss/markdown.scss" />
         <option value="$PROJECT_DIR$/components/layout/aside.vue" />
         <option value="$PROJECT_DIR$/assets/scss/variables.scss" />
         <option value="$PROJECT_DIR$/components/layout/header.vue" />
@@ -172,6 +137,8 @@
         <option value="$PROJECT_DIR$/utils/mixins/load-more.js" />
         <option value="$PROJECT_DIR$/api/article.js" />
         <option value="$PROJECT_DIR$/pages/article/_id.vue" />
+        <option value="$PROJECT_DIR$/utils/markdown/markdown.js" />
+        <option value="$PROJECT_DIR$/assets/scss/markdown.scss" />
       </list>
     </option>
   </component>
@@ -191,9 +158,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="838" />
-    <option name="y" value="61" />
-    <option name="width" value="1564" />
+    <option name="x" value="672" />
+    <option name="y" value="113" />
+    <option name="width" value="1316" />
     <option name="height" value="874" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -226,7 +193,13 @@
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="scss" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
@@ -305,6 +278,12 @@
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="blog-web" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blog-web" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="markdown" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blog-web" type="b2602c69:ProjectViewProjectNode" />
@@ -490,7 +469,7 @@
       <workItem from="1513432629979" duration="3490000" />
       <workItem from="1513557017861" duration="67412000" />
       <workItem from="1513693010262" duration="23669000" />
-      <workItem from="1513761672550" duration="73143000" />
+      <workItem from="1513761672550" duration="73969000" />
     </task>
     <task id="LOCAL-00001" summary="修复文章编辑界面的样式问题">
       <created>1511256819400</created>
@@ -772,15 +751,21 @@
       <option name="project" value="LOCAL" />
       <updated>1514006093649</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="完成文章详情页">
+      <created>1514010635537</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1514010635537</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="409220000" />
+    <option name="totallyTimeSpent" value="410046000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="838" y="61" width="1564" height="874" extended-state="0" />
-    <editor active="true" />
+    <frame x="672" y="113" width="1316" height="874" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -794,7 +779,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32796487" sideWeight="0.49422634" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.211126" sideWeight="0.49253732" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25321543" sideWeight="0.49253732" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -846,8 +831,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="正在开发关于页" />
-    <MESSAGE value="重构api" />
     <MESSAGE value="row" />
     <MESSAGE value="完成row col header" />
     <MESSAGE value="完成整体布局" />
@@ -871,7 +854,9 @@
     <MESSAGE value="完成迷你编辑器" />
     <MESSAGE value="完成评论功能" />
     <MESSAGE value="优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化" />
+    <MESSAGE value="完成文章详情页" />
+    <MESSAGE value="使markdown中的checkbox无法点击" />
+    <option name="LAST_COMMIT_MESSAGE" value="使markdown中的checkbox无法点击" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1022,14 +1007,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it-checkbox@1.1.0@markdown-it-checkbox/index.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -1069,19 +1046,6 @@
         <state relative-caret-position="136">
           <caret line="122" column="27" lean-forward="false" selection-start-line="122" selection-start-column="27" selection-end-line="122" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/markdown/markdown.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="71" column="1" lean-forward="true" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-            <marker date="1513841758004" expanded="true" signature="1133:1405" ph="..." />
-            <marker date="1513841758004" expanded="true" signature="1256:1390" ph="..." />
-            <marker date="1513841758004" expanded="true" signature="2291:4475" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1129,14 +1093,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="27" lean-forward="false" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/scss/markdown.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="80" column="18" lean-forward="true" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1302,14 +1258,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/article.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/article/_id.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -1325,6 +1273,41 @@
             <element signature="e#11225#11445#0" expanded="false" />
             <element signature="e#11493#11900#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_markdown-it-checkbox@1.1.0@markdown-it-checkbox/index.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="38" column="20" lean-forward="true" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/article.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/markdown/markdown.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="3" column="43" lean-forward="false" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
+          <folding>
+            <marker date="1514011246985" expanded="true" signature="1134:1406" ph="..." />
+            <marker date="1514011246985" expanded="true" signature="1257:1391" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/scss/markdown.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="108" column="9" lean-forward="false" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

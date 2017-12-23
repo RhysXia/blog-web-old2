@@ -106,4 +106,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  // 禁止点击
+  pointer-events: none;
+  input[type='checkbox']{
+
+  }
 }

@@ -18,11 +18,12 @@ const md = new MarkdownIt({
 }).use(emojiPlugin)
   .use(checkboxPlugin, {
     divWrap: true,
-    divClass: 'md-checkbox'
+    divClass: 'md-checkbox',
+
   })
   .use(katexPlugin, {
     throwOnError: false,
-    errorColor: '#F56C6C',
+    errorColor: '#F56C6C'
   })
 
 // 代码解析
