@@ -34,19 +34,15 @@
 <script>
   import Avatar from '../common/avatar'
   import markdown from '~/utils/markdown'
+  import loadMoreMixins from '~/utils/mixins/load-more'
 
   export default {
     name: 'comment-item',
+    mixins: [loadMoreMixins],
     props: {
       comment: {
         type: Object,
         default: () => {}
-      }
-    },
-    data () {
-      return {
-        contentHidden: false,
-        isOpen: false
       }
     },
     computed: {
@@ -63,36 +59,7 @@
         } else {
           return content
         }
-      },
-      contentStyles () {
-        if (this.isOpen) {
-          return {}
-        } else {
-          return {
-            overflow: 'hidden',
-            height: '8em'
-          }
-        }
       }
-    },
-    methods: {
-      open () {
-        this.isOpen = !this.isOpen
-      },
-      checkOverflow () {
-        const content = this.$refs.content
-        this.contentHidden = content.scrollHeight > content.clientHeight
-      }
-    },
-    mounted () {
-      this.checkOverflow()
-      window.addEventListener('resize', this.checkOverflow)
-    },
-    updated () {
-      this.checkOverflow()
-    },
-    beforeDestroy () {
-      window.removeEventListener('resize', this.checkOverflow)
     },
     components: {
       Avatar

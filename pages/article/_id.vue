@@ -33,11 +33,18 @@
                         i.fa.fa-list
                         nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
             .body
-                .content(v-html="content")
+                .content(:style="contentStyles",ref="content",v-html="content")
+            button.more(v-show="contentHidden || isOpen",@click="isOpen=!isOpen")
+                template(v-if="isOpen")
+                    i.fa.fa-arrow-up
+                    | 关闭显示全部
+                template(v-else)
+                    i.fa.fa-arrow-down
+                    | 显示全部
             .footer
-                button.btn.link
+                button.btn.link(v-if="isLogin",@click="voteClick")
                     i.fa.fa-hand-pointer-o
-                    | 点赞一下
+                    | {{isVoted?'取消点赞':'点赞一下'}}
         .comment-wrapper
             .header
                 h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
@@ -61,8 +68,10 @@
   import CCommentList from '~/components/comment/list'
   import CAvatar from '~/components/common/avatar'
   import CMinEditor from '~/components/common/min-editor'
+  import loadMoreMixins from '~/utils/mixins/load-more'
 
   export default {
+    mixins: [loadMoreMixins],
     validate ({params}) {
       return /^\d+$/.test(params.id)
     },
@@ -74,7 +83,9 @@
     data () {
       return {
         commentContent: '',
-        isLoading: false
+        isLoading: false,
+        hiddenHeight: '50rem',
+        isVoted: false
       }
     },
     computed: {
@@ -107,6 +118,20 @@
       }
     },
     methods: {
+      voteClick () {
+        const id = this.article.id
+        if (this.isVoted) {
+          this.$api.article.deleteVote(id).then(data => {
+            this.isVoted = false
+            this.article.likeCount--
+          })
+        } else {
+          this.$api.article.addVote(id).then(data => {
+            this.isVoted = true
+            this.article.likeCount++
+          })
+        }
+      },
       itemDelete (index) {
         const articleId = this.article.id
         this.$api.comment.deleteById(this.comments[index].id).then(data => {
@@ -191,7 +216,18 @@
         this.$store.commit('showAside', flag)
       }
     },
+    watch: {
+      isLogin (val) {
+        if (val) {
+          this.$api.article.isVoted(this.article.id).then(data => {
+            this.isVoted = data.data
+          })
+        }
+      }
+    },
     async asyncData ({route, store}) {
+      const id = route.params.id
+
       const result = {
         article: {},
         commentCount: 0,
@@ -199,7 +235,7 @@
         pageNum: 1,
         pageSize: 5
       }
-      const id = route.params.id
+
       await store.$api.article.getById(id).then(data => {
         result.article = data.data
       }).catch(() => {})
@@ -221,6 +257,14 @@
       }
       return result
     },
+    mounted () {
+      const isLogin = this.isLogin
+      if (isLogin) {
+        this.$api.article.isVoted(this.article.id).then(data => {
+          this.isVoted = data.data
+        })
+      }
+    },
     components: {
       CCommentList,
       CAvatar,
@@ -231,6 +275,18 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
+
+    @keyframes move {
+        0% {
+            transform: translateY(0.5rem);
+        }
+        50% {
+            transform: translateY(-0.5rem);
+        }
+        100% {
+            transform: translateY(0.5rem);
+        }
+    }
 
     .article-id-container {
         > * {
@@ -275,6 +331,16 @@
                     }
 
                 }
+            }
+            .more {
+                margin: 1.5rem 0;
+                width: 100%;
+                background-color: $color-info;
+                color: $color-text-white;
+                &:hover {
+                    background-color: color-active($color-info);
+                }
+                animation: move 2s infinite;
             }
             .footer {
                 border-top: 1px solid $color-border-base;
@@ -335,6 +401,7 @@
                     background-color: $color-background;
 
                 }
+
             }
         }
     }

@@ -17,5 +17,16 @@ export default http => {
   article.getById = id => {
     return http.get(`/articles/${id}`)
   }
+
+  article.isVoted = articleId => {
+    return http.get(`/articles/${articleId}/isVote`)
+  }
+
+  article.addVote = articleId => {
+    return http.post(`/articles/${articleId}/votes`)
+  }
+  article.deleteVote = articleId => {
+    return http.delete(`/articles/${articleId}/votes`)
+  }
   return article
 }
