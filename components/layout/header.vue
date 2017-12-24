@@ -19,7 +19,6 @@
                                     nuxt-link(to="/user/write") 写文章
 
                         button.btn(@click="logout") 注销
-        c-message
 </template>
 <script>
   import { CDropdown, CDropdownItem, CDropdownMenu } from '~/components/common/dropdown'
