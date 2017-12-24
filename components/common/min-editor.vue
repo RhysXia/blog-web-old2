@@ -1,22 +1,22 @@
 <template lang="pug">
     .c-min-editor-container
         textarea.editor(v-model="content",ref="textarea")
-        transition(name="preview-slide")
+        transition(name="preview-slide",mode="out-in")
             .preview(v-html="markdownContent",v-if="preview")
         .actions
-            button(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
+            span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
+                i.fa.fa-smile-o
                 .emoji-list(v-show="showEmoji")
                     span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
-                i.fa.fa-smile-o
-            button(@click="$refs.upload.click()")
+            span(@click="$refs.upload.click()")
                 i.fa.fa-image
-            button(@click="inputLink")
+            span(@click="inputLink")
                 i.fa.fa-link
-            button(@click="inputCode")
+            span(@click="inputCode")
                 i.fa.fa-code
-            button(@click="preview=!preview")
+            span(@click="preview=!preview")
                 i.fa.fa-eye
-            button.right(@click="submit") {{submitName}}
+            span.right(@click="submit") {{submitName}}
         input.upload(type="file",ref="upload",@change="inputImage")
 
 </template>
@@ -145,13 +145,15 @@
         }
         @include slide(preview-slide, bottom);
         .actions {
+            position: relative;
             border-top: 1px solid $color-border-base;
             background-color: rgba(225, 225, 255, 0.5);
-            position: relative;
-            button {
+            span {
+                display: inline-block;
                 background-color: transparent;
                 border-radius: 0;
                 padding: 0.25em 0.5em;
+                cursor: pointer;
                 &:hover {
                     background-color: rgba(225, 225, 255, 0.8);
                 }
@@ -176,6 +178,7 @@
                 > * {
                     float: left;
                     padding: 0.25em;
+                    cursor: pointer;
                     &:hover {
                         background-color: $color-background;
                     }
@@ -191,6 +194,7 @@
             padding: 0;
             top: 0;
             left: 0;
+            transform: scale(0);
             background-color: transparent;
             border: none;
             outline: none;

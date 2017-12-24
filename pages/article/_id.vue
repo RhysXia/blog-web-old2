@@ -33,14 +33,8 @@
                         i.fa.fa-list
                         nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
             .body
-                .content(:style="contentStyles",ref="content",v-html="content")
-            button.more(v-show="contentHidden || isOpen",@click="isOpen=!isOpen")
-                template(v-if="isOpen")
-                    i.fa.fa-arrow-up
-                    | 关闭显示全部
-                template(v-else)
-                    i.fa.fa-arrow-down
-                    | 显示全部
+                c-show-more(:hiddenHeight="500")
+                    .content(v-html="content")
             .footer
                 button.btn.link(v-if="isLogin",@click="voteClick")
                     i.fa.fa-hand-pointer-o
@@ -68,10 +62,9 @@
   import CCommentList from '~/components/comment/list'
   import CAvatar from '~/components/common/avatar'
   import CMinEditor from '~/components/common/min-editor'
-  import loadMoreMixins from '~/utils/mixins/load-more'
+  import CShowMore from '~/components/common/show-more'
 
   export default {
-    mixins: [loadMoreMixins],
     validate ({params}) {
       return /^\d+$/.test(params.id)
     },
@@ -84,7 +77,6 @@
       return {
         commentContent: '',
         isLoading: false,
-        hiddenHeight: '50rem',
         isVoted: false
       }
     },
@@ -268,28 +260,14 @@
     components: {
       CCommentList,
       CAvatar,
-      CMinEditor
+      CMinEditor,
+      CShowMore
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
-
-    @keyframes move {
-        0% {
-            transform: translateY(0.5rem);
-            opacity: 1;
-        }
-        50% {
-            transform: translateY(-0.5rem);
-            opacity: 0.75;
-        }
-        100% {
-            transform: translateY(0.5rem);
-            opacity: 1;
-        }
-    }
 
     .article-id-container {
         > * {
@@ -335,15 +313,7 @@
 
                 }
             }
-            .more {
-                margin: 1.5rem 0;
-                width: 100%;
-                background-color: $color-info;
-                color: $color-text-white;
-                &:hover {
-                    background-color: color-active($color-info);
-                }
-                animation: move 2s infinite;
+            .body {
             }
             .footer {
                 border-top: 1px solid $color-border-base;

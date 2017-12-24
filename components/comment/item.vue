@@ -9,7 +9,8 @@
                 span.info.light {{comment.author.info}}
                 b.floor.light \#{{comment.floorNum}}
             .middle
-                .content(:style="contentStyles",ref="content",v-html="content")
+                show-more(:hiddenHeight="100")
+                    .content(v-html="content")
             .bottom.light
                 span
                     i.fa.fa-clock-o
@@ -23,22 +24,14 @@
                 button.delete(@click="$emit('item-delete')",v-if="isLogin && user.id===comment.author.id")
                     i.fa.fa-remove
                     | 删除
-            button.more(v-show="contentHidden || isOpen",@click="isOpen=!isOpen")
-                template(v-if="isOpen")
-                    i.fa.fa-arrow-up
-                    | 关闭显示全部
-                template(v-else)
-                    i.fa.fa-arrow-down
-                    | 显示全部
 </template>
 <script>
   import Avatar from '../common/avatar'
   import markdown from '~/utils/markdown'
-  import loadMoreMixins from '~/utils/mixins/load-more'
+  import ShowMore from '../common/show-more'
 
   export default {
     name: 'comment-item',
-    mixins: [loadMoreMixins],
     props: {
       comment: {
         type: Object,
@@ -62,25 +55,14 @@
       }
     },
     components: {
-      Avatar
+      Avatar,
+      ShowMore
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
 
-    @keyframes move {
-        0% {
-            bottom: 0;
-        }
-        50% {
-            bottom: 1em;
-        }
-        100% {
-            bottom: 0;
-        }
-    }
 
     .c-comment-item-container {
         background-color: $color-background;
@@ -140,15 +122,6 @@
                     &:hover {
                         color: color-active($color-danger);
                     }
-                }
-            }
-            .more {
-                margin-top: 0.5em;
-                width: 100%;
-                background-color: $color-info;
-                color: $color-text-white;
-                &:hover {
-                    background-color: color-active($color-info);
                 }
             }
             .light {
