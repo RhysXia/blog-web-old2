@@ -54,15 +54,17 @@
       this.checkOverflow()
       // TODO: 不知道怎么优化
       // 设置定时器，一段时间后再次检查，因为有些图片加载需要时间
-      setTimeout(this.checkOverflow, 2000)
+      this._timer = setTimeout(this.checkOverflow, 2000)
       window.addEventListener('resize', this.checkOverflow)
     },
     updated () {
+      clearTimeout(this._timer)
       this.checkOverflow()
       // 设置定时器，一段时间后再次检查，因为有些图片加载需要时间
-      setTimeout(this.checkOverflow, 2000)
+      this._timer = setTimeout(this.checkOverflow, 2000)
     },
     beforeDestroy () {
+      clearTimeout(this._timer)
       window.addEventListener('resize', this.checkOverflow)
     }
   }

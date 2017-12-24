@@ -46,13 +46,20 @@ module.exports = {
   ],
   build: {
     extractCSS: true,
+    babel: {
+      presets: ['es2015', 'stage-2'],
+      plugins: [
+        'transform-async-to-generator',
+        'transform-runtime'
+      ]
+    },
     extend (webpackConfig, {isDev, isClient, isServer}) {
     }
   },
   router: {
-    scrollBehavior (to, from, savedPosition) {
-      return {x: 0, y: 0}
-    },
+    // scrollBehavior (to, from, savedPosition) {
+    //   return {x: 0, y: 0}
+    // },
     middleware: [
       'change-col-page'
     ]

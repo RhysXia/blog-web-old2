@@ -99,6 +99,10 @@ module.exports = {
   plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', { src: '~/plugins/token', ssr: false }, { src: '~/plugins/offline', ssr: false }],
   build: {
     extractCSS: true,
+    babel: {
+      presets: ['es2015', 'stage-2'],
+      plugins: ['transform-async-to-generator', 'transform-runtime']
+    },
     extend: function extend(webpackConfig, _ref) {
       var isDev = _ref.isDev,
           isClient = _ref.isClient,
@@ -106,10 +110,9 @@ module.exports = {
     }
   },
   router: {
-    scrollBehavior: function scrollBehavior(to, from, savedPosition) {
-      return { x: 0, y: 0 };
-    },
-
+    // scrollBehavior (to, from, savedPosition) {
+    //   return {x: 0, y: 0}
+    // },
     middleware: ['change-col-page']
   }
 };
