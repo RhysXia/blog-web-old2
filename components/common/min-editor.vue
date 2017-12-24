@@ -93,7 +93,9 @@
         this.imageUpload(files).then(url => {
           ele.value = ''
           this.insert(`![name](${url})`, 2, 6)
-        }).catch(() => {})
+        }).catch(() => {
+          ele.value = ''
+        })
       },
       inputLink () {
         this.insert('[name](http://)', 1, 5)
