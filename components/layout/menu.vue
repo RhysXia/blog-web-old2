@@ -5,6 +5,10 @@
                 i.fa.fa-home
                 | HOME
         li
+            nuxt-link(to="/code")
+                i.fa.fa-code
+                | CODE
+        li
             nuxt-link(to="/about")
                 i.fa.fa-user
                 | ABOUT

@@ -1,5 +1,6 @@
 <template lang="pug">
     .layout-container(v-cloak)
+        back-top(:bottom="10",:right="20")
         c-header
         c-row.layout-main(type="flex",align="middle",justify="center")
             c-col(:span="20")
@@ -20,6 +21,8 @@
   import CMenu from '~/components/layout/menu'
   import CFooter from '~/components/layout/footer'
   import CAside from '~/components/layout/aside'
+  import CBackTop from '~/components/common/back-top'
+  import BackTop from '../components/common/back-top'
 
   export default {
     computed: {
@@ -63,10 +66,12 @@
       this.tabChange()
     },
     components: {
+      BackTop,
       CHeader,
       CFooter,
       CMenu,
-      CAside
+      CAside,
+      CBackTop
     }
   }
 </script>
@@ -85,7 +90,7 @@
             transform: translateX(-100%);
             opacity: 0;
         }
-        .menu-leave-active{
+        .menu-leave-active {
             position: absolute;
             left: 0;
         }
