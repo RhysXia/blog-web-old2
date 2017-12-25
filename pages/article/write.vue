@@ -4,47 +4,54 @@
         c-row.article-write-container
             c-col(:span="16",:offset="4")
                 .image-wrapper(@click="$refs.file.click()")
-                    img.image(v-if="poster",:src="poster")
+                    img.image(v-if="article.poster",:src="article.poster")
                     .image.anon(v-else)
                         i.fa.fa-camera
                     input.file-upload(ref="file",type="file",@change="upload")
+                .title-wrapper
+                    input.title(v-model="article.title",type="text",placeholder="请输入标题")
+                .category-wrapper
+
 
 </template>
-
 <script>
-  export default {
-    name: 'article-write',
-    data () {
-      return {
-        poster: ''
-      }
-    },
-    methods: {
-      upload (e) {
-        const ele = (e.target || e.srcElement)
-        const files = ele.files
-        if (files.length > 0) {
-          const formData = new FormData()
-          formData.append('image', files[0])
-          this.$api.article.uploadImage(formData).then(data => {
-            this.poster = data.data
-          }).catch(() => {})
+    export default {
+        name: 'article-write',
+        data() {
+            return {
+                article: {
+                    poster: '',
+                    title: ''
+                }
+            }
+        },
+        methods: {
+            upload(e) {
+                const ele = (e.target || e.srcElement)
+                const files = ele.files
+                if (files.length > 0) {
+                    const formData = new FormData()
+                    formData.append('image', files[0])
+                    this.$api.article.uploadImage(formData).then(data => {
+                        this.article.poster = data.data
+                    }).catch(() => {
+                    })
+                }
+                ele.value = ''
+            }
+        },
+        computed: {
+            isLogin() {
+                return this.$store.getters.isLogin
+            }
+        },
+        mounted() {
+            // 没有登录则转到错误界面
+            if (!this.isLogin) {
+                this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
+            }
         }
-        ele.value = ''
-      }
-    },
-    computed: {
-      isLogin () {
-        return this.$store.getters.isLogin
-      }
-    },
-    mounted () {
-      // 没有登录则转到错误界面
-      if (!this.isLogin) {
-        this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
-      }
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -108,6 +115,13 @@
                     }
 
                 }
+            }
+        }
+        .title-wrapper {
+            .title {
+                width: 100%;
+                font-size: 2rem;
+                padding: 0.5rem;
             }
         }
 

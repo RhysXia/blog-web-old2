@@ -36,22 +36,25 @@
                 c-show-more(:hiddenHeight="500")
                     .content(v-html="content")
             .footer
-                button.btn.link(v-if="isLogin",@click="voteClick")
-                    i.fa.fa-hand-pointer-o
-                    | {{isVoted?'取消点赞':'点赞一下'}}
+                no-ssr
+                    button.btn.link(v-if="isLogin",@click="voteClick")
+                        i.fa.fa-hand-pointer-o
+                        | {{isVoted?'取消点赞':'点赞一下'}}
         .comment-wrapper
             .header
-                h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
+                no-ssr
+                    h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
                 span.info(v-if="commentCount")
                     | 共
                     b {{commentCount}}
                     | 条评论
             .body
-                .write(v-if="isLogin")
-                    .left
-                        c-avatar(:imgUrl="user.avatar")
-                    .right
-                        c-min-editor(v-model="commentContent",:imageUpload="commentImageUpload",@submit="commentSubmit")
+                no-ssr
+                    .write(v-if="isLogin")
+                        .left
+                            c-avatar(:imgUrl="user.avatar")
+                        .right
+                            c-min-editor(v-model="commentContent",:imageUpload="commentImageUpload",@submit="commentSubmit")
                 template(v-if="!commentCount")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
