@@ -45,12 +45,12 @@
                 return this.$store.getters.isLogin
             }
         },
-        mounted() {
+        beforeMount() {
             // 没有登录则转到错误界面
             if (!this.isLogin) {
                 this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
             }
-        }
+        },
     }
 </script>
 <style lang="scss" scoped>

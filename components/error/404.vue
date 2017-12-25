@@ -4,8 +4,7 @@
             h1.error-code {{ error.statusCode }}
             .error-wrapper-message
                 h2.error-message {{ error.message }}
-            p(v-if="error.statusCode === 404")
-                nuxt-link.error-link(to="/") 返回首页
+            nuxt-link.error-link(to="/") 返回首页
 
 </template>
 <script>
