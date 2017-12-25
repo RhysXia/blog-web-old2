@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API = require.context('~/api', false, /\.js$/)
-export default ({store}, inject) => {
+export default ({store, error}, inject) => {
   const serverURL = store.state.serverURL
   const http = axios.create({
     baseURL: serverURL,

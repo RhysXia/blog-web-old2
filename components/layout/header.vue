@@ -36,9 +36,9 @@
     },
     methods: {
       logout () {
-        this.$store.dispatch('logout').catch(err => {
-
-        })
+        this.$store.dispatch('logout').then(() => {
+          this.$router.push('/')
+        }).catch(err => {})
       }
     },
     components: {

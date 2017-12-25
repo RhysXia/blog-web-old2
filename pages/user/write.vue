@@ -30,6 +30,17 @@
         }
         ele.value = ''
       }
+    },
+    computed: {
+      isLogin () {
+        return this.$store.getters.isLogin
+      }
+    },
+    mounted () {
+      // 没有登录则转到错误界面
+      if (!this.isLogin) {
+        this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
+      }
     }
   }
 </script>
@@ -68,7 +79,10 @@
                 i {
                     position: relative;
                     font-size: 5rem;
-                    color: $color-text-light;
+                    &:before,
+                    &:after {
+                        color: $color-text-light;
+                    }
                     &:after {
                         transition: all 0.4s ease;
                         content: '';
@@ -79,7 +93,6 @@
                         left: 0;
                         right: 0;
                         text-align: center;
-                        color: $color-text;
                     }
                 }
                 &:hover {

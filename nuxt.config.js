@@ -7,7 +7,7 @@ module.exports = {
     titleTemplate: '%s | ryths.cn',
     htmlAttrs: {
       xmlns: 'http://www.w3.org/1999/xhtml',
-      lang: 'zh'
+      lang: 'zh-'
     },
     meta: [
       {charset: 'utf-8'},
@@ -45,6 +45,13 @@ module.exports = {
     {src: '~/plugins/offline', ssr: false}
   ],
   build: {
+    vendor: [
+      '~/plugins/http',
+      '~/plugins/components',
+      '~/plugins/filters',
+      '~/plugins/token',
+      '~/plugins/offline'
+    ],
     extractCSS: true,
     babel: {
       presets: ['es2015', 'stage-2'],

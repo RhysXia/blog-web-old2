@@ -41,7 +41,6 @@
         height: $article-item-height;
         background-color: $color-background;
         padding: 0.5em;
-
         .left {
             .poster {
                 width: $article-item-height * 1.1;

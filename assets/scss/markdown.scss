@@ -52,8 +52,9 @@
 }
 
 .md-blockquote {
-  padding: 0 1em;
-  margin: 0 0 1em 0;
+  display: block;
+  padding-left: 1em;
+  margin: 1em 0;
   border-left: 0.25em solid $color-border-base;
   background-color: $color-background-dark;
 }
@@ -108,7 +109,7 @@
   align-items: center;
   // 禁止点击
   pointer-events: none;
-  input[type='checkbox']{
+  input[type='checkbox'] {
 
   }
 }

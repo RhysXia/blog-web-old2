@@ -217,7 +217,7 @@
         }
       }
     },
-    async asyncData ({route, store}) {
+    async asyncData ({route, store, error}) {
       const id = route.params.id
 
       const result = {
@@ -230,7 +230,13 @@
 
       await store.$api.article.getById(id).then(data => {
         result.article = data.data
-      }).catch(() => {})
+      }).catch(err => {
+        let statusCode = 500
+        if (err.response) {
+          statusCode = err.response.status
+        }
+        error({statusCode: statusCode, message: err.data.message})
+      })
       const articleId = result.article.id
       if (articleId) {
         await store.$api.comment.getCountByArticleId(articleId).then(data => {
