@@ -1,17 +1,19 @@
 <template lang="pug">
-    c-row.user-write-container
-        c-col(:span="16",:offset="4")
-            .image-wrapper(@click="$refs.file.click()")
-                img.image(v-if="poster",:src="poster")
-                .image.anon(v-else)
-                    i.fa.fa-camera
-                input.file-upload(ref="file",type="file",@change="upload")
+    // 写作界面没有必要在服务器端渲染
+    no-ssr
+        c-row.article-write-container
+            c-col(:span="16",:offset="4")
+                .image-wrapper(@click="$refs.file.click()")
+                    img.image(v-if="poster",:src="poster")
+                    .image.anon(v-else)
+                        i.fa.fa-camera
+                    input.file-upload(ref="file",type="file",@change="upload")
 
 </template>
 
 <script>
   export default {
-    name: 'user-write',
+    name: 'article-write',
     data () {
       return {
         poster: ''
@@ -50,7 +52,7 @@
 
     $height-poster: 12rem;
 
-    .user-write-container {
+    .article-write-container {
         .image-wrapper {
             position: relative;
             .file-upload {
