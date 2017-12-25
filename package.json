@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "babel-preset-stage-2": "^6.24.1",
     "backpack-core": "^0.3.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
