@@ -1,6 +1,6 @@
 <template lang="pug">
-    c-row.c-header-container(type="flex",align="middle",justify="center")
-        c-col(:span="20")
+    c-row.c-header-container
+        c-col(:span="20",:offset="2")
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
                     nuxt-link(to="/")
@@ -61,9 +61,6 @@
         background-color: $color-background;
         height: $height-header;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
         .logo {
             font-size: 1.4rem;
             color: $color-primary;

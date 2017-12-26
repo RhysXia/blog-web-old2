@@ -12,16 +12,22 @@
                     input.title(v-model="article.title",type="text",placeholder="请输入标题")
                 .category-wrapper
 
+                .editor-wrapper
+                    c-editor(v-model="article.content")
+
 
 </template>
 <script>
+    import CEditor from '~/components/common/editor'
+
     export default {
         name: 'article-write',
         data() {
             return {
                 article: {
                     poster: '',
-                    title: ''
+                    title: '',
+                    content:''
                 }
             }
         },
@@ -51,6 +57,9 @@
                 this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
             }
         },
+        components: {
+            CEditor
+        }
     }
 </script>
 <style lang="scss" scoped>

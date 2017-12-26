@@ -27,43 +27,43 @@
                         | 删除
 </template>
 <script>
-  import Avatar from '../common/avatar'
-  import markdown from '~/utils/markdown'
-  import ShowMore from '../common/show-more'
+    import Avatar from '../common/avatar'
+    import markdown from '~/utils/markdown'
+    import ShowMore from '../common/show-more'
 
-  export default {
-    name: 'comment-item',
-    props: {
-      comment: {
-        type: Object,
-        default: () => {}
-      }
-    },
-    computed: {
-      isLogin () {
-        return this.$store.getters.isLogin
-      },
-      user () {
-        return this.$store.state.user
-      },
-      content () {
-        const content = this.comment.content
-        if (this.comment.contentType === 'MARKDOWN') {
-          return markdown(content)
-        } else {
-          return content
+    export default {
+        name: 'comment-item',
+        props: {
+            comment: {
+                type: Object,
+                default: () => {
+                }
+            }
+        },
+        computed: {
+            isLogin() {
+                return this.$store.getters.isLogin
+            },
+            user() {
+                return this.$store.state.user
+            },
+            content() {
+                const content = this.comment.content
+                if (this.comment.contentType === 'MARKDOWN') {
+                    return markdown(content)
+                } else {
+                    return content
+                }
+            }
+        },
+        components: {
+            Avatar,
+            ShowMore
         }
-      }
-    },
-    components: {
-      Avatar,
-      ShowMore
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-
 
     .c-comment-item-container {
         background-color: $color-background;
