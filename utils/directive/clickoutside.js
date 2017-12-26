@@ -5,7 +5,12 @@ export default {
                 return false
             }
             if (binding.expression) {
-                binding.value(e)
+                let value = binding.value
+                if (typeof value === 'function') {
+                    value(e)
+                }else {
+                    console.error('please give a function')
+                }
             }
         }
 

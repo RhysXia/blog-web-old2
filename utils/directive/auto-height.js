@@ -23,7 +23,6 @@ export default {
         el.__ele__ = copyElement
 
         el.oninput = e => {
-
             setStyles(el)
         }
 
@@ -35,7 +34,6 @@ export default {
             minHeight = binding.value
         }
         el.__minHeight__ = minHeight
-        el.__ele__.style.width = width + 'px'
         setStyles(el)
     },
     componentUpdated(el, binding, vnode, oldVnode) {

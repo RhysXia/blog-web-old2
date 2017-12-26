@@ -54,7 +54,8 @@
                         .left
                             c-avatar(:imgUrl="user.avatar")
                         .right
-                            c-min-editor(v-model="commentContent",:imageUpload="commentImageUpload",@submit="commentSubmit")
+                            c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
+                                button.submit(slot="button",@click="commentSubmit") 提交
                 template(v-if="!commentCount")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
@@ -64,7 +65,7 @@
   import markdown from '~/utils/markdown'
   import CCommentList from '~/components/comment/list'
   import CAvatar from '~/components/common/avatar'
-  import CMinEditor from '~/components/common/min-editor'
+  import CEditor from '~/components/common/editor'
   import CShowMore from '~/components/common/show-more'
 
   export default {
@@ -269,7 +270,7 @@
     components: {
       CCommentList,
       CAvatar,
-      CMinEditor,
+      CEditor,
       CShowMore
     }
   }
@@ -372,7 +373,18 @@
                     }
                     .right {
                         width: 100%;
-
+                        font-size: 0.8rem;
+                        .submit{
+                            height: 100%;
+                            padding: 0.5em 1em;
+                            background-color: $color-primary;
+                            color: $color-text-white;
+                            float: right;
+                            border-radius: 0;
+                            &:hover{
+                            background-color: $color-primary-dark;
+                        }
+                        }
                     }
                 }
                 .no-content {

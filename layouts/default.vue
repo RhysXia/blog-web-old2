@@ -80,12 +80,13 @@
 
     .layout-container {
         .layout-header {
-            position: sticky;
+            position: fixed;
             top: 0;
             z-index: 1000;
+            width: 100%;
         }
         .layout-main {
-            margin: 1rem 0;
+            margin: $height-header + 1rem 0;
         }
         .menu-enter-active,
         .menu-leave-active {

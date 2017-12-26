@@ -11,9 +11,10 @@
                 .title-wrapper
                     input.title(v-model="article.title",type="text",placeholder="请输入标题")
                 .category-wrapper
-
+                br
                 .editor-wrapper
-                    c-editor(v-model="article.content")
+                    c-editor(barPosition="top",v-model="article.content",:imageUpload="imageUpload")
+
 
 
 </template>
@@ -27,7 +28,7 @@
                 article: {
                     poster: '',
                     title: '',
-                    content:''
+                    content: ''
                 }
             }
         },
@@ -44,6 +45,14 @@
                     })
                 }
                 ele.value = ''
+            },
+            imageUpload(files) {
+                const formData = new FormData()
+                formData.append('image', files[0])
+                return this.$api.article.uploadImage(formData).then(data => {
+                    const url = data.data
+                    return Promise.resolve(url)
+                })
             }
         },
         computed: {

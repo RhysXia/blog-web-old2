@@ -1,47 +1,42 @@
 <template lang="pug">
     .c-editor-container
-        .actions
+        .actions(:style="barStyle")
             span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
                 i.fa.fa-smile-o
-                .emoji-list(v-show="showEmoji")
+                .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
                     span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
-            span(@click="$refs.upload.click()")
+            span(@click="imageClick")
                 i.fa.fa-image
             span(@click="inputLink")
                 i.fa.fa-link
             span(@click="inputCode")
                 i.fa.fa-code
-            span(@click="preview=!preview")
+            span(@click.stop="preview=!preview")
                 i.fa.fa-eye
+            .right
+                slot(name="button")
         input.upload(type="file",ref="upload",@change="inputImage")
-        .editor-wrapper
-            textarea.editor(ref="textarea",v-autoheight="textHeight")
+        .editor-wrapper(:style="editorStyle")
+            textarea.editor(ref="textarea",v-autoheight="textHeight",v-model="content")
             transition(name="preview-slide",mode="out-in")
-                .preview(v-html="markdownContent",v-if="preview")
+                .preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
 
 </template>
 <script>
     import markdown from '~/utils/markdown'
     import {getPos, setPos} from '~/utils/clip'
     import autoheight from '~/utils/directive/auto-height'
+    import clickoutside from '~/utils/directive/clickoutside'
 
     export default {
         name: 'editor',
         directives: {
-            autoheight
+            autoheight,
+            clickoutside
         },
         props: {
-            submitName: {
-                type: String,
-                default: '发布'
-            },
             imageUpload: {
-                type: Function,
-                default: () => {
-                    return new Promise((resolve) => {
-                        resolve()
-                    })
-                }
+                type: Function
             },
             value: {
                 type: String,
@@ -50,6 +45,11 @@
             textHeight: {
                 type: Number,
                 default: 200
+            },
+            // top/bottom
+            barPosition: {
+                type: String,
+                default: 'top'
             }
         },
         data() {
@@ -66,6 +66,30 @@
             }
         },
         computed: {
+            barStyle(){
+              if(this.barPosition === 'top'){
+                  return {
+                      order: '1',
+                      borderBottomWidth: '1px',
+                      borderTopWidth: '0'
+                  }
+              }
+              return {
+                  order: '2',
+                  borderBottomWidth: '0',
+                  borderTopWidth: '1px'
+              }
+            },
+            editorStyle(){
+                if(this.barPosition === 'top'){
+                    return {
+                        order: '2'
+                    }
+                }
+                return {
+                    order: '1'
+                }
+            },
             emojiImages() {
                 const array = []
                 this.emojis.forEach(emoji => {
@@ -88,15 +112,28 @@
             }
         },
         methods: {
+            outClick() {
+                this.preview = false
+            },
             inputEmoji(index) {
                 this.insert(this.emojiImages[index])
             },
             inputCode() {
                 this.insert('```lang\n\n\n```', 3, 7)
             },
+            imageClick() {
+                if (this.imageUpload) {
+                    this.$refs.upload.click()
+                } else {
+                    this.insert(`![name](url)`, 2, 6)
+                }
+            },
             inputImage(e) {
                 const ele = (e.target || e.srcElement)
                 const files = ele.files
+                if (files.length === 0) {
+                    return
+                }
                 this.imageUpload(files).then(url => {
                     ele.value = ''
                     this.insert(`![name](${url})`, 2, 6)
@@ -119,7 +156,8 @@
                     setPos(ele, _start, _end)
                 })
             }
-        },
+        }
+        ,
         components: {}
     }
 </script>
@@ -129,11 +167,20 @@
 
     @include slide(preview-slide, bottom, 0.5s)
     .c-editor-container {
+        display: flex;
+        flex-direction: column;
         background-color: $color-background;
         position: relative;
         border: 1px solid $color-border-base;
         .actions {
-            border-bottom: 1px solid $color-border-base;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            box-sizing: border-box;
+            position: relative;
+            border: solid $color-border-base;
+            border-right-style: none;
+            border-left-style: none;
             span {
                 display: inline-block;
                 padding: 0.5em;
@@ -142,6 +189,25 @@
                     vertical-align: middle;
                     font-size: 1.4em;
                 }
+                .emoji-list {
+                    z-index: 1000;
+                    position: absolute;
+                    left: 0;
+                    width: 100%;
+                    background-color: rgba(200, 200, 200, 0.5);
+                    span {
+                        &:hover {
+                            background-color: rgba(200, 200, 200, 0.5);
+                        }
+                    }
+                }
+            }
+            .right{
+                position: relative;
+                display: block;
+                height: 100%;
+                width: 100%;
+                box-sizing: border-box;
             }
         }
         .upload {
@@ -157,23 +223,24 @@
             .editor,
             .preview {
                 padding: 0.5em;
+                box-sizing: border-box;
             }
             .editor {
                 border: none;
-                box-sizing: border-box;
                 outline: none;
                 width: 100%;
                 background-color: transparent;
+                resize: none;
+                display: block;
             }
             .preview {
                 position: absolute;
-                box-sizing: border-box;
                 top: 0;
                 width: 100%;
                 height: 100%;
                 left: 0;
-                background-color: rgba(255, 255, 255, 0.7);
                 overflow: auto;
+                background-color: rgba(200, 200, 200, 0.5);
             }
         }
 

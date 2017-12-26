@@ -56,7 +56,7 @@
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
 
-    $height-header: 55px;
+
     .c-header-container {
         background-color: $color-background;
         height: $height-header;
