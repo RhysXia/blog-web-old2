@@ -20,10 +20,11 @@ body {
 
 ::-webkit-scrollbar {
   width: 0.5rem;
-  background-color: hsla(0,0%,100%,.6);
+  background-color: hsla(0, 0%, 100%, .6);
 }
-::-webkit-scrollbar-thumb{
-  background-color: rgba(95,95,95,.4);
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(95, 95, 95, .4);
   transition: background-color 0.15s;
 }
 
@@ -46,21 +47,6 @@ a, .link {
     outline: none;
     background-color: transparent;
     text-decoration: none;
-  }
-}
-
-input {
-  outline: none;
-  box-sizing: border-box;
-  border: 1px solid $color-border-base;
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  transition: border-color $time-transition ease;
-  background-color: transparent;
-  font-size: 1rem;
-  color: $color-text;
-  &:focus {
-    border-color: $color-primary;
   }
 }
 

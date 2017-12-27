@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-carousel-container(:style="styles",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
+    .c-carousel-container(:style="styles",@mouseEnter.stop="mouseEnter",@mouseLeave.stop="mouseLeave")
         .c-content-wrapper
             slot
         i.c-direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
@@ -72,16 +72,16 @@
         }
         this.activeIndex = index
       },
-      mouseenter () {
+      mouseEnter () {
         if (this.timer) {
           clearTimeout(this.timer)
           this.timer = null
         }
       },
-      mouseleave () {
+      mouseLeave () {
         this.timer = setInterval(this.rollOneTime, this.interval)
       },
-      resetChildren () {
+      updateChildren () {
         this.$nextTick(() => {
           this.children = findComponentsDownward(this, 'carousel-item', 1)
           for (let i = 0; i < this.children.length; i++) {

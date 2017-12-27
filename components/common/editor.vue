@@ -191,6 +191,7 @@
         border-top-width: 0;
         border-bottom-width: 0;
         .actions {
+            z-index: 1000;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -206,6 +207,9 @@
                 i {
                     vertical-align: middle;
                     font-size: 1.4em;
+                }
+                &:hover{
+                    background-color: rgba(200, 200, 200, 0.5);
                 }
                 .emoji-list {
                     z-index: 1000;

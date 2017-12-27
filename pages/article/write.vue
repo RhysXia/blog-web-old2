@@ -8,52 +8,17 @@
                     i.fa.fa-camera
                 input.file-upload(ref="file",type="file",@change="upload")
             .title-wrapper
-                input.title(v-model="article.title",type="text",placeholder="请输入标题")
+                c-input.title(v-model="article.title",type="text",placeholder="请输入标题")
             .category-wrapper
-            br
+                c-select(v-model="article.categoryId",placeholder="请选择分类")
+                    c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
             .editor-wrapper
                 c-editor(barPosition="top",:fixedTop="60",v-model="article.content",:imageUpload="imageUpload")
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-        br
-
-
 </template>
 <script>
     import CEditor from '~/components/common/editor'
-
+    import {Select as CSelect, Option as COption} from '~/components/common/select'
+    import CInput from '~/components/common/input'
     export default {
         name: 'article-write',
         data() {
@@ -61,8 +26,10 @@
                 article: {
                     poster: '',
                     title: '',
-                    content: ''
-                }
+                    content: '',
+                    categoryId: 0
+                },
+                categories: []
             }
         },
         methods: {
@@ -99,8 +66,21 @@
                 this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
             }
         },
+        mounted() {
+            this.$api.category.getAllBySelf({
+                pageNum: 1,
+                pageSize: 100,
+                sorts: 'weight DESC'
+            }).then(data => {
+                this.categories = data.data
+            }).catch(() => {
+            })
+        },
         components: {
-            CEditor
+            CEditor,
+            CSelect,
+            COption,
+            CInput
         }
     }
 </script>
@@ -170,11 +150,11 @@
         }
         .title-wrapper {
             .title {
-                width: 100%;
-                font-size: 2rem;
-                padding: 0.5rem;
+                font-size: 1.2rem;
             }
         }
+        .category-wrapper {
 
+        }
     }
 </style>

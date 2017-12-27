@@ -1,19 +1,19 @@
 <template lang="pug">
-    .c-dropdown-item-container
+    li.c-dropdown-item-container
         slot
 </template>
 
 <script>
-  export default {
-    name: 'dropdown-item'
-  }
+    export default {
+        name: 'dropdown-item'
+    }
 </script>
 
 <style lang="scss" scoped>
-    .c-dropdown-item-container{
+    .c-dropdown-item-container {
         word-break: keep-all;
-        margin-bottom: 0.5em;
-        &:last-child{
+        padding: 0.5em;
+        &:last-child {
             margin-bottom: 0;
         }
     }

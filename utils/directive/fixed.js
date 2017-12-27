@@ -24,7 +24,7 @@ export default {
                 el.style.left = el.__initLeft__ + 'px'
                 el.style.width = el.__width__ + 'px'
             } else {
-                const style = el.__vnode__.data.staticStyle || el.__vnode__.data.style||{}
+                const style = el.__vnode__.data.staticStyle || el.__vnode__.data.style || {}
                 el.style.position = style.position || ''
                 el.style.top = style.top || ''
                 el.style.left = style.left || ''
@@ -33,16 +33,23 @@ export default {
         }
 
         el.__updatePosition__ = updatePosition
-        updatePosition(el)
+        updatePosition()
         window.addEventListener('scroll', updatePosition)
         window.addEventListener('resize', updatePosition)
     },
     update(el, binding, vnode, oldVnode) {
+        const style = el.__vnode__.data.staticStyle || el.__vnode__.data.style || {}
+        el.style.position = style.position || ''
+        el.style.top = style.top || ''
+        el.style.left = style.left || ''
+        el.style.width = style.width || ''
+
         el.__top__ = binding.value || 0
         el.__initTop__ = getOffsetTop(el)
         el.__initLeft__ = getViewLeft(el)
         el.__width__ = el.offsetWidth
         el.__vnode__ = vnode
+        el.__updatePosition__()
     },
     componentUpdated(el, binding, vnode, oldVnode) {
     },

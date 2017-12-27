@@ -47,12 +47,12 @@
     created () {
       this.parent = findComponentUpward(this, 'carousel')
       if (this.parent) {
-        this.parent.resetChildren()
+        this.parent.updateChildren()
       }
     },
     beforeDestroy () {
       if (this.parent) {
-        this.parent.resetChildren()
+        this.parent.updateChildren()
       }
     }
   }

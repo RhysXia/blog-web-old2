@@ -8,49 +8,49 @@
 </template>
 
 <script>
-  import clickoutside from '~/utils/directive/clickoutside'
+    import clickoutside from '~/utils/directive/clickoutside'
 
-  export default {
-    name: 'dropdown',
-    directives: {
-      clickoutside
-    },
-    props: {
-      position: {
-        type: String,
-        default: 'bottom'
-      },
-      trigger: {
-        validator (val) {
-          return ['click', 'hover'].includes(val)
+    export default {
+        name: 'dropdown',
+        directives: {
+            clickoutside
         },
-        default: 'hover'
-      }
-    },
-    data () {
-      return {
-        visible: false
-      }
-    },
-    methods: {
-      handleClose () {
-        this.visible = false
-      },
-      refClick () {
-        this.visible = true
-      },
-      mouseenter () {
-        if (this.trigger === 'hover') {
-          this.visible = true
+        props: {
+            position: {
+                type: String,
+                default: 'bottom'
+            },
+            trigger: {
+                validator(val) {
+                    return ['click', 'hover'].includes(val)
+                },
+                default: 'hover'
+            }
+        },
+        data() {
+            return {
+                visible: false
+            }
+        },
+        methods: {
+            handleClose() {
+                this.visible = false
+            },
+            refClick() {
+                this.visible = true
+            },
+            mouseenter() {
+                if (this.trigger === 'hover') {
+                    this.visible = true
+                }
+            },
+            mouseleave() {
+                if (this.trigger === 'hover') {
+                    this.visible = false
+                }
+            }
         }
-      },
-      mouseleave () {
-        if (this.trigger === 'hover') {
-          this.visible = false
-        }
-      }
     }
-  }
 </script>
 
 <style lang="scss" scoped>
@@ -66,24 +66,32 @@
         }
         .c-dropdown-list {
             position: absolute;
+            z-index: 2000;
+            border: 1px solid $color-border-base;
+            border-radius: 0.3em;
+            background-color: $color-background;
         }
         .c-dropdown-list-bottom {
             top: 100%;
             left: 0;
+            min-width: 100%;
             margin-top: 0.15em;
         }
         .c-dropdown-list-top {
             bottom: 100%;
             left: 0;
+            min-width: 100%;
             margin-bottom: 0.15em;
         }
         .c-dropdown-list-left {
             right: 100%;
             top: 0;
+            min-height: 100%;
         }
         .c-dropdown-list-right {
             left: 100%;
             top: 0;
+            min-height: 100%;
         }
         @include slide(c-dropdown-slide, bottom);
     }

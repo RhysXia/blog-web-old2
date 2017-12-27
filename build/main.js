@@ -111,10 +111,9 @@ module.exports = {
         }
     },
     router: {
-        scrollBehavior: function scrollBehavior(to, from, savedPosition) {
-            return { x: 0, y: 0 };
-        },
-
+        // scrollBehavior (to, from, savedPosition) {
+        //   return {x: 0, y: 0}
+        // },
         middleware: ['change-col-page']
     }
 };
