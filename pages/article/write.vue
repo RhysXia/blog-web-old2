@@ -13,8 +13,17 @@
                 c-select(v-model="article.categoryId",placeholder="请选择分类")
                     button.append(slot="append",@click="categoryModal=true") 添加
                     c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
-                c-modal(v-model="categoryModal")
-
+                c-modal(v-model="categoryModal",title="新建分类")
+                    .form
+                        .input-wrapper
+                            label.label 名称
+                            c-input.input(v-model="category.name",placeholder="请输入名称")
+                        .input-wrapper
+                            label.label 描述
+                            c-textarea(v-model="category.description",autoHeight,placeholder="请输入描述信息")
+                        .input-wrapper
+                            label.label 名称
+                            c-input.input(v-model="category.name",placeholder="请输入名称")
             .tag-wrapper
 
             .editor-wrapper
@@ -25,6 +34,7 @@
     import {Select as CSelect, Option as COption} from '~/components/common/select'
     import CInput from '~/components/common/input'
     import CModal from '~/components/common/modal'
+    import CTextarea from '~/components/common/textarea'
 
     export default {
         name: 'article-write',
@@ -36,8 +46,13 @@
                     content: '',
                     categoryId: 0
                 },
+                category: {
+                    name: '',
+                    description: '',
+                    weight: 0
+                },
                 categories: [],
-                categoryModal: true
+                categoryModal: false
             }
         },
         methods: {
@@ -89,7 +104,8 @@
             CSelect,
             COption,
             CInput,
-            CModal
+            CModal,
+            CTextarea
         }
     }
 </script>
@@ -179,6 +195,18 @@
                 &:hover {
                     background-color: $color-primary-active;
                 }
+            }
+        }
+    }
+
+    .form {
+        .input-wrapper {
+            margin-bottom: 0.5rem;
+            .label {
+                font-weight: bold;
+            }
+            .input {
+                width: 100%;
             }
         }
     }

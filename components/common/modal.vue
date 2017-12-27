@@ -3,7 +3,8 @@
         .c-modal-container(v-if="val")
             .c-modal-wrapper(v-clickoutside='outClick',:style="{width:width}")
                 .c-modal-header
-                    slot(name="header") {{title}}
+                    slot(name="header")
+                        span.title {{title}}
                     span.close(@click="val=false")
                         i.fa.fa-close
                 .c-modal-main
@@ -88,6 +89,21 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
+    .c-modal-enter-active,
+    .c-modal-leave-active {
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .c-modal-enter,
+    .c-modal-leave-to {
+        transform: translateY(-100%);
+    }
+
+    .c-modal-enter-to,
+    .c-modal-leave {
+        transform: translateY(0);
+    }
+
     .c-modal-container {
         position: fixed;
         left: 0;
@@ -114,6 +130,9 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
+                .title{
+                    font-weight: bold;
+                }
                 .close {
                     display: block;
                     cursor: pointer;

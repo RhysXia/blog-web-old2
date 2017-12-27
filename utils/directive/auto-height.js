@@ -7,11 +7,15 @@ export default {
         if (binding.expression) {
             minHeight = binding.value
         }
-        el.style.transition = 'height 0.2s ease'
         el.__minHeight__ = minHeight
         // 获取el的实际宽度
         const width = el.scrollWidth
         const copyElement = el.cloneNode(true)
+        if (el.style.transition) {
+            el.style.transition += ',height 0.2s ease'
+        } else {
+            el.style.transition = 'height 0.2s ease'
+        }
         copyElement.style.visibility = 'hidden'
         copyElement.style.position = 'absolute'
         copyElement.style.top = '0'
@@ -48,13 +52,15 @@ export default {
 
 function setStyles(el) {
     const copyElement = el.__ele__
-    const {width, padding, fontSize, lineHeight, border, boxSizing} = document.defaultView.getComputedStyle(el, null)
+    const {width, padding, fontSize, lineHeight, border, boxSizing, outline, borderImage} = document.defaultView.getComputedStyle(el, null)
     // 保证样式影响尺寸的样式相同
     copyElement.style.width = width
     copyElement.style.padding = padding
     copyElement.style.fontSize = fontSize
     copyElement.style.lineHeight = lineHeight
     copyElement.style.border = border
+    copyElement.style.borderImage = borderImage
+    copyElement.style.outline = outline
     copyElement.style.boxSizing = boxSizing
 
     // 设置内容
