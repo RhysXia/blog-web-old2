@@ -13,6 +13,7 @@ export default {
         el.__initTop__ = getOffsetTop(el)
         el.__initLeft__ = getViewLeft(el)
         el.__width__ = el.offsetWidth
+        el.__vnode__ = vnode
 
         function updatePosition() {
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
@@ -23,8 +24,7 @@ export default {
                 el.style.left = el.__initLeft__ + 'px'
                 el.style.width = el.__width__ + 'px'
             } else {
-                const style = vnode.data.staticStyle
-                console.log(style)
+                const style = el.__vnode__.data.staticStyle || el.__vnode__.data.style||{}
                 el.style.position = style.position || ''
                 el.style.top = style.top || ''
                 el.style.left = style.left || ''
@@ -42,6 +42,7 @@ export default {
         el.__initTop__ = getOffsetTop(el)
         el.__initLeft__ = getViewLeft(el)
         el.__width__ = el.offsetWidth
+        el.__vnode__ = vnode
     },
     componentUpdated(el, binding, vnode, oldVnode) {
     },

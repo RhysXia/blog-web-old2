@@ -1,6 +1,21 @@
 <template lang="pug">
-    .c-editor-container
-        .actions(style="color:red;",:style="barStyle",v-fixed="100")
+    .c-editor-container(:style="barPosition==='top'?'border-bottom-width:1px':'border-top-width:1px'")
+        .actions(:style="barStyle",v-fixed="fixedTop",v-if="fixedTop!=undefined")
+            span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
+                i.fa.fa-smile-o
+                .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
+                    span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
+            span(@click="imageClick")
+                i.fa.fa-image
+            span(@click="inputLink")
+                i.fa.fa-link
+            span(@click="inputCode")
+                i.fa.fa-code
+            span(@click.stop="preview=!preview")
+                i.fa.fa-eye
+            .right
+                slot(name="button")
+        .actions(:style="barStyle",v-else)
             span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
                 i.fa.fa-smile-o
                 .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
@@ -52,6 +67,9 @@
             barPosition: {
                 type: String,
                 default: 'top'
+            },
+            fixedTop: {
+                type: Number
             }
         },
         data() {
@@ -68,22 +86,18 @@
             }
         },
         computed: {
-            barStyle(){
-              if(this.barPosition === 'top'){
-                  return {
-                      order: '1',
-                      borderBottomWidth: '1px',
-                      borderTopWidth: '0'
-                  }
-              }
-              return {
-                  order: '2',
-                  borderBottomWidth: '0',
-                  borderTopWidth: '1px'
-              }
+            barStyle() {
+                if (this.barPosition === 'top') {
+                    return {
+                        order: '1'
+                    }
+                }
+                return {
+                    order: '2'
+                }
             },
-            editorStyle(){
-                if(this.barPosition === 'top'){
+            editorStyle() {
+                if (this.barPosition === 'top') {
                     return {
                         order: '2'
                     }
@@ -174,11 +188,12 @@
         background-color: $color-background;
         position: relative;
         border: 1px solid $color-border-base;
+        border-top-width: 0;
+        border-bottom-width: 0;
         .actions {
             display: flex;
             flex-direction: row;
             align-items: center;
-            box-sizing: border-box;
             position: relative;
             border: 1px solid $color-border-base;
             border-left: none;
@@ -205,7 +220,7 @@
                     }
                 }
             }
-            .right{
+            .right {
                 position: relative;
                 display: block;
                 height: 100%;

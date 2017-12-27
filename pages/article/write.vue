@@ -12,7 +12,7 @@
             .category-wrapper
             br
             .editor-wrapper
-                c-editor(barPosition="top",v-model="article.content",:imageUpload="imageUpload")
+                c-editor(barPosition="top",:fixedTop="60",v-model="article.content",:imageUpload="imageUpload")
         br
         br
         br
