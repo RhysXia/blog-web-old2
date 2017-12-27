@@ -58,11 +58,11 @@
         },
         methods: {
             confirm() {
-                this.$emit('on-confirm')
+                this.$emit('confirm')
                 this.val = false
             },
             cancel() {
-                this.$emit('on-cancel')
+                this.$emit('cancel')
                 this.val = false
             },
             outClick() {

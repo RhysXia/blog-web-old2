@@ -13,7 +13,7 @@
                 c-select(v-model="article.categoryId",placeholder="请选择分类")
                     button.append(slot="append",@click="categoryModal=true") 添加
                     c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
-                c-modal(v-model="categoryModal",title="新建分类")
+                c-modal(v-model="categoryModal",title="新建分类",@confirm="addCategory")
                     .form
                         .input-wrapper
                             label.label 名称
@@ -21,11 +21,9 @@
                         .input-wrapper
                             label.label 描述
                             c-textarea(v-model="category.description",autoHeight,placeholder="请输入描述信息")
-                        .input-wrapper
-                            label.label 名称
-                            c-input.input(v-model="category.name",placeholder="请输入名称")
             .tag-wrapper
-
+                c-select(v-model="article.tagIds",@enter="addTag",@load="load",placeholder="请选择标签",multiple,editable,remote)
+                    c-option(:value="tag.id",:label="tag.name",v-for="(tag,index) in tags",:key="index")
             .editor-wrapper
                 c-editor(:textHeight="300",barPosition="top",:fixedTop="60",v-model="article.content",:imageUpload="imageUpload")
 </template>
@@ -44,7 +42,8 @@
                     poster: '',
                     title: '',
                     content: '',
-                    categoryId: 0
+                    categoryId: 0,
+                    tagIds: []
                 },
                 category: {
                     name: '',
@@ -52,10 +51,37 @@
                     weight: 0
                 },
                 categories: [],
+                tags: [],
                 categoryModal: false
             }
         },
         methods: {
+            addTag(name) {
+                this.$api.tag.add({name}).then(data => {
+
+                }).catch(() => {
+                })
+            },
+            load(tag) {
+                // if (this.__timer__) {
+                //     clearTimeout(this.__timer__)
+                // }
+                // this.__timer__ = setTimeout(() => {
+                //     this.$api.tag.getAll({
+                //         pageSize: 8,
+                //         pageNum: 1,
+                //         name: tag
+                //     }).then(data => {
+                //         this.tags = data.data
+                //     })
+                // }, 500)
+            },
+            addCategory() {
+                this.$api.category.add(this.category).then(data => {
+                    // 更新分类
+                    this.getCategories()
+                })
+            },
             upload(e) {
                 const ele = (e.target || e.srcElement)
                 const files = ele.files
@@ -76,6 +102,16 @@
                     const url = data.data
                     return Promise.resolve(url)
                 })
+            },
+            getCategories() {
+                this.$api.category.getAllBySelf({
+                    pageNum: 1,
+                    pageSize: 100,
+                    sorts: 'weight DESC,createTime Desc'
+                }).then(data => {
+                    this.categories = data.data
+                }).catch(() => {
+                })
             }
         },
         computed: {
@@ -90,13 +126,12 @@
             }
         },
         mounted() {
-            this.$api.category.getAllBySelf({
-                pageNum: 1,
-                pageSize: 100,
-                sorts: 'weight DESC'
+            this.getCategories()
+            this.$api.tag.getAll({
+                pageSize: 8,
+                pageNum: 1
             }).then(data => {
-                this.categories = data.data
-            }).catch(() => {
+                this.tags = data.data
             })
         },
         components: {

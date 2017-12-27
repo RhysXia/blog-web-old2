@@ -10,6 +10,11 @@ export default http => {
         })
     }
 
+    category.add = ({name, description, weight}) => {
+        return http.post('/categories', {
+            name, description, weight
+        })
+    }
 
     return category
 }

@@ -1,10 +1,11 @@
 <template lang="pug">
-    c-dropdown.c-select-container(:trigger="trigger",v-model="showItems")
-        c-input(:value="activeLabel",:readonly="!editable",:placeholder="placeholder",:style="inputStyle")
-            .c-select-append(@click.stop,slot="append")
-                slot(name="append")
-        c-dropdown-menu(slot="list")
-            slot
+    .c-select-container(@keyup.enter="enter")
+        c-dropdown(:trigger="trigger",v-model="showItems")
+            c-input(:value="activeLabel",@input="input",:readonly="!editable",:placeholder="placeholder",:style="inputStyle")
+                .c-select-append(@click.stop,slot="append")
+                    slot(name="append")
+            c-dropdown-menu(slot="list")
+                slot
 </template>
 
 <script>
@@ -24,6 +25,11 @@
                 type: String,
                 default: 'click'
             },
+            // 可远程
+            remote: {
+                type: Boolean,
+                default: false
+            },
             // 可编辑
             editable: {
                 type: Boolean,
@@ -41,7 +47,8 @@
                 activeIndex: -1,
                 // 多选时使用
                 activeIndexes: [],
-                showItems: false
+                showItems: false,
+                inputData: ''
             }
         },
         computed: {
@@ -79,6 +86,17 @@
             }
         },
         methods: {
+            input(e) {
+                this.inputData = e
+                if (this.remote) {
+                    this.$emit('load', e)
+                }
+            },
+            enter() {
+                if (this.editable) {
+                    this.$emit('enter', this.inputData)
+                }
+            },
             updateOptions() {
                 this.options = findComponentsDownward(this, 'option')
                 for (let i = 0; i < this.options.length; i++) {
@@ -109,8 +127,9 @@
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    .c-select-container{
-        .c-select-append{
+
+    .c-select-container {
+        .c-select-append {
         }
     }
 </style>
