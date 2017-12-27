@@ -1,7 +1,7 @@
 <template lang="pug">
     c-dropdown.c-select-container(:trigger="trigger",v-model="showItems")
         c-input(:value="activeLabel",:readonly="!editable",:placeholder="placeholder",:style="inputStyle")
-            .c-select-append(slot="append")
+            .c-select-append(@click.stop,slot="append")
                 slot(name="append")
         c-dropdown-menu(slot="list")
             slot

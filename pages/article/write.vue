@@ -11,8 +11,10 @@
                 c-input.title(v-model="article.title",type="text",placeholder="请输入标题")
             .category-wrapper
                 c-select(v-model="article.categoryId",placeholder="请选择分类")
-                    button.append(slot="append") 添加
+                    button.append(slot="append",@click="categoryModal=true") 添加
                     c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
+                c-modal(v-model="categoryModal")
+
             .tag-wrapper
 
             .editor-wrapper
@@ -22,6 +24,7 @@
     import CEditor from '~/components/common/editor'
     import {Select as CSelect, Option as COption} from '~/components/common/select'
     import CInput from '~/components/common/input'
+    import CModal from '~/components/common/modal'
 
     export default {
         name: 'article-write',
@@ -33,7 +36,8 @@
                     content: '',
                     categoryId: 0
                 },
-                categories: []
+                categories: [],
+                categoryModal: true
             }
         },
         methods: {
@@ -84,7 +88,8 @@
             CEditor,
             CSelect,
             COption,
-            CInput
+            CInput,
+            CModal
         }
     }
 </script>

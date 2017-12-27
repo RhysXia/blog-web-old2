@@ -191,7 +191,7 @@
         border-top-width: 0;
         border-bottom-width: 0;
         .actions {
-            z-index: 1000;
+            z-index: $z-index-xl;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -212,7 +212,7 @@
                     background-color: rgba(200, 200, 200, 0.5);
                 }
                 .emoji-list {
-                    z-index: 1000;
+                    z-index: $z-index-l;
                     position: absolute;
                     left: 0;
                     width: 100%;

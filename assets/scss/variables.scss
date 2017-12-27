@@ -30,6 +30,9 @@ $color-warn-active: color-active($color-warn);
 $color-info: #2db7f5;
 $color-info-active: color-active($color-info);
 
+$color-white: #fff;
+$color-white-active: color-active($color-white);
+
 $color-background-dark: #eee;
 
 $color-background: hsla(0, 0%, 100%, .6);
@@ -45,6 +48,16 @@ $color-disabled: #c3cbd6;
 $color-link: $color-primary;
 $color-link-active: $color-primary-active;
 
-//height
+$color-shadow: $color-background-active;
 
+//height
 $height-header: 4rem;
+
+//z-index
+$z-index-xs: -1;
+$z-index-s: 1;
+$z-index-m: 10;
+$z-index-l: 100;
+$z-index-xl: 1000;
+$z-index-xxl: 2000;
+$z-index-max: 99999;

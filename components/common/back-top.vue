@@ -94,7 +94,7 @@
 
     @include slide(back-top-slide, left)
     .c-back-top-container {
-        z-index: 1000;
+        z-index: $z-index-l;
         position: fixed;
         cursor: pointer;
         display: inline-block;

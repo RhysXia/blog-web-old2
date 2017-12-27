@@ -82,7 +82,7 @@
         .layout-header {
             position: fixed;
             top: 0;
-            z-index: 1000;
+            z-index: $z-index-xl;
             width: 100%;
         }
         .layout-main {
