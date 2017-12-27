@@ -39,21 +39,25 @@ export function oneOf(value, arrays) {
     return false
 }
 
+export function getOffsetTop(element) {
+    let offsetTop = element.offsetTop
+    let parent = element.offsetParent
+    while (parent) {
+        offsetTop += parent.offsetTop
+        parent = parent.offsetParent
+    }
+    return offsetTop
+}
+
 /**
  * 获取元素在浏览器中的距顶边框的距离
  * @param element
  * @returns {number}
  */
 export function getViewTop(element) {
-    let top = element.offsetTop
-    let parent = element.offsetParent
-    while (parent) {
-        top += parent.offsetTop
-        parent = parent.offsetParent
-        console.log(top)
-    }
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
-    return top - scrollTop
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+    const offsetTop = getOffsetTop(element)
+    return offsetTop - scrollTop
 }
 
 /**

@@ -1,6 +1,6 @@
 <template lang="pug">
     .c-editor-container
-        .actions(:style="barStyle")
+        .actions(style="color:red;",:style="barStyle",v-fixed="100")
             span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
                 i.fa.fa-smile-o
                 .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
@@ -27,12 +27,14 @@
     import {getPos, setPos} from '~/utils/clip'
     import autoheight from '~/utils/directive/auto-height'
     import clickoutside from '~/utils/directive/clickoutside'
+    import fixed from '~/utils/directive/fixed'
 
     export default {
         name: 'editor',
         directives: {
             autoheight,
-            clickoutside
+            clickoutside,
+            fixed
         },
         props: {
             imageUpload: {
@@ -178,9 +180,10 @@
             align-items: center;
             box-sizing: border-box;
             position: relative;
-            border: solid $color-border-base;
-            border-right-style: none;
-            border-left-style: none;
+            border: 1px solid $color-border-base;
+            border-left: none;
+            border-right: none;
+            width: 100%;
             span {
                 display: inline-block;
                 padding: 0.5em;
