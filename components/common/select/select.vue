@@ -1,6 +1,8 @@
 <template lang="pug">
-    c-dropdown.c-select-container(:trigger="trigger")
-        c-input(:value="activeLabel",:placeholder="placeholder")
+    c-dropdown.c-select-container(:trigger="trigger",v-model="showItems")
+        c-input(:value="activeLabel",:readonly="!editable",:placeholder="placeholder",:style="inputStyle")
+            .c-select-append(slot="append")
+                slot(name="append")
         c-dropdown-menu(slot="list")
             slot
 </template>
@@ -18,34 +20,62 @@
                 type: String,
                 default: ''
             },
-            // 远程加载
-            remote: {
-                type: Boolean,
-                default: false
-            },
             trigger: {
                 type: String,
                 default: 'click'
+            },
+            // 可编辑
+            editable: {
+                type: Boolean,
+                default: false
+            },
+            // 多选
+            multiple: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
                 options: [],
-                content: null,
-                activeIndex: -1
+                activeIndex: -1,
+                // 多选时使用
+                activeIndexes: [],
+                showItems: false
             }
         },
         computed: {
-            activeLabel() {
-                if (this.options.length === 0 || this.activeIndex < 0) {
-                    return ''
+            inputStyle() {
+                if (this.editable) {
+                    return {}
                 }
-                return this.options[this.activeIndex].label
+                return {
+                    disable: 'true'
+                }
+            },
+            activeLabel() {
+                if (this.multiple) {
+                    let str = ''
+                    this.options.filter(it => {
+                        return this.activeIndexes.includes(it.index)
+                    }).map(it => it.label).forEach(it => {
+                        str += (it + ' ')
+                    })
+                    return str
+                }
+                if (this.activeIndex >= 0) {
+                    return this.options[this.activeIndex].label
+                }
+                return ''
             }
         },
         watch: {
             activeIndex(val) {
-                this.$emit('input', this.options[val].value)
+                this.$emit('input', val)
+                this.showItems = false
+            },
+            activeIndexes(val) {
+                this.$emit('input', val)
             }
         },
         methods: {
@@ -53,6 +83,19 @@
                 this.options = findComponentsDownward(this, 'option')
                 for (let i = 0; i < this.options.length; i++) {
                     this.options[i].index = i
+                }
+            },
+            clickChild(index) {
+                if (this.multiple) {
+                    if (!this.activeIndexes.includes(index)) {
+                        this.activeIndexes.push(index)
+                    } else {
+                        this.activeIndexes = this.activeIndexes.filter(it => {
+                            return index !== it
+                        })
+                    }
+                } else {
+                    this.activeIndex = index
                 }
             }
         },
@@ -66,5 +109,8 @@
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-
+    .c-select-container{
+        .c-select-append{
+        }
+    }
 </style>

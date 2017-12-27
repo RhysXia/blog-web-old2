@@ -41,6 +41,10 @@
         height: $article-item-height;
         background-color: $color-background;
         padding: 0.5em;
+        transition: background-color 0.4s ease;
+        &:hover{
+            background-color: $color-background-active;
+        }
         .left {
             .poster {
                 width: $article-item-height * 1.1;

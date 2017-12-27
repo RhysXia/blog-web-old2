@@ -1,3 +1,8 @@
+//function
+@function color-active($color) {
+  @return $color - 50;
+}
+
 //grid
 $grid-breakpoints: (
         xs: 0px,
@@ -11,13 +16,25 @@ $grid-col-prefixCls: c-col-container !default;
 
 //color
 $color-primary: #4dce9b;
-$color-primary-dark: #32908f;
+$color-primary-active: #32908f;
+
 $color-danger: #F56C6C;
+$color-danger-active: color-active($color-danger);
+
 $color-success: #028090;
+$color-success-active: color-active($color-success);
+
 $color-warn: #FA7921;
+$color-warn-active: color-active($color-warn);
+
 $color-info: #2db7f5;
+$color-info-active: color-active($color-info);
+
 $color-background-dark: #eee;
+
 $color-background: hsla(0, 0%, 100%, .6);
+$color-background-active: color-active($color-background);
+
 $color-text: #555;
 $color-text-light: $color-text + 30;
 $color-text-deep: $color-text - 30;
@@ -26,10 +43,7 @@ $color-border-base: #d7dde4;
 $color-disabled: #c3cbd6;
 
 $color-link: $color-primary;
-$color-link-active: $color-primary-dark;
-//time
-$time-transition: 0.4s;
-
+$color-link-active: $color-primary-active;
 
 //height
 

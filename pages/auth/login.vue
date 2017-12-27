@@ -112,7 +112,7 @@
                         width: 100%;
                         padding: 0.35rem 1rem;
                         &:hover {
-                            background-color: color-active($color-primary);
+                            background-color: $color-primary-active;
                         }
                     }
                 }

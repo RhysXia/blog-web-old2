@@ -1,7 +1,7 @@
 <template lang="pug">
     // 写作界面没有必要在服务器端渲染
     c-row.article-write-container
-        c-col(:span="16",:offset="4")
+        c-col.article-main(:span="16",:offset="4")
             .image-wrapper(@click="$refs.file.click()")
                 img.image(v-if="article.poster",:src="article.poster")
                 .image.anon(v-else)
@@ -11,14 +11,18 @@
                 c-input.title(v-model="article.title",type="text",placeholder="请输入标题")
             .category-wrapper
                 c-select(v-model="article.categoryId",placeholder="请选择分类")
+                    button.append(slot="append") 添加
                     c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
+            .tag-wrapper
+
             .editor-wrapper
-                c-editor(barPosition="top",:fixedTop="60",v-model="article.content",:imageUpload="imageUpload")
+                c-editor(:textHeight="300",barPosition="top",:fixedTop="60",v-model="article.content",:imageUpload="imageUpload")
 </template>
 <script>
     import CEditor from '~/components/common/editor'
     import {Select as CSelect, Option as COption} from '~/components/common/select'
     import CInput from '~/components/common/input'
+
     export default {
         name: 'article-write',
         data() {
@@ -91,6 +95,11 @@
     $height-poster: 12rem;
 
     .article-write-container {
+        .article-main {
+            > * {
+                margin-bottom: 0.5rem;
+            }
+        }
         .image-wrapper {
             position: relative;
             .file-upload {
@@ -136,7 +145,7 @@
                     }
                 }
                 &:hover {
-                    background-color: color-active($color-background);
+                    background-color: $color-background-active;
                     i {
                         color: $color-text;
                         &:after {
@@ -149,12 +158,23 @@
             }
         }
         .title-wrapper {
+            font-size: 1.1rem;
             .title {
-                font-size: 1.2rem;
+
             }
         }
         .category-wrapper {
-
+            font-size: 1.1rem;
+            .append {
+                border-radius: 0;
+                padding: 0.3em 0.6em;
+                background-color: $color-primary;
+                color: $color-text-white;
+                box-sizing: border-box;
+                &:hover {
+                    background-color: $color-primary-active;
+                }
+            }
         }
     }
 </style>

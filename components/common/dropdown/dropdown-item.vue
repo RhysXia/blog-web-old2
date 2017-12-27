@@ -12,9 +12,5 @@
 <style lang="scss" scoped>
     .c-dropdown-item-container {
         word-break: keep-all;
-        padding: 0.5em;
-        &:last-child {
-            margin-bottom: 0;
-        }
     }
 </style>

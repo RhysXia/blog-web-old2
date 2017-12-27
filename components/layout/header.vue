@@ -17,9 +17,9 @@
                                 c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                                 c-dropdown-menu(slot="list")
                                     c-dropdown-item
-                                        nuxt-link(to="/user/self") 个人中心
+                                        nuxt-link.dropdown-item(to="/user/self") 个人中心
                                     c-dropdown-item
-                                        nuxt-link(to="/article/write") 写文章
+                                        nuxt-link.dropdown-item(to="/article/write") 写文章
 
                             button.btn(@click="logout") 注销
 </template>
@@ -78,6 +78,13 @@
                 color: $color-primary;
                 &:hover {
                     color: color-active($color-primary);
+                }
+            }
+            .dropdown-item{
+                display: block;
+                padding: 0.5rem 1rem;
+                &:hover{
+                    background-color: rgba(200,200,200,0.5);
                 }
             }
         }

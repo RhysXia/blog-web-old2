@@ -336,7 +336,7 @@
                 padding-right: 0.25rem;
             }
             &:hover {
-                background-color: color-active($color-background);
+                background-color: $color-background-active;
             }
         }
         .comment-wrapper {
@@ -382,7 +382,7 @@
                             float: right;
                             border-radius: 0;
                             &:hover{
-                            background-color: $color-primary-dark;
+                            background-color: $color-primary-active;
                         }
                         }
                     }

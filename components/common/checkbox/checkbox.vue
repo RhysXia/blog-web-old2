@@ -4,7 +4,6 @@
             input.checkbox-input(type="checkbox",v-model="val")
         span.label(@click="val=!val") {{label}}
 </template>
-
 <script>
     export default {
         name: "checkbox",
@@ -33,7 +32,6 @@
         }
     }
 </script>
-
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 

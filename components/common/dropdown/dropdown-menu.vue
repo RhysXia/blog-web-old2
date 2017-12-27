@@ -24,5 +24,6 @@
 
     .c-dropdown-menu-container {
         margin: 0;
+        position: relative;
     }
 </style>

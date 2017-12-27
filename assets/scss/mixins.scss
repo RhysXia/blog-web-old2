@@ -1,8 +1,5 @@
 @import "variables";
 
-@function color-active($color) {
-  @return $color - 50;
-}
 
 @mixin clearfix() {
   zoom: 1;

@@ -20,10 +20,10 @@ export function findComponentsDownward(context, componentName, depth) {
     context.$children.forEach(item => {
         if (item.$options.name === componentName) {
             components.push(item)
-            findComponentsDownward(item, componentName, depth ? depth - 1 : undefined).forEach(item2 => {
-                components.push(item2)
-            })
         }
+        findComponentsDownward(item, componentName, depth ? depth - 1 : undefined).forEach(item2 => {
+            components.push(item2)
+        })
     })
     return components
 }

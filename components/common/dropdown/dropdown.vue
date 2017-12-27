@@ -25,11 +25,23 @@
                     return ['click', 'hover'].includes(val)
                 },
                 default: 'hover'
+            },
+            value: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
-                visible: false
+                visible: this.value
+            }
+        },
+        watch: {
+            visible(val) {
+                this.$emit('input', val)
+            },
+            value(val) {
+                this.visible = val
             }
         },
         methods: {

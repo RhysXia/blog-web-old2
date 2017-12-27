@@ -1,8 +1,9 @@
 <template lang="pug">
     .c-input-container
         .c-input-wrapper(:class="containerClass",@click="active=true",v-clickoutside="outClick")
-            input.input(v-if="type==='password'",v-model="content",type="password",:placeholder="placeholder")
-            input.input(v-else,v-model="content", type = "text",:placeholder="placeholder")
+            input.input(v-if="type==='password'",:readonly="readonly",v-model="content",type="password",:placeholder="placeholder")
+            input.input(v-else,v-model="content",:readonly="readonly",type = "text",:placeholder="placeholder")
+            slot(name="append")
 </template>
 <script>
     import clickoutside from '~/utils/directive/clickoutside'
@@ -24,6 +25,10 @@
             type: {
                 type: String,
                 default: 'text'
+            },
+            readonly: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -57,29 +62,26 @@
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-
-    .checkbox {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
     .c-input-wrapper {
         box-sizing: border-box;
         border: 1px solid $color-border-base;
         border-radius: 0.2em;
-        padding: 0.25em 0.5em;
         background-color: $color-background;
-        transition: border-color $time-transition ease;
+        transition: border-color 0.4s ease;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        overflow: hidden;
         .input {
-            width: 100%;
+            margin: 0.25em 0.5em;
+            display: flex;
+            flex: 1 1 auto;
             border: none;
             outline: none;
             background-color: transparent;
             font-size: inherit;
         }
     }
-
     .c-input-container-active {
         border-color: $color-primary;
     }
