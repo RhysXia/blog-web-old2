@@ -1,15 +1,21 @@
 export default http => {
-  const tag = {}
+    const tag = {}
 
-  tag.getAll = ({pageSize, pageNum, sorts = ''}) => {
-    return http.get('/tags', {
-      params: {
-        pageNum,
-        pageSize,
-        sorts
-      }
-    })
-  }
+    tag.getAll = ({pageSize, pageNum, sorts = '', name = null}) => {
+        return http.get('/tags', {
+            params: {
+                pageNum,
+                pageSize,
+                sorts,
+                name
+            }
+        })
+    }
 
-  return tag
+    tag.add = ({name}) => {
+        return http.post('/tags', {
+            name
+        })
+    }
+    return tag
 }

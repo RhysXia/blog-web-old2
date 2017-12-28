@@ -60,7 +60,6 @@
     @import "~assets/scss/mixins";
 
     .#{$grid-row-prefixCls} {
-        position: relative;
         box-sizing: border-box;
         @include clearfix
     }

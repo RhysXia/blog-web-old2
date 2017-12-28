@@ -36,22 +36,26 @@
                 c-show-more(:hiddenHeight="500")
                     .content(v-html="content")
             .footer
-                button.btn.link(v-if="isLogin",@click="voteClick")
-                    i.fa.fa-hand-pointer-o
-                    | {{isVoted?'取消点赞':'点赞一下'}}
+                no-ssr
+                    button.btn.link(v-if="isLogin",@click="voteClick")
+                        i.fa.fa-hand-pointer-o
+                        | {{isVoted?'取消点赞':'点赞一下'}}
         .comment-wrapper
             .header
-                h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
+                no-ssr
+                    h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
                 span.info(v-if="commentCount")
                     | 共
                     b {{commentCount}}
                     | 条评论
             .body
-                .write(v-if="isLogin")
-                    .left
-                        c-avatar(:imgUrl="user.avatar")
-                    .right
-                        c-min-editor(v-model="commentContent",:imageUpload="commentImageUpload",@submit="commentSubmit")
+                no-ssr
+                    .write(v-if="isLogin")
+                        .left
+                            c-avatar(:imgUrl="user.avatar")
+                        .right
+                            c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
+                                button.submit(slot="button",@click="commentSubmit") 提交
                 template(v-if="!commentCount")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
@@ -61,7 +65,7 @@
   import markdown from '~/utils/markdown'
   import CCommentList from '~/components/comment/list'
   import CAvatar from '~/components/common/avatar'
-  import CMinEditor from '~/components/common/min-editor'
+  import CEditor from '~/components/common/editor'
   import CShowMore from '~/components/common/show-more'
 
   export default {
@@ -266,7 +270,7 @@
     components: {
       CCommentList,
       CAvatar,
-      CMinEditor,
+      CEditor,
       CShowMore
     }
   }
@@ -332,7 +336,7 @@
                 padding-right: 0.25rem;
             }
             &:hover {
-                background-color: color-active($color-background);
+                background-color: $color-background-active;
             }
         }
         .comment-wrapper {
@@ -369,7 +373,18 @@
                     }
                     .right {
                         width: 100%;
-
+                        font-size: 0.8rem;
+                        .submit{
+                            height: 100%;
+                            padding: 0.5em 1em;
+                            background-color: $color-primary;
+                            color: $color-text-white;
+                            float: right;
+                            border-radius: 0;
+                            &:hover{
+                            background-color: $color-primary-active;
+                        }
+                        }
                     }
                 }
                 .no-content {

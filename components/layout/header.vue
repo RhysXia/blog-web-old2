@@ -1,6 +1,6 @@
 <template lang="pug">
-    c-row.c-header-container(type="flex",align="middle",justify="center")
-        c-col(:span="20")
+    c-row.c-header-container
+        c-col(:span="20",:offset="2")
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
                     nuxt-link(to="/")
@@ -17,9 +17,9 @@
                                 c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                                 c-dropdown-menu(slot="list")
                                     c-dropdown-item
-                                        nuxt-link(to="/user/self") 个人中心
+                                        nuxt-link.dropdown-item(to="/user/self") 个人中心
                                     c-dropdown-item
-                                        nuxt-link(to="/article/write") 写文章
+                                        nuxt-link.dropdown-item(to="/article/write") 写文章
 
                             button.btn(@click="logout") 注销
 </template>
@@ -56,14 +56,11 @@
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
 
-    $height-header: 55px;
+
     .c-header-container {
         background-color: $color-background;
         height: $height-header;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
         .logo {
             font-size: 1.4rem;
             color: $color-primary;
@@ -81,6 +78,13 @@
                 color: $color-primary;
                 &:hover {
                     color: color-active($color-primary);
+                }
+            }
+            .dropdown-item{
+                display: block;
+                padding: 0.5rem 1rem;
+                &:hover{
+                    background-color: rgba(200,200,200,0.5);
                 }
             }
         }

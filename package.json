@@ -20,9 +20,8 @@
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-katex": "^2.0.3",
-    "nuxt": "^1.0.0-rc3",
-    "offline-plugin": "^4.8.5",
-    "source-map-support": "^0.4.15"
+    "nuxt": "^1.0.0-rc11",
+    "offline-plugin": "^4.8.5"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

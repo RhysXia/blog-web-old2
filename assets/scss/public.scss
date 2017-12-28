@@ -12,10 +12,21 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-//body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-//  margin: 0;
-//  padding: 0;
-//}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: hsla(0, 0%, 100%, .6);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(95, 95, 95, .4);
+  transition: background-color 0.15s;
+}
 
 ul, ol {
   list-style: none;
@@ -29,7 +40,7 @@ a, .link {
   text-decoration: none;
   outline: none;
   cursor: pointer;
-  transition: color $time-transition ease;
+  transition: color 0.4s ease;
   &:hover,
   &:active {
     color: color-active($color-primary);
@@ -39,27 +50,12 @@ a, .link {
   }
 }
 
-input {
-  outline: none;
-  box-sizing: border-box;
-  border: 1px solid $color-border-base;
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  transition: border-color $time-transition ease;
-  background-color: transparent;
-  font-size: 1rem;
-  color: $color-text;
-  &:focus {
-    border-color: $color-primary;
-  }
-}
-
 button {
   outline: none;
   border: none;
   padding: 0.25rem 0.8rem;
   border-radius: 3px;
-  transition: background-color $time-transition ease;
+  transition: background-color 0.4s ease;
   cursor: pointer;
   color: $color-text;
   &:hover {

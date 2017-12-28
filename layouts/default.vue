@@ -1,7 +1,8 @@
 <template lang="pug">
     .layout-container(v-cloak)
-        back-top(:bottom="10",:right="20")
-        c-header
+        c-back-top(:bottom="10",:right="20")
+        .layout-header
+            c-header
         c-row.layout-main(type="flex",align="middle",justify="center")
             c-col(:span="20")
                 c-row(:gutter="16")
@@ -17,68 +18,75 @@
         c-footer
 </template>
 <script>
-  import CHeader from '~/components/layout/header'
-  import CMenu from '~/components/layout/menu'
-  import CFooter from '~/components/layout/footer'
-  import CAside from '~/components/layout/aside'
-  import CBackTop from '~/components/common/back-top'
-  import BackTop from '../components/common/back-top'
+    import CHeader from '~/components/layout/header'
+    import CMenu from '~/components/layout/menu'
+    import CFooter from '~/components/layout/footer'
+    import CAside from '~/components/layout/aside'
+    import CBackTop from '~/components/common/back-top'
 
-  export default {
-    computed: {
-      isMenuShow () {
-        return this.$store.state.isMenuShow
-      },
-      isAsideShow () {
-        return this.$store.state.isAsideShow
-      },
-      mainSpan () {
-        let span = 24
-        if (this.isAsideShow) {
-          span -= 5
+    export default {
+        computed: {
+            isMenuShow() {
+                return this.$store.state.isMenuShow
+            },
+            isAsideShow() {
+                return this.$store.state.isAsideShow
+            },
+            mainSpan() {
+                let span = 24
+                if (this.isAsideShow) {
+                    span -= 5
+                }
+                if (this.isMenuShow) {
+                    span -= 5
+                }
+                return span
+            },
+            hotArticles() {
+                return this.$store.state.hotArticles
+            },
+            hotTags() {
+                return this.$store.state.hotTags
+            }
+        },
+        methods: {
+            tabChange() {
+                let originTitle
+                document.addEventListener('visibilitychange', event => {
+                    if (event.target.hidden || event.target.webkitHidden) {
+                        originTitle = document.title
+                        document.title = '皮皮虾，快回来！'
+                    } else {
+                        document.title = originTitle
+                    }
+                }, false)
+            }
+        },
+        mounted() {
+            this.tabChange()
+        },
+        components: {
+            CHeader,
+            CFooter,
+            CMenu,
+            CAside,
+            CBackTop
         }
-        if (this.isMenuShow) {
-          span -= 5
-        }
-        return span
-      },
-      hotArticles () {
-        return this.$store.state.hotArticles
-      },
-      hotTags () {
-        return this.$store.state.hotTags
-      }
-    },
-    methods: {
-      tabChange () {
-        let originTitle
-        document.addEventListener('visibilitychange', event => {
-          if (event.target.hidden || event.target.webkitHidden) {
-            originTitle = document.title
-            document.title = '皮皮虾，快回来！'
-          } else {
-            document.title = originTitle
-          }
-        }, false)
-      }
-    },
-    mounted () {
-      this.tabChange()
-    },
-    components: {
-      BackTop,
-      CHeader,
-      CFooter,
-      CMenu,
-      CAside,
-      CBackTop
     }
-  }
 </script>
 <style lang="scss" scoped>
+    @import "~assets/scss/variables";
+    @import "~assets/scss/mixins";
+
     .layout-container {
+        .layout-header {
+            position: fixed;
+            top: 0;
+            z-index: $z-index-xl;
+            width: 100%;
+        }
         .layout-main {
-            margin: 1rem 0;
+            margin: $height-header + 1rem 0;
         }
         .menu-enter-active,
         .menu-leave-active {

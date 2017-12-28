@@ -32,7 +32,7 @@
                 padding: 1rem;
                 font-size: 1.2rem;
                 font-weight: bold;
-                transition: background-color $time-transition ease;
+                transition: background-color 0.4s ease;
                 i {
                     padding-right: 0.5rem;
                 }
