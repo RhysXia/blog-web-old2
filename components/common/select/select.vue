@@ -1,8 +1,8 @@
 <template lang="pug">
     .c-select-container(:class="classes",@keyup.enter="enter",@click="click",v-clickoutside="outClick")
         c-dropdown(:trigger="trigger",v-model="showItems")
-            .c-select-input
-                .c-tags(@click.stop,v-if="activeKeyValues.length>0")
+            .c-select-input(@click="$refs.input.focus()",@keyup.delete="activeKeyValues.pop()")
+                .c-tags(v-if="activeKeyValues.length>0")
                     c-tag(@close="closeTag(item.value)",v-for="(item,index) in activeKeyValues",:key="index",:name="item.label",closeable)
                 c-input(ref="input",v-model="inputData",@input="input",:readonly="!editable",:placeholder="activeKeyValues.length>0?'':placeholder")
                     .c-select-append(@click.stop,slot="append")
@@ -70,9 +70,27 @@
                 } else {
                     this.$emit('input', values[0])
                 }
+                // 清空输入框
+                this.inputData = ''
+                // input继续获得焦点
+                this.$refs.input.focus()
             }
         },
         methods: {
+            // 添加一个标签
+            add({label, value}) {
+                const isNotAdd = this.activeKeyValues.map(it => {
+                    return it.value
+                }).includes(value)
+                if (isNotAdd) {
+                    return
+                }
+                if (this.multiple) {
+                    this.activeKeyValues.push({label, value})
+                } else {
+                    this.activeKeyValues = [{label, value}]
+                }
+            },
             click() {
                 this.isActive = true
             },
@@ -101,10 +119,6 @@
                 }
             },
             clickChild(index) {
-                // 清空输入框
-                this.inputData = ''
-                // input继续获得焦点
-                this.$refs.input.focus()
                 const option = this.options[index]
                 if (option.active) {
                     this.activeKeyValues = this.activeKeyValues.filter(it => {

@@ -1,39 +1,40 @@
 <template lang="pug">
     // 写作界面没有必要在服务器端渲染
-    c-row.article-write-container(:gutter="16")
-        c-col.article-main(:span="18",)
-            .image-wrapper(@click="$refs.file.click()")
-                img.image(v-if="article.poster",:src="article.poster")
-                .image.anon(v-else)
-                    i.fa.fa-camera
-                input.file-upload(ref="file",type="file",@change="upload")
-            .title-wrapper
-                c-input.title(v-model="article.title",type="text",placeholder="请输入标题")
-            .category-wrapper
-                c-select(v-model="article.categoryId",placeholder="请选择分类")
-                    button.append(slot="append",@click="categoryModal=true") 添加
-                    c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
-                c-modal(v-model="categoryModal",title="新建分类",@confirm="addCategory")
-                    .form
-                        .input-wrapper
-                            label.label 名称
-                            c-input.input(v-model="category.name",placeholder="请输入名称")
-                        .input-wrapper
-                            label.label 描述
-                            c-textarea(v-model="category.description",autoHeight,placeholder="请输入描述信息")
-            .tag-wrapper
-                c-select(v-model="article.tagIds",@enter="addTag",@load="load",placeholder="请选择标签",multiple,editable,remote)
-                    c-option(:value="tag.id",:label="tag.name",v-for="(tag,index) in tags",:key="index")
-            .editor-wrapper
-                c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
-        c-col.action(:span="6",v-fixed="70")
-            c-panel(title="操作")
-                button 发表
-                button 存为草稿
+    no-ssr
+        c-row.article-write-container(:gutter="16")
+            c-col.article-main(:span="18",)
+                .image-wrapper(@click="$refs.file.click()")
+                    img.image(v-if="article.poster",:src="article.poster")
+                    .image.anon(v-else)
+                        i.fa.fa-camera
+                    input.file-upload(ref="file",type="file",@change="upload")
+                .title-wrapper
+                    c-input.title(v-model="article.title",type="text",placeholder="请输入标题")
+                .category-wrapper
+                    c-select(v-model="article.categoryId",placeholder="请选择分类")
+                        button.append(slot="append",@click="categoryModal=true") 添加
+                        c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
+                    c-modal(v-model="categoryModal",title="新建分类",@confirm="addCategory")
+                        .form
+                            .input-wrapper
+                                label.label 名称
+                                c-input.input(v-model="category.name",placeholder="请输入名称")
+                            .input-wrapper
+                                label.label 描述
+                                c-textarea(v-model="category.description",autoHeight,placeholder="请输入描述信息")
+                .tag-wrapper
+                    c-select(ref="tagSelect",v-model="article.tagIds",@enter="addTag",@load="load",placeholder="请输入标签",multiple,editable,remote)
+                        c-option(:value="tag.id",:label="tag.name",v-for="(tag,index) in tags",:key="index")
+                .editor-wrapper
+                    c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
+            c-col.action(:span="6",v-fixed="70")
+                c-panel(title="操作")
+                    button 发表
+                    button 存为草稿
 </template>
 <script>
     import CEditor from '~/components/common/editor'
-    import {Select as CSelect, Option as COption} from '~/components/common/select'
+    import {Option as COption, Select as CSelect} from '~/components/common/select'
     import CInput from '~/components/common/input'
     import CModal from '~/components/common/modal'
     import CTextarea from '~/components/common/textarea'
@@ -67,7 +68,11 @@
         methods: {
             addTag(name) {
                 this.$api.tag.add({name}).then(data => {
-
+                    const id = data.data.id
+                    this.$refs.tagSelect.add({
+                        label: name,
+                        value: id
+                    })
                 }).catch(() => {
                 })
             },
@@ -136,12 +141,11 @@
         },
         mounted() {
             this.getCategories()
-            // this.$api.tag.getAll({
-            //     pageSize: 8,
-            //     pageNum: 1
-            // }).then(data => {
-            //     this.tags = data.data
-            // })
+            this.$message({
+                content: '测试',
+                type: 'info',
+                duration: 5000
+            })
         },
         components: {
             CEditor,
@@ -156,7 +160,6 @@
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
 
     $height-poster: 12rem;
 

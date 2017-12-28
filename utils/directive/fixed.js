@@ -13,7 +13,6 @@ export default {
         el.__initTop__ = getOffsetTop(el)
         el.__initLeft__ = getViewLeft(el)
         el.__width__ = el.scrollWidth
-        console.log(el.__width__)
         el.__vnode__ = vnode
 
         function updatePosition() {

@@ -19,7 +19,7 @@
         data() {
             return {
                 parent: null,
-                index: 0
+                index: 0,
             }
         },
         computed: {
@@ -36,9 +36,10 @@
                 return active
             },
             classes() {
-                return {
-                    'is-active': this.active
+                if (this.active) {
+                    return ['is-active']
                 }
+                return []
             }
         },
         methods: {
