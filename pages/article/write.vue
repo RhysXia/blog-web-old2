@@ -29,8 +29,9 @@
                     c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
             c-col.action(:span="6",v-fixed="70")
                 c-panel(title="操作")
-                    button 发表
+                    button(@click="pulish") 发表
                     button 存为草稿
+
 </template>
 <script>
     import CEditor from '~/components/common/editor'
@@ -66,14 +67,31 @@
             }
         },
         methods: {
+            pulish() {
+                // this.$message({
+                //     content: '添加分类成功',
+                //     type: 'info',
+                //     duration: 1000
+                // })
+            },
             addTag(name) {
                 this.$api.tag.add({name}).then(data => {
+                    this.$message({
+                        content: '添加标签成功',
+                        type: 'info',
+                        duration: 1000
+                    })
                     const id = data.data.id
                     this.$refs.tagSelect.add({
                         label: name,
                         value: id
                     })
-                }).catch(() => {
+                }).catch(error => {
+                    this.$message({
+                        content: error.data.message,
+                        type: 'error',
+                        duration: 1000
+                    })
                 })
             },
             load(tag) {
@@ -94,6 +112,11 @@
                 this.$api.category.add(this.category).then(data => {
                     // 更新分类
                     this.getCategories()
+                    this.$message({
+                        content: '添加分类成功',
+                        type: 'info',
+                        duration: 2000
+                    })
                 })
             },
             upload(e) {
@@ -141,11 +164,6 @@
         },
         mounted() {
             this.getCategories()
-            this.$message({
-                content: '测试',
-                type: 'info',
-                duration: 5000
-            })
         },
         components: {
             CEditor,

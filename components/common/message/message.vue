@@ -35,6 +35,9 @@
         },
         methods: {
             afterLeave() {
+                if (this.visible) {
+                    return
+                }
                 if (typeof this.onClose === 'function') {
                     this.onClose()
                 }
@@ -57,7 +60,7 @@
     @import "~assets/scss/variables";
 
     .c-message-container {
-        position: absolute;
+        position: fixed;
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
