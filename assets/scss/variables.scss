@@ -2,7 +2,9 @@
 @function color-active($color) {
   @return $color - 50;
 }
-
+@function color-light($color){
+  @return $color + 50
+}
 //grid
 $grid-breakpoints: (
         xs: 0px,
@@ -16,6 +18,7 @@ $grid-col-prefixCls: c-col-container !default;
 
 //color
 $color-primary: #4dce9b;
+$color-primary-light: color-light($color-primary);
 $color-primary-active: #32908f;
 
 $color-danger: #F56C6C;

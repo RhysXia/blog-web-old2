@@ -63,18 +63,18 @@
                 })
             },
             load(tag) {
-                // if (this.__timer__) {
-                //     clearTimeout(this.__timer__)
-                // }
-                // this.__timer__ = setTimeout(() => {
-                //     this.$api.tag.getAll({
-                //         pageSize: 8,
-                //         pageNum: 1,
-                //         name: tag
-                //     }).then(data => {
-                //         this.tags = data.data
-                //     })
-                // }, 500)
+                if (this.__timer__) {
+                    clearTimeout(this.__timer__)
+                }
+                this.__timer__ = setTimeout(() => {
+                    this.$api.tag.getAll({
+                        pageSize: 8,
+                        pageNum: 1,
+                        name: tag
+                    }).then(data => {
+                        this.tags = data.data
+                    })
+                }, 200)
             },
             addCategory() {
                 this.$api.category.add(this.category).then(data => {
@@ -127,12 +127,12 @@
         },
         mounted() {
             this.getCategories()
-            this.$api.tag.getAll({
-                pageSize: 8,
-                pageNum: 1
-            }).then(data => {
-                this.tags = data.data
-            })
+            // this.$api.tag.getAll({
+            //     pageSize: 8,
+            //     pageNum: 1
+            // }).then(data => {
+            //     this.tags = data.data
+            // })
         },
         components: {
             CEditor,
@@ -223,7 +223,8 @@
             font-size: 1.1rem;
             .append {
                 border-radius: 0;
-                padding: 0.3em 0.6em;
+                padding: 0.4em 0.7em;
+                height: 100%;
                 background-color: $color-primary;
                 color: $color-text-white;
                 box-sizing: border-box;

@@ -23,18 +23,21 @@
             }
         },
         computed: {
-            classes() {
+            active() {
                 let active = false
                 if (this.parent) {
-                    const multiple = this.parent.multiple
-                    if (multiple) {
-                        active = this.parent.activeIndexes.includes(this.index)
-                    } else {
-                        active = (this.parent.activeIndex === this.index)
+                    for (let item of this.parent.activeKeyValues) {
+                        if (item.value === this.value) {
+                            active = true
+                            break
+                        }
                     }
                 }
+                return active
+            },
+            classes() {
                 return {
-                    'is-active': active
+                    'is-active': this.active
                 }
             }
         },
