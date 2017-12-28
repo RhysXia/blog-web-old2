@@ -1,7 +1,7 @@
 <template lang="pug">
     // 写作界面没有必要在服务器端渲染
-    c-row.article-write-container
-        c-col.article-main(:span="16",:offset="4")
+    c-row.article-write-container(:gutter="16")
+        c-col.article-main(:span="18",)
             .image-wrapper(@click="$refs.file.click()")
                 img.image(v-if="article.poster",:src="article.poster")
                 .image.anon(v-else)
@@ -25,7 +25,11 @@
                 c-select(v-model="article.tagIds",@enter="addTag",@load="load",placeholder="请选择标签",multiple,editable,remote)
                     c-option(:value="tag.id",:label="tag.name",v-for="(tag,index) in tags",:key="index")
             .editor-wrapper
-                c-editor(:textHeight="300",barPosition="top",:fixedTop="60",v-model="article.content",:imageUpload="imageUpload")
+                c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
+        c-col.action(:span="6",v-fixed="70")
+            c-panel(title="操作")
+                button 发表
+                button 存为草稿
 </template>
 <script>
     import CEditor from '~/components/common/editor'
@@ -33,9 +37,14 @@
     import CInput from '~/components/common/input'
     import CModal from '~/components/common/modal'
     import CTextarea from '~/components/common/textarea'
+    import fixed from '~/utils/directive/fixed'
+    import CPanel from '~/components/common/panel'
 
     export default {
         name: 'article-write',
+        directives: {
+            fixed
+        },
         data() {
             return {
                 article: {
@@ -140,7 +149,8 @@
             COption,
             CInput,
             CModal,
-            CTextarea
+            CTextarea,
+            CPanel
         }
     }
 </script>
@@ -243,6 +253,20 @@
             }
             .input {
                 width: 100%;
+            }
+        }
+    }
+
+    .action {
+
+        button {
+            background-color: $color-primary;
+            color: $color-text-white;
+            display: block;
+            width: 100%;
+            margin: 1rem 0;
+            &:hover {
+                background-color: $color-primary-active;
             }
         }
     }

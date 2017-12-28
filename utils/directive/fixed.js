@@ -12,7 +12,8 @@ export default {
         el.__top__ = binding.value || 0
         el.__initTop__ = getOffsetTop(el)
         el.__initLeft__ = getViewLeft(el)
-        el.__width__ = el.offsetWidth
+        el.__width__ = el.scrollWidth
+        console.log(el.__width__)
         el.__vnode__ = vnode
 
         function updatePosition() {
@@ -47,7 +48,7 @@ export default {
         el.__top__ = binding.value || 0
         el.__initTop__ = getOffsetTop(el)
         el.__initLeft__ = getViewLeft(el)
-        el.__width__ = el.offsetWidth
+        el.__width__ = el.scrollWidth
         el.__vnode__ = vnode
         el.__updatePosition__()
     },

@@ -26,6 +26,7 @@
         .title {
             padding-bottom: 0.5em;
             border-bottom: 1px solid $color-border-base;
+            margin: 0;
         }
     }
 </style>

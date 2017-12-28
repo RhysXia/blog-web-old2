@@ -1,6 +1,6 @@
 <template lang="pug">
     .c-editor-container(:style="barPosition==='top'?'border-bottom-width:1px':'border-top-width:1px'")
-        .actions(:style="barStyle",v-fixed="fixedTop",v-if="fixedTop!=undefined")
+        .c-actions(:style="barStyle",v-fixed="fixedTop",v-if="fixedTop!=undefined")
             span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
                 i.fa.fa-smile-o
                 .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
@@ -15,7 +15,7 @@
                 i.fa.fa-eye
             .right
                 slot(name="button")
-        .actions(:style="barStyle",v-else)
+        .c-actions(:style="barStyle",v-else)
             span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
                 i.fa.fa-smile-o
                 .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
@@ -30,8 +30,8 @@
                 i.fa.fa-eye
             .right
                 slot(name="button")
-        input.upload(type="file",ref="upload",@change="inputImage")
-        .editor-wrapper(:style="editorStyle")
+        input.c-upload(type="file",ref="upload",@change="inputImage")
+        .c-editor-wrapper(:style="editorStyle")
             textarea.editor(ref="textarea",v-autoheight="textHeight",v-model="content")
             transition(name="preview-slide",mode="out-in")
                 .preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
@@ -190,7 +190,7 @@
         border: 1px solid $color-border-base;
         border-top-width: 0;
         border-bottom-width: 0;
-        .actions {
+        .c-actions {
             z-index: $z-index-xl;
             display: flex;
             flex-direction: row;
@@ -232,7 +232,7 @@
                 box-sizing: border-box;
             }
         }
-        .upload {
+        .c-upload {
             position: absolute;
             top: 0;
             left: 0;
@@ -240,7 +240,7 @@
             height: 0;
             transform: scale(0);
         }
-        .editor-wrapper {
+        .c-editor-wrapper {
             position: relative;
             .editor,
             .preview {
