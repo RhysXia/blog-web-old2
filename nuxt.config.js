@@ -50,7 +50,8 @@ module.exports = {
             '~/plugins/components',
             '~/plugins/filters',
             '~/plugins/token',
-            '~/plugins/offline'
+            '~/plugins/offline',
+            '~/utils/markdown'
         ],
         extractCSS: true,
         babel: {

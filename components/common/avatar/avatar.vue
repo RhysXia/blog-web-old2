@@ -5,48 +5,56 @@
 </template>
 
 <script>
-  export default {
-    name: 'avatar',
-    props: {
-      imgUrl: {
-        type: String,
-        default: ''
-      },
-      width: {
-        type: [String, Number],
-        default: 50
-      },
-      height: {
-        type: [String, Number],
-        default: 50
-      }
-    },
-    computed: {
-      styles () {
-        let width = this.width
-        let height = this.height
-        if (typeof width === 'number') {
-          width = width + 'px'
+    export default {
+        name: 'avatar',
+        props: {
+            imgUrl: {
+                type: String,
+                default: ''
+            },
+            width: {
+                type: [String, Number],
+                default: 50
+            },
+            height: {
+                type: [String, Number],
+                default: 50
+            },
+            // circle square
+            type: {
+                type: String,
+                default: 'circle'
+            }
+        },
+        computed: {
+            styles() {
+                let width = this.width
+                let height = this.height
+                const style = {}
+                if (this.type === 'circle') {
+                    style.borderRadius = '50%'
+                }
+                if (typeof width === 'number') {
+                    width = width + 'px'
+                }
+                if (typeof height === 'number') {
+                    height = height + 'px'
+                }
+                style.width = width
+                style.height = height
+                return style
+            }
         }
-        if (typeof height === 'number') {
-          height = height + 'px'
-        }
-        return {
-          height,
-          width
-        }
-      }
     }
-  }
 </script>
 
 <style lang="scss" scoped>
     .c-avatar-container {
         position: relative;
+        overflow: hidden;
         .image {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
         }
         .anon {
             background-image: url("./anon.png");

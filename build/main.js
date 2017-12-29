@@ -98,7 +98,7 @@ module.exports = {
     offline: true,
     plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', { src: '~/plugins/token', ssr: false }, { src: '~/plugins/offline', ssr: false }],
     build: {
-        vendor: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', '~/plugins/token', '~/plugins/offline'],
+        vendor: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', '~/plugins/token', '~/plugins/offline', '~/utils/markdown'],
         extractCSS: true,
         babel: {
             presets: ['es2015', 'stage-2'],

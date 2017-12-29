@@ -49,9 +49,13 @@
     import {trim} from "../../utils/utils";
 
     export default {
-        name: 'article-write',
         directives: {
             fixed
+        },
+        head(){
+          return {
+              title: '写作'
+          }
         },
         data() {
             return {
