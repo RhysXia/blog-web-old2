@@ -100,7 +100,7 @@
         display: inline-block;
         i {
             font-size: 3em;
-            color: $color-info;
+            color: $color-success;
         }
     }
 </style>

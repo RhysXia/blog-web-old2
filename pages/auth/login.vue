@@ -3,7 +3,6 @@
         c-col.form-wrapper(:span="10")
             h2.title 欢迎登陆
             .form
-                .error(v-show="error") {{error}}
                 .input-wrapper
                     span.label 用户名
                     c-input(v-focus,type="text",v-model="user.username",placeholder="请输入用户名")
@@ -32,8 +31,7 @@
                     username: '',
                     password: '',
                     remember: false
-                },
-                error: ''
+                }
             }
         },
         methods: {
@@ -48,7 +46,11 @@
                         this.$router.push('/')
                     }
                 }).catch(err => {
-                    this.error = err.message
+                    this.$message({
+                        content: err.message,
+                        type: 'error',
+                        duration: 2000
+                    })
                 })
             }
         },
@@ -79,14 +81,6 @@
                 text-align: center;
                 color: $color-primary;
                 margin-bottom: 2rem;
-            }
-            .error {
-                background-color: $color-danger;
-                padding: 0.25rem;
-                border-radius: 5px;
-                margin-bottom: 1rem;
-                color: $color-text-white;
-                text-align: center;
             }
             .form {
                 > * {

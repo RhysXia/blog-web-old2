@@ -28,6 +28,21 @@ export function findComponentsDownward(context, componentName, depth) {
     return components
 }
 
+/**
+ * 去掉两边空格
+ * @param str
+ * @returns {string}
+ */
+export function trim(str) {
+    return str.replace(/^\s+/, '').replace(/\s+$/, '')
+}
+
+/**
+ * 判断元素是否在数组中
+ * @param value
+ * @param arrays
+ * @returns {boolean}
+ */
 export function oneOf(value, arrays) {
     if (arrays.length) {
         for (const val of arrays) {
@@ -39,6 +54,11 @@ export function oneOf(value, arrays) {
     return false
 }
 
+/**
+ * 获取元素距页面顶部的距离
+ * @param element
+ * @returns {number}
+ */
 export function getOffsetTop(element) {
     let offsetTop = element.offsetTop
     let parent = element.offsetParent

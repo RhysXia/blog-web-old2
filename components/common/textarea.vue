@@ -79,6 +79,7 @@
             outline: none;
             border: none;
             resize: none;
+            background-color: transparent;
         }
         &.is-active {
             border-color: $color-primary;

@@ -7,11 +7,11 @@
                         li
                             span
                                 i.fa.fa-user
-                                | I'm Ryths Xia, a student of Southeast University in Suzhou,Jiangsu,China.
+                                | I'm Rhys Xia, a student of Southeast University in Suzhou,Jiangsu,China.
                         li
                             span
                                 i.fa.fa-github
-                                a(href="https://github.com/RythsXia",target="_blank") https://github.com/RythsXia
+                                a(href="https://github.com/RhysXia",target="_blank") https://github.com/RhysXia
                         li
                             span
                                 i.fa.fa-heart
@@ -25,19 +25,20 @@
                     .right
                         .top
                         .bottom
-                            h2.name Ryths Xia
+                            h2.name Rhys Xia
                             p.desc JAVA/JS Developer
-                        img.avatar(src="~assets/img/me.jpg")
+                        nuxt-link(to="/")
+                            img.avatar(src="~assets/img/me.jpg")
         iframe.map-container(src="/html/map.html")
 </template>
 <script>
-  export default {
-    head () {
-      return {
-        title: '关于我'
-      }
+    export default {
+        head() {
+            return {
+                title: '关于我'
+            }
+        }
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -73,7 +74,7 @@
             position: relative;
             .top {
                 height: 8rem;
-                background-color: $color-info;
+                background-color: $color-success;
             }
             .bottom {
                 text-align: center;
@@ -88,12 +89,16 @@
             }
             .avatar {
                 position: absolute;
-                top: 9rem;
-                left: 50%;
-                transform: translate3d(-50%, -50%, 0);
-                width: 5rem;
-                height: 5rem;
+                top: 9 - 3rem;
+                left: #{'calc(50% - 3rem)'};
+                width: 6rem;
+                height: 6rem;
                 border-radius: 50%;
+                transition: transform 0.4s ease-in-out;
+                cursor: pointer;
+                &:hover {
+                    transform: rotate(360deg);
+                }
             }
         }
         .map-container {

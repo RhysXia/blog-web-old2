@@ -78,7 +78,7 @@
         }
         .c-dropdown-list {
             position: absolute;
-            z-index: $z-index-xxl;
+            z-index: $z-index-xl;
             border: 1px solid $color-border-base;
             border-radius: 0.3em;
             background-color: $color-background;

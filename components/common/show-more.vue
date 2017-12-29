@@ -93,7 +93,7 @@
             .c-button {
                 display: block;
                 width: 100%;
-                background-color: $color-info;
+                background-color: $color-primary;
                 color: $color-text-white;
                 animation: button-move 1.5s infinite;
                 padding: 0.5em;

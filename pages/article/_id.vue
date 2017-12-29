@@ -28,7 +28,7 @@
                     span
                         i.fa.fa-tag
                         template(v-for="(tag,index) in article.tags")
-                            nuxt-link(:to="'/tag/'+tag.id") {{tag.name}}
+                            nuxt-link.tag(:to="'/tag/'+tag.id") {{tag.name}}
                     span
                         i.fa.fa-list
                         nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
@@ -62,218 +62,244 @@
                     c-comment-list(:comments="comments",:hasMore="hasMore",:loadMore="loadMore",@item-delete="itemDelete")
 </template>
 <script>
-  import markdown from '~/utils/markdown'
-  import CCommentList from '~/components/comment/list'
-  import CAvatar from '~/components/common/avatar'
-  import CEditor from '~/components/common/editor'
-  import CShowMore from '~/components/common/show-more'
+    import markdown from '~/utils/markdown'
+    import CCommentList from '~/components/comment/list'
+    import CAvatar from '~/components/common/avatar'
+    import CEditor from '~/components/common/editor'
+    import CShowMore from '~/components/common/show-more'
 
-  export default {
-    validate ({params}) {
-      return /^\d+$/.test(params.id)
-    },
-    head () {
-      return {
-        title: this.article.title
-      }
-    },
-    data () {
-      return {
-        commentContent: '',
-        isLoading: false,
-        isVoted: false
-      }
-    },
-    computed: {
-      hasMore () {
-        return this.commentCount > this.pageNum * this.pageSize
-      },
-      user () {
-        return this.$store.state.user
-      },
-      isLogin () {
-        return this.$store.getters.isLogin
-      },
-      fullPage () {
-        const isMenuShow = this.$store.state.isMenuShow
-        const isAsideShow = this.$store.state.isAsideShow
-        return !isMenuShow && !isAsideShow
-      },
-      partFullPage () {
-        const isMenuShow = this.$store.state.isMenuShow
-        const isAsideShow = this.$store.state.isAsideShow
-        return isMenuShow && !isAsideShow
-      },
-      content () {
-        const content = this.article.content
-        if (this.article.contentType === 'MARKDOWN') {
-          return markdown(content)
-        } else {
-          return content
-        }
-      }
-    },
-    methods: {
-      voteClick () {
-        const id = this.article.id
-        if (this.isVoted) {
-          this.$api.article.deleteVote(id).then(data => {
-            this.isVoted = false
-            this.article.likeCount--
-          })
-        } else {
-          this.$api.article.addVote(id).then(data => {
-            this.isVoted = true
-            this.article.likeCount++
-          })
-        }
-      },
-      itemDelete (index) {
-        const articleId = this.article.id
-        this.$api.comment.deleteById(this.comments[index].id).then(data => {
-          this.$api.comment.getCountByArticleId(articleId).then(data => {
-            this.commentCount = data.data
-            if (this.hasMore) {
-              this.$api.comment.getAllByArticleId({
-                articleId,
-                pageSize: this.pageSize,
-                pageNum: this.pageNum,
-                sorts: 'floorNum DESC'
-              }).then(data => {
-                const comments = this.comments.splice(0, (this.pageNum - 1) * this.pageSize)
-                data.data.forEach(item => {
-                  comments.push(item)
-                })
-                this.comments = comments
-              })
+    export default {
+        validate({params}) {
+            return /^\d+$/.test(params.id)
+        },
+        head() {
+            return {
+                title: this.article.title
             }
-          }).catch(() => {})
-        }).catch(() => {})
-      },
-      async loadMore () {
-        const articleId = this.article.id
-        this.pageNum += 1
-        return this.$api.comment.getAllByArticleId({
-          articleId,
-          pageSize: this.pageSize,
-          pageNum: this.pageNum,
-          sorts: 'floorNum DESC'
-        }).then(data => {
-          data.data.forEach(item => {
-            this.comments.push(item)
-          })
-          this.$api.comment.getCountByArticleId(articleId).then(data => {
-            this.commentCount = data.data
-          }).catch(() => {})
-        }).catch(() => {})
-      },
-      commentSubmit (content) {
-        this.pageNum = 1
-        const articleId = this.article.id
-        return this.$api.comment.add({
-          content,
-          contentType: 'MARKDOWN',
-          articleId
-        }).then(data => {
-          this.commentContent = ''
-          this.$api.comment.getAllByArticleId({
-            articleId,
-            pageSize: this.pageSize,
-            pageNum: this.pageNum,
-            sorts: 'floorNum DESC'
-          }).then(data => {
-            this.comments = data.data
-            this.$api.comment.getCountByArticleId(articleId).then(data => {
-              this.commentCount = data.data
-            }).catch(() => {})
-          }).catch(() => {})
-        })
-      },
-      commentImageUpload (files) {
-        return new Promise((resolve, reject) => {
-          if (files.length === 0) {
-            return reject(new Error('没有选择文件'))
-          }
-          const formDate = new FormData()
-          formDate.append('image', files[0])
-          this.$api.comment.uploadImage(formDate).then(data => {
-            return resolve(data.data)
-          })
-        })
-      },
-      fullPageClick () {
-        const flag = this.fullPage
-        this.$store.commit('showMenu', flag)
-        this.$store.commit('showAside', flag)
-      },
-      partFullPageClick () {
-        const flag = this.partFullPage
-        this.$store.commit('showMenu', true)
-        this.$store.commit('showAside', flag)
-      }
-    },
-    watch: {
-      isLogin (val) {
-        if (val) {
-          this.$api.article.isVoted(this.article.id).then(data => {
-            this.isVoted = data.data
-          })
-        }
-      }
-    },
-    async asyncData ({route, store, error}) {
-      const id = route.params.id
+        },
+        data() {
+            return {
+                commentContent: '',
+                isLoading: false,
+                isVoted: false
+            }
+        },
+        computed: {
+            hasMore() {
+                return this.commentCount > this.pageNum * this.pageSize
+            },
+            user() {
+                return this.$store.state.user
+            },
+            isLogin() {
+                return this.$store.getters.isLogin
+            },
+            fullPage() {
+                const isMenuShow = this.$store.state.isMenuShow
+                const isAsideShow = this.$store.state.isAsideShow
+                return !isMenuShow && !isAsideShow
+            },
+            partFullPage() {
+                const isMenuShow = this.$store.state.isMenuShow
+                const isAsideShow = this.$store.state.isAsideShow
+                return isMenuShow && !isAsideShow
+            },
+            content() {
+                const content = this.article.content
+                if (this.article.contentType === 'MARKDOWN') {
+                    return markdown(content)
+                } else {
+                    return content
+                }
+            }
+        },
+        methods: {
+            voteClick() {
+                const id = this.article.id
+                if (this.isVoted) {
+                    this.$api.article.deleteVote(id).then(data => {
+                        this.isVoted = false
+                        this.article.likeCount--
+                    })
+                } else {
+                    this.$api.article.addVote(id).then(data => {
+                        this.isVoted = true
+                        this.article.likeCount++
+                    })
+                }
+            },
+            itemDelete(index) {
+                const articleId = this.article.id
+                this.$api.comment.deleteById(this.comments[index].id).then(data => {
+                    this.$api.comment.getCountByArticleId(articleId).then(data => {
+                        this.commentCount = data.data
+                        if (this.hasMore) {
+                            this.$api.comment.getAllByArticleId({
+                                articleId,
+                                pageSize: this.pageSize,
+                                pageNum: this.pageNum,
+                                sorts: 'floorNum DESC'
+                            }).then(data => {
+                                const comments = this.comments.splice(0, (this.pageNum - 1) * this.pageSize)
+                                data.data.forEach(item => {
+                                    comments.push(item)
+                                })
+                                this.comments = comments
+                            })
+                        }
+                    }).catch(() => {
+                    })
+                }).catch(() => {
+                })
+            },
+            async loadMore() {
+                const articleId = this.article.id
+                this.pageNum += 1
+                return this.$api.comment.getAllByArticleId({
+                    articleId,
+                    pageSize: this.pageSize,
+                    pageNum: this.pageNum,
+                    sorts: 'floorNum DESC'
+                }).then(data => {
+                    data.data.forEach(item => {
+                        this.comments.push(item)
+                    })
+                    this.$api.comment.getCountByArticleId(articleId).then(data => {
+                        this.commentCount = data.data
+                    }).catch(() => {
+                    })
+                }).catch(() => {
+                })
+            },
+            commentSubmit() {
+                const articleId = this.article.id
+                const content = this.commentContent
+                if (!content) {
+                    this.$message({
+                        type: 'error',
+                        duration: 2000,
+                        content: '内容不能为空'
+                    })
+                    return
+                }
+                return this.$api.comment.add({
+                    content,
+                    contentType: 'MARKDOWN',
+                    articleId
+                }).then(data => {
+                    this.$message({
+                        type: 'success',
+                        duration: 2000,
+                        content: '评论成功'
+                    })
+                    this.commentContent = ''
+                    this.pageNum = 1
+                    return this.$api.comment.getAllByArticleId({
+                        articleId,
+                        pageSize: this.pageSize,
+                        pageNum: this.pageNum,
+                        sorts: 'floorNum DESC'
+                    }).then(data => {
+                        this.comments = data.data
+                        return this.$api.comment.getCountByArticleId(articleId).then(data => {
+                            this.commentCount = data.data
+                        })
+                    }).catch((err) => {
+                        this.$message({
+                            type: 'error',
+                            duration: 2000,
+                            content: err.message
+                        })
+                    })
+                })
+            },
+            commentImageUpload(files) {
+                return new Promise((resolve, reject) => {
+                    if (files.length === 0) {
+                        return reject(new Error('没有选择文件'))
+                    }
+                    const formDate = new FormData()
+                    formDate.append('image', files[0])
+                    this.$api.comment.uploadImage(formDate).then(data => {
+                        return resolve(data.data)
+                    })
+                })
+            },
+            fullPageClick() {
+                const flag = this.fullPage
+                this.$store.commit('showMenu', flag)
+                this.$store.commit('showAside', flag)
+            },
+            partFullPageClick() {
+                const flag = this.partFullPage
+                this.$store.commit('showMenu', true)
+                this.$store.commit('showAside', flag)
+            }
+        },
+        watch: {
+            isLogin(val) {
+                if (val) {
+                    this.$api.article.isVoted(this.article.id).then(data => {
+                        this.isVoted = data.data
+                    })
+                }
+            }
+        },
+        async asyncData({route, store, error}) {
+            const id = route.params.id
 
-      const result = {
-        article: {},
-        commentCount: 0,
-        comments: [],
-        pageNum: 1,
-        pageSize: 5
-      }
+            const result = {
+                article: {},
+                commentCount: 0,
+                comments: [],
+                pageNum: 1,
+                pageSize: 5
+            }
 
-      await store.$api.article.getById(id).then(data => {
-        result.article = data.data
-      }).catch(err => {
-        let statusCode = 500
-        if (err.response) {
-          statusCode = err.response.status
+            await store.$api.article.getById(id).then(data => {
+                result.article = data.data
+            }).catch(err => {
+                let statusCode = 500
+                if (err.response) {
+                    statusCode = err.response.status
+                }
+                error({statusCode: statusCode, message: err.data.message})
+            })
+            const articleId = result.article.id
+            if (articleId) {
+                await store.$api.comment.getCountByArticleId(articleId).then(data => {
+                    result.commentCount = data.data
+                }).catch(() => {
+                })
+                if (result.commentCount > 0) {
+                    await store.$api.comment.getAllByArticleId({
+                        articleId,
+                        pageSize: result.pageSize,
+                        pageNum: result.pageNum,
+                        sorts: 'floorNum DESC'
+                    }).then(data => {
+                        result.comments = data.data
+                    }).catch(() => {
+                    })
+                }
+            }
+            return result
+        },
+        mounted() {
+            const isLogin = this.isLogin
+            if (isLogin) {
+                this.$api.article.isVoted(this.article.id).then(data => {
+                    this.isVoted = data.data
+                })
+            }
+        },
+        components: {
+            CCommentList,
+            CAvatar,
+            CEditor,
+            CShowMore
         }
-        error({statusCode: statusCode, message: err.data.message})
-      })
-      const articleId = result.article.id
-      if (articleId) {
-        await store.$api.comment.getCountByArticleId(articleId).then(data => {
-          result.commentCount = data.data
-        }).catch(() => {})
-        if (result.commentCount > 0) {
-          await store.$api.comment.getAllByArticleId({
-            articleId,
-            pageSize: result.pageSize,
-            pageNum: result.pageNum,
-            sorts: 'floorNum DESC'
-          }).then(data => {
-            result.comments = data.data
-          }).catch(() => {})
-        }
-      }
-      return result
-    },
-    mounted () {
-      const isLogin = this.isLogin
-      if (isLogin) {
-        this.$api.article.isVoted(this.article.id).then(data => {
-          this.isVoted = data.data
-        })
-      }
-    },
-    components: {
-      CCommentList,
-      CAvatar,
-      CEditor,
-      CShowMore
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -312,6 +338,12 @@
                         margin-left: 0.5rem;
                         i {
                             padding-right: 0.25rem;
+                        }
+                    }
+                    .tag {
+                        margin-right: 0.2rem;
+                        &:hover {
+                            text-decoration: underline;
                         }
                     }
                     .right {
@@ -374,16 +406,16 @@
                     .right {
                         width: 100%;
                         font-size: 0.8rem;
-                        .submit{
+                        .submit {
                             height: 100%;
                             padding: 0.5em 1em;
                             background-color: $color-primary;
                             color: $color-text-white;
                             float: right;
                             border-radius: 0;
-                            &:hover{
-                            background-color: $color-primary-active;
-                        }
+                            &:hover {
+                                background-color: $color-primary-active;
+                            }
                         }
                     }
                 }

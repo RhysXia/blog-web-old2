@@ -191,7 +191,6 @@
         border-top-width: 0;
         border-bottom-width: 0;
         .c-actions {
-            z-index: $z-index-xl;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -262,7 +261,7 @@
                 height: 100%;
                 left: 0;
                 overflow: auto;
-                background-color: rgba(200, 200, 200, 0.5);
+                background-color: rgba(255, 255, 255, 0.8);
             }
         }
 

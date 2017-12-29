@@ -9,12 +9,14 @@
                         i.fa.fa-camera
                     input.file-upload(ref="file",type="file",@change="upload")
                 .title-wrapper
-                    c-input.title(v-model="article.title",type="text",placeholder="请输入标题")
+                    c-input.title(v-model.trim="article.title",type="text",placeholder="请输入标题")
+                .info-wrapper
+                    c-textarea.info(v-model.trim="article.info",placeholder="请输入文章简介",autoHeight)
                 .category-wrapper
                     c-select(v-model="article.categoryId",placeholder="请选择分类")
                         button.append(slot="append",@click="categoryModal=true") 添加
                         c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
-                    c-modal(v-model="categoryModal",title="新建分类",@confirm="addCategory")
+                    c-modal(v-model="categoryModal",title="新建分类")
                         .form
                             .input-wrapper
                                 label.label 名称
@@ -22,6 +24,9 @@
                             .input-wrapper
                                 label.label 描述
                                 c-textarea(v-model="category.description",autoHeight,placeholder="请输入描述信息")
+                        .button-wrapper(slot='footer')
+                            button.confirm(@click="addCategory") 确定
+                            button.cancel(@click="categoryModal=false") 取消
                 .tag-wrapper
                     c-select(ref="tagSelect",v-model="article.tagIds",@enter="addTag",@load="load",placeholder="请输入标签",multiple,editable,remote)
                         c-option(:value="tag.id",:label="tag.name",v-for="(tag,index) in tags",:key="index")
@@ -29,8 +34,8 @@
                     c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
             c-col.action(:span="6",v-fixed="70")
                 c-panel(title="操作")
-                    button(@click="pulish") 发表
-                    button 存为草稿
+                    button(@click="publish") 发表
+                    button(@click="draft") 存为草稿
 
 </template>
 <script>
@@ -41,6 +46,7 @@
     import CTextarea from '~/components/common/textarea'
     import fixed from '~/utils/directive/fixed'
     import CPanel from '~/components/common/panel'
+    import {trim} from "../../utils/utils";
 
     export default {
         name: 'article-write',
@@ -53,7 +59,9 @@
                     poster: '',
                     title: '',
                     content: '',
-                    categoryId: 0,
+                    info: '',
+                    contentType: 'MARKDOWN',
+                    categoryId: -1,
                     tagIds: []
                 },
                 category: {
@@ -61,20 +69,132 @@
                     description: '',
                     weight: 0
                 },
+                draftId: null,
                 categories: [],
                 tags: [],
                 categoryModal: false
             }
         },
         methods: {
-            pulish() {
-                // this.$message({
-                //     content: '添加分类成功',
-                //     type: 'info',
-                //     duration: 1000
-                // })
+            draft() {
+                if (!this.article.title) {
+                    this.$message({
+                        content: '请输入标题',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                if (!this.article.content) {
+                    this.$message({
+                        content: '请输入标题',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                this.commitDraft().then(() => {
+                    this.$message({
+                        content: '保存成功',
+                        type: 'success',
+                        duration: 2000
+                    })
+                }).catch(err => {
+                    this.$message({
+                        content: err.message,
+                        type: 'error',
+                        duration: 2000
+                    })
+                })
+            },
+            commitDraft() {
+                // 如果已经存过草稿，则修改
+                if (this.draftId) {
+                    return this.$api.draft.update({
+                        id: this.draftId,
+                        ...this.article
+                    })
+                }
+                return this.$api.draft.add(this.article).then(data => {
+                    this.draftId = data.data.id
+                })
+            },
+            publish() {
+                const article = this.article
+                if (!trim(article.poster)) {
+                    this.$message({
+                        content: '请上传海报',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                if (!trim(article.title)) {
+                    this.$message({
+                        content: '请输入标题',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                if (!trim(article.content)) {
+                    this.$message({
+                        content: '请输入文章内容',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                if (!trim(article.info)) {
+                    this.$message({
+                        content: '请输入文章简介',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                if (article.categoryId <= 0) {
+                    this.$message({
+                        content: '请选择文章分类',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                if (article.tagIds.length === 0) {
+                    this.$message({
+                        content: '请输入标签',
+                        type: 'error',
+                        duration: 2000
+                    })
+                    return
+                }
+                let promise = Promise.resolve()
+                // 判断是否存为草稿了，如果存为草稿，则先删除草稿
+                if (this.draftId) {
+                    promise = this.$api.draft.deleteById(this.draftId)
+                }
+                promise.then(() => {
+                    return this.$api.article.add(this.article).then(data => {
+                        this.$message({
+                            content: '发表文章成功',
+                            type: 'success',
+                            duration: 2000
+                        })
+                        this.$router.push('/user/self')
+                    })
+                }).catch(err => {
+                    this.$message({
+                        content: err.message,
+                        type: 'error',
+                        duration: 2000
+                    })
+                })
             },
             addTag(name) {
+                if (!name) {
+                    return
+                }
                 this.$api.tag.add({name}).then(data => {
                     this.$message({
                         content: '添加标签成功',
@@ -109,7 +229,23 @@
                 }, 200)
             },
             addCategory() {
+                const category = this.category
+                if (category.name === null || trim(category.name) === '') {
+                    return this.$message({
+                        content: '分类名不能为空',
+                        type: 'error',
+                        duration: 2000
+                    })
+                }
+                if (category.description === null || trim(category.description) === '') {
+                    return this.$message({
+                        content: '描述不能为空',
+                        type: 'error',
+                        duration: 2000
+                    })
+                }
                 this.$api.category.add(this.category).then(data => {
+                    this.categoryModal = false
                     // 更新分类
                     this.getCategories()
                     this.$message({
@@ -149,7 +285,7 @@
                     this.categories = data.data
                 }).catch(() => {
                 })
-            }
+            },
         },
         computed: {
             isLogin() {
@@ -178,6 +314,7 @@
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
+    @import "~assets/scss/mixins";
 
     $height-poster: 12rem;
 
@@ -250,6 +387,9 @@
 
             }
         }
+        .info-wrapper {
+            background-color: $color-background;
+        }
         .category-wrapper {
             font-size: 1.1rem;
             .append {
@@ -266,6 +406,29 @@
         }
     }
 
+    .button-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        .confirm,
+        .cancel {
+            margin-left: 0.5em;
+        }
+        .confirm {
+            background-color: $color-primary;
+            color: $color-text-white;
+            &:hover {
+                background-color: $color-primary-active;
+            }
+        }
+        .cancel {
+            transition: color 0.4s ease-in-out;
+            &:hover {
+                color: $color-text-white;
+            }
+        }
+    }
+
     .form {
         .input-wrapper {
             margin-bottom: 0.5rem;
@@ -276,6 +439,7 @@
                 width: 100%;
             }
         }
+
     }
 
     .action {

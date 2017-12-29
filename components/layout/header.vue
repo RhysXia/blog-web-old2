@@ -4,7 +4,7 @@
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
                     nuxt-link(to="/")
-                        h1.logo Ryths Blog
+                        h1.logo Rhys Blog
                 c-col
                     // 客户端渲染，否则在登录状态下，客户端和服务端渲染不匹配
                     // TODO 不是太明白

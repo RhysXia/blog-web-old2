@@ -138,7 +138,7 @@
                     cursor: pointer;
                     padding: 0.5em;
                     &:hover {
-                        color: $color-info;
+                        color: $color-primary;
                     }
                 }
             }
