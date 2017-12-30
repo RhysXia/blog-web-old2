@@ -3,7 +3,7 @@
         c-row.user-self-container(:gutter="10",v-if="isLogin")
             c-col(:span="4")
                 .avatar-wrapper
-                    c-avatar(:imgSrc="user.avatar",type="square",width="100%",height="100%")
+                    c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
                 h2.nickname
                     | {{user.nickname}}
                 p.info {{user.info}}

@@ -38,7 +38,7 @@
     methods: {
       loadClick () {
         this.isLoading = true
-        this.loadMore().then(() => {
+          this.loadMore().then(() => {
           this.isLoading = false
         })
       }

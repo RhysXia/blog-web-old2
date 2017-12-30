@@ -3,18 +3,18 @@
         c-back-top(:bottom="10",:right="20")
         .layout-header
             c-header
-        c-row.layout-main(type="flex",align="middle",justify="center")
-            c-col(:span="20")
+        c-row.layout-main
+            c-col(:span="20",:offset="2")
                 c-row(:gutter="16")
                     transition(name="menu")
                         c-col(:span="5",v-show="isMenuShow")
-                            c-menu
+                            c-menu(v-fixed="70")
                     c-col(:span="mainSpan")
                         keep-alive
                             nuxt
                     transition(name="aside")
                         c-col(:span="5",v-show="isAsideShow")
-                            c-aside(:articles="hotArticles",:tags="hotTags")
+                            c-aside(v-fixed="70")
         c-footer
 </template>
 <script>
@@ -23,8 +23,13 @@
     import CFooter from '~/components/layout/footer'
     import CAside from '~/components/layout/aside'
     import CBackTop from '~/components/common/back-top'
+    import fixed from '~/utils/directive/fixed'
+
 
     export default {
+        directives: {
+            fixed
+        },
         computed: {
             isMenuShow() {
                 return this.$store.state.isMenuShow
@@ -41,12 +46,6 @@
                     span -= 5
                 }
                 return span
-            },
-            hotArticles() {
-                return this.$store.state.hotArticles
-            },
-            hotTags() {
-                return this.$store.state.hotTags
             }
         },
         methods: {

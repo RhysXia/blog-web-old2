@@ -2,7 +2,7 @@ export default ({route, store, redirect}, next) => {
     const MenuPageNames = ['auth-login', 'article-write', 'user-self']
     const name = route.name
     if (!name) {
-        redirect('/')
+        next()
         return
     }
     store.commit('showMenu', !isInNames(name, MenuPageNames))

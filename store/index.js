@@ -2,8 +2,6 @@ export const state = () => ({
     serverURL: 'https://api.ryths.cn',
     token: '',
     user: null,
-    hotArticles: [],
-    hotTags: [],
     isMenuShow: true,
     isAsideShow: true
 })
@@ -14,12 +12,6 @@ export const mutations = {
     },
     setUser(state, user) {
         state.user = user
-    },
-    setHotArticles(state, articles) {
-        state.hotArticles = articles
-    },
-    setHotTags(state, tags) {
-        state.hotTags = tags
     },
     showMenu(state, flag) {
         state.isMenuShow = flag
@@ -40,14 +32,14 @@ export const actions = {
             pageNum: 1,
             sorts: 'likeCount DESC'
         }).then(data => {
-            commit('setHotArticles', data.data)
+            commit('article/setHotArticles', data.data)
         })
         await this.$api.tag.getAll({
             pageSize: 10,
             pageNum: 1,
             sorts: 'articleCount DESC'
         }).then(data => {
-            commit('setHotTags', data.data)
+            commit('tag/setHotTags', data.data)
         })
     },
     // 登陆，根据用户名密码登陆，或者根据token登陆

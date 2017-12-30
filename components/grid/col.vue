@@ -83,7 +83,14 @@
     .#{$grid-col-prefixCls} {
         float: left;
         box-sizing: border-box;
-        @include clearfix;
+        &:after {
+            display: block;
+            clear: bottom;
+            content: '';
+            width: 1px;
+            height: 1px;
+            visibility: hidden;
+        }
     }
 
     @include create-col()
