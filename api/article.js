@@ -10,6 +10,15 @@ export default http => {
             }
         })
     }
+    article.getAllByUserId = ({userId, pageSize, pageNum, sorts = ''}) => {
+        return http.get(`/users/${userId}/articles`, {
+            params: {
+                pageSize,
+                pageNum,
+                sorts
+            }
+        })
+    }
     article.count = () => {
         return http.get('/articles/count')
     }

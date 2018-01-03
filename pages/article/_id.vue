@@ -131,10 +131,10 @@
             itemDelete(index) {
                 const articleId = this.article.id
                 this.$api.comment.deleteById(this.comments[index].id).then(data => {
-                    this.$api.comment.getCountByArticleId(articleId).then(data => {
+                    return this.$api.comment.getCountByArticleId(articleId).then(data => {
                         this.commentCount = data.data
                         if (this.hasMore) {
-                            this.$api.comment.getAllByArticleId({
+                            return this.$api.comment.getAllByArticleId({
                                 articleId,
                                 pageSize: this.pageSize,
                                 pageNum: this.pageNum,
@@ -147,9 +147,19 @@
                                 this.comments = comments
                             })
                         }
-                    }).catch(() => {
+                    })
+                }).then(()=>{
+                    this.$message({
+                        content:'删除成功',
+                        type:'success',
+                        duration:2000
                     })
                 }).catch(() => {
+                    this.$message({
+                        content:'删除失败',
+                        type:'error',
+                        duration:2000
+                    })
                 })
             },
             async loadMore() {

@@ -17,7 +17,7 @@
                                 c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                                 c-dropdown-menu(slot="list")
                                     c-dropdown-item
-                                        nuxt-link.dropdown-item(to="/user/self") 个人中心
+                                        nuxt-link.dropdown-item(:to="'/user/'+user.id") 个人中心
                                     c-dropdown-item
                                         nuxt-link.dropdown-item(to="/article/write") 写文章
 

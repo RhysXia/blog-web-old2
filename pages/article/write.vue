@@ -52,10 +52,10 @@
         directives: {
             fixed
         },
-        head(){
-          return {
-              title: '写作'
-          }
+        head() {
+            return {
+                title: '写作'
+            }
         },
         data() {
             return {
@@ -185,7 +185,8 @@
                             type: 'success',
                             duration: 2000
                         })
-                        this.$router.push('/user/self')
+                        const id = this.$store.state.user.id
+                        this.$router.push(`/user/${id}`)
                     })
                 }).catch(err => {
                     this.$message({
@@ -281,7 +282,8 @@
                 })
             },
             getCategories() {
-                this.$api.category.getAllBySelf({
+                this.$api.category.getAllByUserId({
+                    userId: this.user && this.user.id,
                     pageNum: 1,
                     pageSize: 100,
                     sorts: 'weight DESC,createTime Desc'
@@ -294,6 +296,9 @@
         computed: {
             isLogin() {
                 return this.$store.getters.isLogin
+            },
+            user() {
+                return this.$store.state.user
             }
         },
         beforeMount() {
@@ -304,6 +309,16 @@
         },
         mounted() {
             this.getCategories()
+            const draftId = this.$route.query.draftId
+            if (draftId) {
+                this.$api.draft.getById(draftId).then(data => {
+                    this.draftId = draftId
+                    this.article = data.data
+                    this.article.tagIds = []
+                    this.article.categoryId = -1
+                }).catch(err => {
+                })
+            }
         },
         components: {
             CEditor,

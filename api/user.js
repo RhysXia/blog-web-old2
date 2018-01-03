@@ -1,9 +1,13 @@
 export default http => {
-  const user = {}
+    const user = {}
 
-  user.getSelf = () => {
-    return http.get('/users/self')
-  }
+    user.getSelf = () => {
+        return http.get('/users/self')
+    }
 
-  return user
+    user.getById = (id) => {
+        return http.get(`/users/${id}`)
+    }
+
+    return user
 }

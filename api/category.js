@@ -1,7 +1,7 @@
 export default http => {
     const category = {}
-    category.getAllBySelf = ({pageSize, pageNum, sorts = ''}) => {
-        return http.get(`/categories/self`, {
+    category.getAllByUserId = ({userId, pageSize, pageNum, sorts = ''}) => {
+        return http.get(`/users/${userId}/categories`, {
             params: {
                 pageNum,
                 pageSize,

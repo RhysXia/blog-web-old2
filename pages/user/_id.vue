@@ -1,20 +1,19 @@
 <template lang="pug">
-    no-ssr
-        c-row.user-self-container(:gutter="10",v-if="isLogin")
-            c-col(:span="4")
-                .avatar-wrapper
-                    c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
-                h2.nickname
-                    | {{user.nickname}}
-                p.info {{user.info}}
-                .email
-                    i.fa.fa-envelope
-                    a(:href="'mailto:'+user.email") {{user.email}}
-            c-col(:span="20")
-                .tabs
-                    nuxt-link.tab(to="/user/self/info") 总概
-                    nuxt-link.tab(to="/user/self/article") 文章
-                nuxt-child
+    c-row.user-self-container(:gutter="10")
+        c-col(:span="4")
+            .avatar-wrapper
+                c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
+            h2.nickname
+                | {{user.nickname}}
+            p.info {{user.info}}
+            .email
+                i.fa.fa-envelope
+                a(:href="'mailto:'+user.email") {{user.email}}
+        c-col(:span="20")
+            .tabs
+                nuxt-link.tab(:to="'/user/'+user.id") 总概
+                nuxt-link.tab(:to="'/user/'+user.id+'/article'") 文章
+            nuxt-child
 </template>
 <script>
     import CAvatar from '~/components/common/avatar'
@@ -22,25 +21,32 @@
     export default {
         head() {
             return {
-                title: '个人主页'
+                title: `${this.user.nickname}的主页`
             }
+        },
+        async asyncData({params, error, store}) {
+            const id = params.id
+            const result = {
+                user: {}
+            }
+            await store.$api.user.getById(id).then(data => {
+                result.user = data.data
+            }).catch(err => {
+                error({statusCode: 500, message: err.message})
+            })
+            return result
         },
         computed: {
-            user() {
-                return this.$store.state.user
+            isSelf() {
+                const loginUser = this.$store.state.user
+                const user = this.user
+                if (loginUser && loginUser.id) {
+                    if (user.id === loginUser.id) {
+                        return true
+                    }
+                }
+                return false
             },
-            isLogin() {
-                return this.$store.getters.isLogin
-            }
-        },
-        beforeMount() {
-            // 没有登录则转到错误界面
-            if (!this.isLogin) {
-                this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
-            }
-        },
-        mounted() {
-            this.$router.push('/user/self/info')
         },
         components: {
             CAvatar
@@ -52,6 +58,7 @@
 
     .user-self-container {
         background-color: $color-background;
+        padding: 0.5rem;
         .avatar-wrapper {
             position: relative;
             width: 100%;
@@ -94,7 +101,7 @@
                     height: 2px;
                     content: '';
                 }
-                &.nuxt-link-active {
+                &.nuxt-link-exact-active {
                     &:after {
                         background-color: $color-primary;
                     }

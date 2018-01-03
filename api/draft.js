@@ -27,5 +27,18 @@ export default http => {
     draft.deleteById = id => {
         return http.delete(`/drafts/${id}`)
     }
+
+    draft.getAllByUserId = ({userId, pageSize, pageNum, sorts = ''}) => {
+        return http.get(`/users/${userId}/drafts`, {
+            params: {
+                pageNum,
+                pageSize,
+                sorts
+            }
+        })
+    }
+    draft.getById = id => {
+        return http.get(`/drafts/${id}`)
+    }
     return draft
 }
