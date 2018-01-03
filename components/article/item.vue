@@ -3,8 +3,9 @@
         .left
             img.poster(:src="article.poster")
         .right
-            nuxt-link(:to="'/article/'+article.id")
-                h2.title {{article.title}}
+            .header
+                nuxt-link(:to="'/article/'+article.id")
+                    h2.title {{article.title}}
             .info {{article.info}}
             .detail
                 span.time
@@ -21,15 +22,28 @@
                     | {{article.category.name}}
 </template>
 <script>
-  export default {
-    name: 'article-item',
-    props: {
-      article: {
-        type: Object,
-        default: () => {}
-      }
+
+    export default {
+        name: 'article-item',
+        props: {
+            article: {
+                type: Object,
+                default: () => {
+                }
+            }
+        },
+        computed: {
+            isSelf() {
+                const loginUser = this.$store.state.user
+                if (loginUser && loginUser.id) {
+                    if (loginUser.id === article.author.id) {
+                        return true
+                    }
+                }
+                return false
+            }
+        }
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -42,7 +56,7 @@
         background-color: $color-background;
         padding: 0.5em;
         transition: background-color 0.4s ease;
-        &:hover{
+        &:hover {
             background-color: $color-background-active;
         }
         .left {

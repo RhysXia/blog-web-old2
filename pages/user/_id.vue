@@ -1,5 +1,5 @@
 <template lang="pug">
-    c-row.user-self-container(:gutter="10")
+    c-row.user-self-container(:gutter="20")
         c-col(:span="4")
             .avatar-wrapper
                 c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
@@ -12,13 +12,16 @@
         c-col(:span="20")
             .tabs
                 nuxt-link.tab(:to="'/user/'+user.id") 总概
-                nuxt-link.tab(:to="'/user/'+user.id+'/article'") 文章
+                nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
             nuxt-child
 </template>
 <script>
     import CAvatar from '~/components/common/avatar'
 
     export default {
+        validate({params}){
+          return /^\d+$/.test(params.id)
+        },
         head() {
             return {
                 title: `${this.user.nickname}的主页`
@@ -87,6 +90,7 @@
         .tabs {
             border-bottom: 1px solid $color-border-base;
             box-sizing: border-box;
+            margin-bottom: 1rem;
             .tab {
                 display: inline-block;
                 padding: 0.8rem 1.5rem;
