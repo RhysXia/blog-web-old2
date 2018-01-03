@@ -57,5 +57,17 @@ export default http => {
             tagIds
         })
     }
+
+    article.update = ({articleId, title, info, poster, categoryId, content, contentType, tagIds}) => {
+        return http.put(`/articles/${articleId}`, {
+            title,
+            info,
+            poster,
+            categoryId,
+            content,
+            contentType,
+            tagIds
+        })
+    }
     return article
 }

@@ -39,18 +39,6 @@
             })
             return result
         },
-        computed: {
-            isSelf() {
-                const loginUser = this.$store.state.user
-                const user = this.user
-                if (loginUser && loginUser.id) {
-                    if (user.id === loginUser.id) {
-                        return true
-                    }
-                }
-                return false
-            },
-        },
         components: {
             CAvatar
         }

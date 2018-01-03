@@ -35,11 +35,12 @@
             .body
                 c-show-more(:hiddenHeight="500")
                     .content(v-html="content")
-            .footer
-                no-ssr
+            no-ssr
+                .footer
                     button.btn.link(v-if="isLogin",@click="voteClick")
                         i.fa.fa-hand-pointer-o
                         | {{isVoted?'取消点赞':'点赞一下'}}
+                    nuxt-link(v-if="isSelf",:to="{path:'/article/write',query:{articleId:article.id}}") 修改
         .comment-wrapper
             .header
                 no-ssr
@@ -111,6 +112,16 @@
                 } else {
                     return content
                 }
+            },
+            isSelf() {
+                const loginUser = this.$store.state.user
+                const user = this.user
+                if (loginUser && loginUser.id) {
+                    if (user.id === loginUser.id) {
+                        return true
+                    }
+                }
+                return false
             }
         },
         methods: {
@@ -148,17 +159,17 @@
                             })
                         }
                     })
-                }).then(()=>{
+                }).then(() => {
                     this.$message({
-                        content:'删除成功',
-                        type:'success',
-                        duration:2000
+                        content: '删除成功',
+                        type: 'success',
+                        duration: 2000
                     })
                 }).catch(() => {
                     this.$message({
-                        content:'删除失败',
-                        type:'error',
-                        duration:2000
+                        content: '删除失败',
+                        type: 'error',
+                        duration: 2000
                     })
                 })
             },

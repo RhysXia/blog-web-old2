@@ -68,6 +68,7 @@
                     categoryId: -1,
                     tagIds: []
                 },
+                articleId: null,
                 category: {
                     name: '',
                     description: '',
@@ -179,15 +180,29 @@
                     promise = this.$api.draft.deleteById(this.draftId)
                 }
                 promise.then(() => {
-                    return this.$api.article.add(this.article).then(data => {
-                        this.$message({
-                            content: '发表文章成功',
-                            type: 'success',
-                            duration: 2000
+                    if (this.articleId) {
+                        return this.$api.article.update({
+                            articleId: this.articleId,
+                            ...this.article
+                        }).then(data => {
+                            this.$message({
+                                content: '修改文章成功',
+                                type: 'success',
+                                duration: 2000
+                            })
+                            this.$router.push(`/article/${this.articleId}`)
                         })
-                        const id = this.$store.state.user.id
-                        this.$router.push(`/user/${id}`)
-                    })
+                    } else {
+                        return this.$api.article.add(this.article).then(data => {
+                            this.$message({
+                                content: '发表文章成功',
+                                type: 'success',
+                                duration: 2000
+                            })
+                            const id = this.$store.state.user.id
+                            this.$router.push(`/user/${id}`)
+                        })
+                    }
                 }).catch(err => {
                     this.$message({
                         content: err.message,
@@ -310,13 +325,35 @@
         mounted() {
             this.getCategories()
             const draftId = this.$route.query.draftId
+            const articleId = this.$route.query.articleId
             if (draftId) {
                 this.$api.draft.getById(draftId).then(data => {
                     this.draftId = draftId
-                    this.article = data.data
+                    const {title, info, poster, content, contentType} = data.data
+                    this.article = {
+                        title,
+                        info,
+                        poster,
+                        content,
+                        contentType
+                    }
                     this.article.tagIds = []
                     this.article.categoryId = -1
                 }).catch(err => {
+                })
+            } else if (articleId) {
+                this.$api.article.getById(articleId).then(data => {
+                    const {title, info, poster, content, contentType} = data.data
+                    this.articleId = articleId
+                    this.article = {
+                        title,
+                        info,
+                        poster,
+                        content,
+                        contentType
+                    }
+                    this.article.tagIds = []
+                    this.article.categoryId = -1
                 })
             }
         },
