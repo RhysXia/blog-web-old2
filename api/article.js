@@ -69,5 +69,15 @@ export default http => {
             tagIds
         })
     }
+
+    article.getAllByCategoryId = ({categoryId, pageNum, pageSize, sorts = ''}) => {
+        return http.get(`/categories/${categoryId}/articles`, {
+            params: {
+                pageSize,
+                pageNum,
+                sorts
+            }
+        })
+    }
     return article
 }
