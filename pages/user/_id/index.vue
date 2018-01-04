@@ -7,12 +7,12 @@
                     nuxt-link.title(:to="{path:'/article/write',query:{draftId:draft.id}}") {{draft.title}}
         template(v-if="categories.length>0")
             h2.title 常用分类
-            .list-wrapper
+            .category-wrapper
                 .item(v-for="(category,index) in categories",:key="index")
                     c-category-item(:category="category")
         template(v-if="articles.length>0")
             h2.title 最近文章
-            .list-wrapper
+            .article-wrapper
                 .item(v-for="(article,index) in articles",:key="index")
                     c-article-item(:article="article")
 </template>
@@ -24,8 +24,10 @@
     export default {
         name: "info",
         async asyncData({params, store}) {
-            const userId = params.id
-            const result = {}
+            const userId = Number(params.id)
+            const result = {
+                userId
+            }
             await store.$api.category.getAllByUserId({
                 userId,
                 pageNum: 1,
@@ -42,19 +44,26 @@
             }).then(data => {
                 result.articles = data.data
             }).catch()
-            await store.$api.draft.getAllByUserId({
-                userId,
-                pageNum: 1,
-                pageSize: 100
-            }).then(data => {
-                result.drafts = data.data
-            })
             return result
         },
         data() {
-            return {}
+            return {
+                drafts: []
+            }
         },
-        mounted() {
+        beforeMount() {
+            const user = this.$store.state.user
+            if (user && user.id) {
+                if (user.id === this.userId) {
+                    this.$api.draft.getAllByUserId({
+                        userId: this.userId,
+                        pageNum: 1,
+                        pageSize: 100
+                    }).then(data => {
+                        this.drafts = data.data
+                    })
+                }
+            }
         },
         components: {
             CArticleItem,
@@ -80,17 +89,25 @@
                 margin-bottom: 1rem;
             }
         }
-        .list-wrapper {
+
+        .category-wrapper {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             margin-right: -1rem;
+            font-size: 0.8rem;
             .item {
                 width: calc(50% - 1rem);
                 margin-right: 1rem;
                 margin-bottom: 1rem;
-                font-size: 0.8rem;
+
                 font-weight: normal;
+            }
+        }
+        .article-wrapper {
+            font-size: 0.8rem;
+            .item {
+                margin-bottom: 1rem;
             }
         }
 

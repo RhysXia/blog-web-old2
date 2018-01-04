@@ -14,7 +14,7 @@
             return /^\d+$/.test(params.id)
         },
         asyncData({params, store, error}) {
-            const tagId = params.id
+            const tagId = Number(params.id)
             const result = {
                 articles: [],
                 pageNum: 0,

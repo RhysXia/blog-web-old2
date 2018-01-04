@@ -85,7 +85,8 @@
             width: 100%;
         }
         .layout-main {
-            margin: $height-header + 1rem 0;
+            margin-top: $height-header + 1rem;
+            margin-bottom: 1rem;
         }
         .menu-enter-active,
         .menu-leave-active {

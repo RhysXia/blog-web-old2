@@ -266,8 +266,8 @@
                 }
             }
         },
-        async asyncData({route, store, error}) {
-            const id = route.params.id
+        async asyncData({params, store, error}) {
+            const id = Number(params.id)
 
             const result = {
                 article: {},
