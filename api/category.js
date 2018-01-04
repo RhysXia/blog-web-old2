@@ -10,6 +10,10 @@ export default http => {
         })
     }
 
+    category.getById = (id) => {
+        return http.get(`/categories/${id}`)
+    }
+
     category.add = ({name, description, weight}) => {
         return http.post('/categories', {
             name, description, weight

@@ -79,5 +79,9 @@ export default http => {
             }
         })
     }
+
+    article.countByCategoryId = (categoryId) => {
+        return http.get(`/categories/${categoryId}/articles/count`)
+    }
     return article
 }
