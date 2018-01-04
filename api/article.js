@@ -83,5 +83,15 @@ export default http => {
     article.countByCategoryId = (categoryId) => {
         return http.get(`/categories/${categoryId}/articles/count`)
     }
+
+    article.getAllByTagId = ({tagId, pageNum, pageSize, sorts = ''}) => {
+        return http.get(`/tags/${tagId}/articles`, {
+            params: {
+                pageSize,
+                pageNum,
+                sorts
+            }
+        })
+    }
     return article
 }

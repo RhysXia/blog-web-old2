@@ -17,5 +17,9 @@ export default http => {
             name
         })
     }
+
+    tag.getById = id => {
+        return http.get(`/tags/${id}`)
+    }
     return tag
 }

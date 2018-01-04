@@ -1,9 +1,8 @@
 <template lang="pug">
-    .c-category-container
-        .category
-            h1.name {{category.name}}
-            p.desc {{category.description}}
-            p.count 文章数：{{category.articleCount}}
+    .c-tag-container
+        .tag
+            h1.name {{tag.name}}
+            p.count 文章数：{{tag.articleCount}}
         c-article-list(:articles="articles",:hasMore="hasMore",:loadMore="loadMore")
 </template>
 
@@ -15,19 +14,19 @@
             return /^\d+$/.test(params.id)
         },
         asyncData({params, store, error}) {
-            const categoryId = params.id
+            const tagId = params.id
             const result = {
                 articles: [],
                 pageNum: 0,
                 pageSize: 10,
-                category: {}
+                tag: {}
 
             }
-            return store.$api.category.getById(categoryId).then(data => {
-                result.category = data.data
+            return store.$api.tag.getById(tagId).then(data => {
+                result.tag = data.data
             }).then(() => {
-                return store.$api.article.getAllByCategoryId({
-                    categoryId,
+                return store.$api.article.getAllByTagId({
+                    tagId,
                     pageNum: result.pageNum + 1,
                     pageSize: result.pageSize,
                     sorts: 'updateTime DESC'
@@ -43,12 +42,12 @@
         },
         computed: {
             hasMore() {
-                return this.pageNum * this.pageSize < this.category.articleCount
+                return this.pageNum * this.pageSize < this.tag.articleCount
             }
         },
         methods: {
             loadMore() {
-                return this.$api.article.getAllByCategoryId({
+                return this.$api.article.getAllByTagId({
                     categoryId: this.category.id,
                     pageNum: this.pageNum + 1,
                     pageSize: this.pageSize,
@@ -68,16 +67,13 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-category-container{
-        .category{
+    .c-tag-container{
+        .tag{
             background-color: $color-background;
             margin-bottom: 1rem;
             padding: 1rem;
             .name{
                 text-align: center;
-            }
-            .desc{
-                color: $color-text-light;
             }
         }
     }
