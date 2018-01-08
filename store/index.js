@@ -1,3 +1,5 @@
+import {removeCookie, setCookie} from "../utils/cookie";
+
 export const state = () => ({
     serverURL: 'https://api.ryths.cn',
     token: '',
@@ -28,51 +30,58 @@ export const getters = {
 export const actions = {
     async nuxtServerInit({commit}) {
         await this.$api.article.getAll({
-            pageSize: 10,
-            pageNum: 1,
-            sorts: 'likeCount DESC'
-        }).then(data => {
-            commit('article/setHotArticles', data.data)
-        })
+            page: 0,
+            size: 10,
+            sort: 'voteNum,DESC'
+        }).then(res => {
+            commit('article/setHotArticles', res.data.content)
+        }).catch()
         await this.$api.tag.getAll({
-            pageSize: 10,
-            pageNum: 1,
-            sorts: 'articleCount DESC'
-        }).then(data => {
-            commit('tag/setHotTags', data.data)
-        })
+            page: 0,
+            size: 10,
+            sort: 'articleNum,DESC'
+        }).then(res => {
+            commit('tag/setHotTags', res.data.content)
+        }).catch()
     },
     // 登陆，根据用户名密码登陆，或者根据token登陆
-    login({commit}, {username = null, password = null, token = null, remember = false}) {
+    login({commit, state}, {username = null, password = null, token = null, remember = false}) {
         // 如果用户密码存在，则使用用户名密码登陆
+        let promise
         if (username && password) {
-            return this.$api.auth.login({username, password}).then(data => {
+            promise = this.$api.auth.login({username, password}).then(res => {
                 // 登陆成功，保存token到store
-                commit('setToken', data.data)
+                commit('setToken', res.data.id)
                 if (remember) {
-                    localStorage.setItem('ryths-blog-token', data.data)
+                    setCookie('ryths-blog-token', res.data, {expires: 30})
                 }
-                return this.$api.user.getSelf().then(data => {
-                    commit('setUser', data.data)
+                return this.$api.user.getSelf().then(res => {
+                    commit('setUser', res.data)
                 })
             })
         } else if (token) {
             commit('setToken', token)
             if (remember) {
-                localStorage.setItem('ryths-blog-token', token)
+                setCookie('ryths-blog-token', token, {expires: 30})
             }
-            return this.$api.user.getSelf().then(data => {
-                commit('setUser', data.data)
+            promise = this.$api.user.getSelf().then(res => {
+                commit('setUser', res.data)
             })
         } else {
-            return Promise.reject(new Error('用户名密码不能为空'))
+            promise = Promise.reject(new Error('用户名密码不能为空'))
         }
+        return promise
     },
-    logout({commit}) {
+    logout({commit, state}) {
         return this.$api.auth.logout().then(data => {
             commit('setToken', '')
             commit('setUser', null)
-            localStorage.removeItem('ryths-blog-token')
+            removeCookie('ryths-blog-token')
+        }).then(data => {
+            const webSocket = state.webSocket
+            if (webSocket) {
+                webSocket.close()
+            }
         })
     }
 }

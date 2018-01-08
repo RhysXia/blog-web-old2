@@ -1,91 +1,66 @@
 <template lang="pug">
     .c-article-list-container
         transition-group(name="list",tag="div")
-            item.item(v-for="(article,index) in articles",:key="index",:article="article")
-        .action.has-more(v-if="hasMore&&!isLoading",@click="loadClick") 加载更多
-        .action.loading(v-else-if="isLoading") 正在加载
-        .action.no-more(v-else) 已经到底了
-
+            item.item(v-for="article in articles",:key="article.id",:article="article")
+        pagination(:total="total",:pageSize="pageSize",@pageChange="pageChange")
 </template>
 
 <script>
-  import Item from './item'
+    import Item from './item'
+    import Pagination from '../common/pagination'
 
-  export default {
-    name: 'article-list',
-    props: {
-      articles: {
-        type: Array,
-        default: () => []
-      },
-      hasMore: {
-        type: Boolean
-      },
-      loadMore: {
-        type: Function,
-        default: () => {
-          return new Promise((resolve, reject) => {
-            resolve()
-          })
+    export default {
+        name: 'article-list',
+        props: {
+            articles: {
+                type: Array,
+                default: []
+            },
+            total: {
+                type: Number
+            },
+            pageSize: {
+                type: Number
+            }
+
+        },
+        data() {
+            return {}
+        },
+        methods: {
+            pageChange(val) {
+                this.$emit('pageChange', val)
+            }
+        },
+        components: {
+            Item,
+            Pagination
         }
-      }
-    },
-    data () {
-      return {
-        isLoading: false
-      }
-    },
-    methods: {
-      loadClick () {
-        this.isLoading = true
-          this.loadMore().then(() => {
-          this.isLoading = false
-        })
-      }
-    },
-    components: {
-      Item
     }
-  }
 </script>
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
     .c-article-list-container {
-        .item{
+        .item {
             margin-bottom: 1em;
         }
-        .list-enter-active,
-        .list-leave-active {
+        .list-enter-active{
             transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
         }
-        .list-enter,
-        .list-leave-to {
+        .list-leave-active{
+            display: none;
+        }
+        .list-enter {
             opacity: 0;
             transform: translateX(100%);
         }
-        .list-enter-to,
-        .list-leave {
+        .list-enter-to {
             opacity: 1;
             transform: translateX(0);
         }
-        .action {
-            background-color: $color-background;
-            padding: 0.5em 0;
-            text-align: center;
-            &.no-more,
-            &.loading {
-                cursor: not-allowed;
-                background-color: $color-background-active;
-            }
-            &.has-more {
-                cursor: pointer;
-                &:hover {
-                    background-color: $color-background-active;
-                }
-            }
-        }
+
     }
 
 

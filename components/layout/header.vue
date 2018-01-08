@@ -14,6 +14,11 @@
                             nuxt-link(to="/auth/register") 注册
                         .action(v-else)
                             c-dropdown
+                                c-badge(:value="count")
+                                    i.fa.fa-bell
+                                c-dropdown-menu(slot="list")
+                                    c-dropdown-item
+                            c-dropdown
                                 c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                                 c-dropdown-menu(slot="list")
                                     c-dropdown-item
@@ -24,38 +29,69 @@
                             button.btn(@click="logout") 注销
 </template>
 <script>
-  import { CDropdown, CDropdownItem, CDropdownMenu } from '~/components/common/dropdown'
-  import CAvatar from '~/components/common/avatar'
+    import {CDropdown, CDropdownItem, CDropdownMenu} from '~/components/common/dropdown'
+    import CAvatar from '~/components/common/avatar'
+    import CBadge from '~/components/common/badge'
 
-  export default {
-    name: 'header',
-    computed: {
-      isLogin () {
-        return this.$store.getters.isLogin
-      },
-      user () {
-        return this.$store.state.user
-      }
-    },
-    methods: {
-      logout () {
-        this.$store.dispatch('logout').then(() => {
-          this.$router.push('/')
-        }).catch(err => {})
-      }
-    },
-    components: {
-      CDropdown,
-      CDropdownItem,
-      CDropdownMenu,
-      CAvatar
+    export default {
+        name: 'header',
+        data() {
+            return {
+                comments: [],
+                count: 0
+            }
+        },
+        computed: {
+            isLogin() {
+                return this.$store.getters.isLogin
+            },
+            user() {
+                return this.$store.state.user
+            }
+        },
+        watch: {
+            isLogin(val) {
+                if (val) {
+                    this.initComments()
+                }
+            }
+        },
+        methods: {
+            initComments() {
+                this.$api.comment.getCountNotRead().then(data => {
+                    this.count = data.data
+                })
+                this.$api.comment.getAllNotRead({
+                    pageNum: 1,
+                    pageSize: 10
+                }).then(data => {
+                    this.comments = data.data
+                })
+            },
+            logout() {
+                this.$store.dispatch('logout').then(() => {
+                    this.$router.push('/')
+                }).catch(err => {
+                })
+            }
+        },
+        mounted() {
+            if (this.isLogin) {
+                this.initComments()
+            }
+        },
+        components: {
+            CDropdown,
+            CDropdownItem,
+            CDropdownMenu,
+            CAvatar,
+            CBadge
+        }
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
-
 
     .c-header-container {
         background-color: $color-background;
@@ -80,11 +116,11 @@
                     color: color-active($color-primary);
                 }
             }
-            .dropdown-item{
+            .dropdown-item {
                 display: block;
                 padding: 0.5rem 1rem;
-                &:hover{
-                    background-color: rgba(200,200,200,0.5);
+                &:hover {
+                    background-color: rgba(200, 200, 200, 0.5);
                 }
             }
         }

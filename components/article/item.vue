@@ -10,13 +10,16 @@
             .detail
                 span.time
                     i.fa.fa-clock-o
-                    | {{article.updateTime | formatDate}}
+                    | {{article.updateAt | formatDate}}
                 span.read
                     i.fa.fa-eye
-                    | {{article.readCount}}
+                    | {{article.readNum}}
                 span.like
                     i.fa.fa-heart
-                    | {{article.likeCount}}
+                    | {{article.voteNum}}
+                span.comment
+                    i.fa.fa-comments
+                    | {{article.commentNum}}
                 span.category(v-if="article.category")
                     i.fa.fa-list
                     | {{article.category.name}}

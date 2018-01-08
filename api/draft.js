@@ -28,12 +28,12 @@ export default http => {
         return http.delete(`/drafts/${id}`)
     }
 
-    draft.getAllByUserId = ({userId, pageSize, pageNum, sorts = ''}) => {
+    draft.getAllByUserId = ({userId, page, size, sort = ''}) => {
         return http.get(`/users/${userId}/drafts`, {
             params: {
-                pageNum,
-                pageSize,
-                sorts
+                page,
+                size,
+                sort
             }
         })
     }

@@ -1,12 +1,12 @@
 export default http => {
     const tag = {}
 
-    tag.getAll = ({pageSize, pageNum, sorts = '', name = null}) => {
+    tag.getAll = ({page, size, sort = '', name = null}) => {
         return http.get('/tags', {
             params: {
-                pageNum,
-                pageSize,
-                sorts,
+                page,
+                size,
+                sort,
                 name
             }
         })

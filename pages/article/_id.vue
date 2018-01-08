@@ -6,8 +6,8 @@
                 .info
                     span
                         i.fa.fa-clock-o
-                        | 创建{{article.createTime | formatDate}};
-                        | 更新{{article.updateTime | formatDate}}
+                        | 创建{{article.createAt | formatDate}};
+                        | 更新{{article.updateAt | formatDate}}
                     .right
                         button.btn.link(@click="fullPageClick")
                             i.fa(:class="fullPage?'fa-compress':'fa-arrows-alt'")
@@ -18,10 +18,10 @@
                 .info
                     span
                         i.fa.fa-eye
-                        | {{article.readCount}}
+                        | {{article.readNum}}
                     span
                         i.fa.fa-heart
-                        | {{article.likeCount}}
+                        | {{article.voteNum}}
                     span
                         i.fa.fa-user
                         nuxt-link(:to="'/user/'+article.author.id") {{article.author.nickname}}
@@ -45,9 +45,9 @@
             .header
                 no-ssr
                     h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
-                span.info(v-if="commentCount")
+                span.info(v-if="count")
                     | 共
-                    b {{commentCount}}
+                    b {{count}}
                     | 条评论
             .body
                 no-ssr
@@ -57,10 +57,10 @@
                         .right
                             c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
                                 button.submit(slot="button",@click="commentSubmit") 提交
-                template(v-if="!commentCount")
+                template(v-if="!count")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
-                    c-comment-list(:comments="comments",:hasMore="hasMore",:loadMore="loadMore",@item-delete="itemDelete")
+                    c-comment-list(:comments="comments",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
     import markdown from '~/utils/markdown'
@@ -81,14 +81,10 @@
         data() {
             return {
                 commentContent: '',
-                isLoading: false,
                 isVoted: false
             }
         },
         computed: {
-            hasMore() {
-                return this.commentCount > this.pageNum * this.pageSize
-            },
             user() {
                 return this.$store.state.user
             },
@@ -125,39 +121,50 @@
             }
         },
         methods: {
+            pageChange(val) {
+                this.$api.comment.getAllByArticleId({
+                    articleId: this.article.id,
+                    page: val - 1,
+                    size: this.size,
+                    sort: 'floorNum,DESC'
+                }).then(res => {
+                    this.comments = res.data.content
+                    this.count = res.data.totalElements
+                })
+            },
             voteClick() {
                 const id = this.article.id
-                if (this.isVoted) {
+                const isVoted = this.article.voted
+                if (isVoted) {
                     this.$api.article.deleteVote(id).then(data => {
-                        this.isVoted = false
-                        this.article.likeCount--
+                        this.article.voted = false
+                        this.article.voteNum--
                     })
                 } else {
                     this.$api.article.addVote(id).then(data => {
-                        this.isVoted = true
-                        this.article.likeCount++
+                        this.article.voted = true
+                        this.article.voteNum++
                     })
                 }
             },
             itemDelete(index) {
                 const articleId = this.article.id
-                this.$api.comment.deleteById(this.comments[index].id).then(data => {
-                    return this.$api.comment.getCountByArticleId(articleId).then(data => {
-                        this.commentCount = data.data
-                        if (this.hasMore) {
-                            return this.$api.comment.getAllByArticleId({
-                                articleId,
-                                pageSize: this.pageSize,
-                                pageNum: this.pageNum,
-                                sorts: 'floorNum DESC'
-                            }).then(data => {
-                                const comments = this.comments.splice(0, (this.pageNum - 1) * this.pageSize)
-                                data.data.forEach(item => {
-                                    comments.push(item)
-                                })
-                                this.comments = comments
-                            })
-                        }
+                this.$api.comment.deleteById(this.comments[index].id).then(res => {
+                    if (!this.hasMore) {
+                        this.comments = this.comments.splice(index, 1)
+                        return
+                    }
+                    const start = this.page * this.size
+                    this.comments.splice(start, this.size)
+                    this.$api.comment.getAllByArticleId({
+                        articleId: id,
+                        page: this.page,
+                        size: this.size,
+                        sort: 'floorNum,DESC'
+                    }).then(res => {
+                        this.comments = res.data.content
+                        result.count = res.data.totalElements
+                        result.last = res.data.last
                     })
                 }).then(() => {
                     this.$message({
@@ -171,25 +178,6 @@
                         type: 'error',
                         duration: 2000
                     })
-                })
-            },
-            async loadMore() {
-                const articleId = this.article.id
-                this.pageNum += 1
-                return this.$api.comment.getAllByArticleId({
-                    articleId,
-                    pageSize: this.pageSize,
-                    pageNum: this.pageNum,
-                    sorts: 'floorNum DESC'
-                }).then(data => {
-                    data.data.forEach(item => {
-                        this.comments.push(item)
-                    })
-                    this.$api.comment.getCountByArticleId(articleId).then(data => {
-                        this.commentCount = data.data
-                    }).catch(() => {
-                    })
-                }).catch(() => {
                 })
             },
             commentSubmit() {
@@ -257,62 +245,36 @@
                 this.$store.commit('showAside', flag)
             }
         },
-        watch: {
-            isLogin(val) {
-                if (val) {
-                    this.$api.article.isVoted(this.article.id).then(data => {
-                        this.isVoted = data.data
-                    })
-                }
-            }
-        },
         async asyncData({params, store, error}) {
             const id = Number(params.id)
 
             const result = {
                 article: {},
-                commentCount: 0,
                 comments: [],
-                pageNum: 1,
-                pageSize: 5
+                page: 0,
+                size: 5,
+                count: 0
             }
 
-            await store.$api.article.getById(id).then(data => {
-                result.article = data.data
+            await store.$api.article.getById(id).then(res => {
+                result.article = res.data
             }).catch(err => {
-                let statusCode = 500
-                if (err.response) {
-                    statusCode = err.response.status
+                const res = err.response
+                if (res) {
+                    const statusCode = res.status
+                    error({statusCode, message: res.data.message})
                 }
-                error({statusCode: statusCode, message: err.data.message})
             })
-            const articleId = result.article.id
-            if (articleId) {
-                await store.$api.comment.getCountByArticleId(articleId).then(data => {
-                    result.commentCount = data.data
-                }).catch(() => {
-                })
-                if (result.commentCount > 0) {
-                    await store.$api.comment.getAllByArticleId({
-                        articleId,
-                        pageSize: result.pageSize,
-                        pageNum: result.pageNum,
-                        sorts: 'floorNum DESC'
-                    }).then(data => {
-                        result.comments = data.data
-                    }).catch(() => {
-                    })
-                }
-            }
+            await store.$api.comment.getAllByArticleId({
+                articleId: id,
+                page: result.page,
+                size: result.size,
+                sort: 'floorNum,DESC'
+            }).then(res => {
+                result.comments = res.data.content
+                result.count = res.data.totalElements
+            })
             return result
-        },
-        mounted() {
-            const isLogin = this.isLogin
-            if (isLogin) {
-                this.$api.article.isVoted(this.article.id).then(data => {
-                    this.isVoted = data.data
-                })
-            }
         },
         components: {
             CCommentList,

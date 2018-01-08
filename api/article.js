@@ -1,34 +1,28 @@
 export default http => {
     const article = {}
 
-    article.getAll = ({pageSize, pageNum, sorts = ''}) => {
+    article.getAll = ({page, size, sort = ''}) => {
         return http.get('/articles', {
             params: {
-                pageNum,
-                pageSize,
-                sorts
+                page,
+                size,
+                sort
             }
         })
     }
-    article.getAllByUserId = ({userId, pageSize, pageNum, sorts = ''}) => {
-        return http.get(`/users/${userId}/articles`, {
+    article.getAllByUserId = ({userId, page, size, sort = ''}) => {
+        return http.get('/articles', {
             params: {
-                pageSize,
-                pageNum,
-                sorts
+                page,
+                size,
+                sort,
+                userId
             }
         })
-    }
-    article.count = () => {
-        return http.get('/articles/count')
     }
 
     article.getById = id => {
         return http.get(`/articles/${id}`)
-    }
-
-    article.isVoted = articleId => {
-        return http.get(`/articles/${articleId}/isVote`)
     }
 
     article.addVote = articleId => {
@@ -70,26 +64,24 @@ export default http => {
         })
     }
 
-    article.getAllByCategoryId = ({categoryId, pageNum, pageSize, sorts = ''}) => {
+    article.getAllByCategoryId = ({categoryId, page, size, sort = ''}) => {
         return http.get(`/categories/${categoryId}/articles`, {
             params: {
-                pageSize,
-                pageNum,
-                sorts
+                page,
+                size,
+                sort
             }
         })
     }
 
-    article.countByCategoryId = (categoryId) => {
-        return http.get(`/categories/${categoryId}/articles/count`)
-    }
 
-    article.getAllByTagId = ({tagId, pageNum, pageSize, sorts = ''}) => {
-        return http.get(`/tags/${tagId}/articles`, {
+    article.getAllByTagId = ({tagId, page, size, sort = ''}) => {
+        return http.get('/articles', {
             params: {
-                pageSize,
-                pageNum,
-                sorts
+                page,
+                size,
+                sort,
+                tagId
             }
         })
     }

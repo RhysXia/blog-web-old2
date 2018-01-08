@@ -6,7 +6,7 @@
                     nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
                         img.article-image(:src="article.poster")
                         span.title {{article.title}}
-        c-article-list(:articles="articles",:hasMore="hasMore",:loadMore="loadMore")
+        c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
     import {CCarousel, CCarouselItem} from '~/components/common/carousel'
@@ -18,12 +18,21 @@
                 title: '首页'
             }
         },
-        asyncData({store}) {
-            const articles = store.state.article.indexArticleInfo.articles
-            if (articles.length === 0) {
-                return store.dispatch('article/loadIndexArticleInfo').catch(err => {
-                })
+        async asyncData({store}) {
+            const data = {
+                articles: [],
+                count: 0,
+                size: 10,
             }
+            await store.$api.article.getAll({
+                page: 0,
+                size: data.size,
+                sort: 'updateAt,DESC'
+            }).then(res => {
+                data.count = res.data.totalElements
+                data.articles = res.data.content
+            }).catch()
+            return data
         },
         data() {
             return {
@@ -31,35 +40,20 @@
             }
         },
         methods: {
-            loadMore() {
-                return this.$store.dispatch('article/loadIndexArticleInfo')
+            pageChange(val) {
+                this.$api.article.getAll({
+                    page: val-1,
+                    size: this.size,
+                    sort: 'updateAt,DESC'
+                }).then(res => {
+                    this.count = res.data.totalElements
+                    this.articles = res.data.content
+                }).catch()
             }
         },
         computed: {
-            articleInfo() {
-                return this.$store.state.article.indexArticleInfo
-            },
-            articles() {
-                return this.articleInfo.articles
-            },
-            hasMore() {
-                return this.articleInfo.pageNum * this.articleInfo.pageSize < this.articleInfo.count
-            },
             hotArticles() {
                 return this.$store.state.article.hotArticles
-            }
-        },
-        watch: {
-            'articleInfo.count'(val) {
-                if (!this.refresh) {
-                    return
-                }
-                this.$message({
-                    type: 'info',
-                    content: '有新的文章，请刷新页面获取最新数据',
-                    duration: 2000
-                })
-                this.refresh = false
             }
         },
         components: {

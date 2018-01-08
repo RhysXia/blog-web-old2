@@ -14,7 +14,7 @@
             .bottom.light
                 span
                     i.fa.fa-clock-o
-                    | {{comment.createTime | formatDate}}
+                    | {{comment.createAt | formatDate}}
                 button
                     i.fa.fa-reply
                     | 回复

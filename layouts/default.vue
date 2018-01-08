@@ -59,7 +59,7 @@
                         document.title = originTitle
                     }
                 }, false)
-            }
+            },
         },
         mounted() {
             this.tabChange()
