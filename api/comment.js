@@ -22,8 +22,8 @@ export default http => {
         return http.delete(`/comments/${id}`)
     }
 
-    comment.uploadImage = ({articleId, imageData}) => {
-        return http.post(`/articles/${articleId}/comments/images`, imageData, {
+    comment.uploadImage = (imageData) => {
+        return http.post(`/comments/images`, imageData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

@@ -35,8 +35,9 @@
             }
         },
         methods: {
-            submit() {
-                this.$store.dispatch('login', this.user).then(() => {
+            async submit() {
+                try {
+                    await this.$store.dispatch('login', this.user)
                     // 获取跳转来的路径
                     const from = this.$route.meta.from
                     // 如果来的路径不是当前路径和注册页面，则跳转回去，否则跳转到首页
@@ -45,13 +46,13 @@
                     } else {
                         this.$router.push('/')
                     }
-                }).catch(err => {
+                } catch (err) {
                     this.$message({
                         content: err.message,
                         type: 'error',
                         duration: 2000
                     })
-                })
+                }
             }
         },
         beforeRouteEnter(to, from, next) {

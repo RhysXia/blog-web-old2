@@ -1,19 +1,18 @@
 <template lang="pug">
-    .c-select-container(:class="classes",@keyup.enter="enter",@click="click",v-clickoutside="outClick")
+    .c-select-container(:class="classes",@click="click",v-clickoutside="outClick")
         c-dropdown(:trigger="trigger",v-model="showItems")
-            .c-select-input(@click="$refs.input.focus()",@keyup.delete="activeKeyValues.pop()")
+            .c-select-input(@click="$refs.input.focus()")
                 .c-tags(v-if="activeKeyValues.length>0")
-                    c-tag(@close="closeTag(item.value)",v-for="(item,index) in activeKeyValues",:key="index",:name="item.label",closeable)
-                c-input(ref="input",v-model="inputData",@input="input",:readonly="!editable",:placeholder="activeKeyValues.length>0?'':placeholder")
-                    .c-select-append(@click.stop,slot="append")
-                        slot(name="append")
+                    c-tag(@close="closeTag(item.value)",v-for="(item,index) in activeKeyValues",:key="item.value",:name="item.label",closeable)
+                .input-wrapper
+                    input.input(:readonly="!editable",type="text",@keydown.delete.prevent="deleteKeyDown",@keyup.enter="enter",ref="input",v-model="inputData",:placeholder="activeKeyValues.length>0?'':placeholder")
+                    slot(name="append")
             c-dropdown-menu(slot="list")
                 slot
 </template>
 
 <script>
     import clickoutside from '~/utils/directive/clickoutside'
-    import CInput from '../input'
     import {findComponentsDownward} from "../../../utils/utils";
     import {CDropdown, CDropdownMenu} from "../dropdown";
     import CTag from '../tag'
@@ -59,6 +58,11 @@
             }
         },
         watch: {
+            inputData(val) {
+                if (this.remote) {
+                    this.$emit('load', val)
+                }
+            },
             activeKeyValues(val) {
                 const values = val.map(it => {
                     return it.value
@@ -77,6 +81,13 @@
             }
         },
         methods: {
+            deleteKeyDown() {
+                if (this.inputData.length === 0) {
+                    this.activeKeyValues.pop()
+                } else {
+                    this.inputData = this.inputData.substring(0, this.inputData.length - 1)
+                }
+            },
             // 添加一个标签
             add({label, value}) {
                 const isNotAdd = this.activeKeyValues.map(it => {
@@ -102,11 +113,7 @@
                     return it.value !== value
                 })
             },
-            input() {
-                if (this.remote) {
-                    this.$emit('load', this.inputData)
-                }
-            },
+
             enter() {
                 if (this.editable) {
                     this.$emit('enter', this.inputData)
@@ -145,7 +152,6 @@
             }
         },
         components: {
-            CInput,
             CDropdownMenu,
             CDropdown,
             CTag
@@ -170,16 +176,20 @@
                     margin-right: 0.5em;
                 }
             }
-            .c-input-container {
-                flex: 1 1 auto;
-                border: none;
+            .input-wrapper {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                flex: auto;
                 .input {
-                    cursor: pointer !important;
+                    flex: auto;
+                    border: none;
+                    outline: none;
+                    margin: 0.25em 0.5em;
+                    background-color: transparent;
                 }
             }
-        }
-        .c-select-append {
-            height: 100%;
+
         }
         &.is-active {
             .c-select-input {

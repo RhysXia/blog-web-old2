@@ -1,6 +1,6 @@
 export default http => {
     const draft = {}
-    draft.add = ({title, info = null, poster = null, categoryId = null, content, contentType, tagIds = null}) => {
+    draft.add = ({title, info = null, poster = null, categoryId = null, content = null, contentType = null, tagIds = null}) => {
         return http.post('/drafts', {
             title,
             info,
@@ -12,7 +12,7 @@ export default http => {
         })
     }
 
-    draft.update = ({id, title, info = null, poster = null, categoryId = null, content, contentType, tagIds = null}) => {
+    draft.update = ({id, title, info = null, poster = null, categoryId = null, content = null, contentType = null, tagIds = null}) => {
         return http.put(`/drafts/${id}`, {
             title,
             info,
@@ -28,8 +28,8 @@ export default http => {
         return http.delete(`/drafts/${id}`)
     }
 
-    draft.getAllByUserId = ({userId, page, size, sort = ''}) => {
-        return http.get(`/users/${userId}/drafts`, {
+    draft.getSelf = ({page, size, sort = ''}) => {
+        return http.get('/drafts/self', {
             params: {
                 page,
                 size,

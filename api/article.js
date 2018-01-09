@@ -43,8 +43,8 @@ export default http => {
         })
     }
 
-    article.add = ({title, info, poster, categoryId, content, contentType, tagIds}) => {
-        return http.post('/articles', {
+    article.add = ({title, info, poster, categoryId, content, contentType, tagIds, draftId = null}) => {
+        const config = {
             title,
             info,
             poster,
@@ -52,7 +52,12 @@ export default http => {
             content,
             contentType,
             tagIds
-        })
+        }
+        let url = '/articles'
+        if (draftId) {
+            url += `?draftId=${draftId}`
+        }
+        return http.post(url, config)
     }
 
     article.update = ({articleId, title, info, poster, categoryId, content, contentType, tagIds}) => {

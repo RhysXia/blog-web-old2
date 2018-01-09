@@ -90,41 +90,38 @@
                     })
                     return
                 }
-                if (!this.article.content) {
-                    this.$message({
-                        content: '请输入标题',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                this.commitDraft().then(() => {
+                try {
+                    this.commitDraft()
                     this.$message({
                         content: '保存成功',
                         type: 'success',
                         duration: 2000
                     })
-                }).catch(err => {
+                } catch (err) {
                     this.$message({
                         content: err.message,
                         type: 'error',
                         duration: 2000
                     })
-                })
+                }
             },
-            commitDraft() {
+            async commitDraft() {
                 // 如果已经存过草稿，则修改
+
+                let data
                 if (this.draftId) {
-                    return this.$api.draft.update({
+                    const res = await this.$api.draft.update({
                         id: this.draftId,
                         ...this.article
                     })
+                    data = res.data
+                } else {
+                    const res = await this.$api.draft.add(this.article)
+                    data = res.data
                 }
-                return this.$api.draft.add(this.article).then(data => {
-                    this.draftId = data.data.id
-                })
+                this.draftId = data.id
             },
-            publish() {
+            async publish() {
                 const article = this.article
                 if (!trim(article.poster)) {
                     this.$message({
@@ -174,97 +171,92 @@
                     })
                     return
                 }
-                let promise = Promise.resolve()
-                // 判断是否存为草稿了，如果存为草稿，则先删除草稿
-                if (this.draftId) {
-                    promise = this.$api.draft.deleteById(this.draftId)
-                }
-                promise.then(() => {
+                try {
+
+                    let res
                     if (this.articleId) {
-                        return this.$api.article.update({
-                            articleId: this.articleId,
-                            ...this.article
-                        }).then(data => {
-                            this.$message({
-                                content: '修改文章成功',
-                                type: 'success',
-                                duration: 2000
-                            })
-                            this.$router.push(`/article/${this.articleId}`)
+                        res = await this.$api.article.update({
+                            ...this.article,
+                            articleId: this.articleId
+                        })
+                        this.$message({
+                            content: '修改文章成功',
+                            type: 'success',
+                            duration: 2000
                         })
                     } else {
-                        return this.$api.article.add(this.article).then(data => {
-                            this.$message({
-                                content: '发表文章成功',
-                                type: 'success',
-                                duration: 2000
-                            })
-                            const id = this.$store.state.user.id
-                            this.$router.push(`/user/${id}`)
+                        res = await this.$api.article.add({...this.article, draftId: this.draftId})
+                        this.$message({
+                            content: '发表文章成功',
+                            type: 'success',
+                            duration: 2000
                         })
                     }
-                }).catch(err => {
+                    this.$router.push(`/article/${res.data.id}`)
+                } catch (err) {
                     this.$message({
                         content: err.message,
                         type: 'error',
                         duration: 2000
                     })
-                })
+                }
             },
-            addTag(name) {
+            async addTag(name) {
                 if (!name) {
                     return
                 }
-                this.$api.tag.add({name}).then(data => {
+                try {
+                    const {data} = await this.$api.tag.add({name})
                     this.$message({
                         content: '添加标签成功',
                         type: 'info',
                         duration: 1000
                     })
-                    const id = data.data.id
                     this.$refs.tagSelect.add({
-                        label: name,
-                        value: id
+                        label: data.name,
+                        value: data.id
                     })
-                }).catch(error => {
+                } catch (error) {
                     this.$message({
                         content: error.data.message,
                         type: 'error',
                         duration: 1000
                     })
-                })
+                }
             },
             load(tag) {
                 if (this.__timer__) {
                     clearTimeout(this.__timer__)
                 }
-                this.__timer__ = setTimeout(() => {
-                    this.$api.tag.getAll({
-                        pageSize: 8,
-                        pageNum: 1,
-                        name: tag
-                    }).then(data => {
-                        this.tags = data.data
+                this.__timer__ = setTimeout(async () => {
+                    const {data} = await this.$api.tag.getAll({
+                        pageSize: 5,
+                        pageNum: 0,
+                        name: `%${tag}%`
                     })
+                    this.tags = data.content
                 }, 200)
             },
-            addCategory() {
+            async addCategory() {
                 const category = this.category
                 if (category.name === null || trim(category.name) === '') {
-                    return this.$message({
+                    this.$message({
                         content: '分类名不能为空',
                         type: 'error',
                         duration: 2000
                     })
+                    return
                 }
                 if (category.description === null || trim(category.description) === '') {
-                    return this.$message({
+                    this.$message({
                         content: '描述不能为空',
                         type: 'error',
                         duration: 2000
                     })
+                    return
                 }
-                this.$api.category.add(this.category).then(data => {
+                try {
+                    await this.$api.category.add(this.category)
                     this.categoryModal = false
                     // 更新分类
                     this.getCategories()
@@ -273,40 +265,40 @@
                         type: 'info',
                         duration: 2000
                     })
-                })
+                } catch (err) {
+                    this.$message({
+                        content: err.message,
+                        type: 'error',
+                        duration: 2000
+                    })
+                }
             },
-            upload(e) {
+            async upload(e) {
                 const ele = (e.target || e.srcElement)
                 const files = ele.files
                 if (files.length > 0) {
                     const formData = new FormData()
                     formData.append('image', files[0])
-                    this.$api.article.uploadImage(formData).then(data => {
-                        this.article.poster = data.data
-                    }).catch(() => {
-                    })
+                    const {data} = await this.$api.article.uploadImage(formData)
+                    this.article.poster = data
                 }
                 ele.value = ''
             },
-            imageUpload(files) {
+            async imageUpload(files) {
                 const formData = new FormData()
                 formData.append('image', files[0])
-                return this.$api.article.uploadImage(formData).then(data => {
-                    const url = data.data
-                    return Promise.resolve(url)
-                })
+                const {data} = await this.$api.article.uploadImage(formData)
+                return data
             },
-            getCategories() {
-                this.$api.category.getAllByUserId({
+            async getCategories() {
+                const {data} = await this.$api.category.getAllByUserId({
                     userId: this.user && this.user.id,
-                    pageNum: 1,
-                    pageSize: 100,
-                    sorts: 'weight DESC,createTime Desc'
-                }).then(data => {
-                    this.categories = data.data
-                }).catch(() => {
+                    page: 0,
+                    size: 100,
+                    sort: ['weight,DESC', 'createAt,DESC']
                 })
-            },
+                this.categories = data.content
+            }
         },
         computed: {
             isLogin() {
@@ -322,39 +314,36 @@
                 this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
             }
         },
-        mounted() {
+        async mounted() {
             this.getCategories()
             const draftId = this.$route.query.draftId
             const articleId = this.$route.query.articleId
             if (draftId) {
-                this.$api.draft.getById(draftId).then(data => {
-                    this.draftId = draftId
-                    const {title, info, poster, content, contentType} = data.data
-                    this.article = {
-                        title,
-                        info,
-                        poster,
-                        content,
-                        contentType
-                    }
-                    this.article.tagIds = []
-                    this.article.categoryId = -1
-                }).catch(err => {
-                })
+                const {data} = await this.$api.draft.getById(draftId)
+                this.draftId = draftId
+                const {title, info, poster, content, contentType} = data
+                this.article = {
+                    title,
+                    info,
+                    poster,
+                    content,
+                    contentType
+                }
+                this.article.tagIds = []
+                this.article.categoryId = -1
             } else if (articleId) {
-                this.$api.article.getById(articleId).then(data => {
-                    const {title, info, poster, content, contentType} = data.data
-                    this.articleId = articleId
-                    this.article = {
-                        title,
-                        info,
-                        poster,
-                        content,
-                        contentType
-                    }
-                    this.article.tagIds = []
-                    this.article.categoryId = -1
-                })
+                const {data} = await this.$api.article.getById(articleId)
+                const {title, info, poster, content, contentType} = data
+                this.articleId = articleId
+                this.article = {
+                    title,
+                    info,
+                    poster,
+                    content,
+                    contentType
+                }
+                this.article.tagIds = []
+                this.article.categoryId = -1
             }
         },
         components: {
@@ -450,7 +439,7 @@
             font-size: 1.1rem;
             .append {
                 border-radius: 0;
-                padding: 0.4em 0.7em;
+                padding: 0.3em 0.7em;
                 height: 100%;
                 background-color: $color-primary;
                 color: $color-text-white;

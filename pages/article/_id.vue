@@ -272,18 +272,14 @@
                     })
                 }
             },
-            commentImageUpload(files) {
-                return new Promise((resolve, reject) => {
-                    if (files.length === 0) {
-                        return reject(new Error('没有选择文件'))
-                    }
-                    const imageData = new FormData()
-                    const articleId = this.article.id
-                    imageData.append('image', files[0])
-                    this.$api.comment.uploadImage({articleId, imageData}).then(res => {
-                        return resolve(res.data)
-                    })
-                })
+            async commentImageUpload(files) {
+                if (files.length === 0) {
+                    return reject(new Error('没有选择文件'))
+                }
+                const formData = new FormData()
+                formData.append('image', files[0])
+                const {data} = await this.$api.comment.uploadImage(formData)
+                return data
             },
             fullPageClick() {
                 const flag = this.fullPage
