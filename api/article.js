@@ -31,9 +31,12 @@ export default http => {
     article.deleteVote = articleId => {
         return http.delete(`/articles/${articleId}/votes`)
     }
+    article.getVote = articleId => {
+        return http.get(`/articles/${articleId}/votes`)
+    }
 
     article.uploadImage = imageData => {
-        return http.post('/articles/image', imageData, {
+        return http.post('/articles/images', imageData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

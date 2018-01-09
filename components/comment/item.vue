@@ -22,9 +22,10 @@
                     i.fa.fa-hand-pointer-o
                     | 顶
                 no-ssr
-                    button.delete(@click="$emit('item-delete')",v-if="isLogin && user.id===comment.author.id")
-                        i.fa.fa-remove
-                        | 删除
+                    .delete-wrapper
+                        button.delete(@click="$emit('item-delete')",v-if="isLogin && user.id===comment.author.id")
+                            i.fa.fa-remove
+                            | 删除
 </template>
 <script>
     import Avatar from '../common/avatar'

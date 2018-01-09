@@ -14,11 +14,6 @@
                             nuxt-link(to="/auth/register") 注册
                         .action(v-else)
                             c-dropdown
-                                c-badge(:value="count")
-                                    i.fa.fa-bell
-                                c-dropdown-menu(slot="list")
-                                    c-dropdown-item
-                            c-dropdown
                                 c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                                 c-dropdown-menu(slot="list")
                                     c-dropdown-item
@@ -37,8 +32,6 @@
         name: 'header',
         data() {
             return {
-                comments: [],
-                count: 0
             }
         },
         computed: {
@@ -49,35 +42,12 @@
                 return this.$store.state.user
             }
         },
-        watch: {
-            isLogin(val) {
-                if (val) {
-                    this.initComments()
-                }
-            }
-        },
         methods: {
-            initComments() {
-                this.$api.comment.getCountNotRead().then(data => {
-                    this.count = data.data
-                })
-                this.$api.comment.getAllNotRead({
-                    pageNum: 1,
-                    pageSize: 10
-                }).then(data => {
-                    this.comments = data.data
-                })
-            },
             logout() {
                 this.$store.dispatch('logout').then(() => {
                     this.$router.push('/')
                 }).catch(err => {
                 })
-            }
-        },
-        mounted() {
-            if (this.isLogin) {
-                this.initComments()
             }
         },
         components: {

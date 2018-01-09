@@ -1,11 +1,15 @@
 import axios from 'axios'
+import Qs from 'qs'
 
 const API = require.context('~/api', false, /\.js$/)
 export default ({store, error}, inject) => {
     const serverURL = store.state.serverURL
     const http = axios.create({
         baseURL: serverURL,
-        timeout: 0
+        timeout: 0,
+        paramsSerializer: params => {
+            return Qs.stringify(params, {arrayFormat: 'repeat'})
+        }
     })
 
     http.interceptors.request.use(config => {
@@ -18,24 +22,17 @@ export default ({store, error}, inject) => {
         console.error(error)
     })
 
-    // http.interceptors.response.use(response => {
-    //   if (response.data.code === 0) {
-    //     return response.data
-    //   }
-    //   const err = new Error(response.data.message || '服务器错误')
-    //   err.data = response.data
-    //   throw err
-    // }, error => {
-    //   let data
-    //   if (error.response && error.response.data) {
-    //     data = error.response.data
-    //     error.message = data.message || '服务器错误'
-    //   } else {
-    //     data = {message: error.message}
-    //   }
-    //   error.data = data
-    //   return Promise.reject(error)
-    // })
+    http.interceptors.response.use(response => {
+        return response
+    }, error => {
+        if (error.response) {
+            error.statusCode = error.response.status
+            error.message = error.response.data.message || error.message
+        } else {
+            error.statusCode = 408
+        }
+        return Promise.reject(error)
+    })
 
     const api = {}
 

@@ -14,7 +14,7 @@
         props: {
             articles: {
                 type: Array,
-                default: []
+                default: () => []
             },
             total: {
                 type: Number
@@ -43,6 +43,8 @@
     @import "~assets/scss/variables";
 
     .c-article-list-container {
+        position: relative;
+        overflow: hidden;
         .item {
             margin-bottom: 1em;
         }

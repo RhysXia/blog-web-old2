@@ -18,21 +18,26 @@
                 title: '首页'
             }
         },
-        async asyncData({store}) {
-            const data = {
-                articles: [],
-                count: 0,
-                size: 10,
+        async asyncData({store, error}) {
+            try {
+                const result = {
+                    articles: [],
+                    count: 0,
+                    size: 6,
+                    page: 0
+                }
+                const {data} = await store.$api.article.getAll({
+                    page: result.page,
+                    size: result.size,
+                    sort: 'updateAt,DESC'
+                })
+                result.count = data.totalElements
+                result.articles = data.content
+                return result
+            } catch (err) {
+                error(err)
             }
-            await store.$api.article.getAll({
-                page: 0,
-                size: data.size,
-                sort: 'updateAt,DESC'
-            }).then(res => {
-                data.count = res.data.totalElements
-                data.articles = res.data.content
-            }).catch()
-            return data
+
         },
         data() {
             return {
@@ -40,15 +45,15 @@
             }
         },
         methods: {
-            pageChange(val) {
-                this.$api.article.getAll({
-                    page: val-1,
+            async pageChange(val) {
+                this.page = val - 1
+                const res = await this.$api.article.getAll({
+                    page: this.page,
                     size: this.size,
                     sort: 'updateAt,DESC'
-                }).then(res => {
-                    this.count = res.data.totalElements
-                    this.articles = res.data.content
-                }).catch()
+                })
+                this.count = res.data.totalElements
+                this.articles = res.data.content
             }
         },
         computed: {
