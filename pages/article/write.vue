@@ -265,6 +265,10 @@
                         type: 'info',
                         duration: 2000
                     })
+                    this.category = {
+                        name:'',
+                        description:''
+                    }
                 } catch (err) {
                     this.$message({
                         content: err.message,

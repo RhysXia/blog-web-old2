@@ -14,7 +14,7 @@
         props: {
             articles: {
                 type: Array,
-                default: () => []
+                default: []
             },
             total: {
                 type: Number
@@ -48,10 +48,10 @@
         .item {
             margin-bottom: 1em;
         }
-        .list-enter-active{
+        .list-enter-active {
             transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
         }
-        .list-leave-active{
+        .list-leave-active {
             display: none;
         }
         .list-enter {

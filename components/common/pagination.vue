@@ -1,13 +1,13 @@
 <template lang="pug">
     ul.c-pagination-container
-        li.c-page(@click="activeIndex=1",:class="{'c-disabled':activeIndex===1}")
+        li.c-page(@click="click(1)",:class="{'c-disabled':activeIndex<=1}")
             i.fa.fa-angle-double-left
-        li.c-page(@click="leftClick",:class="{'c-disabled':activeIndex===1}")
+        li.c-page(@click="click(activeIndex-1)",:class="{'c-disabled':activeIndex<=1}")
             i.fa.fa-angle-left
         li.c-page(v-for="index in totalPages",:key="index",:class="{'c-active':activeIndex===index}",@click="activeIndex=index") {{index}}
-        li.c-page(@click="rightClick",:class="{'c-disabled':activeIndex===totalPages}")
+        li.c-page(@click="click(activeIndex+1)",:class="{'c-disabled':activeIndex>=totalPages}")
             i.fa.fa-angle-right
-        li.c-page(@click="activeIndex=totalPages",:class="{'c-disabled':activeIndex==totalPages}")
+        li.c-page(@click="click(totalPages)",:class="{'c-disabled':activeIndex>=totalPages}")
             i.fa.fa-angle-double-right
 </template>
 
@@ -25,7 +25,7 @@
         },
         data() {
             return {
-                activeIndex: 1
+                activeIndex: 0
             }
         },
         watch: {
@@ -39,17 +39,11 @@
             }
         },
         methods: {
-            rightClick() {
-                if (this.activeIndex === this.totalPages) {
+            click(val) {
+                if (this.total <= 0) {
                     return
                 }
-                this.activeIndex++
-            },
-            leftClick() {
-                if (this.activeIndex === 1) {
-                    return
-                }
-                this.activeIndex--
+                this.activeIndex = val
             }
         }
     }
@@ -83,7 +77,7 @@
         .c-disabled {
             color: $color-disabled;
             cursor: not-allowed;
-            &:hover{
+            &:hover {
                 color: $color-disabled;;
             }
         }

@@ -5,7 +5,7 @@
         .desc {{category.description}}
         .info
             i.fa.fa-book
-            | {{category.articleCount}}
+            | {{category.articleNum}}
 </template>
 
 <script>

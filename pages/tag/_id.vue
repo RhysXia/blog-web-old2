@@ -3,7 +3,7 @@
         .tag
             h1.name {{tag.name}}
             p.count 文章数：{{tag.articleCount}}
-        c-article-list(:articles="articles",:hasMore="hasMore",:loadMore="loadMore")
+        c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 
 <script>
@@ -11,51 +11,46 @@
 
     export default {
         validate({params}) {
-            return /^\d+$/.test(params.id)
+            const id = Number(params.id)
+            return /^\d+$/.test(id)
         },
-        asyncData({params, store, error}) {
+        async asyncData({params, store, error}) {
             const tagId = Number(params.id)
             const result = {
                 articles: [],
-                pageNum: 0,
-                pageSize: 10,
+                page: 0,
+                size: 6,
+                count: 0,
                 tag: {}
 
             }
-            return store.$api.tag.getById(tagId).then(data => {
-                result.tag = data.data
-            }).then(() => {
-                return store.$api.article.getAllByTagId({
+            try {
+                let res = await store.$api.tag.getById(tagId)
+                result.tag = res.data
+                res = await store.$api.article.getAllByTagId({
                     tagId,
-                    pageNum: result.pageNum + 1,
-                    pageSize: result.pageSize,
-                    sorts: 'updateTime DESC'
-                }).then(data => {
-                    result.pageNum++
-                    result.articles = data.data
+                    page: result.pageNum,
+                    size: result.size,
+                    sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
                 })
-            }).then(() => {
+                result.articles = res.data.content
+                result.count = res.data.totalElements
                 return result
-            }).catch(err => {
+            } catch (err) {
                 error({statusCode: 500, message: err.message})
-            })
-        },
-        computed: {
-            hasMore() {
-                return this.pageNum * this.pageSize < this.tag.articleCount
             }
         },
         methods: {
-            loadMore() {
-                return this.$api.article.getAllByTagId({
-                    categoryId: this.category.id,
-                    pageNum: this.pageNum + 1,
-                    pageSize: this.pageSize,
-                    sorts: 'updateTime DESC'
-                }).then(data => {
-                    this.pageNum++
-                    this.articles = this.articles.concat(data.data)
+            async pageChange(val) {
+                this.page = val - 1
+                const res = await this.$api.article.getAllByTagId({
+                    tagId: this.tag.id,
+                    page: this.page,
+                    size: this.size,
+                    sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
                 })
+                this.count = res.data.totalElements
+                this.articles = res.data.content
             }
         },
         components: {
@@ -67,12 +62,12 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-tag-container{
-        .tag{
+    .c-tag-container {
+        .tag {
             background-color: $color-background;
             margin-bottom: 1rem;
             padding: 1rem;
-            .name{
+            .name {
                 text-align: center;
             }
         }

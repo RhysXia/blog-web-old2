@@ -3,17 +3,17 @@
         template(v-if="drafts.length>0")
             h2.title 草稿
             ul.draft-wrapper
-                li.draft(v-for="(draft,index) in drafts",:key="index")
+                li.draft(v-for="draft in drafts",:key="draft.id")
                     nuxt-link.title(:to="{path:'/article/write',query:{draftId:draft.id}}") {{draft.title}}
         template(v-if="categories.length>0")
             h2.title 常用分类
             .category-wrapper
-                .item(v-for="(category,index) in categories",:key="index")
+                .item(v-for="category in categories",:key="category.id")
                     c-category-item(:category="category")
         template(v-if="articles.length>0")
             h2.title 最近文章
             .article-wrapper
-                .item(v-for="(article,index) in articles",:key="index")
+                .item(v-for="article in articles",:key="article.id")
                     c-article-item(:article="article")
 </template>
 
@@ -28,22 +28,20 @@
             const result = {
                 userId
             }
-            await store.$api.category.getAllByUserId({
+            let res = await store.$api.category.getAllByUserId({
                 userId,
-                pageNum: 1,
-                pageSize: 4,
-                sorts: 'weight DESC'
-            }).then(data => {
-                result.categories = data.data
-            }).catch()
-            await store.$api.article.getAllByUserId({
+                page: 0,
+                size: 4,
+                sort: 'weight,DESC'
+            })
+            result.categories = res.data.content
+            res = await store.$api.article.getAllByUserId({
                 userId,
-                pageSize: 6,
-                pageNum: 1,
-                sorts: 'updateTime DESC'
-            }).then(data => {
-                result.articles = data.data
-            }).catch()
+                page: 0,
+                size: 6,
+                sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
+            })
+            result.articles = res.data.content
             return result
         },
         data() {
@@ -51,17 +49,15 @@
                 drafts: []
             }
         },
-        beforeMount() {
+        async beforeMount() {
             const user = this.$store.state.user
             if (user && user.id) {
                 if (user.id === this.userId) {
-                    this.$api.draft.getAllByUserId({
-                        userId: this.userId,
-                        pageNum: 1,
-                        pageSize: 100
-                    }).then(data => {
-                        this.drafts = data.data
+                    const {data} = await this.$api.draft.getSelf({
+                        page: 0,
+                        size: 100
                     })
+                    this.drafts = data.content
                 }
             }
         },

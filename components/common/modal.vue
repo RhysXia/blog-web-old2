@@ -1,7 +1,7 @@
 <template lang="pug">
     transition(name="c-modal")
-        .c-modal-container(v-if="val")
-            .c-modal-wrapper(v-clickoutside='outClick',:style="{width:width}")
+        .c-modal-container(v-if="val",@click='outClick')
+            .c-modal-wrapper(@click.stop,:style="{width:width}")
                 .c-modal-header
                     slot(name="header")
                         span.title {{title}}
@@ -16,13 +16,9 @@
                             button.cancel(@click="cancel") 取消
 </template>
 <script>
-    import clickoutside from '~/utils/directive/clickoutside'
 
     export default {
         name: "modal",
-        directives: {
-            clickoutside
-        },
         props: {
             value: {
                 type: Boolean,
@@ -130,7 +126,7 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
-                .title{
+                .title {
                     font-weight: bold;
                 }
                 .close {

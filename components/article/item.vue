@@ -22,7 +22,7 @@
                     | {{article.commentNum}}
                 span.category(v-if="article.category")
                     i.fa.fa-list
-                    | {{article.category.name}}
+                    nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
 </template>
 <script>
 

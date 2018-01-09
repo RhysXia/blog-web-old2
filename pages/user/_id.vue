@@ -1,26 +1,25 @@
 <template lang="pug">
     c-row.user-self-container(:gutter="20")
         c-col(:span="4")
-            .avatar-wrapper
-                c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
-            h2.nickname
-                | {{user.nickname}}
-            p.info {{user.info}}
-            .email
-                i.fa.fa-envelope
-                a(:href="'mailto:'+user.email") {{user.email}}
+            .left-wrapper
+                .avatar-wrapper
+                    c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
+                h2.nickname
+                    | {{user.nickname}}
+                p.info {{user.info?user.info:'他太懒了，什么都没写'}}
         c-col(:span="20")
-            .tabs
-                nuxt-link.tab(:to="'/user/'+user.id") 总概
-                nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
-            nuxt-child
+            .right-wrapper
+                .tabs
+                    nuxt-link.tab(:to="'/user/'+user.id") 总概
+                    nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
+                nuxt-child
 </template>
 <script>
     import CAvatar from '~/components/common/avatar'
 
     export default {
-        validate({params}){
-          return /^\d+$/.test(params.id)
+        validate({params}) {
+            return /^\d+$/.test(params.id)
         },
         head() {
             return {
@@ -32,12 +31,13 @@
             const result = {
                 user: {}
             }
-            await store.$api.user.getById(id).then(data => {
-                result.user = data.data
-            }).catch(err => {
+            try {
+                const {data} = await store.$api.user.getById(id)
+                result.user = data
+                return result
+            } catch (err) {
                 error({statusCode: 500, message: err.message})
-            })
-            return result
+            }
         },
         components: {
             CAvatar
@@ -48,8 +48,11 @@
     @import "~assets/scss/variables";
 
     .user-self-container {
-        background-color: $color-background;
-        padding: 0.5rem;
+        .left-wrapper,
+        .right-wrapper {
+            padding: 0.5rem;
+            background-color: $color-background;
+        }
         .avatar-wrapper {
             position: relative;
             width: 100%;
@@ -64,6 +67,7 @@
             margin-bottom: 0.6rem;
         }
         .info {
+            font-size: 0.8rem;
             display: block;
             color: $color-text-light;
             border-bottom: 1px solid $color-border-base;
