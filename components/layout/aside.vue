@@ -10,22 +10,22 @@
                 nuxt-link.tag-item(:to="'/tag/'+tag.id",v-for="(tag,index) in hotTags",:key="index") {{tag.name}}
 </template>
 <script>
-    import CPanel from '../common/panel'
+  import CPanel from '../common/panel'
 
-    export default {
-        name: 'c-aside',
-        computed: {
-            hotTags() {
-                return this.$store.state.tag.hotTags
-            },
-            hotArticles(){
-                return this.$store.state.article.hotArticles
-            }
-        },
-        components: {
-            CPanel
-        }
+  export default {
+    name: 'c-aside',
+    computed: {
+      hotTags () {
+        return this.$store.state.tag.hotTags
+      },
+      hotArticles () {
+        return this.$store.state.article.hotArticles
+      }
+    },
+    components: {
+      CPanel
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

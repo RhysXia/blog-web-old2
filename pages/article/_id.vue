@@ -35,29 +35,26 @@
             .body
                 c-show-more(:hiddenHeight="500")
                     .content(v-html="content")
-            no-ssr
-                .footer
-                    button.btn.link(v-if="isLogin",@click="voteClick")
-                        i.fa.fa-hand-pointer-o
-                        | {{isVoted?'取消点赞':'点赞一下'}}
-                    nuxt-link(v-if="isSelf",:to="{path:'/article/write',query:{articleId:article.id}}") 修改
+            .footer
+                button.btn.link(v-if="isLogin",@click="voteClick")
+                    i.fa.fa-hand-pointer-o
+                    | {{isVoted?'取消点赞':'点赞一下'}}
+                nuxt-link(v-if="isSelf",:to="{path:'/article/write',query:{articleId:article.id}}") 修改
         .comment-wrapper
             .header
-                no-ssr
-                    h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
-                span.info(v-if="count")
-                    | 共
-                    b {{count}}
-                    | 条评论
+                h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
+            span.info(v-if="count")
+                | 共
+                b {{count}}
+                | 条评论
             .body
-                no-ssr
-                    .write-wrapper
-                        .write(v-if="isLogin")
-                            .left
-                                c-avatar(:imgUrl="user.avatar")
-                            .right
-                                c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
-                                    button.submit(slot="button",@click="commentSubmit") 提交
+                .write-wrapper
+                    .write(v-if="isLogin")
+                        .left
+                            c-avatar(:imgUrl="user.avatar")
+                        .right
+                            c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
+                                button.submit(slot="button",@click="commentSubmit") 提交
                 template(v-if="!count")
                     .no-content 好可怜，都没人理我~
                 template(v-else)

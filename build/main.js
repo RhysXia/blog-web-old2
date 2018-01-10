@@ -105,7 +105,7 @@ module.exports = {
   offline: true,
   plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', '~/plugins/token', { src: '~/plugins/offline', ssr: false }],
   build: {
-    vendor: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', '~/plugins/token', '~/plugins/offline', '~/utils/markdown'],
+    vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/components', '~/plugins/filters', '~/plugins/offline', '~/utils/markdown'],
     extractCSS: true,
     babel: {},
     extend: function extend(webpackConfig, _ref) {
@@ -170,7 +170,7 @@ if (config.dev) {
 
 app.use(function (ctx) {
   ctx.status = 200; // koa defaults to 404 when it sees that status is unset
-
+  ctx.req.cookies = ctx.cookies;
   return new Promise(function (resolve, reject) {
     ctx.res.on('close', resolve);
     ctx.res.on('finish', resolve);

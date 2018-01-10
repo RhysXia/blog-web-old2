@@ -6,22 +6,19 @@
                     nuxt-link(to="/")
                         h1.logo {{blog.name}}
                 c-col
-                    // 客户端渲染，否则在登录状态下，客户端和服务端渲染不匹配
-                    // TODO 不是太明白
-                    no-ssr
-                        .action(v-if="!isLogin")
-                            nuxt-link(to="/auth/login") 登录
-                            nuxt-link(to="/auth/register") 注册
-                        .action(v-else)
-                            c-dropdown
-                                c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
-                                c-dropdown-menu(slot="list")
-                                    c-dropdown-item
-                                        nuxt-link.dropdown-item(:to="'/user/'+user.id") 个人中心
-                                    c-dropdown-item
-                                        nuxt-link.dropdown-item(to="/article/write") 写文章
+                    .action(v-if="!isLogin")
+                        nuxt-link(to="/auth/login") 登录
+                        nuxt-link(to="/auth/register") 注册
+                    .action(v-else)
+                        c-dropdown
+                            c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
+                            c-dropdown-menu(slot="list")
+                                c-dropdown-item
+                                    nuxt-link.dropdown-item(:to="'/user/'+user.id") 个人中心
+                                c-dropdown-item
+                                    nuxt-link.dropdown-item(to="/article/write") 写文章
 
-                            button.btn(@click="logout") 注销
+                        button.btn(@click="logout") 注销
 </template>
 <script>
   import {

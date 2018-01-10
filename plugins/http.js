@@ -2,7 +2,8 @@ import axios from 'axios'
 import Qs from 'qs'
 
 const API = require.context('~/api', false, /\.js$/)
-export default ({ctx, store, error}, inject) => {
+
+export default ({req, store}, inject) => {
   const serverURL = store.state.serverURL
   const http = axios.create({
     baseURL: serverURL,

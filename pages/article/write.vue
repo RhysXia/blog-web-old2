@@ -1,41 +1,40 @@
 <template lang="pug">
     // 写作界面没有必要在服务器端渲染
-    no-ssr
-        c-row.article-write-container(:gutter="16")
-            c-col.article-main(:span="18",)
-                .image-wrapper(@click="$refs.file.click()")
-                    img.image(v-if="article.poster",:src="article.poster")
-                    .image.anon(v-else)
-                        i.fa.fa-camera
-                    input.file-upload(ref="file",type="file",@change="upload")
-                .title-wrapper
-                    c-input.title(v-model.trim="article.title",type="text",placeholder="请输入标题")
-                .info-wrapper
-                    c-textarea.info(v-model.trim="article.info",placeholder="请输入文章简介",autoHeight)
-                .category-wrapper
-                    c-select(v-model="article.categoryId",placeholder="请选择分类")
-                        button.append(slot="append",@click="categoryModal=true") 添加
-                        c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
-                    c-modal(v-model="categoryModal",title="新建分类")
-                        .form
-                            .input-wrapper
-                                label.label 名称
-                                c-input.input(v-model="category.name",placeholder="请输入名称")
-                            .input-wrapper
-                                label.label 描述
-                                c-textarea(v-model="category.description",autoHeight,placeholder="请输入描述信息")
-                        .button-wrapper(slot='footer')
-                            button.confirm(@click="addCategory") 确定
-                            button.cancel(@click="categoryModal=false") 取消
-                .tag-wrapper
-                    c-select(ref="tagSelect",v-model="article.tagIds",@enter="addTag",@load="load",placeholder="请输入标签",multiple,editable,remote)
-                        c-option(:value="tag.id",:label="tag.name",v-for="(tag,index) in tags",:key="index")
-                .editor-wrapper
-                    c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
-            c-col.action(:span="6",v-fixed="70")
-                c-panel(title="操作")
-                    button(@click="publish") 发表
-                    button(@click="draft") 存为草稿
+    c-row.article-write-container(:gutter="16")
+        c-col.article-main(:span="18",)
+            .image-wrapper(@click="$refs.file.click()")
+                img.image(v-if="article.poster",:src="article.poster")
+                .image.anon(v-else)
+                    i.fa.fa-camera
+                input.file-upload(ref="file",type="file",@change="upload")
+            .title-wrapper
+                c-input.title(v-model.trim="article.title",type="text",placeholder="请输入标题")
+            .info-wrapper
+                c-textarea.info(v-model.trim="article.info",placeholder="请输入文章简介",autoHeight)
+            .category-wrapper
+                c-select(v-model="article.categoryId",placeholder="请选择分类")
+                    button.append(slot="append",@click="categoryModal=true") 添加
+                    c-option(:value="category.id",:label="category.name",v-for="(category,index) in categories",:key="index")
+                c-modal(v-model="categoryModal",title="新建分类")
+                    .form
+                        .input-wrapper
+                            label.label 名称
+                            c-input.input(v-model="category.name",placeholder="请输入名称")
+                        .input-wrapper
+                            label.label 描述
+                            c-textarea(v-model="category.description",autoHeight,placeholder="请输入描述信息")
+                    .button-wrapper(slot='footer')
+                        button.confirm(@click="addCategory") 确定
+                        button.cancel(@click="categoryModal=false") 取消
+            .tag-wrapper
+                c-select(ref="tagSelect",v-model="article.tagIds",@enter="addTag",@load="load",placeholder="请输入标签",multiple,editable,remote)
+                    c-option(:value="tag.id",:label="tag.name",v-for="(tag,index) in tags",:key="index")
+            .editor-wrapper
+                c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
+        c-col.action(:span="6",v-fixed="70")
+            c-panel(title="操作")
+                button(@click="publish") 发表
+                button(@click="draft") 存为草稿
 
 </template>
 <script>

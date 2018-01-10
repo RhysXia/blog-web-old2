@@ -54,9 +54,9 @@ module.exports = {
   build: {
     vendor: [
       '~/plugins/http',
+      '~/plugins/token',
       '~/plugins/components',
       '~/plugins/filters',
-      '~/plugins/token',
       '~/plugins/offline',
       '~/utils/markdown'
     ],
