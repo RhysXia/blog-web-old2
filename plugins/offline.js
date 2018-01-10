@@ -9,6 +9,9 @@ export default ({req, store}, inject) => {
         onUpdating: function () {
 
         },
+        onUpdateFailed: function () {
+          console.log('Offline plugin failed')
+        },
         onUpdateReady: function () {
           OfflinePlugin.applyUpdate()
         },

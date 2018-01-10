@@ -52,18 +52,23 @@ module.exports = {
     '~/plugins/token',
     '~/plugins/filters',
     '~/plugins/components',
-    {src: '~/plugins/offline', ssr: false}
+    // {src: '~/plugins/offline', ssr: false}
   ],
   build: {
     vendor: [
       '~/plugins/http',
       '~/plugins/token',
       '~/plugins/filters',
-      '~/plugins/components',
-      '~/plugins/offline'
+      '~/plugins/components'
     ],
     extractCSS: {
       allChunks: true
+    },
+    extend (config, {isDev}) {
+      // if (!isDev) {
+      //   const OfflinePlugin = require('offline-plugin')
+      //   config.plugins.push(new OfflinePlugin())
+      // }
     }
   },
   router: {
