@@ -33,7 +33,6 @@ module.exports = {
       {innerHTML: 'This website requires JavaScript.'}
     ]
   },
-  offline: true,
   cache: {
     max: 100,
     maxAge: 1000 * 60 * 15
@@ -63,9 +62,8 @@ module.exports = {
       '~/plugins/components',
       '~/plugins/offline'
     ],
-    extractCSS: true,
-    babel: {},
-    extend (webpackConfig, {isDev, isClient, isServer}) {
+    extractCSS: {
+      allChunks: true
     }
   },
   router: {
