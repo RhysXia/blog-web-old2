@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93,6 +93,10 @@ module.exports = {
       href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'
     }],
     noscript: [{ innerHTML: 'This website requires JavaScript.' }]
+  },
+  cache: {
+    max: 100,
+    maxAge: 1000 * 60 * 15
   },
   /*
   ** Global CSS
@@ -132,28 +136,19 @@ module.exports = require("koa");
 /* 2 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-compress");
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
 module.exports = require("nuxt");
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_compress__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_compress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_compress__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nuxt__);
 /* eslint-disable indent */
-
 
 
 
@@ -166,23 +161,16 @@ var config = __webpack_require__(0);
 config.dev = !(app.env === 'production');
 
 // Instantiate nuxt.js
-var nuxt = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Nuxt"](config);
+var nuxt = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Nuxt"](config);
 
 // Build in development
 if (config.dev) {
-  var builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
+  var builder = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Builder"](nuxt);
   builder.build().catch(function (e) {
     console.error(e); // eslint-disable-line no-console
     process.exit(1);
   });
 }
-app.use(__WEBPACK_IMPORTED_MODULE_1_koa_compress___default()({
-  filter: function filter(content_type) {
-    return (/text/i.test(content_type)
-    );
-  },
-  threshold: 2048
-}));
 
 app.use(function (ctx) {
   ctx.status = 200; // koa defaults to 404 when it sees that status is unset

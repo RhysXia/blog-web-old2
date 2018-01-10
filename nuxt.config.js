@@ -33,6 +33,11 @@ module.exports = {
       {innerHTML: 'This website requires JavaScript.'}
     ]
   },
+  offline: true,
+  cache: {
+    max: 100,
+    maxAge: 1000 * 60 * 15
+  },
   /*
   ** Global CSS
   */
@@ -43,7 +48,6 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: {color: '#4dce9b', failedColor: '#F56C6C'},
-  offline: true,
   plugins: [
     '~/plugins/http',
     '~/plugins/token',
