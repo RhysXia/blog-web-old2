@@ -18,60 +18,59 @@
         c-footer
 </template>
 <script>
-    import CHeader from '~/components/layout/header'
-    import CMenu from '~/components/layout/menu'
-    import CFooter from '~/components/layout/footer'
-    import CAside from '~/components/layout/aside'
-    import CBackTop from '~/components/common/back-top'
-    import fixed from '~/utils/directive/fixed'
+  import CHeader from '~/components/layout/header'
+  import CMenu from '~/components/layout/menu'
+  import CFooter from '~/components/layout/footer'
+  import CAside from '~/components/layout/aside'
+  import CBackTop from '~/components/common/back-top'
+  import fixed from '~/utils/directive/fixed'
 
-
-    export default {
-        directives: {
-            fixed
-        },
-        computed: {
-            isMenuShow() {
-                return this.$store.state.isMenuShow
-            },
-            isAsideShow() {
-                return this.$store.state.isAsideShow
-            },
-            mainSpan() {
-                let span = 24
-                if (this.isAsideShow) {
-                    span -= 5
-                }
-                if (this.isMenuShow) {
-                    span -= 5
-                }
-                return span
-            }
-        },
-        methods: {
-            tabChange() {
-                let originTitle
-                document.addEventListener('visibilitychange', event => {
-                    if (event.target.hidden || event.target.webkitHidden) {
-                        originTitle = document.title
-                        document.title = '皮皮虾，快回来！'
-                    } else {
-                        document.title = originTitle
-                    }
-                }, false)
-            },
-        },
-        mounted() {
-            this.tabChange()
-        },
-        components: {
-            CHeader,
-            CFooter,
-            CMenu,
-            CAside,
-            CBackTop
+  export default {
+    directives: {
+      fixed
+    },
+    computed: {
+      isMenuShow () {
+        return this.$store.state.isMenuShow
+      },
+      isAsideShow () {
+        return this.$store.state.isAsideShow
+      },
+      mainSpan () {
+        let span = 24
+        if (this.isAsideShow) {
+          span -= 5
         }
+        if (this.isMenuShow) {
+          span -= 5
+        }
+        return span
+      }
+    },
+    methods: {
+      tabChange () {
+        let originTitle
+        document.addEventListener('visibilitychange', event => {
+          if (event.target.hidden || event.target.webkitHidden) {
+            originTitle = document.title
+            document.title = '皮皮虾，快回来！'
+          } else {
+            document.title = originTitle
+          }
+        }, false)
+      }
+    },
+    mounted () {
+      this.tabChange()
+    },
+    components: {
+      CHeader,
+      CFooter,
+      CMenu,
+      CAside,
+      CBackTop
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

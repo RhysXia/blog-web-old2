@@ -1,11 +1,11 @@
 <template>
-    
+
 </template>
 
 <script>
-    export default {
-        name: "badge"
-    }
+  export default {
+    name: 'c-badge'
+  }
 </script>
 
 <style scoped>

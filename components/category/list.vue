@@ -3,13 +3,10 @@
 </template>
 
 <script>
-    import Item from './item'
-    export default {
-        name: "list",
-        props:{
-
-        }
-    }
+  export default {
+    name: 'c-list',
+    props: {}
+  }
 </script>
 
 <style scoped>

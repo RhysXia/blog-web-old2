@@ -5,61 +5,61 @@
         slot(name="append")
 </template>
 <script>
-    import clickoutside from '~/utils/directive/clickoutside'
+  import clickoutside from '~/utils/directive/clickoutside'
 
-    export default {
-        name: "input",
-        directives: {
-            clickoutside
-        },
-        props: {
-            value: {
-                type: String,
-                default: ''
-            },
-            placeholder: {
-                type: String,
-                default: ''
-            },
-            type: {
-                type: String,
-                default: 'text'
-            },
-            readonly: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data() {
-            return {
-                content: this.value,
-                active: false
-            }
-        },
-        computed: {
-            containerClass() {
-                return {
-                    'c-input-container-active': this.active
-                }
-            }
-        },
-        watch: {
-            content(val) {
-                this.$emit('input', val)
-            },
-            value(val) {
-                this.content = val
-            }
-        },
-        methods: {
-            outClick() {
-                this.active = false
-            },
-            focus() {
-                this.$refs.input.focus()
-            }
+  export default {
+    name: 'c-input',
+    directives: {
+      clickoutside
+    },
+    props: {
+      value: {
+        type: String,
+        default: ''
+      },
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      type: {
+        type: String,
+        default: 'text'
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data () {
+      return {
+        content: this.value,
+        active: false
+      }
+    },
+    computed: {
+      containerClass () {
+        return {
+          'c-input-container-active': this.active
         }
+      }
+    },
+    watch: {
+      content (val) {
+        this.$emit('input', val)
+      },
+      value (val) {
+        this.content = val
+      }
+    },
+    methods: {
+      outClick () {
+        this.active = false
+      },
+      focus () {
+        this.$refs.input.focus()
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

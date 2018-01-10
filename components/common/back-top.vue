@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'back-top',
+    name: 'c-back-top',
     props: {
       left: {
         type: Number

@@ -4,9 +4,9 @@
 </template>
 
 <script>
-    export default {
-        name: 'dropdown-item'
-    }
+  export default {
+    name: 'c-dropdown-item'
+  }
 </script>
 
 <style lang="scss" scoped>

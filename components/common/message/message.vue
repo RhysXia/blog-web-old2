@@ -6,54 +6,54 @@
 </template>
 
 <script>
-    import {oneOf} from "../../../utils/utils";
+  import { oneOf } from '../../../utils/utils'
 
-    export default {
-        name: "message",
-        props: {
-            content: {
-                type: String
-            },
-            duration: {
-                type: Number,
-                default: 3000
-            },
-            type: {
-                validator(value) {
-                    return oneOf(value, ['info', 'success', 'warning', 'error'])
-                }
-            },
-            onClose: {
-                type: Function
-            }
-        },
-        data() {
-            return {
-                visible: false,
-                timer: null
-            }
-        },
-        methods: {
-            afterLeave() {
-                if (this.visible) {
-                    return
-                }
-                if (typeof this.onClose === 'function') {
-                    this.onClose()
-                }
-            },
-            startTimer() {
-                if (this.duration > 0) {
-                    this.timer = setTimeout(() => {
-                        this.visible = false
-                    }, this.duration)
-                }
-            }
-        },
-        mounted() {
-            this.startTimer()
+  export default {
+    name: 'c-message',
+    props: {
+      content: {
+        type: String
+      },
+      duration: {
+        type: Number,
+        default: 3000
+      },
+      type: {
+        validator (value) {
+          return oneOf(value, ['info', 'success', 'warning', 'error'])
         }
+      },
+      onClose: {
+        type: Function
+      }
+    },
+    data () {
+      return {
+        visible: false,
+        timer: null
+      }
+    },
+    methods: {
+      afterLeave () {
+        if (this.visible) {
+          return
+        }
+        if (typeof this.onClose === 'function') {
+          this.onClose()
+        }
+      },
+      startTimer () {
+        if (this.duration > 0) {
+          this.timer = setTimeout(() => {
+            this.visible = false
+          }, this.duration)
+        }
+      }
+    },
+    mounted () {
+      this.startTimer()
     }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -107,7 +107,7 @@
 
     .c-message-tran-enter-active,
     .c-message-tran-leave-active {
-        transition: top 0.4s ease-in-out,opacity 0.4s ease-in-out;
+        transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out;
     }
 
     .c-message-tran-enter-to,

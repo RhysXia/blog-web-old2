@@ -1,9 +1,9 @@
-export function findComponentUpward(context, componentName) {
-    let parent = context.$parent
-    while (parent && parent.$options.name !== componentName) {
-        parent = parent.$parent
-    }
-    return parent
+export function findComponentUpward (context, componentName) {
+  let parent = context.$parent
+  while (parent && parent.$options.name !== componentName) {
+    parent = parent.$parent
+  }
+  return parent
 }
 
 /**
@@ -12,20 +12,21 @@ export function findComponentUpward(context, componentName) {
  * @param componentName
  * @param depth 查询深度，不传则查询所有
  */
-export function findComponentsDownward(context, componentName, depth) {
-    if (depth !== undefined && depth <= 0) {
-        return []
+export function findComponentsDownward (context, componentName, depth) {
+  if (depth !== undefined && depth <= 0) {
+    return []
+  }
+  const components = []
+  context.$children.forEach(item => {
+    if (item.$options.name === componentName) {
+      components.push(item)
     }
-    const components = []
-    context.$children.forEach(item => {
-        if (item.$options.name === componentName) {
-            components.push(item)
-        }
-        findComponentsDownward(item, componentName, depth ? depth - 1 : undefined).forEach(item2 => {
-            components.push(item2)
-        })
-    })
-    return components
+    findComponentsDownward(item, componentName, depth ? depth - 1 : undefined).
+      forEach(item2 => {
+        components.push(item2)
+      })
+  })
+  return components
 }
 
 /**
@@ -33,8 +34,8 @@ export function findComponentsDownward(context, componentName, depth) {
  * @param str
  * @returns {string}
  */
-export function trim(str) {
-    return str.replace(/^\s+/, '').replace(/\s+$/, '')
+export function trim (str) {
+  return str.replace(/^\s+/, '').replace(/\s+$/, '')
 }
 
 /**
@@ -43,15 +44,15 @@ export function trim(str) {
  * @param arrays
  * @returns {boolean}
  */
-export function oneOf(value, arrays) {
-    if (arrays.length) {
-        for (const val of arrays) {
-            if (value === val) {
-                return true
-            }
-        }
+export function oneOf (value, arrays) {
+  if (arrays.length) {
+    for (const val of arrays) {
+      if (value === val) {
+        return true
+      }
     }
-    return false
+  }
+  return false
 }
 
 /**
@@ -59,14 +60,14 @@ export function oneOf(value, arrays) {
  * @param element
  * @returns {number}
  */
-export function getOffsetTop(element) {
-    let offsetTop = element.offsetTop
-    let parent = element.offsetParent
-    while (parent) {
-        offsetTop += parent.offsetTop
-        parent = parent.offsetParent
-    }
-    return offsetTop
+export function getOffsetTop (element) {
+  let offsetTop = element.offsetTop
+  let parent = element.offsetParent
+  while (parent) {
+    offsetTop += parent.offsetTop
+    parent = parent.offsetParent
+  }
+  return offsetTop
 }
 
 /**
@@ -74,10 +75,11 @@ export function getOffsetTop(element) {
  * @param element
  * @returns {number}
  */
-export function getViewTop(element) {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-    const offsetTop = getOffsetTop(element)
-    return offsetTop - scrollTop
+export function getViewTop (element) {
+  const scrollTop = document.documentElement.scrollTop ||
+    document.body.scrollTop
+  const offsetTop = getOffsetTop(element)
+  return offsetTop - scrollTop
 }
 
 /**
@@ -85,13 +87,14 @@ export function getViewTop(element) {
  * @param element
  * @returns {number}
  */
-export function getViewLeft(element) {
-    let left = element.offsetLeft
-    let parent = element.offsetParent
-    while (parent) {
-        left += parent.offsetLeft
-        parent = parent.offsetParent
-    }
-    const scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft
-    return left - scrollLeft
+export function getViewLeft (element) {
+  let left = element.offsetLeft
+  let parent = element.offsetParent
+  while (parent) {
+    left += parent.offsetLeft
+    parent = parent.offsetParent
+  }
+  const scrollLeft = document.body.scrollLeft ||
+    document.documentElement.scrollLeft
+  return left - scrollLeft
 }

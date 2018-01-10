@@ -5,37 +5,37 @@
         pagination(:total="total",:pageSize="pageSize",@pageChange="pageChange")
 </template>
 <script>
-    import Item from './item'
-    import Pagination from '../common/pagination'
+  import Item from './item'
+  import Pagination from '../common/pagination'
 
-    export default {
-        name: 'comment-list',
-        props: {
-            comments: {
-                type: Array,
-                default: []
-            },
-            total: {
-                type: Number
-            },
-            pageSize: {
-                type: Number
-            }
+  export default {
+    name: 'c-comment-list',
+    props: {
+      comments: {
+        type: Array,
+        default: []
+      },
+      total: {
+        type: Number
+      },
+      pageSize: {
+        type: Number
+      }
 
-        },
-        data() {
-            return {}
-        },
-        methods: {
-            pageChange(val) {
-                this.$emit('pageChange', val)
-            }
-        },
-        components: {
-            Item,
-            Pagination
-        }
+    },
+    data () {
+      return {}
+    },
+    methods: {
+      pageChange (val) {
+        this.$emit('pageChange', val)
+      }
+    },
+    components: {
+      Item,
+      Pagination
     }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -45,10 +45,10 @@
         .item {
             margin-bottom: 1em;
         }
-        .list-enter-active{
+        .list-enter-active {
             transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
         }
-        .list-leave-active{
+        .list-leave-active {
             display: none;
         }
         .list-enter {

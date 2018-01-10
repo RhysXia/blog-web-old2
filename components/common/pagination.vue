@@ -12,41 +12,41 @@
 </template>
 
 <script>
-    export default {
-        name: "pagination",
-        props: {
-            total: {
-                type: Number
-            },
-            pageSize: {
-                type: Number,
-                default: 5
-            }
-        },
-        data() {
-            return {
-                activeIndex: 0
-            }
-        },
-        watch: {
-            activeIndex(val) {
-                this.$emit('pageChange', val)
-            }
-        },
-        computed: {
-            totalPages() {
-                return Math.floor((this.total + this.pageSize - 1) / this.pageSize)
-            }
-        },
-        methods: {
-            click(val) {
-                if (this.total <= 0) {
-                    return
-                }
-                this.activeIndex = val
-            }
+  export default {
+    name: 'c-pagination',
+    props: {
+      total: {
+        type: Number
+      },
+      pageSize: {
+        type: Number,
+        default: 5
+      }
+    },
+    data () {
+      return {
+        activeIndex: 0
+      }
+    },
+    watch: {
+      activeIndex (val) {
+        this.$emit('pageChange', val)
+      }
+    },
+    computed: {
+      totalPages () {
+        return Math.floor((this.total + this.pageSize - 1) / this.pageSize)
+      }
+    },
+    methods: {
+      click (val) {
+        if (this.total <= 0) {
+          return
         }
+        this.activeIndex = val
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

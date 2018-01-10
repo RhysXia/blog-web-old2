@@ -64,246 +64,246 @@
                     c-comment-list(:comments="comments",@item-delete="itemDelete",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
-    import markdown from '~/utils/markdown'
-    import CCommentList from '~/components/comment/list'
-    import CAvatar from '~/components/common/avatar'
-    import CEditor from '~/components/common/editor'
-    import CShowMore from '~/components/common/show-more'
+  import markdown from '~/utils/markdown'
+  import CCommentList from '~/components/comment/list'
+  import CAvatar from '~/components/common/avatar'
+  import CEditor from '~/components/common/editor'
+  import CShowMore from '~/components/common/show-more'
 
-    export default {
-        validate({params}) {
-            const id = Number(params.id)
-            return /^\d+$/.test(id)
-        },
-        async asyncData({params, store, error}) {
-            try {
-                const id = Number(params.id)
-                const result = {
-                    article: {},
-                    comments: [],
-                    page: 0,
-                    size: 5,
-                    count: 0
-                }
-
-                const {data} = await store.$api.article.getById(id)
-                result.article = data
-
-                const res = await store.$api.comment.getAllByArticleId({
-                    articleId: id,
-                    page: result.page,
-                    size: result.size,
-                    sort: 'floorNum,DESC'
-                })
-                result.comments = res.data.content
-                result.count = res.data.totalElements
-                return result
-            } catch (err) {
-                error(err)
-            }
-        },
-        head() {
-            return {
-                title: this.article.title
-            }
-        },
-        data() {
-            return {
-                commentContent: '',
-                isVoted: false
-            }
-        },
-        computed: {
-            user() {
-                return this.$store.state.user
-            },
-            isLogin() {
-                return this.$store.getters.isLogin
-            },
-            fullPage() {
-                const isMenuShow = this.$store.state.isMenuShow
-                const isAsideShow = this.$store.state.isAsideShow
-                return !isMenuShow && !isAsideShow
-            },
-            partFullPage() {
-                const isMenuShow = this.$store.state.isMenuShow
-                const isAsideShow = this.$store.state.isAsideShow
-                return isMenuShow && !isAsideShow
-            },
-            content() {
-                const content = this.article.content
-                if (this.article.contentType === 'MARKDOWN') {
-                    return markdown(content)
-                } else {
-                    return content
-                }
-            },
-            isSelf() {
-                const loginUser = this.$store.state.user
-                const author = this.article.author
-                if (loginUser && loginUser.id) {
-                    if (author.id === loginUser.id) {
-                        return true
-                    }
-                }
-                return false
-            }
-        },
-        watch: {
-            isLogin(val) {
-                if (val) {
-                    this.checkVote()
-                } else {
-                    this.isVoted = false
-                }
-            },
-        },
-        methods: {
-            async checkVote() {
-                try {
-                    const res = await this.$api.article.getVote(this.article.id)
-                    this.isVoted = res.data
-                } catch (err) {
-                    this.isVoted = false
-                }
-            },
-            async pageChange(val) {
-                try {
-                    this.page = val - 1
-                    const res = await this.$api.comment.getAllByArticleId({
-                        articleId: this.article.id,
-                        page: this.page,
-                        size: this.size,
-                        sort: 'floorNum,DESC'
-                    })
-                    this.comments = res.data.content
-                    this.count = res.data.totalElements
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            },
-            async voteClick() {
-                try {
-                    const id = this.article.id
-                    const isVoted = this.isVoted
-                    if (isVoted) {
-                        await this.$api.article.deleteVote(id)
-                        this.isVoted = false
-                        this.article.voteNum--
-                    } else {
-                        await this.$api.article.addVote(id)
-                        this.isVoted = true
-                        this.article.voteNum++
-                    }
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            },
-            async itemDelete(index) {
-                try {
-                    await this.$api.comment.deleteById(this.comments[index].id)
-                    const {data} = await this.$api.comment.getAllByArticleId({
-                        articleId: this.article.id,
-                        page: this.page,
-                        size: this.size,
-                        sort: 'floorNum,DESC'
-                    })
-                    this.comments = data.content
-                    this.count = data.totalElements
-                    this.$message({
-                        content: '删除成功',
-                        type: 'success',
-                        duration: 2000
-                    })
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            },
-            async commentSubmit() {
-                try {
-                    const articleId = this.article.id
-                    const content = this.commentContent
-                    if (!content) {
-                        this.$message({
-                            type: 'error',
-                            duration: 2000,
-                            content: '内容不能为空'
-                        })
-                        return
-                    }
-                    await this.$api.comment.add({
-                        content,
-                        contentType: 'MARKDOWN',
-                        articleId
-                    })
-
-                    const res = await this.$api.comment.getAllByArticleId({
-                        articleId: this.article.id,
-                        page: this.page,
-                        size: this.size,
-                        sort: 'floorNum,DESC'
-                    })
-                    this.comments = res.data.content
-                    this.count = res.data.totalElements
-
-                    this.$message({
-                        type: 'success',
-                        duration: 2000,
-                        content: '评论成功'
-                    })
-                    this.commentContent = ''
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            },
-            async commentImageUpload(files) {
-                if (files.length === 0) {
-                    return reject(new Error('没有选择文件'))
-                }
-                const formData = new FormData()
-                formData.append('image', files[0])
-                const {data} = await this.$api.comment.uploadImage(formData)
-                return data
-            },
-            fullPageClick() {
-                const flag = this.fullPage
-                this.$store.commit('showMenu', flag)
-                this.$store.commit('showAside', flag)
-            },
-            partFullPageClick() {
-                const flag = this.partFullPage
-                this.$store.commit('showMenu', true)
-                this.$store.commit('showAside', flag)
-            }
-        },
-        mounted() {
-            if (this.isLogin) {
-                this.checkVote()
-            }
-        },
-        components: {
-            CCommentList,
-            CAvatar,
-            CEditor,
-            CShowMore
+  export default {
+    validate ({params}) {
+      const id = Number(params.id)
+      return /^\d+$/.test(id)
+    },
+    async asyncData ({params, store, error}) {
+      try {
+        const id = Number(params.id)
+        const result = {
+          article: {},
+          comments: [],
+          page: 0,
+          size: 5,
+          count: 0
         }
+
+        const {data} = await store.$api.article.getById(id)
+        result.article = data
+
+        const res = await store.$api.comment.getAllByArticleId({
+          articleId: id,
+          page: result.page,
+          size: result.size,
+          sort: 'floorNum,DESC'
+        })
+        result.comments = res.data.content
+        result.count = res.data.totalElements
+        return result
+      } catch (err) {
+        error(err)
+      }
+    },
+    head () {
+      return {
+        title: this.article.title
+      }
+    },
+    data () {
+      return {
+        commentContent: '',
+        isVoted: false
+      }
+    },
+    computed: {
+      user () {
+        return this.$store.state.user
+      },
+      isLogin () {
+        return this.$store.getters.isLogin
+      },
+      fullPage () {
+        const isMenuShow = this.$store.state.isMenuShow
+        const isAsideShow = this.$store.state.isAsideShow
+        return !isMenuShow && !isAsideShow
+      },
+      partFullPage () {
+        const isMenuShow = this.$store.state.isMenuShow
+        const isAsideShow = this.$store.state.isAsideShow
+        return isMenuShow && !isAsideShow
+      },
+      content () {
+        const content = this.article.content
+        if (this.article.contentType === 'MARKDOWN') {
+          return markdown(content)
+        } else {
+          return content
+        }
+      },
+      isSelf () {
+        const loginUser = this.$store.state.user
+        const author = this.article.author
+        if (loginUser && loginUser.id) {
+          if (author.id === loginUser.id) {
+            return true
+          }
+        }
+        return false
+      }
+    },
+    watch: {
+      isLogin (val) {
+        if (val) {
+          this.checkVote()
+        } else {
+          this.isVoted = false
+        }
+      }
+    },
+    methods: {
+      async checkVote () {
+        try {
+          const res = await this.$api.article.getVote(this.article.id)
+          this.isVoted = res.data
+        } catch (err) {
+          this.isVoted = false
+        }
+      },
+      async pageChange (val) {
+        try {
+          this.page = val - 1
+          const res = await this.$api.comment.getAllByArticleId({
+            articleId: this.article.id,
+            page: this.page,
+            size: this.size,
+            sort: 'floorNum,DESC'
+          })
+          this.comments = res.data.content
+          this.count = res.data.totalElements
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
+      async voteClick () {
+        try {
+          const id = this.article.id
+          const isVoted = this.isVoted
+          if (isVoted) {
+            await this.$api.article.deleteVote(id)
+            this.isVoted = false
+            this.article.voteNum--
+          } else {
+            await this.$api.article.addVote(id)
+            this.isVoted = true
+            this.article.voteNum++
+          }
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
+      async itemDelete (index) {
+        try {
+          await this.$api.comment.deleteById(this.comments[index].id)
+          const {data} = await this.$api.comment.getAllByArticleId({
+            articleId: this.article.id,
+            page: this.page,
+            size: this.size,
+            sort: 'floorNum,DESC'
+          })
+          this.comments = data.content
+          this.count = data.totalElements
+          this.$message({
+            content: '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
+      async commentSubmit () {
+        try {
+          const articleId = this.article.id
+          const content = this.commentContent
+          if (!content) {
+            this.$message({
+              type: 'error',
+              duration: 2000,
+              content: '内容不能为空'
+            })
+            return
+          }
+          await this.$api.comment.add({
+            content,
+            contentType: 'MARKDOWN',
+            articleId
+          })
+
+          const res = await this.$api.comment.getAllByArticleId({
+            articleId: this.article.id,
+            page: this.page,
+            size: this.size,
+            sort: 'floorNum,DESC'
+          })
+          this.comments = res.data.content
+          this.count = res.data.totalElements
+
+          this.$message({
+            type: 'success',
+            duration: 2000,
+            content: '评论成功'
+          })
+          this.commentContent = ''
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
+      async commentImageUpload (files) {
+        if (files.length === 0) {
+          return reject(new Error('没有选择文件'))
+        }
+        const formData = new FormData()
+        formData.append('image', files[0])
+        const {data} = await this.$api.comment.uploadImage(formData)
+        return data
+      },
+      fullPageClick () {
+        const flag = this.fullPage
+        this.$store.commit('showMenu', flag)
+        this.$store.commit('showAside', flag)
+      },
+      partFullPageClick () {
+        const flag = this.partFullPage
+        this.$store.commit('showMenu', true)
+        this.$store.commit('showAside', flag)
+      }
+    },
+    mounted () {
+      if (this.isLogin) {
+        this.checkVote()
+      }
+    },
+    components: {
+      CCommentList,
+      CAvatar,
+      CEditor,
+      CShowMore
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

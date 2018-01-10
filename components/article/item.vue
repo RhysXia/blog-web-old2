@@ -26,27 +26,27 @@
 </template>
 <script>
 
-    export default {
-        name: 'article-item',
-        props: {
-            article: {
-                type: Object,
-                default: () => {
-                }
-            }
-        },
-        computed: {
-            isSelf() {
-                const loginUser = this.$store.state.user
-                if (loginUser && loginUser.id) {
-                    if (loginUser.id === article.author.id) {
-                        return true
-                    }
-                }
-                return false
-            }
+  export default {
+    name: 'c-article-item',
+    props: {
+      article: {
+        type: Object,
+        default: () => {
         }
+      }
+    },
+    computed: {
+      isSelf () {
+        const loginUser = this.$store.state.user
+        if (loginUser && loginUser.id) {
+          if (loginUser.id === article.author.id) {
+            return true
+          }
+        }
+        return false
+      }
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

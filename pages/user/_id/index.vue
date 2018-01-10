@@ -18,54 +18,54 @@
 </template>
 
 <script>
-    import CArticleItem from '~/components/article/item'
-    import CCategoryItem from '~/components/category/item'
+  import CArticleItem from '~/components/article/item'
+  import CCategoryItem from '~/components/category/item'
 
-    export default {
-        name: "info",
-        async asyncData({params, store}) {
-            const userId = Number(params.id)
-            const result = {
-                userId
-            }
-            let res = await store.$api.category.getAllByUserId({
-                userId,
-                page: 0,
-                size: 4,
-                sort: 'weight,DESC'
-            })
-            result.categories = res.data.content
-            res = await store.$api.article.getAllByUserId({
-                userId,
-                page: 0,
-                size: 6,
-                sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
-            })
-            result.articles = res.data.content
-            return result
-        },
-        data() {
-            return {
-                drafts: []
-            }
-        },
-        async beforeMount() {
-            const user = this.$store.state.user
-            if (user && user.id) {
-                if (user.id === this.userId) {
-                    const {data} = await this.$api.draft.getSelf({
-                        page: 0,
-                        size: 100
-                    })
-                    this.drafts = data.content
-                }
-            }
-        },
-        components: {
-            CArticleItem,
-            CCategoryItem
+  export default {
+    name: 'info',
+    async asyncData ({params, store}) {
+      const userId = Number(params.id)
+      const result = {
+        userId
+      }
+      let res = await store.$api.category.getAllByUserId({
+        userId,
+        page: 0,
+        size: 4,
+        sort: 'weight,DESC'
+      })
+      result.categories = res.data.content
+      res = await store.$api.article.getAllByUserId({
+        userId,
+        page: 0,
+        size: 6,
+        sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
+      })
+      result.articles = res.data.content
+      return result
+    },
+    data () {
+      return {
+        drafts: []
+      }
+    },
+    async beforeMount () {
+      const user = this.$store.state.user
+      if (user && user.id) {
+        if (user.id === this.userId) {
+          const {data} = await this.$api.draft.getSelf({
+            page: 0,
+            size: 100
+          })
+          this.drafts = data.content
         }
+      }
+    },
+    components: {
+      CArticleItem,
+      CCategoryItem
     }
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -39,327 +39,330 @@
 
 </template>
 <script>
-    import CEditor from '~/components/common/editor'
-    import {Option as COption, Select as CSelect} from '~/components/common/select'
-    import CInput from '~/components/common/input'
-    import CModal from '~/components/common/modal'
-    import CTextarea from '~/components/common/textarea'
-    import fixed from '~/utils/directive/fixed'
-    import CPanel from '~/components/common/panel'
-    import {trim} from "../../utils/utils";
+  import CEditor from '~/components/common/editor'
+  import {
+    Option as COption,
+    Select as CSelect
+  } from '~/components/common/select'
+  import CInput from '~/components/common/input'
+  import CModal from '~/components/common/modal'
+  import CTextarea from '~/components/common/textarea'
+  import fixed from '~/utils/directive/fixed'
+  import CPanel from '~/components/common/panel'
+  import { trim } from '../../utils/utils'
 
-    export default {
-        directives: {
-            fixed
+  export default {
+    directives: {
+      fixed
+    },
+    head () {
+      return {
+        title: '写作'
+      }
+    },
+    data () {
+      return {
+        article: {
+          poster: '',
+          title: '',
+          content: '',
+          info: '',
+          contentType: 'MARKDOWN',
+          categoryId: -1,
+          tagIds: []
         },
-        head() {
-            return {
-                title: '写作'
-            }
+        articleId: null,
+        category: {
+          name: '',
+          description: '',
+          weight: 0
         },
-        data() {
-            return {
-                article: {
-                    poster: '',
-                    title: '',
-                    content: '',
-                    info: '',
-                    contentType: 'MARKDOWN',
-                    categoryId: -1,
-                    tagIds: []
-                },
-                articleId: null,
-                category: {
-                    name: '',
-                    description: '',
-                    weight: 0
-                },
-                draftId: null,
-                categories: [],
-                tags: [],
-                categoryModal: false
-            }
-        },
-        methods: {
-            draft() {
-                if (!this.article.title) {
-                    this.$message({
-                        content: '请输入标题',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                try {
-                    this.commitDraft()
-                    this.$message({
-                        content: '保存成功',
-                        type: 'success',
-                        duration: 2000
-                    })
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            },
-            async commitDraft() {
-                // 如果已经存过草稿，则修改
-
-                let data
-                if (this.draftId) {
-                    const res = await this.$api.draft.update({
-                        id: this.draftId,
-                        ...this.article
-                    })
-                    data = res.data
-                } else {
-                    const res = await this.$api.draft.add(this.article)
-                    data = res.data
-                }
-                this.draftId = data.id
-            },
-            async publish() {
-                const article = this.article
-                if (!trim(article.poster)) {
-                    this.$message({
-                        content: '请上传海报',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                if (!trim(article.title)) {
-                    this.$message({
-                        content: '请输入标题',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                if (!trim(article.content)) {
-                    this.$message({
-                        content: '请输入文章内容',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                if (!trim(article.info)) {
-                    this.$message({
-                        content: '请输入文章简介',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                if (article.categoryId <= 0) {
-                    this.$message({
-                        content: '请选择文章分类',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                if (article.tagIds.length === 0) {
-                    this.$message({
-                        content: '请输入标签',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                try {
-
-                    let res
-                    if (this.articleId) {
-                        res = await this.$api.article.update({
-                            ...this.article,
-                            articleId: this.articleId
-                        })
-                        this.$message({
-                            content: '修改文章成功',
-                            type: 'success',
-                            duration: 2000
-                        })
-                    } else {
-                        res = await this.$api.article.add({...this.article, draftId: this.draftId})
-                        this.$message({
-                            content: '发表文章成功',
-                            type: 'success',
-                            duration: 2000
-                        })
-                    }
-                    this.$router.push(`/article/${res.data.id}`)
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            },
-            async addTag(name) {
-                if (!name) {
-                    return
-                }
-                try {
-                    const {data} = await this.$api.tag.add({name})
-                    this.$message({
-                        content: '添加标签成功',
-                        type: 'info',
-                        duration: 1000
-                    })
-                    this.$refs.tagSelect.add({
-                        label: data.name,
-                        value: data.id
-                    })
-                } catch (error) {
-                    this.$message({
-                        content: error.data.message,
-                        type: 'error',
-                        duration: 1000
-                    })
-                }
-            },
-            load(tag) {
-                if (this.__timer__) {
-                    clearTimeout(this.__timer__)
-                }
-                this.__timer__ = setTimeout(async () => {
-                    const {data} = await this.$api.tag.getAll({
-                        pageSize: 5,
-                        pageNum: 0,
-                        name: `%${tag}%`
-                    })
-                    this.tags = data.content
-                }, 200)
-            },
-            async addCategory() {
-                const category = this.category
-                if (category.name === null || trim(category.name) === '') {
-                    this.$message({
-                        content: '分类名不能为空',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                if (category.description === null || trim(category.description) === '') {
-                    this.$message({
-                        content: '描述不能为空',
-                        type: 'error',
-                        duration: 2000
-                    })
-                    return
-                }
-                try {
-                    await this.$api.category.add(this.category)
-                    this.categoryModal = false
-                    // 更新分类
-                    this.getCategories()
-                    this.$message({
-                        content: '添加分类成功',
-                        type: 'info',
-                        duration: 2000
-                    })
-                    this.category = {
-                        name:'',
-                        description:''
-                    }
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            },
-            async upload(e) {
-                const ele = (e.target || e.srcElement)
-                const files = ele.files
-                if (files.length > 0) {
-                    const formData = new FormData()
-                    formData.append('image', files[0])
-                    const {data} = await this.$api.article.uploadImage(formData)
-                    this.article.poster = data
-                }
-                ele.value = ''
-            },
-            async imageUpload(files) {
-                const formData = new FormData()
-                formData.append('image', files[0])
-                const {data} = await this.$api.article.uploadImage(formData)
-                return data
-            },
-            async getCategories() {
-                const {data} = await this.$api.category.getAllByUserId({
-                    userId: this.user && this.user.id,
-                    page: 0,
-                    size: 100,
-                    sort: ['weight,DESC', 'createAt,DESC']
-                })
-                this.categories = data.content
-            }
-        },
-        computed: {
-            isLogin() {
-                return this.$store.getters.isLogin
-            },
-            user() {
-                return this.$store.state.user
-            }
-        },
-        beforeMount() {
-            // 没有登录则转到错误界面
-            if (!this.isLogin) {
-                this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
-            }
-        },
-        async mounted() {
-            this.getCategories()
-            const draftId = this.$route.query.draftId
-            const articleId = this.$route.query.articleId
-            if (draftId) {
-                const {data} = await this.$api.draft.getById(draftId)
-                this.draftId = draftId
-                const {title, info, poster, content, contentType} = data
-                this.article = {
-                    title,
-                    info,
-                    poster,
-                    content,
-                    contentType
-                }
-                this.article.tagIds = []
-                this.article.categoryId = -1
-            } else if (articleId) {
-                const {data} = await this.$api.article.getById(articleId)
-                const {title, info, poster, content, contentType} = data
-                this.articleId = articleId
-                this.article = {
-                    title,
-                    info,
-                    poster,
-                    content,
-                    contentType
-                }
-                this.article.tagIds = []
-                this.article.categoryId = -1
-            }
-        },
-        components: {
-            CEditor,
-            CSelect,
-            COption,
-            CInput,
-            CModal,
-            CTextarea,
-            CPanel
+        draftId: null,
+        categories: [],
+        tags: [],
+        categoryModal: false
+      }
+    },
+    methods: {
+      draft () {
+        if (!this.article.title) {
+          this.$message({
+            content: '请输入标题',
+            type: 'error',
+            duration: 2000
+          })
+          return
         }
+        try {
+          this.commitDraft()
+          this.$message({
+            content: '保存成功',
+            type: 'success',
+            duration: 2000
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
+      async commitDraft () {
+        // 如果已经存过草稿，则修改
+
+        let data
+        if (this.draftId) {
+          const res = await this.$api.draft.update({
+            id: this.draftId,
+            ...this.article
+          })
+          data = res.data
+        } else {
+          const res = await this.$api.draft.add(this.article)
+          data = res.data
+        }
+        this.draftId = data.id
+      },
+      async publish () {
+        const article = this.article
+        if (!trim(article.poster)) {
+          this.$message({
+            content: '请上传海报',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        if (!trim(article.title)) {
+          this.$message({
+            content: '请输入标题',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        if (!trim(article.content)) {
+          this.$message({
+            content: '请输入文章内容',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        if (!trim(article.info)) {
+          this.$message({
+            content: '请输入文章简介',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        if (article.categoryId <= 0) {
+          this.$message({
+            content: '请选择文章分类',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        if (article.tagIds.length === 0) {
+          this.$message({
+            content: '请输入标签',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        try {
+
+          let res
+          if (this.articleId) {
+            res = await this.$api.article.update({
+              ...this.article,
+              articleId: this.articleId
+            })
+            this.$message({
+              content: '修改文章成功',
+              type: 'success',
+              duration: 2000
+            })
+          } else {
+            res = await this.$api.article.add({...this.article, draftId: this.draftId})
+            this.$message({
+              content: '发表文章成功',
+              type: 'success',
+              duration: 2000
+            })
+          }
+          this.$router.push(`/article/${res.data.id}`)
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
+      async addTag (name) {
+        if (!name) {
+          return
+        }
+        try {
+          const {data} = await this.$api.tag.add({name})
+          this.$message({
+            content: '添加标签成功',
+            type: 'info',
+            duration: 1000
+          })
+          this.$refs.tagSelect.add({
+            label: data.name,
+            value: data.id
+          })
+        } catch (error) {
+          this.$message({
+            content: error.data.message,
+            type: 'error',
+            duration: 1000
+          })
+        }
+      },
+      load (tag) {
+        if (this.__timer__) {
+          clearTimeout(this.__timer__)
+        }
+        this.__timer__ = setTimeout(async () => {
+          const {data} = await this.$api.tag.getAll({
+            pageSize: 5,
+            pageNum: 0,
+            name: `%${tag}%`
+          })
+          this.tags = data.content
+        }, 200)
+      },
+      async addCategory () {
+        const category = this.category
+        if (category.name === null || trim(category.name) === '') {
+          this.$message({
+            content: '分类名不能为空',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        if (category.description === null || trim(category.description) === '') {
+          this.$message({
+            content: '描述不能为空',
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+        try {
+          await this.$api.category.add(this.category)
+          this.categoryModal = false
+          // 更新分类
+          this.getCategories()
+          this.$message({
+            content: '添加分类成功',
+            type: 'info',
+            duration: 2000
+          })
+          this.category = {
+            name: '',
+            description: ''
+          }
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
+      async upload (e) {
+        const ele = (e.target || e.srcElement)
+        const files = ele.files
+        if (files.length > 0) {
+          const formData = new FormData()
+          formData.append('image', files[0])
+          const {data} = await this.$api.article.uploadImage(formData)
+          this.article.poster = data
+        }
+        ele.value = ''
+      },
+      async imageUpload (files) {
+        const formData = new FormData()
+        formData.append('image', files[0])
+        const {data} = await this.$api.article.uploadImage(formData)
+        return data
+      },
+      async getCategories () {
+        const {data} = await this.$api.category.getAllByUserId({
+          userId: this.user && this.user.id,
+          page: 0,
+          size: 100,
+          sort: ['weight,DESC', 'createAt,DESC']
+        })
+        this.categories = data.content
+      }
+    },
+    computed: {
+      isLogin () {
+        return this.$store.getters.isLogin
+      },
+      user () {
+        return this.$store.state.user
+      }
+    },
+    beforeMount () {
+      // 没有登录则转到错误界面
+      if (!this.isLogin) {
+        this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
+      }
+    },
+    async mounted () {
+      this.getCategories()
+      const draftId = this.$route.query.draftId
+      const articleId = this.$route.query.articleId
+      if (draftId) {
+        const {data} = await this.$api.draft.getById(draftId)
+        this.draftId = draftId
+        const {title, info, poster, content, contentType} = data
+        this.article = {
+          title,
+          info,
+          poster,
+          content,
+          contentType
+        }
+        this.article.tagIds = []
+        this.article.categoryId = -1
+      } else if (articleId) {
+        const {data} = await this.$api.article.getById(articleId)
+        const {title, info, poster, content, contentType} = data
+        this.articleId = articleId
+        this.article = {
+          title,
+          info,
+          poster,
+          content,
+          contentType
+        }
+        this.article.tagIds = []
+        this.article.categoryId = -1
+      }
+    },
+    components: {
+      CEditor,
+      CSelect,
+      COption,
+      CInput,
+      CModal,
+      CTextarea,
+      CPanel
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

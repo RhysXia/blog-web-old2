@@ -32,13 +32,13 @@
         iframe.map-container(src="/html/map.html")
 </template>
 <script>
-    export default {
-        head() {
-            return {
-                title: '关于我'
-            }
-        }
+  export default {
+    head () {
+      return {
+        title: '关于我'
+      }
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

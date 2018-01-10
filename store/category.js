@@ -1,5 +1,5 @@
 export const state = () => ({
-    selfCategories: []
+  selfCategories: []
 })
 export const mutations = {}
 export const actions = {}

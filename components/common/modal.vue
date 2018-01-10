@@ -17,70 +17,70 @@
 </template>
 <script>
 
-    export default {
-        name: "modal",
-        props: {
-            value: {
-                type: Boolean,
-                default: false
-            },
-            title: {
-                type: String,
-                default: '对话框'
-            },
-            width: {
-                type: String,
-                default: '40%'
-            }
-        },
-        data() {
-            return {
-                bodyOverflow: null,
-                val: this.value,
-            }
-        },
-        watch: {
-            val(v) {
-                if (v) {
-                    this.stopScroll()
-                } else {
-                    this.canScroll()
-                }
-                this.$emit('input', v)
-            },
-            value(val) {
-                this.val = val
-            }
-        },
-        methods: {
-            confirm() {
-                this.$emit('confirm')
-                this.val = false
-            },
-            cancel() {
-                this.$emit('cancel')
-                this.val = false
-            },
-            outClick() {
-                this.val = false
-            },
-            stopScroll() {
-                const el = document.documentElement || document.body
-                el.style.overflow = 'hidden'
-            },
-            canScroll() {
-                const el = document.documentElement || document.body
-                el.style.overflow = this.bodyOverflow
-            }
-        },
-        mounted() {
-            const el = document.documentElement || document.body
-            this.bodyOverflow = el.style.overflow
-        },
-        beforeDestroy() {
-            this.canScroll()
+  export default {
+    name: 'c-modal',
+    props: {
+      value: {
+        type: Boolean,
+        default: false
+      },
+      title: {
+        type: String,
+        default: '对话框'
+      },
+      width: {
+        type: String,
+        default: '40%'
+      }
+    },
+    data () {
+      return {
+        bodyOverflow: null,
+        val: this.value
+      }
+    },
+    watch: {
+      val (v) {
+        if (v) {
+          this.stopScroll()
+        } else {
+          this.canScroll()
         }
+        this.$emit('input', v)
+      },
+      value (val) {
+        this.val = val
+      }
+    },
+    methods: {
+      confirm () {
+        this.$emit('confirm')
+        this.val = false
+      },
+      cancel () {
+        this.$emit('cancel')
+        this.val = false
+      },
+      outClick () {
+        this.val = false
+      },
+      stopScroll () {
+        const el = document.documentElement || document.body
+        el.style.overflow = 'hidden'
+      },
+      canScroll () {
+        const el = document.documentElement || document.body
+        el.style.overflow = this.bodyOverflow
+      }
+    },
+    mounted () {
+      const el = document.documentElement || document.body
+      this.bodyOverflow = el.style.overflow
+    },
+    beforeDestroy () {
+      this.canScroll()
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

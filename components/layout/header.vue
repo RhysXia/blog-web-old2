@@ -4,7 +4,7 @@
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
                     nuxt-link(to="/")
-                        h1.logo Rhys Blog
+                        h1.logo {{blog.name}}
                 c-col
                     // 客户端渲染，否则在登录状态下，客户端和服务端渲染不匹配
                     // TODO 不是太明白
@@ -24,40 +24,44 @@
                             button.btn(@click="logout") 注销
 </template>
 <script>
-    import {CDropdown, CDropdownItem, CDropdownMenu} from '~/components/common/dropdown'
-    import CAvatar from '~/components/common/avatar'
-    import CBadge from '~/components/common/badge'
+  import {
+    CDropdown, CDropdownItem,
+    CDropdownMenu
+  } from '~/components/common/dropdown'
+  import CAvatar from '~/components/common/avatar'
+  import CBadge from '~/components/common/badge'
 
-    export default {
-        name: 'header',
-        data() {
-            return {
-            }
-        },
-        computed: {
-            isLogin() {
-                return this.$store.getters.isLogin
-            },
-            user() {
-                return this.$store.state.user
-            }
-        },
-        methods: {
-            logout() {
-                this.$store.dispatch('logout').then(() => {
-                    this.$router.push('/')
-                }).catch(err => {
-                })
-            }
-        },
-        components: {
-            CDropdown,
-            CDropdownItem,
-            CDropdownMenu,
-            CAvatar,
-            CBadge
-        }
+  export default {
+    name: 'c-header',
+    data () {
+      return {}
+    },
+    computed: {
+      isLogin () {
+        return this.$store.getters.isLogin
+      },
+      user () {
+        return this.$store.state.user
+      },
+      blog () {
+        return this.$store.state.blog
+      }
+    },
+    methods: {
+      logout () {
+        this.$store.dispatch('logout').then(() => {
+          this.$router.push('/')
+        }).catch(() => {})
+      }
+    },
+    components: {
+      CDropdown,
+      CDropdownItem,
+      CDropdownMenu,
+      CAvatar,
+      CBadge
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

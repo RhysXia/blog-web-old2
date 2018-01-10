@@ -7,7 +7,7 @@
   import { findComponentUpward } from '../../../utils/utils'
 
   export default {
-    name: 'dropdown-menu',
+    name: 'c-dropdown-menu',
     data () {
       return {}
     },

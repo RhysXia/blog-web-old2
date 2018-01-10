@@ -9,64 +9,64 @@
         c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
-    import {CCarousel, CCarouselItem} from '~/components/common/carousel'
-    import CArticleList from '~/components/article/list'
+  import { CCarousel, CCarouselItem } from '~/components/common/carousel'
+  import CArticleList from '~/components/article/list'
 
-    export default {
-        head() {
-            return {
-                title: '首页'
-            }
-        },
-        async asyncData({store, error}) {
-            try {
-                const result = {
-                    articles: [],
-                    count: 0,
-                    size: 6,
-                    page: 0
-                }
-                const {data} = await store.$api.article.getAll({
-                    page: result.page,
-                    size: result.size,
-                    sort: 'updateAt,DESC'
-                })
-                result.count = data.totalElements
-                result.articles = data.content
-                return result
-            } catch (err) {
-                error(err)
-            }
-
-        },
-        data() {
-            return {
-                refresh: true
-            }
-        },
-        methods: {
-            async pageChange(val) {
-                this.page = val - 1
-                const res = await this.$api.article.getAll({
-                    page: this.page,
-                    size: this.size,
-                    sort: 'updateAt,DESC'
-                })
-                this.count = res.data.totalElements
-                this.articles = res.data.content
-            }
-        },
-        computed: {
-            hotArticles() {
-                return this.$store.state.article.hotArticles
-            }
-        },
-        components: {
-            CCarousel,
-            CCarouselItem,
-            CArticleList
+  export default {
+    head () {
+      return {
+        title: '首页'
+      }
+    },
+    async asyncData ({store, error}) {
+      try {
+        const result = {
+          articles: [],
+          count: 0,
+          size: 6,
+          page: 0
         }
+        const {data} = await store.$api.article.getAll({
+          page: result.page,
+          size: result.size,
+          sort: 'updateAt,DESC'
+        })
+        result.count = data.totalElements
+        result.articles = data.content
+        return result
+      } catch (err) {
+        error(err)
+      }
+
+    },
+    data () {
+      return {
+        refresh: true
+      }
+    },
+    methods: {
+      async pageChange (val) {
+        this.page = val - 1
+        const res = await this.$api.article.getAll({
+          page: this.page,
+          size: this.size,
+          sort: 'updateAt,DESC'
+        })
+        this.count = res.data.totalElements
+        this.articles = res.data.content
+      }
+    },
+    computed: {
+      hotArticles () {
+        return this.$store.state.article.hotArticles
+      }
+    },
+    components: {
+      CCarousel,
+      CCarouselItem,
+      CArticleList
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

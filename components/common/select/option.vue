@@ -5,65 +5,65 @@
 </template>
 
 <script>
-    import {findComponentUpward} from "../../../utils/utils";
-    import {CDropdownItem} from "../dropdown";
+  import { findComponentUpward } from '../../../utils/utils'
+  import { CDropdownItem } from '../dropdown'
 
-    export default {
-        name: "option",
-        props: {
-            value: null,
-            label: {
-                type: String
+  export default {
+    name: 'c-option',
+    props: {
+      value: null,
+      label: {
+        type: String
+      }
+    },
+    data () {
+      return {
+        parent: null,
+        index: 0
+      }
+    },
+    computed: {
+      active () {
+        let active = false
+        if (this.parent) {
+          for (let item of this.parent.activeKeyValues) {
+            if (item.value === this.value) {
+              active = true
+              break
             }
-        },
-        data() {
-            return {
-                parent: null,
-                index: 0,
-            }
-        },
-        computed: {
-            active() {
-                let active = false
-                if (this.parent) {
-                    for (let item of this.parent.activeKeyValues) {
-                        if (item.value === this.value) {
-                            active = true
-                            break
-                        }
-                    }
-                }
-                return active
-            },
-            classes() {
-                if (this.active) {
-                    return ['is-active']
-                }
-                return []
-            }
-        },
-        methods: {
-            click() {
-                if (this.parent) {
-                    this.parent.clickChild(this.index)
-                }
-            }
-        },
-        created() {
-            this.parent = findComponentUpward(this, 'select')
-            if (this.parent) {
-                this.parent.updateOptions()
-            }
-        },
-        beforeDestroy() {
-            if (this.parent) {
-                this.parent.updateOptions()
-            }
-        },
-        components: {
-            CDropdownItem
+          }
         }
+        return active
+      },
+      classes () {
+        if (this.active) {
+          return ['is-active']
+        }
+        return []
+      }
+    },
+    methods: {
+      click () {
+        if (this.parent) {
+          this.parent.clickChild(this.index)
+        }
+      }
+    },
+    created () {
+      this.parent = findComponentUpward(this, 'c-select')
+      if (this.parent) {
+        this.parent.updateOptions()
+      }
+    },
+    beforeDestroy () {
+      if (this.parent) {
+        this.parent.updateOptions()
+      }
+    },
+    components: {
+      CDropdownItem
     }
+  }
 </script>
 
 <style lang="scss" scoped>

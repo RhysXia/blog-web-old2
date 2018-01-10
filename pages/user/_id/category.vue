@@ -5,26 +5,26 @@
 </template>
 
 <script>
-    import CCategoryItem from '~/components/category/item'
+  import CCategoryItem from '~/components/category/item'
 
-    export default {
-        name: "info",
-        async asyncData({store, params}) {
-            const userId = params.id
-            const result = {}
-            const {data} = await store.$api.category.getAllByUserId({
-                userId,
-                page: 0,
-                size: 100,
-                sort: 'weight,DESC'
-            })
-            result.categories = data.content
-            return result
-        },
-        components: {
-            CCategoryItem
-        }
+  export default {
+    name: 'info',
+    async asyncData ({store, params}) {
+      const userId = params.id
+      const result = {}
+      const {data} = await store.$api.category.getAllByUserId({
+        userId,
+        page: 0,
+        size: 100,
+        sort: 'weight,DESC'
+      })
+      result.categories = data.content
+      return result
+    },
+    components: {
+      CCategoryItem
     }
+  }
 </script>
 
 <style lang="scss" scoped>

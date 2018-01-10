@@ -1,5 +1,6 @@
+/* eslint-disable indent */
 import Koa from 'koa'
-import { Nuxt, Builder } from 'nuxt'
+import { Builder, Nuxt } from 'nuxt'
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'

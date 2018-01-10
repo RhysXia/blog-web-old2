@@ -8,14 +8,14 @@
 
 </template>
 <script>
-    export default {
-        props: ['error'],
-        head() {
-            return {
-                title: this.error.message || 'An error occured'
-            }
-        }
+  export default {
+    props: ['error'],
+    head () {
+      return {
+        title: this.error.message || 'An error occured'
+      }
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

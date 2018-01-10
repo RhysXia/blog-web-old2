@@ -17,56 +17,56 @@
 </template>
 
 <script>
-    import focus from '~/utils/directive/focus'
-    import CInput from '~/components/common/input'
-    import {CCheckbox} from '~/components/common/checkbox'
+  import focus from '~/utils/directive/focus'
+  import CInput from '~/components/common/input'
+  import { CCheckbox } from '~/components/common/checkbox'
 
-    export default {
-        directives: {
-            focus
-        },
-        data() {
-            return {
-                user: {
-                    username: '',
-                    password: '',
-                    remember: false
-                }
-            }
-        },
-        methods: {
-            async submit() {
-                try {
-                    await this.$store.dispatch('login', this.user)
-                    // 获取跳转来的路径
-                    const from = this.$route.meta.from
-                    // 如果来的路径不是当前路径和注册页面，则跳转回去，否则跳转到首页
-                    if (from !== this.$route.fullPath && from !== '/auth/register') {
-                        this.$router.push(from)
-                    } else {
-                        this.$router.push('/')
-                    }
-                } catch (err) {
-                    this.$message({
-                        content: err.message,
-                        type: 'error',
-                        duration: 2000
-                    })
-                }
-            }
-        },
-        beforeRouteEnter(to, from, next) {
-            // 获取from的路径
-            const path = from.fullPath
-            // 将跳转来的路径记录下来
-            to.meta.from = path
-            next()
-        },
-        components: {
-            CInput,
-            CCheckbox
+  export default {
+    directives: {
+      focus
+    },
+    data () {
+      return {
+        user: {
+          username: '',
+          password: '',
+          remember: false
         }
+      }
+    },
+    methods: {
+      async submit () {
+        try {
+          await this.$store.dispatch('login', this.user)
+          // 获取跳转来的路径
+          const from = this.$route.meta.from
+          // 如果来的路径不是当前路径和注册页面，则跳转回去，否则跳转到首页
+          if (from !== this.$route.fullPath && from !== '/auth/register') {
+            this.$router.push(from)
+          } else {
+            this.$router.push('/')
+          }
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      }
+    },
+    beforeRouteEnter (to, from, next) {
+      // 获取from的路径
+      const path = from.fullPath
+      // 将跳转来的路径记录下来
+      to.meta.from = path
+      next()
+    },
+    components: {
+      CInput,
+      CCheckbox
     }
+  }
 </script>
 
 <style lang="scss" scoped>

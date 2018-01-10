@@ -9,102 +9,103 @@
                 .c-index-item(:class="{'is-active':index-1===activeIndex}")
 </template>
 <script>
-    import {findComponentsDownward} from '../../../utils/utils'
+  import { findComponentsDownward } from '../../../utils/utils'
 
-    export default {
-        name: 'carousel',
-        props: {
-            width: {
-                type: String,
-                default: '100%'
-            },
-            height: {
-                type: String,
-                default: '100%'
-            },
-            interval: {
-                type: Number,
-                default: 3000
-            }
-        },
-        data() {
-            return {
-                // 真实宽高
-                rWidth: 0,
-                rHeight: 0,
-                children: [],
-                activeIndex: 0,
-                timer: null
-            }
-        },
-        computed: {
-            childNum() {
-                return this.children.length
-            },
-            styles() {
-                let style = {}
-                style = {
-                    width: this.width,
-                    height: this.height
-                }
-                return style
-            }
-        },
-        methods: {
-            moveTo(index) {
-                if (this.childNum <= 0) {
-                    return
-                }
-                // 将所有children的动画关闭
-                this.children.forEach(child => {
-                    child.isAnimated = false
-                })
-                index = index < 0 ? this.childNum - 1 : index > this.childNum - 1 ? 0 : index
-                if ((index === 0 && this.activeIndex === this.childNum - 1) || (index === this.childNum - 1 && this.activeIndex === 0)) {
-                    this.children[0].isAnimated = true
-                    this.children[this.childNum - 1].isAnimated = true
-                } else {
-                    const max = index > this.activeIndex ? index : this.activeIndex
-                    const min = index > this.activeIndex ? this.activeIndex : index
-                    for (let i = min; i <= max; i++) {
-                        this.children[i].isAnimated = true
-                    }
-                }
-                this.activeIndex = index
-            },
-            mouseEnter() {
-                if (this.timer) {
-                    clearInterval(this.timer)
-                    this.timer = null
-                }
-            },
-            mouseLeave() {
-                this.timer = setInterval(this.rollOneTime, this.interval)
-            },
-            updateChildren() {
-                this.$nextTick(() => {
-                    this.children = findComponentsDownward(this, 'carousel-item', 1)
-                    for (let i = 0; i < this.children.length; i++) {
-                        this.children[i].index = i
-                    }
-                })
-            },
-            init() {
-                this.rWidth = this.$el.offsetWidth
-                this.rHeight = this.$el.offsetHeight
-            },
-            rollOneTime() {
-                this.moveTo(this.activeIndex + 1)
-            }
-        },
-        mounted() {
-            this.init()
-            window.onresize = this.init
-            this.$nextTick(() => {
-                this.timer = setInterval(this.rollOneTime, this.interval)
-            })
+  export default {
+    name: 'c-carousel',
+    props: {
+      width: {
+        type: String,
+        default: '100%'
+      },
+      height: {
+        type: String,
+        default: '100%'
+      },
+      interval: {
+        type: Number,
+        default: 3000
+      }
+    },
+    data () {
+      return {
+        // 真实宽高
+        rWidth: 0,
+        rHeight: 0,
+        children: [],
+        activeIndex: 0,
+        timer: null
+      }
+    },
+    computed: {
+      childNum () {
+        return this.children.length
+      },
+      styles () {
+        let style = {}
+        style = {
+          width: this.width,
+          height: this.height
         }
+        return style
+      }
+    },
+    methods: {
+      moveTo (index) {
+        if (this.childNum <= 0) {
+          return
+        }
+        // 将所有children的动画关闭
+        this.children.forEach(child => {
+          child.isAnimated = false
+        })
+        index = index < 0 ? this.childNum - 1 : index > this.childNum - 1 ? 0 : index
+        if ((index === 0 && this.activeIndex === this.childNum - 1) ||
+          (index === this.childNum - 1 && this.activeIndex === 0)) {
+          this.children[0].isAnimated = true
+          this.children[this.childNum - 1].isAnimated = true
+        } else {
+          const max = index > this.activeIndex ? index : this.activeIndex
+          const min = index > this.activeIndex ? this.activeIndex : index
+          for (let i = min; i <= max; i++) {
+            this.children[i].isAnimated = true
+          }
+        }
+        this.activeIndex = index
+      },
+      mouseEnter () {
+        if (this.timer) {
+          clearInterval(this.timer)
+          this.timer = null
+        }
+      },
+      mouseLeave () {
+        this.timer = setInterval(this.rollOneTime, this.interval)
+      },
+      updateChildren () {
+        this.$nextTick(() => {
+          this.children = findComponentsDownward(this, 'c-carousel-item', 1)
+          for (let i = 0; i < this.children.length; i++) {
+            this.children[i].index = i
+          }
+        })
+      },
+      init () {
+        this.rWidth = this.$el.offsetWidth
+        this.rHeight = this.$el.offsetHeight
+      },
+      rollOneTime () {
+        this.moveTo(this.activeIndex + 1)
+      }
+    },
+    mounted () {
+      this.init()
+      window.onresize = this.init
+      this.$nextTick(() => {
+        this.timer = setInterval(this.rollOneTime, this.interval)
+      })
     }
+  }
 </script>
 
 <style lang="scss" scoped>

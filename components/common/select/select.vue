@@ -12,151 +12,152 @@
 </template>
 
 <script>
-    import clickoutside from '~/utils/directive/clickoutside'
-    import {findComponentsDownward} from "../../../utils/utils";
-    import {CDropdown, CDropdownMenu} from "../dropdown";
-    import CTag from '../tag'
+  import clickoutside from '~/utils/directive/clickoutside'
+  import { findComponentsDownward } from '../../../utils/utils'
+  import { CDropdown, CDropdownMenu } from '../dropdown'
+  import CTag from '../tag'
 
-    export default {
-        name: "select",
-        directives: {
-            clickoutside
-        },
-        props: {
-            value: null,
-            placeholder: {
-                type: String,
-                default: ''
-            },
-            trigger: {
-                type: String,
-                default: 'click'
-            },
-            // 可远程
-            remote: {
-                type: Boolean,
-                default: false
-            },
-            // 可编辑
-            editable: {
-                type: Boolean,
-                default: false
-            },
-            // 多选
-            multiple: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data() {
-            return {
-                options: [],
-                showItems: false,
-                inputData: '',
-                activeKeyValues: [],
-                isActive: false
-            }
-        },
-        watch: {
-            inputData(val) {
-                if (this.remote) {
-                    this.$emit('load', val)
-                }
-            },
-            activeKeyValues(val) {
-                const values = val.map(it => {
-                    return it.value
-                })
-                if (this.multiple) {
-                    this.$emit('input', values)
-                } else if (values.length === 0) {
-                    this.$emit('input', null)
-                } else {
-                    this.$emit('input', values[0])
-                }
-                // 清空输入框
-                this.inputData = ''
-                // input继续获得焦点
-                this.$refs.input.focus()
-            }
-        },
-        methods: {
-            deleteKeyDown() {
-                if (this.inputData.length === 0) {
-                    this.activeKeyValues.pop()
-                } else {
-                    this.inputData = this.inputData.substring(0, this.inputData.length - 1)
-                }
-            },
-            // 添加一个标签
-            add({label, value}) {
-                const isNotAdd = this.activeKeyValues.map(it => {
-                    return it.value
-                }).includes(value)
-                if (isNotAdd) {
-                    return
-                }
-                if (this.multiple) {
-                    this.activeKeyValues.push({label, value})
-                } else {
-                    this.activeKeyValues = [{label, value}]
-                }
-            },
-            click() {
-                this.isActive = true
-            },
-            outClick() {
-                this.isActive = false
-            },
-            closeTag(value) {
-                this.activeKeyValues = this.activeKeyValues.filter(it => {
-                    return it.value !== value
-                })
-            },
-
-            enter() {
-                if (this.editable) {
-                    this.$emit('enter', this.inputData)
-                }
-            },
-            updateOptions() {
-                this.options = findComponentsDownward(this, 'option')
-                for (let i = 0; i < this.options.length; i++) {
-                    this.options[i].index = i
-                }
-            },
-            clickChild(index) {
-                const option = this.options[index]
-                if (option.active) {
-                    this.activeKeyValues = this.activeKeyValues.filter(it => {
-                        return it.value !== option.value
-                    })
-                } else if (this.multiple) {
-                    this.activeKeyValues.push({
-                        label: option.label,
-                        value: option.value
-                    })
-                } else {
-                    this.activeKeyValues = [{
-                        label: option.label,
-                        value: option.value
-                    }]
-                }
-            }
-        },
-        computed: {
-            classes() {
-                return {
-                    'is-active': this.isActive
-                }
-            }
-        },
-        components: {
-            CDropdownMenu,
-            CDropdown,
-            CTag
+  export default {
+    name: 'c-select',
+    directives: {
+      clickoutside
+    },
+    props: {
+      value: null,
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      trigger: {
+        type: String,
+        default: 'click'
+      },
+      // 可远程
+      remote: {
+        type: Boolean,
+        default: false
+      },
+      // 可编辑
+      editable: {
+        type: Boolean,
+        default: false
+      },
+      // 多选
+      multiple: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data () {
+      return {
+        options: [],
+        showItems: false,
+        inputData: '',
+        activeKeyValues: [],
+        isActive: false
+      }
+    },
+    watch: {
+      inputData (val) {
+        if (this.remote) {
+          this.$emit('load', val)
         }
+      },
+      activeKeyValues (val) {
+        const values = val.map(it => {
+          return it.value
+        })
+        if (this.multiple) {
+          this.$emit('input', values)
+        } else if (values.length === 0) {
+          this.$emit('input', null)
+        } else {
+          this.$emit('input', values[0])
+        }
+        // 清空输入框
+        this.inputData = ''
+        // input继续获得焦点
+        this.$refs.input.focus()
+      }
+    },
+    methods: {
+      deleteKeyDown () {
+        if (this.inputData.length === 0) {
+          this.activeKeyValues.pop()
+        } else {
+          this.inputData = this.inputData.substring(0, this.inputData.length - 1)
+        }
+      },
+      // 添加一个标签
+      add ({label, value}) {
+        const isNotAdd = this.activeKeyValues.map(it => {
+          return it.value
+        }).includes(value)
+        if (isNotAdd) {
+          return
+        }
+        if (this.multiple) {
+          this.activeKeyValues.push({label, value})
+        } else {
+          this.activeKeyValues = [{label, value}]
+        }
+      },
+      click () {
+        this.isActive = true
+      },
+      outClick () {
+        this.isActive = false
+      },
+      closeTag (value) {
+        this.activeKeyValues = this.activeKeyValues.filter(it => {
+          return it.value !== value
+        })
+      },
+
+      enter () {
+        if (this.editable) {
+          this.$emit('enter', this.inputData)
+        }
+      },
+      updateOptions () {
+        this.options = findComponentsDownward(this, 'c-option')
+        for (let i = 0; i < this.options.length; i++) {
+          this.options[i].index = i
+        }
+      },
+      clickChild (index) {
+        const option = this.options[index]
+        if (option.active) {
+          this.activeKeyValues = this.activeKeyValues.filter(it => {
+            return it.value !== option.value
+          })
+        } else if (this.multiple) {
+          this.activeKeyValues.push({
+            label: option.label,
+            value: option.value
+          })
+        } else {
+          this.activeKeyValues = [
+            {
+              label: option.label,
+              value: option.value
+            }]
+        }
+      }
+    },
+    computed: {
+      classes () {
+        return {
+          'is-active': this.isActive
+        }
+      }
+    },
+    components: {
+      CDropdownMenu,
+      CDropdown,
+      CTag
     }
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -13,7 +13,7 @@
     import CPanel from '../common/panel'
 
     export default {
-        name: 'aside',
+        name: 'c-aside',
         computed: {
             hotTags() {
                 return this.$store.state.tag.hotTags

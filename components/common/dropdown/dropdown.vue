@@ -8,61 +8,61 @@
 </template>
 
 <script>
-    import clickoutside from '~/utils/directive/clickoutside'
+  import clickoutside from '~/utils/directive/clickoutside'
 
-    export default {
-        name: 'dropdown',
-        directives: {
-            clickoutside
+  export default {
+    name: 'c-dropdown',
+    directives: {
+      clickoutside
+    },
+    props: {
+      position: {
+        type: String,
+        default: 'bottom'
+      },
+      trigger: {
+        validator (val) {
+          return ['click', 'hover'].includes(val)
         },
-        props: {
-            position: {
-                type: String,
-                default: 'bottom'
-            },
-            trigger: {
-                validator(val) {
-                    return ['click', 'hover'].includes(val)
-                },
-                default: 'hover'
-            },
-            value: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data() {
-            return {
-                visible: this.value
-            }
-        },
-        watch: {
-            visible(val) {
-                this.$emit('input', val)
-            },
-            value(val) {
-                this.visible = val
-            }
-        },
-        methods: {
-            handleClose() {
-                this.visible = false
-            },
-            refClick() {
-                this.visible = true
-            },
-            mouseenter() {
-                if (this.trigger === 'hover') {
-                    this.visible = true
-                }
-            },
-            mouseleave() {
-                if (this.trigger === 'hover') {
-                    this.visible = false
-                }
-            }
+        default: 'hover'
+      },
+      value: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data () {
+      return {
+        visible: this.value
+      }
+    },
+    watch: {
+      visible (val) {
+        this.$emit('input', val)
+      },
+      value (val) {
+        this.visible = val
+      }
+    },
+    methods: {
+      handleClose () {
+        this.visible = false
+      },
+      refClick () {
+        this.visible = true
+      },
+      mouseenter () {
+        if (this.trigger === 'hover') {
+          this.visible = true
         }
+      },
+      mouseleave () {
+        if (this.trigger === 'hover') {
+          this.visible = false
+        }
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

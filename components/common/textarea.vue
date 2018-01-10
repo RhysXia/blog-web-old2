@@ -5,64 +5,64 @@
 </template>
 
 <script>
-    import autoheight from '~/utils/directive/auto-height'
-    import clickoutside from '~/utils/directive/clickoutside'
+  import autoheight from '~/utils/directive/auto-height'
+  import clickoutside from '~/utils/directive/clickoutside'
 
-    export default {
-        name: "textarea",
-        directives: {
-            autoheight,
-            clickoutside
-        },
-        props: {
-            height: {
-                type: Number,
-                default: 60
-            },
-            value: {
-                type: String,
-                default: ''
-            },
-            autoHeight: {
-                type: Boolean,
-                default: false
-            },
-            placeholder: {
-                type: String,
-                default: ''
-            }
-        },
-        data() {
-            return {
-                active: false,
-                content: this.value
-            }
-        },
-        watch: {
-            content(val) {
-                this.$emit('input', val)
-            },
-            value(val) {
-                this.content = val
-            }
-        },
-        computed: {
-            classes() {
-                if (this.active) {
-                    return ['is-active']
-                }
-                return []
-            }
-        },
-        methods: {
-            click() {
-                this.active = true
-            },
-            outClick() {
-                this.active = false
-            }
+  export default {
+    name: 'c-textarea',
+    directives: {
+      autoheight,
+      clickoutside
+    },
+    props: {
+      height: {
+        type: Number,
+        default: 60
+      },
+      value: {
+        type: String,
+        default: ''
+      },
+      autoHeight: {
+        type: Boolean,
+        default: false
+      },
+      placeholder: {
+        type: String,
+        default: ''
+      }
+    },
+    data () {
+      return {
+        active: false,
+        content: this.value
+      }
+    },
+    watch: {
+      content (val) {
+        this.$emit('input', val)
+      },
+      value (val) {
+        this.content = val
+      }
+    },
+    computed: {
+      classes () {
+        if (this.active) {
+          return ['is-active']
         }
+        return []
+      }
+    },
+    methods: {
+      click () {
+        this.active = true
+      },
+      outClick () {
+        this.active = false
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

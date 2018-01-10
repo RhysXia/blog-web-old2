@@ -6,7 +6,7 @@
 </template>
 <script>
   export default {
-    name: 'footer'
+    name: 'c-footer'
   }
 </script>
 <style lang="scss" scoped>

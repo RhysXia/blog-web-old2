@@ -7,7 +7,7 @@
 
   const prefixCls = 'c-row-container'
   export default {
-    name: 'row',
+    name: 'c-row',
     props: {
       type: {
         validator (value) {

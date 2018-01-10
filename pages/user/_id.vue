@@ -15,34 +15,34 @@
                 nuxt-child
 </template>
 <script>
-    import CAvatar from '~/components/common/avatar'
+  import CAvatar from '~/components/common/avatar'
 
-    export default {
-        validate({params}) {
-            return /^\d+$/.test(params.id)
-        },
-        head() {
-            return {
-                title: `${this.user.nickname}的主页`
-            }
-        },
-        async asyncData({params, error, store}) {
-            const id = params.id
-            const result = {
-                user: {}
-            }
-            try {
-                const {data} = await store.$api.user.getById(id)
-                result.user = data
-                return result
-            } catch (err) {
-                error({statusCode: 500, message: err.message})
-            }
-        },
-        components: {
-            CAvatar
-        }
+  export default {
+    validate ({params}) {
+      return /^\d+$/.test(params.id)
+    },
+    head () {
+      return {
+        title: `${this.user.nickname}的主页`
+      }
+    },
+    async asyncData ({params, error, store}) {
+      const id = params.id
+      const result = {
+        user: {}
+      }
+      try {
+        const {data} = await store.$api.user.getById(id)
+        result.user = data
+        return result
+      } catch (err) {
+        error({statusCode: 500, message: err.message})
+      }
+    },
+    components: {
+      CAvatar
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
