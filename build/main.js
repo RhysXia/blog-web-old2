@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -103,9 +103,9 @@ module.exports = {
   */
   loading: { color: '#4dce9b', failedColor: '#F56C6C' },
   offline: true,
-  plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', '~/plugins/token', { src: '~/plugins/offline', ssr: false }],
+  plugins: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components', { src: '~/plugins/offline', ssr: false }],
   build: {
-    vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/components', '~/plugins/filters', '~/plugins/offline', '~/utils/markdown'],
+    vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components', '~/plugins/offline'],
     extractCSS: true,
     babel: {},
     extend: function extend(webpackConfig, _ref) {
@@ -132,19 +132,28 @@ module.exports = require("koa");
 /* 2 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa-compress");
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nuxt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_compress__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_compress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_compress__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 /* eslint-disable indent */
+
 
 
 
@@ -157,19 +166,27 @@ var config = __webpack_require__(0);
 config.dev = !(app.env === 'production');
 
 // Instantiate nuxt.js
-var nuxt = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Nuxt"](config);
+var nuxt = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Nuxt"](config);
 
 // Build in development
 if (config.dev) {
-  var builder = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Builder"](nuxt);
+  var builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
   builder.build().catch(function (e) {
     console.error(e); // eslint-disable-line no-console
     process.exit(1);
   });
 }
+app.use(__WEBPACK_IMPORTED_MODULE_1_koa_compress___default()({
+  filter: function filter(content_type) {
+    return (/text/i.test(content_type)
+    );
+  },
+  threshold: 2048
+}));
 
 app.use(function (ctx) {
   ctx.status = 200; // koa defaults to 404 when it sees that status is unset
+  // cookies传递到nuxtjs中
   ctx.req.cookies = ctx.cookies;
   return new Promise(function (resolve, reject) {
     ctx.res.on('close', resolve);

@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import Koa from 'koa'
+import compress from 'koa-compress'
 import { Builder, Nuxt } from 'nuxt'
 
 const app = new Koa()
@@ -21,9 +22,16 @@ if (config.dev) {
     process.exit(1)
   })
 }
+app.use(compress({
+  filter: function () {
+    return true
+  },
+  threshold: 2048
+}))
 
 app.use(ctx => {
   ctx.status = 200 // koa defaults to 404 when it sees that status is unset
+  // cookies传递到nuxtjs中
   ctx.req.cookies = ctx.cookies
   return new Promise((resolve, reject) => {
     ctx.res.on('close', resolve)

@@ -271,7 +271,7 @@
       },
       async commentImageUpload (files) {
         if (files.length === 0) {
-          return reject(new Error('没有选择文件'))
+          throw new Error('没有选择文件')
         }
         const formData = new FormData()
         formData.append('image', files[0])

@@ -46,19 +46,18 @@ module.exports = {
   offline: true,
   plugins: [
     '~/plugins/http',
-    '~/plugins/components',
-    '~/plugins/filters',
     '~/plugins/token',
+    '~/plugins/filters',
+    '~/plugins/components',
     {src: '~/plugins/offline', ssr: false}
   ],
   build: {
     vendor: [
       '~/plugins/http',
       '~/plugins/token',
-      '~/plugins/components',
       '~/plugins/filters',
-      '~/plugins/offline',
-      '~/utils/markdown'
+      '~/plugins/components',
+      '~/plugins/offline'
     ],
     extractCSS: true,
     babel: {},

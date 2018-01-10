@@ -1,8 +1,9 @@
-import { setCookie } from '../utils/cookie'
+import { removeCookie, setCookie } from '../utils/cookie'
 
 export const state = () => ({
   serverURL: 'https://api.ryths.cn',
   token: '',
+  tokenName: 'rhys-blog-token',
   user: null,
   isMenuShow: true,
   isAsideShow: true,
@@ -53,11 +54,10 @@ export const actions = {
       console.error(err)
     }
   },
-  // 登陆，根据用户名密码登陆，或者根据token登陆
+  // 登陆，根据用户名密码登陆
   async login (
     {commit, state},
     {username, password, remember = false}) {
-
     let res = await this.$api.auth.login({username, password})
     // 登陆成功，保存token到store
     const token = res.data.id
@@ -69,11 +69,12 @@ export const actions = {
     if (remember) {
       config.expires = 30
     }
-    setCookie('rhys-blog-token', token, config)
+    setCookie(state.tokenName, token, config)
   },
   async logout ({commit, state}) {
     await this.$api.auth.logout()
     commit('setToken', '')
     commit('setUser', null)
+    removeCookie(state.tokenName)
   }
 }
