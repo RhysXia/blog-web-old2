@@ -69,22 +69,25 @@
             }
         }
         .right {
-            display: flex;
-            flex-direction: column;
             margin-left: 0.5em;
             .title {
                 font-weight: bold;
                 font-size: 1.2em;
+                height: 1.2em;
+                margin: 0.5em 0;
             }
             .info {
-                font-size: 1.1em;
-                display: flex;
-                flex: 1 1 auto;
+                height: $article-item-height - 1.2 - 1 - 1 - 1 - 0.5;
+                line-height: ($article-item-height - 1.2 - 1 - 1 - 1 - 0.5) / 3;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+
             }
             .detail {
-                display: flex;
-                align-self: flex-end;
-                align-items: center;
+                margin-top: 0.5em;
+                height: 1em;
                 span {
                     margin-right: 0.8em;
                     i {
