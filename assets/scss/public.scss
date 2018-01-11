@@ -55,12 +55,10 @@ button {
   border: none;
   padding: 0.25rem 0.8rem;
   border-radius: 3px;
+  background-color: transparent;
   transition: background-color 0.4s ease;
   cursor: pointer;
   color: $color-text;
-  &:hover {
-    background-color: color-active($color-border-base);
-  }
 }
 
 .page-enter-active,

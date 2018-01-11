@@ -2,7 +2,7 @@
     .c-dropdown-container(v-clickoutside="handleClose",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
         .c-dropdown-ref(@click="refClick")
             slot
-        transition(name="c-dropdown-slide")
+        transition(:name="transitionName")
             .c-dropdown-list(v-show="visible",:class="'c-dropdown-list-'+position")
                 slot(name="list")
 </template>
@@ -34,6 +34,14 @@
     data () {
       return {
         visible: this.value
+      }
+    },
+    computed: {
+      transitionName () {
+        if (this.position === 'top') {
+          return 'c-dropdown-slide-top'
+        }
+        return 'c-dropdown-slide-bottom'
       }
     },
     watch: {
@@ -105,6 +113,7 @@
             top: 0;
             min-height: 100%;
         }
-        @include slide(c-dropdown-slide, bottom);
+        @include slide(c-dropdown-slide-bottom, bottom);
+        @include slide(c-dropdown-slide-top, top);
     }
 </style>

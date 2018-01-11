@@ -91,7 +91,7 @@
                 display: block;
                 padding: 0.5rem 1rem;
                 &:hover {
-                    background-color: rgba(200, 200, 200, 0.5);
+                    background-color: $color-background-active;
                 }
             }
         }

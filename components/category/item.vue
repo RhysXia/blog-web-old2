@@ -1,7 +1,16 @@
 <template lang="pug">
     .c-category-item-container
-        nuxt-link(:to="'/category/'+category.id")
-            h2.name {{category.name}}
+        .header
+            nuxt-link(:to="'/category/'+category.id")
+                span.name {{category.name}}
+            c-dropdown.dropdown(v-if="isSelf",position="right")
+                button.menu
+                    i.fa.fa-cog
+                c-dropdown-menu(slot="list")
+                    c-dropdown-item
+                        button.item(@click="$emit('update')") 修改
+                    c-dropdown-item
+                        button.item(@click="$emit('delete')") 删除
         .desc {{category.description}}
         .info
             i.fa.fa-book
@@ -9,15 +18,32 @@
 </template>
 
 <script>
+  import { CDropdown, CDropdownItem, CDropdownMenu } from '../common/dropdown'
+
   export default {
-    name: 'c-item',
+    name: 'c-category-item',
     props: {
       category: {
         type: Object,
         default: {}
       }
+    },
+    computed: {
+      isLogin () {
+        return this.$store.getters.isLogin
+      },
+      user () {
+        return this.$store.state.user
+      },
+      isSelf () {
+        return this.isLogin && this.category.author.id === this.user.id
+      }
+    },
+    components: {
+      CDropdown,
+      CDropdownItem,
+      CDropdownMenu
     }
-
   }
 </script>
 
@@ -28,13 +54,40 @@
         border: 1px solid $color-border-base;
         padding: 0.5em 1em;
         border-radius: 0.3em;
-        .name {
-            font-size: 1em;
-            margin: 0 0 1em 0;
+        .header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5em;
+            .name {
+                font-size: 1em;
+                font-weight: bold;
+            }
+            .dropdown {
+                margin-right: -0.5em;
+                .menu{
+                    color: $color-text;
+                    background-color: transparent;
+                    padding: 0.5em;
+                    &:hover{
+                        color: $color-text-deep;
+                    }
+                }
+                .item{
+                    padding: 0.5em 1.5em;
+                    &:hover{
+                        background-color: $color-background-active;
+                    }
+                }
+            }
         }
+
         .desc, info {
-            font-size: 0.8em;
             color: $color-text-light;
+        }
+        .info{
+            margin-top: 0.5em;
         }
     }
 </style>

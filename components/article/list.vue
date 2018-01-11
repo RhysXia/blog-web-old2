@@ -22,7 +22,6 @@
       pageSize: {
         type: Number
       }
-
     },
     data () {
       return {}
@@ -44,7 +43,6 @@
 
     .c-article-list-container {
         position: relative;
-        overflow: hidden;
         .item {
             margin-bottom: 1em;
         }

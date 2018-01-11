@@ -37,7 +37,6 @@
       } catch (err) {
         error(err)
       }
-
     },
     data () {
       return {
