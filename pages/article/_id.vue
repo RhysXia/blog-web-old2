@@ -1,71 +1,37 @@
 <template lang="pug">
     .article-id-container
-        .article-wrapper
-            .header
-                h1.title {{article.title}}
-                .info
-                    span
-                        i.fa.fa-clock-o
-                        | 创建{{article.createAt | formatDate}};
-                        | 更新{{article.updateAt | formatDate}}
-                    .right
-                        button.btn.link(@click="fullPageClick")
-                            i.fa(:class="fullPage?'fa-compress':'fa-arrows-alt'")
-                            | 全屏阅读
-                        button.btn.link(@click="partFullPageClick")
-                            i.fa(:class="partFullPage?'fa-compress':'fa-expand'")
-                            | 通栏阅读
-                .info
-                    span
-                        i.fa.fa-eye
-                        | {{article.readNum}}
-                    span
-                        i.fa.fa-heart
-                        | {{article.voteNum}}
-                    span
-                        i.fa.fa-user
-                        nuxt-link(:to="'/user/'+article.author.id") {{article.author.nickname}}
-                    span
-                        i.fa.fa-tag
-                        template(v-for="(tag,index) in article.tags")
-                            nuxt-link.tag(:to="'/tag/'+tag.id") {{tag.name}}
-                    span
-                        i.fa.fa-list
-                        nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
-            .body
-                c-show-more(:hiddenHeight="500")
-                    .content(v-html="content")
-            .footer
-                button.btn.link(v-if="isLogin",@click="voteClick")
-                    i.fa.fa-hand-pointer-o
-                    | {{isVoted?'取消点赞':'点赞一下'}}
-                nuxt-link(v-if="isSelf",:to="{path:'/article/write',query:{articleId:article.id}}") 修改
+        c-article-detail(:article="article")
+            .footer(slot="footer",slot-scope="props")
+                span.like(@click="voteClick",:class="{'is-voted':isVoted}")
+                    b {{props.article.voteNum}}
+                    | 人点赞
+                span.read
+                    b {{props.article.readNum}}
+                    | 人阅读
         .comment-wrapper
             .header
                 h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
-            span.info(v-if="count")
-                | 共
-                b {{count}}
-                | 条评论
+                span.info(v-if="count")
+                    | 共
+                    b {{count}}
+                    | 条评论
             .body
-                .write-wrapper
-                    .write(v-if="isLogin")
-                        .left
-                            c-avatar(:imgUrl="user.avatar")
-                        .right
-                            c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
-                                button.submit(slot="button",@click="commentSubmit") 提交
+                .write(v-if="isLogin")
+                    .left
+                        c-avatar(:imgUrl="user.avatar")
+                    .right
+                        c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
+                            button.submit(slot="button",@click="commentSubmit") 提交
                 template(v-if="!count")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
                     c-comment-list(:comments="comments",@item-delete="itemDelete",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
-  import markdown from '~/utils/markdown'
   import CCommentList from '~/components/comment/list'
   import CAvatar from '~/components/common/avatar'
   import CEditor from '~/components/common/editor'
-  import CShowMore from '~/components/common/show-more'
+  import CArticleDetail from '~/components/article/detail'
 
   export default {
     validate ({params}) {
@@ -80,13 +46,12 @@
           comments: [],
           page: 0,
           size: 5,
-          count: 0
+          count: 0,
+          isVoted: false
         }
-
         const {data} = await store.$api.article.getById(id)
         result.article = data
-
-        const res = await store.$api.comment.getAllByArticleId({
+        let res = await store.$api.comment.getAllByArticleId({
           articleId: id,
           page: result.page,
           size: result.size,
@@ -94,6 +59,14 @@
         })
         result.comments = res.data.content
         result.count = res.data.totalElements
+
+        // 判断是否点赞了该文章
+        if (store.getters.isLogin) {
+          res = await store.$api.article.getVote(id)
+          if (res.data) {
+            result.isVoted = res.data
+          }
+        }
         return result
       } catch (err) {
         error(err)
@@ -106,8 +79,7 @@
     },
     data () {
       return {
-        commentContent: '',
-        isVoted: false
+        commentContent: ''
       }
     },
     computed: {
@@ -116,24 +88,6 @@
       },
       isLogin () {
         return this.$store.getters.isLogin
-      },
-      fullPage () {
-        const isMenuShow = this.$store.state.isMenuShow
-        const isAsideShow = this.$store.state.isAsideShow
-        return !isMenuShow && !isAsideShow
-      },
-      partFullPage () {
-        const isMenuShow = this.$store.state.isMenuShow
-        const isAsideShow = this.$store.state.isAsideShow
-        return isMenuShow && !isAsideShow
-      },
-      content () {
-        const content = this.article.content
-        if (this.article.contentType === 'MARKDOWN') {
-          return markdown(content)
-        } else {
-          return content
-        }
       },
       isSelf () {
         const loginUser = this.$store.state.user
@@ -277,28 +231,13 @@
         formData.append('image', files[0])
         const {data} = await this.$api.comment.uploadImage(formData)
         return data
-      },
-      fullPageClick () {
-        const flag = this.fullPage
-        this.$store.commit('showMenu', flag)
-        this.$store.commit('showAside', flag)
-      },
-      partFullPageClick () {
-        const flag = this.partFullPage
-        this.$store.commit('showMenu', true)
-        this.$store.commit('showAside', flag)
-      }
-    },
-    mounted () {
-      if (this.isLogin) {
-        this.checkVote()
       }
     },
     components: {
       CCommentList,
       CAvatar,
       CEditor,
-      CShowMore
+      CArticleDetail
     }
   }
 </script>
@@ -313,65 +252,34 @@
                 margin-bottom: 0;
             }
         }
-        .article-wrapper {
-            background-color: $color-background;
-            padding: 1rem;
-            border-radius: 5px;
-            .header {
-                padding-bottom: 1rem;
-                border-bottom: 1px solid $color-border-base;
-                .title {
-                    text-align: center;
-                    margin: 0.5rem 0 0.6rem 0;
+        .footer {
+            border-top: 1px solid $color-border-base;
+            padding-top: 1em;
+            .read, .like {
+                display: inline-block;
+                padding: 0.2em 0.5em;
+            }
+            .read {
+                background-color: $color-background-dark;
+                margin-right: 0.5em;
+            }
+            .like {
+                background-color: $color-primary;
+                color: $color-text-white;
+                cursor: pointer;
+                transition: color 0.4s ease-in-out;
+                &:hover {
+                    background-color: $color-primary-active;
                 }
-                .action {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
+            }
+            .is-voted {
+                background-color: $color-success !important;
+                &:hover {
+                    background-color: $color-success-active !important;
                 }
-                .info {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: flex-start;
-                    align-items: center;
-                    margin-top: 0.5rem;
-                    span {
-                        margin-left: 0.5rem;
-                        i {
-                            padding-right: 0.25rem;
-                        }
-                    }
-                    .tag {
-                        margin-right: 0.2rem;
-                        &:hover {
-                            text-decoration: underline;
-                        }
-                    }
-                    .right {
-                        display: flex;
-                        flex: 1 1 auto;
-                        justify-content: flex-end;
-                        align-items: center;
-                    }
+            }
+        }
 
-                }
-            }
-            .body {
-            }
-            .footer {
-                border-top: 1px solid $color-border-base;
-                padding-top: 1rem;
-            }
-        }
-        .btn {
-            padding: 0.3rem 0.5rem;
-            i {
-                padding-right: 0.25rem;
-            }
-            &:hover {
-                background-color: $color-background-active;
-            }
-        }
         .comment-wrapper {
             .header {
                 display: flex;

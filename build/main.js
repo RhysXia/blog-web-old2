@@ -65,12 +65,12 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 module.exports = {
   /*
@@ -106,19 +106,21 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#4dce9b', failedColor: '#F56C6C' },
-  plugins: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components', { src: '~/plugins/offline', ssr: false }],
+  plugins: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components', { src: '~/plugins/copyright', ssr: false
+    // {src: '~/plugins/offline', ssr: false}
+  }],
   build: {
     vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components'],
     extractCSS: {
       allChunks: true
     },
     extend: function extend(config, _ref) {
-      var isDev = _ref.isDev;
+      // if (!isDev) {
+      //   const OfflinePlugin = require('offline-plugin')
+      //   config.plugins.push(new OfflinePlugin())
+      // }
 
-      if (!isDev) {
-        var OfflinePlugin = __webpack_require__(4);
-        config.plugins.push(new OfflinePlugin());
-      }
+      var isDev = _ref.isDev;
     }
   },
   router: {
@@ -133,7 +135,7 @@ module.exports = {
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(4);
 
 
 /***/ },
@@ -152,16 +154,10 @@ module.exports = require("nuxt");
 /* 4 */
 /***/ function(module, exports) {
 
-module.exports = require("offline-plugin");
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
 module.exports = require("regenerator-runtime");
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";

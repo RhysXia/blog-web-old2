@@ -1,5 +1,6 @@
 <template lang="pug">
-    component(:is="component",:error="error")
+    .error-container
+        component(:is="component",:error="error")
 </template>
 <script>
   export default {
@@ -31,3 +32,16 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+    @import "~assets/scss/variables";
+
+    .error-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: $color-white;
+        z-index: $z-index-max;
+    }
+</style>

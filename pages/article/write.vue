@@ -174,7 +174,6 @@
           return
         }
         try {
-
           let res
           if (this.articleId) {
             res = await this.$api.article.update({
@@ -314,12 +313,6 @@
         return this.$store.state.user
       }
     },
-    beforeMount () {
-      // 没有登录则转到错误界面
-      if (!this.isLogin) {
-        this.$nuxt.error({statusCode: 403, message: '请登陆后重试'})
-      }
-    },
     async mounted () {
       this.getCategories()
       const draftId = this.$route.query.draftId
@@ -350,6 +343,11 @@
         }
         this.article.tagIds = []
         this.article.categoryId = -1
+      }
+    },
+    asyncData ({store, error}) {
+      if (!store.getters.isLogin) {
+        error({statusCode: 500, message: '请登陆后重试'})
       }
     },
     components: {

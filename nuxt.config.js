@@ -52,6 +52,7 @@ module.exports = {
     '~/plugins/token',
     '~/plugins/filters',
     '~/plugins/components',
+    {src: '~/plugins/copyright', ssr: false}
     // {src: '~/plugins/offline', ssr: false}
   ],
   build: {
