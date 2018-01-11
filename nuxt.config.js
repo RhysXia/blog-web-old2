@@ -51,8 +51,7 @@ module.exports = {
     '~/plugins/http',
     '~/plugins/token',
     '~/plugins/filters',
-    '~/plugins/components',
-    {src: '~/plugins/copyright', ssr: false}
+    '~/plugins/components'
     // {src: '~/plugins/offline', ssr: false}
   ],
   build: {

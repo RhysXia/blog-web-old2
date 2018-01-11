@@ -39,7 +39,7 @@
       isSelf () {
         const loginUser = this.$store.state.user
         if (loginUser && loginUser.id) {
-          if (loginUser.id === article.author.id) {
+          if (loginUser.id === this.article.author.id) {
             return true
           }
         }

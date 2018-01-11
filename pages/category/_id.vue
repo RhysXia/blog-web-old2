@@ -3,7 +3,7 @@
         .category
             h1.name {{category.name}}
             p.desc {{category.description}}
-            p.count 文章数：{{category.articleCount}}
+            p.count 文章数：{{category.articleNum}}
         c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 

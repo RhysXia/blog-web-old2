@@ -106,9 +106,9 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#4dce9b', failedColor: '#F56C6C' },
-  plugins: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components', { src: '~/plugins/copyright', ssr: false
-    // {src: '~/plugins/offline', ssr: false}
-  }],
+  plugins: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components'
+  // {src: '~/plugins/offline', ssr: false}
+  ],
   build: {
     vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components'],
     extractCSS: {

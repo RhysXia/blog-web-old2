@@ -25,7 +25,7 @@
                             | 通栏阅读
         .c-body
             c-show-more(:hiddenHeight="500")
-                .content(v-html="content")
+                .content(v-html="content",v-copyright)
         slot(name="footer",:article="article")
             .c-footer
                 span.read
@@ -40,9 +40,13 @@
 <script>
   import markdown from '~/utils/markdown'
   import CShowMore from '~/components/common/show-more'
+  import copyright from '~/utils/directive/copyright'
 
   export default {
     name: 'c-article-detail',
+    directives: {
+      copyright
+    },
     props: {
       article: {
         type: Object
@@ -142,7 +146,7 @@
                 background-color: $color-background-dark;
                 padding: 0.2em 0.5em;
             }
-            .read{
+            .read {
                 margin-right: 0.5em;
             }
         }
