@@ -1,5 +1,5 @@
 <template lang="pug">
-    ul.c-pagination-container
+    ul.c-pagination-container(v-if="totalPages>1")
         li.c-page(@click="click(1)",:class="{'c-disabled':activeIndex<=1}")
             i.fa.fa-angle-double-left
         li.c-page(@click="click(activeIndex-1)",:class="{'c-disabled':activeIndex<=1}")
@@ -25,7 +25,7 @@
     },
     data () {
       return {
-        activeIndex: 0
+        activeIndex: 1
       }
     },
     watch: {
