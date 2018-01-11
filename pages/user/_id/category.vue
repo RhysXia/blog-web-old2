@@ -10,7 +10,9 @@
     name: 'info',
     async asyncData ({store, params}) {
       const userId = params.id
-      const result = {}
+      const result = {
+        categories: []
+      }
       const {data} = await store.$api.category.getAllByUserId({
         userId,
         page: 0,

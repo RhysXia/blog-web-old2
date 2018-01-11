@@ -17,6 +17,8 @@
                                     nuxt-link.dropdown-item(:to="'/user/'+user.id") 个人中心
                                 c-dropdown-item
                                     nuxt-link.dropdown-item(to="/article/write") 写文章
+                                c-dropdown-item
+                                    nuxt-link.dropdown-item(to="/user/setting") 设置
 
                         button.btn(@click="logout") 注销
 </template>

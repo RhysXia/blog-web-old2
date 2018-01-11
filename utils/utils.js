@@ -98,3 +98,26 @@ export function getViewLeft (element) {
     document.documentElement.scrollLeft
   return left - scrollLeft
 }
+
+/**
+ * 深拷贝
+ * @param obj
+ * @returns {*}
+ */
+export function clone (obj) {
+  if (obj === null) {
+    return null
+  }
+  if (obj === undefined) {
+    return undefined
+  }
+  let newObj = {}
+  if (obj instanceof Array) {
+    newObj = []
+  }
+  for (let key in obj) {
+    const val = obj[key]
+    newObj[key] = typeof val === 'object' ? clone(val) : val
+  }
+  return newObj
+}

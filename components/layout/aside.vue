@@ -38,11 +38,11 @@
             margin-bottom: 0;
         }
         .content {
+            margin-top: 0.5rem;
             &.tag-content {
                 margin-right: -0.5rem;
             }
             .article-item {
-                margin: 0.3rem 0;
                 padding: 0;
                 .index {
                     display: inline-block;
@@ -55,10 +55,10 @@
                 }
             }
             .tag-item {
+                margin-right: 0.5rem;
                 display: inline-block;
                 background-color: $color-background-dark;
                 padding: 0.2rem 0.5rem;
-                margin-right: 0.5rem;
             }
         }
     }

@@ -1,7 +1,7 @@
 <template lang="pug">
     .c-textarea-container(:class="classes")
-        textarea.c-textarea(:placeholder="placeholder",v-if="autoHeight",v-model="content",v-autoheight="height",@click="click",v-clickoutside="outClick")
-        textarea.c-textarea(:placeholder="placeholder",:style="{height:height+'px'}",v-else,v-model="content",@click="click",v-clickoutside="outClick")
+        textarea.c-textarea(:readonly="readonly",:placeholder="placeholder",v-if="autoHeight",v-model="content",v-autoheight="height",@click="click",v-clickoutside="outClick")
+        textarea.c-textarea(:readonly="readonly",:placeholder="placeholder",:style="{height:height+'px'}",v-else,v-model="content",@click="click",v-clickoutside="outClick")
 </template>
 
 <script>
@@ -30,6 +30,10 @@
       placeholder: {
         type: String,
         default: ''
+      },
+      readonly: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -48,7 +52,7 @@
     },
     computed: {
       classes () {
-        if (this.active) {
+        if (this.active && !this.readonly) {
           return ['is-active']
         }
         return []

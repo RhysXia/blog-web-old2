@@ -76,8 +76,12 @@
       }
     },
     head () {
+      const keywords = this.article.tags.map(it => it.name)
       return {
-        title: this.article.title
+        title: this.article.title,
+        meta: [
+          {name: 'keywords', content: keywords.join(',')}
+        ]
       }
     },
     data () {

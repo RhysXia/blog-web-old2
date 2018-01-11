@@ -16,7 +16,7 @@ module.exports = {
       {name: 'author', content: 'Rhys Xia,postmaster@ryths.cn'},
       {name: 'keywords', content: 'blog,Ryths,IT,JAVA,Vue,前端,后端,研究生'},
       {name: 'description', content: '个人技术博客，分享知识，寻找志同道合的朋友'},
-      {name: 'copyright', content: 'Ryths Xia'}
+      {name: 'copyright', content: 'Rhys Xia'}
     ],
     link: [
       {

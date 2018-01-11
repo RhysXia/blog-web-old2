@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-input-container(:class="containerClass",@click="active=true",v-clickoutside="outClick")
+    .c-input-container(:class="containerClass",@click="click",v-clickoutside="outClick")
         input.input(ref="input",v-if="type==='password'",:readonly="readonly",v-model="content",type="password",:placeholder="placeholder")
         input.input(ref="input",v-else,v-model="content",:readonly="readonly",type = "text",:placeholder="placeholder")
         slot(name="append")
@@ -33,7 +33,8 @@
     data () {
       return {
         content: this.value,
-        active: false
+        active: false,
+        outClickDisabled: false
       }
     },
     computed: {
@@ -53,10 +54,23 @@
     },
     methods: {
       outClick () {
-        this.active = false
+        if (!this.outClickDisabled) {
+          this.active = false
+        }
       },
       focus () {
         this.$refs.input.focus()
+        this.outClickDisabled = true
+        this.active = true
+        // outClick响应比较慢
+        setTimeout(() => {
+          this.outClickDisabled = false
+        }, 500)
+      },
+      click () {
+        if (!this.readonly) {
+          this.active = true
+        }
       }
     }
   }

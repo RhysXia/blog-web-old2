@@ -12,6 +12,7 @@
                 .tabs
                     nuxt-link.tab(:to="'/user/'+user.id") 总概
                     nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
+                    nuxt-link.tab(v-if="isSelf",:to="'/user/'+user.id+'/profile'") 个人资料
                 nuxt-child
 </template>
 <script>
@@ -37,6 +38,17 @@
         return result
       } catch (err) {
         error({statusCode: 500, message: err.message})
+      }
+    },
+    computed: {
+      isSelf () {
+        const loginUser = this.$store.state.user
+        if (loginUser && loginUser.id) {
+          if (loginUser.id === this.user.id) {
+            return true
+          }
+        }
+        return false
       }
     },
     components: {
