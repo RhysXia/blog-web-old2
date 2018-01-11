@@ -54,10 +54,6 @@
     data () {
       return {}
     },
-    methods: {
-
-
-    },
     components: {
       CArticleList,
       CCategoryList,

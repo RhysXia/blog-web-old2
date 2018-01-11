@@ -3,7 +3,7 @@
         .header
             nuxt-link(:to="'/category/'+category.id")
                 span.name {{category.name}}
-            c-dropdown.dropdown(v-if="isSelf",position="right")
+            c-dropdown.dropdown(v-if="isSelf",position="right",trigger="click")
                 button.menu
                     i.fa.fa-cog
                 c-dropdown-menu(slot="list")
