@@ -21,10 +21,9 @@
                 button
                     i.fa.fa-hand-pointer-o
                     | 顶
-                .delete-wrapper
-                    button.delete(@click="$emit('item-delete')",v-if="isLogin && user.id===comment.author.id")
-                        i.fa.fa-remove
-                        | 删除
+                button.delete(@click="$emit('item-delete')",v-if="showDelete")
+                    i.fa.fa-remove
+                    | 删除
 </template>
 <script>
   import Avatar from '../common/avatar'
@@ -54,6 +53,11 @@
         } else {
           return content
         }
+      },
+      // 评论是自己的或者自己是文章作者，都可以删除评论
+      showDelete () {
+        return this.isLogin &&
+          (this.user.id === this.comment.author.id || this.user.id === this.comment.article.author.id)
       }
     },
     components: {

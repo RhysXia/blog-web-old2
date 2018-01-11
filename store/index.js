@@ -72,7 +72,9 @@ export const actions = {
     setCookie(state.tokenName, token, config)
   },
   async logout ({commit, state}) {
-    await this.$api.auth.logout()
+    try {
+      await this.$api.auth.logout()
+    } catch (err) {}
     commit('setToken', '')
     commit('setUser', null)
     removeCookie(state.tokenName)

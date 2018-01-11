@@ -2,7 +2,7 @@
     .article-id-container
         c-article-detail(:article="article")
             .footer(slot="footer",slot-scope="props")
-                span.like(@click="voteClick",:class="{'is-voted':isVoted}")
+                span.like(@click="voteClick",:class="{'is-login-like':isLogin,'is-voted':isVoted&&isLogin}")
                     b {{props.article.voteNum}}
                     | 人点赞
                 span.read
@@ -12,9 +12,9 @@
             .header
                 h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
                 span.info(v-if="count")
-                    | 共
+                    |共
                     b {{count}}
-                    | 条评论
+                    |条评论
             .body
                 .write(v-if="isLogin")
                     .left
@@ -256,14 +256,15 @@
             border-top: 1px solid $color-border-base;
             padding-top: 1em;
             .read, .like {
+                background-color: $color-background-dark;
                 display: inline-block;
                 padding: 0.2em 0.5em;
             }
             .read {
-                background-color: $color-background-dark;
+
                 margin-right: 0.5em;
             }
-            .like {
+            .is-login-like {
                 background-color: $color-primary;
                 color: $color-text-white;
                 cursor: pointer;
@@ -288,10 +289,10 @@
                 justify-content: space-between;
                 background-color: $color-background;
                 border-radius: 5px;
+                padding: 0.5rem;
                 .title {
                     font-size: 1.2rem;
                     margin: 0;
-                    padding: 0.5rem;
                 }
             }
             .body {
