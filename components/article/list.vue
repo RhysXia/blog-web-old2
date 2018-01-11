@@ -1,7 +1,7 @@
 <template lang="pug">
     .c-article-list-container
         transition-group(name="list",tag="div")
-            item.item(v-for="article in articles",:key="article.id",:article="article")
+            item.item(v-for="article in articles",:key="article.id",:article="article",@delete="deleteArticle(article.id)")
         pagination(:total="total",:pageSize="pageSize",@pageChange="pageChange")
 </template>
 
@@ -29,6 +29,26 @@
     methods: {
       pageChange (val) {
         this.$emit('pageChange', val)
+      },
+      async deleteArticle (id) {
+        try {
+          await this.$api.article.deleteById(id)
+          const articles = this.articles.filter(c => {
+            return c.id !== id
+          })
+          this.$emit('update:articles', articles)
+          this.$message({
+            content: '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
       }
     },
     components: {

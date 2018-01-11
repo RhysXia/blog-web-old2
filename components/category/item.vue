@@ -69,13 +69,13 @@
                 .menu{
                     color: $color-text;
                     background-color: transparent;
-                    padding: 0.5em;
+                    padding: 0.5em 1em;
                     &:hover{
                         color: $color-text-deep;
                     }
                 }
                 .item{
-                    padding: 0.5em 1.5em;
+                    padding: 1em 2em;
                     &:hover{
                         background-color: $color-background-active;
                     }

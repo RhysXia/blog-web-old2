@@ -82,7 +82,7 @@
         cursor: pointer;
         .c-dropdown-ref {
             position: relative;
-            background-color: $color-background;
+            background-color: transparent;
         }
         .c-dropdown-list {
             position: absolute;

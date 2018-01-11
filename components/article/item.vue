@@ -6,6 +6,14 @@
             .header
                 nuxt-link(:to="'/article/'+article.id")
                     h2.title {{article.title}}
+                c-dropdown.dropdown(v-if="isSelf",trigger="click")
+                    button.menu
+                        i.fa.fa-cog
+                    c-dropdown-menu(slot="list")
+                        c-dropdown-item
+                            button.item(@click="$router.push({path:'/article/write',query:{articleId:article.id}})") 修改
+                        c-dropdown-item
+                            button.item(@click="$emit('delete')") 删除
             .info {{article.info}}
             .detail
                 span.time
@@ -25,6 +33,7 @@
                     nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
 </template>
 <script>
+  import { CDropdown, CDropdownItem, CDropdownMenu } from '../common/dropdown'
 
   export default {
     name: 'c-article-item',
@@ -45,6 +54,11 @@
         }
         return false
       }
+    },
+    components: {
+      CDropdown,
+      CDropdownItem,
+      CDropdownMenu
     }
   }
 </script>
@@ -70,6 +84,29 @@
         }
         .right {
             margin-left: 0.5em;
+            width: 100%;
+            .header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .dropdown {
+                .menu {
+                    color: $color-text;
+                    background-color: transparent;
+                    padding: 0.5em 1em;
+                    &:hover {
+                        color: $color-text-deep;
+                    }
+                }
+                .item {
+                    padding: 1em 2em;
+                    &:hover {
+                        background-color: $color-background-active;
+                    }
+                }
+            }
             .title {
                 font-weight: bold;
                 font-size: 1.2em;

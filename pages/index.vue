@@ -6,7 +6,7 @@
                     nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
                         img.article-image(:src="article.poster")
                         span.title {{article.title}}
-        c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
+        c-article-list(:articles.sync="articles",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
   import { CCarousel, CCarouselItem } from '~/components/common/carousel'

@@ -8,13 +8,16 @@
                 span.read
                     b {{props.article.readNum}}
                     | 人阅读
+                template(v-if="isSelf")
+                    span.update(@click="$router.push({path:'/article/write',query:{articleId:article.id}})") 修改
+                    span.delete(@click="deleteArticle") 删除
         .comment-wrapper
             .header
                 h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
                 span.info(v-if="count")
-                    |共
+                    | 共
                     b {{count}}
-                    |条评论
+                    | 条评论
             .body
                 .write(v-if="isLogin")
                     .left
@@ -110,6 +113,23 @@
       }
     },
     methods: {
+      async deleteArticle () {
+        try {
+          await this.$api.article.deleteById(this.article.id)
+          this.$message({
+            content: '删除成功',
+            type: 'error',
+            duration: 2000
+          })
+          this.$router.push(this.$route.meta.from)
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
+      },
       async checkVote () {
         try {
           const res = await this.$api.article.getVote(this.article.id)
@@ -233,6 +253,13 @@
         return data
       }
     },
+    beforeRouteEnter (to, from, next) {
+      // 获取from的路径
+      const path = from.fullPath
+      // 将跳转来的路径记录下来
+      to.meta.from = path
+      next()
+    },
     components: {
       CCommentList,
       CAvatar,
@@ -255,14 +282,29 @@
         .footer {
             border-top: 1px solid $color-border-base;
             padding-top: 1em;
-            .read, .like {
+            span {
                 background-color: $color-background-dark;
                 display: inline-block;
-                padding: 0.2em 0.5em;
-            }
-            .read {
-
+                padding: 0.3em 0.5em;
                 margin-right: 0.5em;
+            }
+            .update, .delete {
+                float: right;
+                padding: 0.3em 1em;
+                color: $color-text-white;
+                cursor: pointer;
+            }
+            .update {
+                background-color: $color-primary;
+                &:hover {
+                    background-color: $color-primary-active;
+                }
+            }
+            .delete {
+                background-color: $color-danger;
+                &:hover {
+                    background-color: $color-danger-active;
+                }
             }
             .is-login-like {
                 background-color: $color-primary;

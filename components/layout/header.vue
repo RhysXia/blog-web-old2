@@ -8,7 +8,7 @@
                 c-col
                     .action(v-if="!isLogin")
                         nuxt-link(to="/auth/login") 登录
-                        nuxt-link(to="/auth/register") 注册
+                        //nuxt-link(to="/auth/register") 注册
                     .action(v-else)
                         c-dropdown
                             c-avatar(height="45px",width="45px",:imgUrl="user.avatar")

@@ -8,7 +8,7 @@
             c-category-list(:categories.sync="categories")
         template(v-if="articles.length>0")
             h2.title 最近文章
-            c-article-list.article-list(:articles="articles",:showPage="false")
+            c-article-list.article-list(:articles.sync="articles",:showPage="false")
 </template>
 
 <script>
