@@ -110,10 +110,8 @@ module.exports = {
   // {src: '~/plugins/offline', ssr: false}
   ],
   build: {
-    vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components'],
-    extractCSS: {
-      allChunks: true
-    },
+    vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/filters'],
+    extractCSS: true,
     extend: function extend(config, _ref) {
       // if (!isDev) {
       //   const OfflinePlugin = require('offline-plugin')
