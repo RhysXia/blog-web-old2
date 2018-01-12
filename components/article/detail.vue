@@ -24,8 +24,7 @@
                             i.fa(:class="partFullPage?'fa-compress':'fa-expand'")
                             | 通栏阅读
         .c-body
-            c-show-more(:hiddenHeight="500")
-                .content(v-html="content",v-copyright)
+            .content(v-html="content",v-copyright)
         slot(name="footer",:article="article")
             .c-footer
                 span.read
@@ -34,6 +33,7 @@
                 span.like
                     b {{article.voteNum}}
                     | 人喜欢
+
 
 </template>
 
