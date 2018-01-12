@@ -27,7 +27,6 @@ $color-danger: #F56C6C;
 $color-danger-active: color-active($color-danger);
 $color-danger-light: #fef0f0;
 
-
 $color-warn: #FA7921;
 $color-warn-active: color-active($color-warn);
 $color-warn-light: color-light($color-warn);
@@ -59,6 +58,7 @@ $color-shadow: $color-background-active;
 
 //height
 $height-header: 4rem;
+$content-width: 75rem;
 
 //z-index
 $z-index-xs: -1;

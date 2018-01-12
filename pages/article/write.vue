@@ -365,7 +365,7 @@
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
 
-    $height-poster: 12rem;
+    $height-poster: 15rem;
 
     .article-write-container {
         .article-main {
@@ -375,7 +375,10 @@
         }
         .image-wrapper {
             position: relative;
+            text-align: center;
+            border: 1px solid $color-border-base;
             .file-upload {
+                position: absolute;
                 width: 0;
                 height: 0;
                 background-color: transparent;
@@ -386,7 +389,7 @@
             .image {
                 cursor: pointer;
                 background-color: $color-background;
-                width: 100%;
+                /*width: 100%;*/
                 height: $height-poster;
             }
             .anon {

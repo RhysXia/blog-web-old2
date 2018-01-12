@@ -1,16 +1,16 @@
 <template lang="pug">
-    c-row.c-header-container
-        c-col(:span="20",:offset="2")
+    .c-header-container
+        .content-wrapper
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
                     nuxt-link(to="/")
                         h1.logo {{blog.name}}
                 c-col
                     .action(v-if="!isLogin")
-                        nuxt-link(to="/auth/login") 登录
+                        nuxt-link.login(to="/auth/login") 登录
                         //nuxt-link(to="/auth/register") 注册
                     .action(v-else)
-                        c-dropdown
+                        c-dropdown.dropdown
                             c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                             c-dropdown-menu(slot="list")
                                 c-dropdown-item
@@ -19,8 +19,8 @@
                                     nuxt-link.dropdown-item(to="/article/write") 写文章
                                 c-dropdown-item
                                     nuxt-link.dropdown-item(to="/user/setting") 设置
-
-                        button.btn(@click="logout") 注销
+                                c-dropdown-item
+                                    button.dropdown-item(@click="logout") 注销
 </template>
 <script>
   import {
@@ -70,6 +70,10 @@
         background-color: $color-background;
         height: $height-header;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+        .content-wrapper{
+            margin: 0 auto;
+            width: $content-width;
+        }
         .logo {
             font-size: 1.4rem;
             color: $color-primary;
@@ -79,21 +83,23 @@
             flex-direction: row;
             align-items: center;
             margin-right: -1rem;
-            a {
+            .login{
                 padding-right: 1rem;
             }
-            .btn {
-                background-color: transparent;
-                color: $color-primary;
-                &:hover {
-                    color: color-active($color-primary);
-                }
+            .dropdown{
+                margin-right: 1rem;
             }
             .dropdown-item {
                 display: block;
-                padding: 0.5rem 1rem;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0.5rem 1.5rem;
+                background-color: transparent;
+                color: $color-primary;
+                text-align: left;
                 &:hover {
                     background-color: $color-background-active;
+                    color: color-active($color-primary);
                 }
             }
         }

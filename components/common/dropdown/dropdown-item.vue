@@ -11,6 +11,7 @@
 
 <style lang="scss" scoped>
     .c-dropdown-item-container {
+        position: relative;
         word-break: keep-all;
     }
 </style>

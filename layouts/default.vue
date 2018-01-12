@@ -3,18 +3,17 @@
         c-back-top(:bottom="10",:right="20")
         .layout-header
             c-header
-        c-row.layout-main
-            c-col(:span="20",:offset="2")
-                c-row(:gutter="16")
-                    transition(name="menu")
-                        c-col(:span="5",v-show="isMenuShow")
-                            c-menu(v-fixed="70")
-                    c-col(:span="mainSpan")
-                        keep-alive
-                            nuxt
-                    transition(name="aside")
-                        c-col(:span="5",v-show="isAsideShow")
-                            c-aside(v-fixed="70")
+        .layout-main
+            c-row(:gutter="16")
+                transition(name="menu")
+                    c-col(:span="4",v-show="isMenuShow")
+                        c-menu(v-fixed="70")
+                c-col(:span="mainSpan")
+                    keep-alive
+                        nuxt
+                transition(name="aside")
+                    c-col(:span="6",v-show="isAsideShow")
+                        c-aside(v-fixed="70")
         c-footer
 </template>
 <script>
@@ -39,10 +38,10 @@
       mainSpan () {
         let span = 24
         if (this.isAsideShow) {
-          span -= 5
+          span -= 6
         }
         if (this.isMenuShow) {
-          span -= 5
+          span -= 4
         }
         return span
       }
@@ -84,8 +83,8 @@
             width: 100%;
         }
         .layout-main {
-            margin-top: $height-header + 1rem;
-            margin-bottom: 1rem;
+            margin: $height-header + 1rem auto 1rem;
+            width: $content-width;
         }
         .menu-enter-active,
         .menu-leave-active {

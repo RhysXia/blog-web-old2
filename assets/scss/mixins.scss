@@ -46,6 +46,7 @@
     @while ($_index > 0) {
       .#{$grid-col-prefixCls}-span-#{$point}-#{$_index} {
         @media (min-width: map_get($grid-breakpoints, $point)) {
+          display: block;
           width: 100% * $_index / $total;
         }
       }
