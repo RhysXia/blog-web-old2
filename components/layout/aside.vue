@@ -56,6 +56,7 @@
             }
             .tag-item {
                 margin-right: 0.5rem;
+                margin-top: 0.5rem;
                 display: inline-block;
                 background-color: $color-background-dark;
                 padding: 0.2rem 0.5rem;

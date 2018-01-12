@@ -1,22 +1,28 @@
 <template lang="pug">
-    c-row.user-self-container(:gutter="20")
-        c-col(:span="4")
-            .left-wrapper
-                .avatar-wrapper
-                    c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
-                h2.nickname
-                    | {{user.nickname}}
-                p.info {{user.info?user.info:'他太懒了，什么都没写'}}
-        c-col(:span="20")
-            .right-wrapper
-                .tabs
-                    nuxt-link.tab(:to="'/user/'+user.id") 总概
-                    nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
-                    nuxt-link.tab(v-if="isSelf",:to="'/user/'+user.id+'/profile'") 个人资料
-                nuxt-child
+    .user-self-container
+        c-breadcrumb.breadcrumb(separator="/")
+            c-breadcrumb-item(to="/") 首页
+            c-breadcrumb-item(:to="'/user/'+user.id") 个人中心
+            c-breadcrumb-item {{childName}}
+        c-row(:gutter="20")
+            c-col(:span="4")
+                .left-wrapper
+                    .avatar-wrapper
+                        c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
+                    h2.nickname
+                        | {{user.nickname}}
+                    p.info {{user.info?user.info:'他太懒了，什么都没写'}}
+            c-col(:span="20")
+                .right-wrapper
+                    .tabs
+                        nuxt-link.tab(:to="'/user/'+user.id") 总概
+                        nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
+                        nuxt-link.tab(v-if="isSelf",:to="'/user/'+user.id+'/profile'") 个人资料
+                    nuxt-child
 </template>
 <script>
   import CAvatar from '~/components/common/avatar'
+  import { CBreadcrumb, CBreadcrumbItem } from '~/components/common/breadcrumb'
 
   export default {
     validate ({params}) {
@@ -41,6 +47,16 @@
       }
     },
     computed: {
+      childName () {
+        const fullName = this.$route.fullPath
+        if (fullName.endsWith('category')) {
+          return '分类'
+        }
+        if (fullName.endsWith('profile')) {
+          return '个人资料'
+        }
+        return '总概'
+      },
       isSelf () {
         const loginUser = this.$store.state.user
         if (loginUser && loginUser.id) {
@@ -52,7 +68,9 @@
       }
     },
     components: {
-      CAvatar
+      CAvatar,
+      CBreadcrumbItem,
+      CBreadcrumb
     }
   }
 </script>
@@ -60,6 +78,9 @@
     @import "~assets/scss/variables";
 
     .user-self-container {
+        .breadcrumb {
+            margin-bottom: 1rem;
+        }
         .left-wrapper,
         .right-wrapper {
             padding: 0.5rem;
