@@ -67,10 +67,8 @@
             background-color: $color-background;
             margin-bottom: 1rem;
             padding: 1rem;
-            .name {
+            .name ,.desc {
                 text-align: center;
-            }
-            .desc {
                 color: $color-text-light;
             }
         }

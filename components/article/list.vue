@@ -67,18 +67,16 @@
             margin-bottom: 1em;
         }
         .list-enter-active {
-            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+            transition: opacity 0.6s ease-in-out;
         }
         .list-leave-active {
             display: none;
         }
         .list-enter {
             opacity: 0;
-            transform: translateX(100%);
         }
         .list-enter-to {
             opacity: 1;
-            transform: translateX(0);
         }
 
     }

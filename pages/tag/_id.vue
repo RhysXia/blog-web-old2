@@ -2,7 +2,7 @@
     .c-tag-container
         .tag
             h1.name {{tag.name}}
-            p.count 文章数：{{tag.articleCount}}
+            p.count 文章数：{{tag.articleNum}}
         c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 
