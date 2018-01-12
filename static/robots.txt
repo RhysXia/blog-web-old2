@@ -1,0 +1,6 @@
+# robots.txt
+User-agent: *
+Disallow:
+Disallow: /article/write
+Sitemap: https://blog.rhys.site/sitemap.xml
+Sitemap: https://blog.rhys.site/sitemap

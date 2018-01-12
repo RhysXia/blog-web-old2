@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    name: 'panel',
+    name: 'c-panel',
     props: {
       title: {
         type: String,

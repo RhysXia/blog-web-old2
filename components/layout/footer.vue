@@ -1,12 +1,12 @@
 <template lang="pug">
     c-row.c-footer-container(type="flex",align="middle",justify="center")
         c-col
-            span &copy;Ryths Xia 2017. All rights reserved. 皖ICP备17009214号
+            span &copy;Rhys Xia 2017. All rights reserved. 皖ICP备17009214号
 
 </template>
 <script>
   export default {
-    name: 'footer'
+    name: 'c-footer'
   }
 </script>
 <style lang="scss" scoped>

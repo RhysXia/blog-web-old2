@@ -38,144 +38,144 @@
 
 </template>
 <script>
-    import markdown from '~/utils/markdown'
-    import {getPos, setPos} from '~/utils/clip'
-    import autoheight from '~/utils/directive/auto-height'
-    import clickoutside from '~/utils/directive/clickoutside'
-    import fixed from '~/utils/directive/fixed'
+  import markdown from '~/utils/markdown'
+  import { getPos, setPos } from '~/utils/clip'
+  import autoheight from '~/utils/directive/auto-height'
+  import clickoutside from '~/utils/directive/clickoutside'
+  import fixed from '~/utils/directive/fixed'
 
-    export default {
-        name: 'editor',
-        directives: {
-            autoheight,
-            clickoutside,
-            fixed
-        },
-        props: {
-            imageUpload: {
-                type: Function
-            },
-            value: {
-                type: String,
-                default: ''
-            },
-            textHeight: {
-                type: Number,
-                default: 200
-            },
-            // top/bottom
-            barPosition: {
-                type: String,
-                default: 'top'
-            },
-            fixedTop: {
-                type: Number
-            }
-        },
-        data() {
-            return {
-                showEmoji: false,
-                content: this.value,
-                emojis: [
-                    ':(', ':")', '</3', ':/', ':,(', ':(', '<3', ']:(',
-                    'o:)', ':\'D', ':*', 'x-)', ':|', ':o', ':@', ':D',
-                    ':)', ']:)', ';-(', ':P', '8-)', ',:(', ',:)',
-                    ':s', ';)'
-                ],
-                preview: false
-            }
-        },
-        computed: {
-            barStyle() {
-                if (this.barPosition === 'top') {
-                    return {
-                        order: '1'
-                    }
-                }
-                return {
-                    order: '2'
-                }
-            },
-            editorStyle() {
-                if (this.barPosition === 'top') {
-                    return {
-                        order: '2'
-                    }
-                }
-                return {
-                    order: '1'
-                }
-            },
-            emojiImages() {
-                const array = []
-                this.emojis.forEach(emoji => {
-                    let str = markdown(emoji)
-                    str = str.replace('<p>', '').replace('</p>\n', '')
-                    array.push(str)
-                })
-                return array
-            },
-            markdownContent() {
-                return markdown(this.content)
-            }
-        },
-        watch: {
-            value(val) {
-                this.content = val
-            },
-            content(val) {
-                this.$emit('input', val)
-            }
-        },
-        methods: {
-            outClick() {
-                this.preview = false
-            },
-            inputEmoji(index) {
-                this.insert(this.emojiImages[index])
-            },
-            inputCode() {
-                this.insert('```lang\n\n\n```', 3, 7)
-            },
-            imageClick() {
-                if (this.imageUpload) {
-                    this.$refs.upload.click()
-                } else {
-                    this.insert(`![name](url)`, 2, 6)
-                }
-            },
-            inputImage(e) {
-                const ele = (e.target || e.srcElement)
-                const files = ele.files
-                if (files.length === 0) {
-                    return
-                }
-                this.imageUpload(files).then(url => {
-                    ele.value = ''
-                    this.insert(`![name](${url})`, 2, 6)
-                }).catch(() => {
-                    ele.value = ''
-                })
-            },
-            inputLink() {
-                this.insert('[name](http://)', 1, 5)
-            },
-            insert(str, posStart, posEnd) {
-                const ele = this.$refs.textarea
-                ele.focus()
-                const {start, end} = getPos(ele)
-                const content = this.content
-                this.content = content.slice(0, start) + str + content.slice(end)
-                const _start = posStart + start || start + str.length + 1
-                const _end = posEnd + start || start + str.length + 1
-                this.$nextTick(() => {
-                    setPos(ele, _start, _end)
-                })
-            }
+  export default {
+    name: 'c-editor',
+    directives: {
+      autoheight,
+      clickoutside,
+      fixed
+    },
+    props: {
+      imageUpload: {
+        type: Function
+      },
+      value: {
+        type: String,
+        default: ''
+      },
+      textHeight: {
+        type: Number,
+        default: 200
+      },
+      // top/bottom
+      barPosition: {
+        type: String,
+        default: 'top'
+      },
+      fixedTop: {
+        type: Number
+      }
+    },
+    data () {
+      return {
+        showEmoji: false,
+        content: this.value,
+        emojis: [
+          ':(', ':")', '</3', ':/', ':,(', ':(', '<3', ']:(',
+          'o:)', ':\'D', ':*', 'x-)', ':|', ':o', ':@', ':D',
+          ':)', ']:)', ';-(', ':P', '8-)', ',:(', ',:)',
+          ':s', ';)'
+        ],
+        preview: false
+      }
+    },
+    computed: {
+      barStyle () {
+        if (this.barPosition === 'top') {
+          return {
+            order: '1'
+          }
         }
-        ,
-        components: {}
+        return {
+          order: '2'
+        }
+      },
+      editorStyle () {
+        if (this.barPosition === 'top') {
+          return {
+            order: '2'
+          }
+        }
+        return {
+          order: '1'
+        }
+      },
+      emojiImages () {
+        const array = []
+        this.emojis.forEach(emoji => {
+          let str = markdown(emoji)
+          str = str.replace('<p>', '').replace('</p>\n', '')
+          array.push(str)
+        })
+        return array
+      },
+      markdownContent () {
+        return markdown(this.content)
+      }
+    },
+    watch: {
+      value (val) {
+        this.content = val
+      },
+      content (val) {
+        this.$emit('input', val)
+      }
+    },
+    methods: {
+      outClick () {
+        this.preview = false
+      },
+      inputEmoji (index) {
+        this.insert(this.emojiImages[index])
+      },
+      inputCode () {
+        this.insert('```lang\n\n\n```', 3, 7)
+      },
+      imageClick () {
+        if (this.imageUpload) {
+          this.$refs.upload.click()
+        } else {
+          this.insert(`![name](url)`, 2, 6)
+        }
+      },
+      inputImage (e) {
+        const ele = (e.target || e.srcElement)
+        const files = ele.files
+        if (files.length === 0) {
+          return
+        }
+        this.imageUpload(files).then(url => {
+          ele.value = ''
+          this.insert(`![name](${url})`, 2, 6)
+        }).catch(() => {
+          ele.value = ''
+        })
+      },
+      inputLink () {
+        this.insert('[name](http://)', 1, 5)
+      },
+      insert (str, posStart, posEnd) {
+        const ele = this.$refs.textarea
+        ele.focus()
+        const {start, end} = getPos(ele)
+        const content = this.content
+        this.content = content.slice(0, start) + str + content.slice(end)
+        const _start = posStart + start || start + str.length + 1
+        const _end = posEnd + start || start + str.length + 1
+        this.$nextTick(() => {
+          setPos(ele, _start, _end)
+        })
+      }
     }
+    ,
+    components: {}
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -191,7 +191,6 @@
         border-top-width: 0;
         border-bottom-width: 0;
         .c-actions {
-            z-index: $z-index-xl;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -208,7 +207,7 @@
                     vertical-align: middle;
                     font-size: 1.4em;
                 }
-                &:hover{
+                &:hover {
                     background-color: rgba(200, 200, 200, 0.5);
                 }
                 .emoji-list {
@@ -262,7 +261,7 @@
                 height: 100%;
                 left: 0;
                 overflow: auto;
-                background-color: rgba(200, 200, 200, 0.5);
+                background-color: rgba(255, 255, 255, 0.8);
             }
         }
 

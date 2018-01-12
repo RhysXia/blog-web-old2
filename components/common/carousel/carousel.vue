@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-carousel-container(:style="styles",@mouseEnter.stop="mouseEnter",@mouseLeave.stop="mouseLeave")
+    .c-carousel-container(:style="styles",@mouseenter.stop="mouseEnter",@mouseleave.stop="mouseLeave")
         .c-content-wrapper
             slot
         i.c-direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
@@ -12,7 +12,7 @@
   import { findComponentsDownward } from '../../../utils/utils'
 
   export default {
-    name: 'carousel',
+    name: 'c-carousel',
     props: {
       width: {
         type: String,
@@ -60,7 +60,8 @@
           child.isAnimated = false
         })
         index = index < 0 ? this.childNum - 1 : index > this.childNum - 1 ? 0 : index
-        if ((index === 0 && this.activeIndex === this.childNum - 1) || (index === this.childNum - 1 && this.activeIndex === 0)) {
+        if ((index === 0 && this.activeIndex === this.childNum - 1) ||
+          (index === this.childNum - 1 && this.activeIndex === 0)) {
           this.children[0].isAnimated = true
           this.children[this.childNum - 1].isAnimated = true
         } else {
@@ -74,7 +75,7 @@
       },
       mouseEnter () {
         if (this.timer) {
-          clearTimeout(this.timer)
+          clearInterval(this.timer)
           this.timer = null
         }
       },
@@ -83,7 +84,7 @@
       },
       updateChildren () {
         this.$nextTick(() => {
-          this.children = findComponentsDownward(this, 'carousel-item', 1)
+          this.children = findComponentsDownward(this, 'c-carousel-item', 1)
           for (let i = 0; i < this.children.length; i++) {
             this.children[i].index = i
           }
@@ -120,7 +121,7 @@
         }
         .c-direction {
             position: absolute;
-            top:50%;
+            top: 50%;
             transform: translateY(-50%);
             font-size: 40px;
             color: $color-text;
@@ -156,7 +157,7 @@
                         opacity: 1;
                     }
                 }
-                &:hover{
+                &:hover {
                     .c-index-item {
                         opacity: 1;
                     }

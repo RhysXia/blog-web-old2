@@ -7,7 +7,7 @@
   import { findComponentUpward } from '../../../utils/utils'
 
   export default {
-    name: 'carousel-item',
+    name: 'c-carousel-item',
     data () {
       return {
         parent: null,
@@ -26,7 +26,9 @@
         styles.width = parent.rWidth + 'px'
         const isLast = this.index === parent.childNum - 1
         const isFirst = this.index === 0
-        if (this.activeIndex === 0 && isLast) {
+        if (parent.childNum <= 1) {
+          styles.transform = `translateX(0px)`
+        } else if (this.activeIndex === 0 && isLast) {
           styles.transform = `translateX(-${parent.rWidth}px)`
         } else if (this.activeIndex === parent.childNum - 1 && isFirst) {
           styles.transform = `translateX(${parent.rWidth}px)`
@@ -45,7 +47,7 @@
       }
     },
     created () {
-      this.parent = findComponentUpward(this, 'carousel')
+      this.parent = findComponentUpward(this, 'c-carousel')
       if (this.parent) {
         this.parent.updateChildren()
       }

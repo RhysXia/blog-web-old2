@@ -1,12 +1,27 @@
-export default ({store}, inject) => {
-    // 从本地存储中尝试获取token
-    const token = localStorage.getItem('ryths-blog-token')
-    if (token) {
-        // 如果token存在，则放入store中
-        return store.dispatch('login', {token}).catch(() => {
-            // token如果不正确，删除store和本地存储中的token
-            store.commit('setToken', '')
-            localStorage.removeItem('ryths-blog-token')
-        })
-    }
+export default async ({req, store}, inject) => {
+  if (!process.server) {
+    return
+  }
+  // 获取用户存放在cache中的token
+  const token = req.cookies.get(store.state.tokenName)
+  if (!token) {
+    return
+  }
+  // 设置token
+  store.commit('setToken', token)
+  // 请求用户个人数据
+  try {
+    // 请求用户数据
+    const {data} = await store.$api.user.getSelf()
+    // 设置user
+    store.commit('setUser', data)
+  } catch (err) {
+    console.error(err)
+    // token过期，使cookies失效
+    req.cookies.set(store.state.tokenName, '', {
+      maxAge: -1
+    })
+    // 删除store中的token
+    store.commit('setToken', '')
+  }
 }

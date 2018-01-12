@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "backpack dev",
     "build": "nuxt build && backpack build",
+    "analyze": "nuxt build -a && backpack build",
     "start": "cross-env NODE_ENV=production node build/main.js",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
@@ -15,18 +16,19 @@
     "axios": "^0.17.1",
     "cross-env": "^5.0.1",
     "highlight.js": "^9.12.0",
-    "koa": "^2.3.0",
+    "koa": "^2.4.1",
     "markdown-it": "^8.4.0",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-katex": "^2.0.3",
-    "nuxt": "^1.0.0-rc11",
-    "offline-plugin": "^4.8.5"
+    "nuxt": "^1.0.0",
+    "offline-plugin": "^4.8.5",
+    "source-map-support": "^0.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "babel-preset-stage-2": "^6.24.1",
-    "backpack-core": "^0.3.0",
+    "backpack-core": "^0.5.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-html": "^2.0.3",

@@ -14,53 +14,57 @@
             .bottom.light
                 span
                     i.fa.fa-clock-o
-                    | {{comment.createTime | formatDate}}
+                    | {{comment.createAt | formatDate}}
                 button
                     i.fa.fa-reply
                     | 回复
                 button
                     i.fa.fa-hand-pointer-o
                     | 顶
-                no-ssr
-                    button.delete(@click="$emit('item-delete')",v-if="isLogin && user.id===comment.author.id")
-                        i.fa.fa-remove
-                        | 删除
+                button.delete(@click="$emit('item-delete')",v-if="showDelete")
+                    i.fa.fa-remove
+                    | 删除
 </template>
 <script>
-    import Avatar from '../common/avatar'
-    import markdown from '~/utils/markdown'
-    import ShowMore from '../common/show-more'
+  import Avatar from '../common/avatar'
+  import markdown from '~/utils/markdown'
+  import ShowMore from '../common/show-more'
 
-    export default {
-        name: 'comment-item',
-        props: {
-            comment: {
-                type: Object,
-                default: () => {
-                }
-            }
-        },
-        computed: {
-            isLogin() {
-                return this.$store.getters.isLogin
-            },
-            user() {
-                return this.$store.state.user
-            },
-            content() {
-                const content = this.comment.content
-                if (this.comment.contentType === 'MARKDOWN') {
-                    return markdown(content)
-                } else {
-                    return content
-                }
-            }
-        },
-        components: {
-            Avatar,
-            ShowMore
+  export default {
+    name: 'c-comment-item',
+    props: {
+      comment: {
+        type: Object,
+        default: () => {
         }
+      }
+    },
+    computed: {
+      isLogin () {
+        return this.$store.getters.isLogin
+      },
+      user () {
+        return this.$store.state.user
+      },
+      content () {
+        const content = this.comment.content
+        if (this.comment.contentType === 'MARKDOWN') {
+          return markdown(content)
+        } else {
+          return content
+        }
+      },
+      // 评论是自己的或者自己是文章作者，都可以删除评论
+      showDelete () {
+        return this.isLogin &&
+          (this.user.id === this.comment.author.id || this.user.id === this.comment.article.author.id)
+      }
+    },
+    components: {
+      Avatar,
+      ShowMore
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";

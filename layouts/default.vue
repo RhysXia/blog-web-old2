@@ -3,76 +3,74 @@
         c-back-top(:bottom="10",:right="20")
         .layout-header
             c-header
-        c-row.layout-main(type="flex",align="middle",justify="center")
-            c-col(:span="20")
+        c-row.layout-main
+            c-col(:span="20",:offset="2")
                 c-row(:gutter="16")
                     transition(name="menu")
                         c-col(:span="5",v-show="isMenuShow")
-                            c-menu
+                            c-menu(v-fixed="70")
                     c-col(:span="mainSpan")
                         keep-alive
                             nuxt
                     transition(name="aside")
                         c-col(:span="5",v-show="isAsideShow")
-                            c-aside(:articles="hotArticles",:tags="hotTags")
+                            c-aside(v-fixed="70")
         c-footer
 </template>
 <script>
-    import CHeader from '~/components/layout/header'
-    import CMenu from '~/components/layout/menu'
-    import CFooter from '~/components/layout/footer'
-    import CAside from '~/components/layout/aside'
-    import CBackTop from '~/components/common/back-top'
+  import CHeader from '~/components/layout/header'
+  import CMenu from '~/components/layout/menu'
+  import CFooter from '~/components/layout/footer'
+  import CAside from '~/components/layout/aside'
+  import CBackTop from '~/components/common/back-top'
+  import fixed from '~/utils/directive/fixed'
 
-    export default {
-        computed: {
-            isMenuShow() {
-                return this.$store.state.isMenuShow
-            },
-            isAsideShow() {
-                return this.$store.state.isAsideShow
-            },
-            mainSpan() {
-                let span = 24
-                if (this.isAsideShow) {
-                    span -= 5
-                }
-                if (this.isMenuShow) {
-                    span -= 5
-                }
-                return span
-            },
-            hotArticles() {
-                return this.$store.state.hotArticles
-            },
-            hotTags() {
-                return this.$store.state.hotTags
-            }
-        },
-        methods: {
-            tabChange() {
-                let originTitle
-                document.addEventListener('visibilitychange', event => {
-                    if (event.target.hidden || event.target.webkitHidden) {
-                        originTitle = document.title
-                        document.title = '皮皮虾，快回来！'
-                    } else {
-                        document.title = originTitle
-                    }
-                }, false)
-            }
-        },
-        mounted() {
-            this.tabChange()
-        },
-        components: {
-            CHeader,
-            CFooter,
-            CMenu,
-            CAside,
-            CBackTop
+  export default {
+    directives: {
+      fixed
+    },
+    computed: {
+      isMenuShow () {
+        return this.$store.state.isMenuShow
+      },
+      isAsideShow () {
+        return this.$store.state.isAsideShow
+      },
+      mainSpan () {
+        let span = 24
+        if (this.isAsideShow) {
+          span -= 5
         }
+        if (this.isMenuShow) {
+          span -= 5
+        }
+        return span
+      }
+    },
+    methods: {
+      tabChange () {
+        let originTitle
+        document.addEventListener('visibilitychange', event => {
+          if (event.target.hidden || event.target.webkitHidden) {
+            originTitle = document.title
+            document.title = '皮皮虾，快回来！'
+          } else {
+            document.title = originTitle
+          }
+        }, false)
+      }
+    },
+    mounted () {
+      this.tabChange()
+    },
+    components: {
+      CHeader,
+      CFooter,
+      CMenu,
+      CAside,
+      CBackTop
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -86,7 +84,8 @@
             width: 100%;
         }
         .layout-main {
-            margin: $height-header + 1rem 0;
+            margin-top: $height-header + 1rem;
+            margin-bottom: 1rem;
         }
         .menu-enter-active,
         .menu-leave-active {

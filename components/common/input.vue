@@ -1,65 +1,79 @@
 <template lang="pug">
-    .c-input-container(:class="containerClass",@click="active=true",v-clickoutside="outClick")
+    .c-input-container(:class="containerClass",@click="click",v-clickoutside="outClick")
         input.input(ref="input",v-if="type==='password'",:readonly="readonly",v-model="content",type="password",:placeholder="placeholder")
         input.input(ref="input",v-else,v-model="content",:readonly="readonly",type = "text",:placeholder="placeholder")
         slot(name="append")
 </template>
 <script>
-    import clickoutside from '~/utils/directive/clickoutside'
+  import clickoutside from '~/utils/directive/clickoutside'
 
-    export default {
-        name: "input",
-        directives: {
-            clickoutside
-        },
-        props: {
-            value: {
-                type: String,
-                default: ''
-            },
-            placeholder: {
-                type: String,
-                default: ''
-            },
-            type: {
-                type: String,
-                default: 'text'
-            },
-            readonly: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data() {
-            return {
-                content: this.value,
-                active: false
-            }
-        },
-        computed: {
-            containerClass() {
-                return {
-                    'c-input-container-active': this.active
-                }
-            }
-        },
-        watch: {
-            content(val) {
-                this.$emit('input', val)
-            },
-            value(val) {
-                this.content = val
-            }
-        },
-        methods: {
-            outClick() {
-                this.active = false
-            },
-            focus() {
-                this.$refs.input.focus()
-            }
+  export default {
+    name: 'c-input',
+    directives: {
+      clickoutside
+    },
+    props: {
+      value: {
+        type: String,
+        default: ''
+      },
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      type: {
+        type: String,
+        default: 'text'
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data () {
+      return {
+        content: this.value,
+        active: false,
+        outClickDisabled: false
+      }
+    },
+    computed: {
+      containerClass () {
+        return {
+          'c-input-container-active': this.active
         }
+      }
+    },
+    watch: {
+      content (val) {
+        this.$emit('input', val)
+      },
+      value (val) {
+        this.content = val
+      }
+    },
+    methods: {
+      outClick () {
+        if (!this.outClickDisabled) {
+          this.active = false
+        }
+      },
+      focus () {
+        this.$refs.input.focus()
+        this.outClickDisabled = true
+        this.active = true
+        // outClick响应比较慢
+        setTimeout(() => {
+          this.outClickDisabled = false
+        }, 500)
+      },
+      click () {
+        if (!this.readonly) {
+          this.active = true
+        }
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

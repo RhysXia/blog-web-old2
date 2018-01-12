@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,111 +73,192 @@ module.exports =
 /***/ function(module, exports) {
 
 module.exports = {
-    /*
-    ** Headers of the page
-    */
-    head: {
-        title: 'Ryths Blog',
-        titleTemplate: '%s | ryths.cn',
-        htmlAttrs: {
-            xmlns: 'http://www.w3.org/1999/xhtml',
-            lang: 'zh-CN'
-        },
-        meta: [{ charset: 'utf-8' }, { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { name: 'author', content: 'Ryths,postmaster@ryths.cn' }, { name: 'keywords', content: 'blog,Ryths,IT,JAVA,Vue,前端,后端,研究生' }, { name: 'description', content: '个人技术博客，分享知识，寻找志同道合的朋友' }, { name: 'copyright', content: 'Ryths Xia' }],
-        link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css' }],
-        noscript: [{ innerHTML: 'This website requires JavaScript.' }]
+  /*
+  ** Headers of the page
+  */
+  head: {
+    title: 'Ryths Blog',
+    titleTemplate: '%s | ryths.cn',
+    htmlAttrs: {
+      xmlns: 'http://www.w3.org/1999/xhtml',
+      lang: 'zh-CN'
     },
-    /*
-    ** Global CSS
-    */
-    css: ['~/assets/scss/public.scss'],
-    /*
-    ** Customize the progress-bar color
-    */
-    loading: { color: '#4dce9b', failedColor: '#F56C6C' },
-    offline: true,
-    plugins: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', { src: '~/plugins/token', ssr: false }, { src: '~/plugins/offline', ssr: false }],
-    build: {
-        vendor: ['~/plugins/http', '~/plugins/components', '~/plugins/filters', '~/plugins/token', '~/plugins/offline'],
-        extractCSS: true,
-        babel: {
-            presets: ['es2015', 'stage-2'],
-            plugins: ['transform-async-to-generator', 'transform-runtime']
-        },
-        extend: function extend(webpackConfig, _ref) {
-            var isDev = _ref.isDev,
-                isClient = _ref.isClient,
-                isServer = _ref.isServer;
-        }
-    },
-    router: {
-        // scrollBehavior (to, from, savedPosition) {
-        //   return {x: 0, y: 0}
-        // },
-        middleware: ['change-col-page']
+    meta: [{ charset: 'utf-8' }, { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { name: 'author', content: 'Rhys Xia,postmaster@ryths.cn' }, { name: 'keywords', content: 'blog,Ryths,IT,JAVA,Vue,前端,后端,研究生' }, { name: 'description', content: '个人技术博客，分享知识，寻找志同道合的朋友' }, { name: 'copyright', content: 'Rhys Xia' }],
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }, {
+      rel: 'stylesheet',
+      href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'
+    }],
+    noscript: [{ innerHTML: 'This website requires JavaScript.' }]
+  },
+  cache: {
+    max: 100,
+    maxAge: 1000 * 60 * 15
+  },
+  /*
+  ** Global CSS
+  */
+  css: ['~/assets/scss/public.scss'],
+  /*
+  ** Customize the progress-bar color
+  */
+  loading: { color: '#4dce9b', failedColor: '#F56C6C' },
+  plugins: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components'
+  // {src: '~/plugins/offline', ssr: false}
+  ],
+  build: {
+    vendor: ['~/plugins/http', '~/plugins/token', '~/plugins/filters'],
+    extractCSS: true,
+    extend: function extend(config, _ref) {
+      // if (!isDev) {
+      //   const OfflinePlugin = require('offline-plugin')
+      //   config.plugins.push(new OfflinePlugin())
+      // }
+
+      var isDev = _ref.isDev;
     }
+  },
+  router: {
+    // scrollBehavior (to, from, savedPosition) {
+    //   return {x: 0, y: 0}
+    // },
+    middleware: ['change-col-page']
+  }
 };
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("koa");
+module.exports = __webpack_require__(4);
+
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa");
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nuxt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_F_workspace_IntellijIDEA_blog_web_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_F_workspace_IntellijIDEA_blog_web_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_F_workspace_IntellijIDEA_blog_web_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
+
+
+var start = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_F_workspace_IntellijIDEA_blog_web_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+    var _this = this;
+
+    var app, host, port, config, nuxt, builder;
+    return __WEBPACK_IMPORTED_MODULE_0_F_workspace_IntellijIDEA_blog_web_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
+            host = process.env.HOST || '127.0.0.1';
+            port = process.env.PORT || 3000;
+
+            // Import and Set Nuxt.js options
+
+            config = __webpack_require__(0);
+
+            config.dev = !(app.env === 'production');
+
+            // Instantiate nuxt.js
+            nuxt = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Nuxt"](config);
+
+            // Build in development
+
+            if (!config.dev) {
+              _context2.next = 10;
+              break;
+            }
+
+            builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
+            _context2.next = 10;
+            return builder.build();
+
+          case 10:
+
+            app.use(function () {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_F_workspace_IntellijIDEA_blog_web_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+                return __WEBPACK_IMPORTED_MODULE_0_F_workspace_IntellijIDEA_blog_web_node_modules_babel_runtime_6_26_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return next();
+
+                      case 2:
+                        ctx.status = 200; // koa defaults to 404 when it sees that status is unset
+                        ctx.req.cookies = ctx.cookies;
+                        return _context.abrupt('return', new Promise(function (resolve, reject) {
+                          ctx.res.on('close', resolve);
+                          ctx.res.on('finish', resolve);
+                          nuxt.render(ctx.req, ctx.res, function (promise) {
+                            // nuxt.render passes a rejected promise into callback on error.
+                            promise.then(resolve).catch(reject);
+                          });
+                        }));
+
+                      case 5:
+                      case 'end':
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, _this);
+              }));
+
+              return function (_x, _x2) {
+                return _ref2.apply(this, arguments);
+              };
+            }());
+
+            app.listen(port, host);
+            console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+
+          case 13:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function start() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 
 
-var app = new __WEBPACK_IMPORTED_MODULE_0_koa___default.a();
-var host = process.env.HOST || '127.0.0.1';
-var port = process.env.PORT || 3000;
 
-// Import and Set Nuxt.js options
-var config = __webpack_require__(0);
-config.dev = !(app.env === 'production');
-
-// Instantiate nuxt.js
-var nuxt = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Nuxt"](config);
-
-// Build in development
-if (config.dev) {
-  var builder = new __WEBPACK_IMPORTED_MODULE_1_nuxt__["Builder"](nuxt);
-  builder.build().catch(function (e) {
-    console.error(e); // eslint-disable-line no-console
-    process.exit(1);
-  });
-}
-
-app.use(function (ctx) {
-  ctx.status = 200; // koa defaults to 404 when it sees that status is unset
-
-  return new Promise(function (resolve, reject) {
-    ctx.res.on('close', resolve);
-    ctx.res.on('finish', resolve);
-    nuxt.render(ctx.req, ctx.res, function (promise) {
-      // nuxt.render passes a rejected promise into callback on error.
-      promise.then(resolve).catch(reject);
-    });
-  });
-});
-
-app.listen(port, host);
-console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+start();
 
 /***/ }
 /******/ ]);

@@ -1,20 +1,35 @@
 export default http => {
-    const category = {}
-    category.getAllBySelf = ({pageSize, pageNum, sorts = ''}) => {
-        return http.get(`/categories/self`, {
-            params: {
-                pageNum,
-                pageSize,
-                sorts
-            }
-        })
-    }
+  const category = {}
+  category.getAllByUserId = ({userId, page, size, sort = ''}) => {
+    return http.get('/categories', {
+      params: {
+        page,
+        size,
+        sort,
+        userId
+      }
+    })
+  }
 
-    category.add = ({name, description, weight}) => {
-        return http.post('/categories', {
-            name, description, weight
-        })
-    }
+  category.getById = (id) => {
+    return http.get(`/categories/${id}`)
+  }
 
-    return category
+  category.add = ({name, description, weight}) => {
+    return http.post('/categories', {
+      name, description, weight
+    })
+  }
+
+  category.deleteById = id => {
+    return http.delete(`/categories/${id}`)
+  }
+
+  category.update = ({id, name, description, weight}) => {
+    return http.put(`/categories/${id}`, {
+      name, description, weight
+    })
+  }
+
+  return category
 }

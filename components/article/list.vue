@@ -1,50 +1,59 @@
 <template lang="pug">
     .c-article-list-container
         transition-group(name="list",tag="div")
-            item.item(v-for="(article,index) in articles",:key="index",:article="article")
-        .action.has-more(v-if="hasMore&&!isLoading",@click="loadClick") 加载更多
-        .action.loading(v-else-if="isLoading") 正在加载
-        .action.no-more(v-else) 已经到底了
-
+            item.item(v-for="article in articles",:key="article.id",:article="article",@delete="deleteArticle(article.id)")
+        pagination(:total="total",:pageSize="pageSize",@pageChange="pageChange")
 </template>
 
 <script>
   import Item from './item'
+  import Pagination from '../common/pagination'
 
   export default {
-    name: 'article-list',
+    name: 'c-article-list',
     props: {
       articles: {
         type: Array,
-        default: () => []
+        default: []
       },
-      hasMore: {
-        type: Boolean
+      total: {
+        type: Number
       },
-      loadMore: {
-        type: Function,
-        default: () => {
-          return new Promise((resolve, reject) => {
-            resolve()
+      pageSize: {
+        type: Number
+      }
+    },
+    data () {
+      return {}
+    },
+    methods: {
+      pageChange (val) {
+        this.$emit('pageChange', val)
+      },
+      async deleteArticle (id) {
+        try {
+          await this.$api.article.deleteById(id)
+          const articles = this.articles.filter(c => {
+            return c.id !== id
+          })
+          this.$emit('update:articles', articles)
+          this.$message({
+            content: '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            type: 'error',
+            duration: 2000
           })
         }
       }
     },
-    data () {
-      return {
-        isLoading: false
-      }
-    },
-    methods: {
-      loadClick () {
-        this.isLoading = true
-        this.loadMore().then(() => {
-          this.isLoading = false
-        })
-      }
-    },
     components: {
-      Item
+      Item,
+      Pagination
     }
   }
 </script>
@@ -53,39 +62,25 @@
     @import "~assets/scss/variables";
 
     .c-article-list-container {
-        .item{
+        position: relative;
+        .item {
             margin-bottom: 1em;
         }
-        .list-enter-active,
-        .list-leave-active {
+        .list-enter-active {
             transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
         }
-        .list-enter,
-        .list-leave-to {
+        .list-leave-active {
+            display: none;
+        }
+        .list-enter {
             opacity: 0;
             transform: translateX(100%);
         }
-        .list-enter-to,
-        .list-leave {
+        .list-enter-to {
             opacity: 1;
             transform: translateX(0);
         }
-        .action {
-            background-color: $color-background;
-            padding: 0.5em 0;
-            text-align: center;
-            &.no-more,
-            &.loading {
-                cursor: not-allowed;
-                background-color: $color-background-active;
-            }
-            &.has-more {
-                cursor: pointer;
-                &:hover {
-                    background-color: $color-background-active;
-                }
-            }
-        }
+
     }
 
 

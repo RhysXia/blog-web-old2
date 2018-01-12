@@ -1,10 +1,12 @@
 //function
 @function color-active($color) {
-  @return $color - 50;
+  @return $color - 30;
 }
-@function color-light($color){
-  @return $color + 50
+
+@function color-light($color) {
+  @return $color + 120
 }
+
 //grid
 $grid-breakpoints: (
         xs: 0px,
@@ -19,24 +21,26 @@ $grid-col-prefixCls: c-col-container !default;
 //color
 $color-primary: #4dce9b;
 $color-primary-light: color-light($color-primary);
-$color-primary-active: #32908f;
+$color-primary-active: color-active($color-primary);
 
 $color-danger: #F56C6C;
 $color-danger-active: color-active($color-danger);
+$color-danger-light: #fef0f0;
 
-$color-success: #028090;
-$color-success-active: color-active($color-success);
 
 $color-warn: #FA7921;
 $color-warn-active: color-active($color-warn);
+$color-warn-light: color-light($color-warn);
 
-$color-info: #2db7f5;
-$color-info-active: color-active($color-info);
+$color-success: #2db7f5;
+$color-success-active: color-active($color-success);
+$color-success-light: #ceffff;
 
 $color-white: #fff;
 $color-white-active: color-active($color-white);
 
 $color-background-dark: #eee;
+$color-background-dark-active: color-active($color-background-dark);
 
 $color-background: hsla(0, 0%, 100%, .6);
 $color-background-active: color-active($color-background);
@@ -62,5 +66,4 @@ $z-index-s: 1;
 $z-index-m: 10;
 $z-index-l: 100;
 $z-index-xl: 1000;
-$z-index-xxl: 2000;
-$z-index-max: 99999;
+$z-index-max: 2000;

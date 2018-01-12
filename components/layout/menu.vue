@@ -4,7 +4,7 @@
             nuxt-link(to="/")
                 i.fa.fa-home
                 | HOME
-        li
+        //li
             nuxt-link(to="/code")
                 i.fa.fa-code
                 | CODE
@@ -16,7 +16,7 @@
 
 <script>
   export default {
-    name: 'menu'
+    name: 'c-menu'
   }
 </script>
 

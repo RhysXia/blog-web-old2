@@ -6,34 +6,34 @@
 </template>
 
 <script>
-    export default {
-        name: "tag",
-        props: {
-            name: {
-                type: String,
-                default: ''
-            },
-            // primary error
-            type: {
-                type: String,
-                default: 'default'
-            },
-            closeable: {
-                type: Boolean,
-                default: false
-            }
-        },
-        computed: {
-            classes() {
-                if (this.type === 'primary') {
-                    return [
-                        'c-tag-primary'
-                    ]
-                }
-                return []
-            }
+  export default {
+    name: 'c-tag',
+    props: {
+      name: {
+        type: String,
+        default: ''
+      },
+      // primary error
+      type: {
+        type: String,
+        default: 'default'
+      },
+      closeable: {
+        type: Boolean,
+        default: false
+      }
+    },
+    computed: {
+      classes () {
+        if (this.type === 'primary') {
+          return [
+            'c-tag-primary'
+          ]
         }
+        return []
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

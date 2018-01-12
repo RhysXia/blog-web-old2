@@ -2,14 +2,14 @@
     .index-container
         .carousel-wrapper
             c-carousel(width="100%",height="200px")
-                c-carousel-item(v-for="(article,index) in  hotArticles",:key="index")
+                c-carousel-item(v-for="(article,index) in  hotArticles.slice(0)",:key="index")
                     nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
                         img.article-image(:src="article.poster")
                         span.title {{article.title}}
-        c-article-list(:articles="articles",:hasMore="hasMore",:loadMore="loadMore")
+        c-article-list(:articles.sync="articles",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
-  import { CCarouselItem, CCarousel } from '~/components/common/carousel'
+  import { CCarousel, CCarouselItem } from '~/components/common/carousel'
   import CArticleList from '~/components/article/list'
 
   export default {
@@ -18,52 +18,46 @@
         title: '首页'
       }
     },
-    async asyncData ({store}) {
-      const result = {
-        articles: [],
-        pageNum: 1,
-        pageSize: 5,
-        articleCount: 0
+    async asyncData ({store, error}) {
+      try {
+        const result = {
+          articles: [],
+          count: 0,
+          size: 6,
+          page: 0
+        }
+        const {data} = await store.$api.article.getAll({
+          page: result.page,
+          size: result.size,
+          sort: 'updateAt,DESC'
+        })
+        result.count = data.totalElements
+        result.articles = data.content
+        return result
+      } catch (err) {
+        error(err)
       }
-      await store.$api.article.count().then(data => {
-        result.articleCount = data.data
-      }).catch((err) => {
-      })
-      await store.$api.article.getAll({
-        pageSize: result.pageSize,
-        pageNum: result.pageNum,
-        sorts: 'updateTime DESC'
-      }).then(data => {
-        result.articles = data.data
-      }).catch(() => {})
-
-      return result
     },
     data () {
       return {
-        articles: []
+        refresh: true
       }
     },
     methods: {
-      async loadMore () {
-        this.pageNum++
-        await this.$api.article.getAll({
-          pageSize: this.pageSize,
-          pageNum: this.pageNum,
-          sorts: 'updateTime DESC'
-        }).then(data => {
-          data.data.forEach(it => {
-            this.articles.push(it)
-          })
+      async pageChange (val) {
+        this.page = val - 1
+        const res = await this.$api.article.getAll({
+          page: this.page,
+          size: this.size,
+          sort: 'updateAt,DESC'
         })
+        this.count = res.data.totalElements
+        this.articles = res.data.content
       }
     },
     computed: {
-      hasMore () {
-        return this.pageNum * this.pageSize < this.articleCount
-      },
       hotArticles () {
-        return this.$store.state.hotArticles
+        return this.$store.state.article.hotArticles
       }
     },
     components: {

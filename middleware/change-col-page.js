@@ -1,8 +1,21 @@
-export default ({route, store}, next) => {
-  const MenuPageNames = ['auth-login', 'article-write']
+export default ({route, store, redirect}, next) => {
+  const MenuPageNames = ['auth-login', 'article-write', 'user-id']
   const name = route.name
-  store.commit('showMenu', !MenuPageNames.includes(name))
-  const AsidePageNames = ['auth-login', 'about', 'article-write']
-  store.commit('showAside', !AsidePageNames.includes(name))
+  if (!name) {
+    next()
+    return
+  }
+  store.commit('showMenu', !isInNames(name, MenuPageNames))
+  const AsidePageNames = ['auth-login', 'about', 'article-write', 'user-id']
+  store.commit('showAside', !isInNames(name, AsidePageNames))
   next()
+}
+
+function isInNames (name, array) {
+  for (let item of array) {
+    if (name.startsWith(item)) {
+      return true
+    }
+  }
+  return false
 }

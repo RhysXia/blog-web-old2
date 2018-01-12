@@ -1,7 +1,7 @@
 <template lang="pug">
     transition(name="c-modal")
-        .c-modal-container(v-if="val")
-            .c-modal-wrapper(v-clickoutside='outClick',:style="{width:width}")
+        .c-modal-container(v-if="val",@click='outClick')
+            .c-modal-wrapper(@click.stop,:style="{width:width}")
                 .c-modal-header
                     slot(name="header")
                         span.title {{title}}
@@ -16,75 +16,71 @@
                             button.cancel(@click="cancel") 取消
 </template>
 <script>
-    import clickoutside from '~/utils/directive/clickoutside'
 
-    export default {
-        name: "modal",
-        directives: {
-            clickoutside
-        },
-        props: {
-            value: {
-                type: Boolean,
-                default: false
-            },
-            title: {
-                type: String,
-                default: '对话框'
-            },
-            width: {
-                type: String,
-                default: '40%'
-            }
-        },
-        data() {
-            return {
-                bodyOverflow: null,
-                val: this.value,
-            }
-        },
-        watch: {
-            val(v) {
-                if (v) {
-                    this.stopScroll()
-                } else {
-                    this.canScroll()
-                }
-                this.$emit('input', v)
-            },
-            value(val) {
-                this.val = val
-            }
-        },
-        methods: {
-            confirm() {
-                this.$emit('confirm')
-                this.val = false
-            },
-            cancel() {
-                this.$emit('cancel')
-                this.val = false
-            },
-            outClick() {
-                this.val = false
-            },
-            stopScroll() {
-                const el = document.documentElement || document.body
-                el.style.overflow = 'hidden'
-            },
-            canScroll() {
-                const el = document.documentElement || document.body
-                el.style.overflow = this.bodyOverflow
-            }
-        },
-        mounted() {
-            const el = document.documentElement || document.body
-            this.bodyOverflow = el.style.overflow
-        },
-        beforeDestroy() {
-            this.canScroll()
+  export default {
+    name: 'c-modal',
+    props: {
+      value: {
+        type: Boolean,
+        default: false
+      },
+      title: {
+        type: String,
+        default: '对话框'
+      },
+      width: {
+        type: String,
+        default: '40%'
+      }
+    },
+    data () {
+      return {
+        bodyOverflow: null,
+        val: this.value
+      }
+    },
+    watch: {
+      val (v) {
+        if (v) {
+          this.stopScroll()
+        } else {
+          this.canScroll()
         }
+        this.$emit('input', v)
+      },
+      value (val) {
+        this.val = val
+      }
+    },
+    methods: {
+      confirm () {
+        this.$emit('confirm')
+        this.val = false
+      },
+      cancel () {
+        this.$emit('cancel')
+        this.val = false
+      },
+      outClick () {
+        this.val = false
+      },
+      stopScroll () {
+        const el = document.documentElement || document.body
+        el.style.overflow = 'hidden'
+      },
+      canScroll () {
+        const el = document.documentElement || document.body
+        el.style.overflow = this.bodyOverflow
+      }
+    },
+    mounted () {
+      const el = document.documentElement || document.body
+      this.bodyOverflow = el.style.overflow
+    },
+    beforeDestroy () {
+      this.canScroll()
     }
+  }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
@@ -130,7 +126,7 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
-                .title{
+                .title {
                     font-weight: bold;
                 }
                 .close {
@@ -138,7 +134,7 @@
                     cursor: pointer;
                     padding: 0.5em;
                     &:hover {
-                        color: $color-info;
+                        color: $color-primary;
                     }
                 }
             }

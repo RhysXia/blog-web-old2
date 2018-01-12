@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'back-top',
+    name: 'c-back-top',
     props: {
       left: {
         type: Number
@@ -100,7 +100,7 @@
         display: inline-block;
         i {
             font-size: 3em;
-            color: $color-info;
+            color: $color-success;
         }
     }
 </style>

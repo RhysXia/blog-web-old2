@@ -4,58 +4,67 @@
             c-row(type="flex",align="middle",justify="space-between")
                 c-col
                     nuxt-link(to="/")
-                        h1.logo Ryths Blog
+                        h1.logo {{blog.name}}
                 c-col
-                    // 客户端渲染，否则在登录状态下，客户端和服务端渲染不匹配
-                    // TODO 不是太明白
-                    no-ssr
-                        .action(v-if="!isLogin")
-                            nuxt-link(to="/auth/login") 登录
-                            nuxt-link(to="/auth/register") 注册
-                        .action(v-else)
-                            c-dropdown
-                                c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
-                                c-dropdown-menu(slot="list")
-                                    c-dropdown-item
-                                        nuxt-link.dropdown-item(to="/user/self") 个人中心
-                                    c-dropdown-item
-                                        nuxt-link.dropdown-item(to="/article/write") 写文章
+                    .action(v-if="!isLogin")
+                        nuxt-link(to="/auth/login") 登录
+                        //nuxt-link(to="/auth/register") 注册
+                    .action(v-else)
+                        c-dropdown
+                            c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
+                            c-dropdown-menu(slot="list")
+                                c-dropdown-item
+                                    nuxt-link.dropdown-item(:to="'/user/'+user.id") 个人中心
+                                c-dropdown-item
+                                    nuxt-link.dropdown-item(to="/article/write") 写文章
+                                c-dropdown-item
+                                    nuxt-link.dropdown-item(to="/user/setting") 设置
 
-                            button.btn(@click="logout") 注销
+                        button.btn(@click="logout") 注销
 </template>
 <script>
-  import { CDropdown, CDropdownItem, CDropdownMenu } from '~/components/common/dropdown'
+  import {
+    CDropdown, CDropdownItem,
+    CDropdownMenu
+  } from '~/components/common/dropdown'
   import CAvatar from '~/components/common/avatar'
+  import CBadge from '~/components/common/badge'
 
   export default {
-    name: 'header',
+    name: 'c-header',
+    data () {
+      return {}
+    },
     computed: {
       isLogin () {
         return this.$store.getters.isLogin
       },
       user () {
         return this.$store.state.user
+      },
+      blog () {
+        return this.$store.state.blog
       }
     },
     methods: {
       logout () {
         this.$store.dispatch('logout').then(() => {
           this.$router.push('/')
-        }).catch(err => {})
+        }).catch(() => {})
       }
     },
     components: {
       CDropdown,
       CDropdownItem,
       CDropdownMenu,
-      CAvatar
+      CAvatar,
+      CBadge
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
-
 
     .c-header-container {
         background-color: $color-background;
@@ -80,11 +89,11 @@
                     color: color-active($color-primary);
                 }
             }
-            .dropdown-item{
+            .dropdown-item {
                 display: block;
                 padding: 0.5rem 1rem;
-                &:hover{
-                    background-color: rgba(200,200,200,0.5);
+                &:hover {
+                    background-color: $color-background-active;
                 }
             }
         }

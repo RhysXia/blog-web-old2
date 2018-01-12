@@ -2,67 +2,75 @@
     .c-dropdown-container(v-clickoutside="handleClose",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
         .c-dropdown-ref(@click="refClick")
             slot
-        transition(name="c-dropdown-slide")
+        transition(:name="transitionName")
             .c-dropdown-list(v-show="visible",:class="'c-dropdown-list-'+position")
                 slot(name="list")
 </template>
 
 <script>
-    import clickoutside from '~/utils/directive/clickoutside'
+  import clickoutside from '~/utils/directive/clickoutside'
 
-    export default {
-        name: 'dropdown',
-        directives: {
-            clickoutside
+  export default {
+    name: 'c-dropdown',
+    directives: {
+      clickoutside
+    },
+    props: {
+      position: {
+        type: String,
+        default: 'bottom'
+      },
+      trigger: {
+        validator (val) {
+          return ['click', 'hover'].includes(val)
         },
-        props: {
-            position: {
-                type: String,
-                default: 'bottom'
-            },
-            trigger: {
-                validator(val) {
-                    return ['click', 'hover'].includes(val)
-                },
-                default: 'hover'
-            },
-            value: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data() {
-            return {
-                visible: this.value
-            }
-        },
-        watch: {
-            visible(val) {
-                this.$emit('input', val)
-            },
-            value(val) {
-                this.visible = val
-            }
-        },
-        methods: {
-            handleClose() {
-                this.visible = false
-            },
-            refClick() {
-                this.visible = true
-            },
-            mouseenter() {
-                if (this.trigger === 'hover') {
-                    this.visible = true
-                }
-            },
-            mouseleave() {
-                if (this.trigger === 'hover') {
-                    this.visible = false
-                }
-            }
+        default: 'hover'
+      },
+      value: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data () {
+      return {
+        visible: this.value
+      }
+    },
+    computed: {
+      transitionName () {
+        if (this.position === 'top') {
+          return 'c-dropdown-slide-top'
         }
+        return 'c-dropdown-slide-bottom'
+      }
+    },
+    watch: {
+      visible (val) {
+        this.$emit('input', val)
+      },
+      value (val) {
+        this.visible = val
+      }
+    },
+    methods: {
+      handleClose () {
+        this.visible = false
+      },
+      refClick () {
+        this.visible = true
+      },
+      mouseenter () {
+        if (this.trigger === 'hover') {
+          this.visible = true
+        }
+      },
+      mouseleave () {
+        if (this.trigger === 'hover') {
+          this.visible = false
+        }
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -74,11 +82,11 @@
         cursor: pointer;
         .c-dropdown-ref {
             position: relative;
-            background-color: $color-background;
+            background-color: transparent;
         }
         .c-dropdown-list {
             position: absolute;
-            z-index: $z-index-xxl;
+            z-index: $z-index-xl;
             border: 1px solid $color-border-base;
             border-radius: 0.3em;
             background-color: $color-background;
@@ -105,6 +113,7 @@
             top: 0;
             min-height: 100%;
         }
-        @include slide(c-dropdown-slide, bottom);
+        @include slide(c-dropdown-slide-bottom, bottom);
+        @include slide(c-dropdown-slide-top, top);
     }
 </style>

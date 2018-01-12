@@ -1,48 +1,39 @@
 <template lang="pug">
     .c-comment-list-container
         transition-group(name="list",tag="div")
-            item.item(v-for="(comment,index) in comments",:key="index",:comment="comment",@item-delete="$emit('item-delete',index)")
-        .action.has-more(v-if="hasMore&&!isLoading",@click="loadClick") 加载更多
-        .action.loading(v-else-if="isLoading") 正在加载
-        .action.no-more(v-else) 已经到底了
+            item.item(v-for="(comment,index) in comments",:key="comment.id",:comment="comment",@item-delete="$emit('item-delete',index)")
+        pagination(:total="total",:pageSize="pageSize",@pageChange="pageChange")
 </template>
 <script>
   import Item from './item'
+  import Pagination from '../common/pagination'
 
   export default {
-    name: 'comment-list',
+    name: 'c-comment-list',
     props: {
       comments: {
         type: Array,
         default: []
       },
-      hasMore: {
-        type: Boolean
+      total: {
+        type: Number
       },
-      loadMore: {
-        type: Function,
-        default: () => {
-          return new Promise((resolve, reject) => {
-            resolve()
-          })
-        }
+      pageSize: {
+        type: Number
       }
+
     },
     data () {
-      return {
-        isLoading: false
-      }
+      return {}
     },
     methods: {
-      loadClick () {
-        this.isLoading = true
-        this.loadMore().then(() => {
-          this.isLoading = false
-        })
+      pageChange (val) {
+        this.$emit('pageChange', val)
       }
     },
     components: {
-      Item
+      Item,
+      Pagination
     }
   }
 </script>
@@ -54,35 +45,20 @@
         .item {
             margin-bottom: 1em;
         }
-        .list-enter-active,
-        .list-leave-active {
+        .list-enter-active {
             transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
         }
-        .list-enter,
-        .list-leave-to {
+        .list-leave-active {
+            display: none;
+        }
+        .list-enter {
             opacity: 0;
             transform: translateX(100%);
         }
-        .list-enter-to,
-        .list-leave {
+        .list-enter-to {
             opacity: 1;
             transform: translateX(0);
         }
-        .action {
-            background-color: $color-background;
-            padding: 0.5em 0;
-            text-align: center;
-            &.no-more,
-            &.loading {
-                cursor: not-allowed;
-                background-color: $color-background-active;
-            }
-            &.has-more {
-                cursor: pointer;
-                &:hover {
-                    background-color: $color-background-active;
-                }
-            }
-        }
+
     }
 </style>
