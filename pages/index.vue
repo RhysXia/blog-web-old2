@@ -1,16 +1,27 @@
 <template lang="pug">
     .index-container
-        .carousel-wrapper
-            c-carousel(width="100%",height="200px")
-                c-carousel-item(v-for="(article,index) in  hotArticles.slice(0)",:key="index")
-                    nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
-                        img.article-image(:src="article.poster")
-                        span.title {{article.title}}
-        c-article-list(:articles.sync="articles",:total="count",:pageSize="size",@pageChange="pageChange")
+        .left
+            .carousel-wrapper
+                c-carousel(width="100%",height="200px")
+                    c-carousel-item(v-for="(article,index) in  hotArticles.slice(0)",:key="index")
+                        nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
+                            img.article-image(:src="article.poster")
+                            span.title {{article.title}}
+            c-article-list(:articles.sync="articles",:total="count",:pageSize="size",@pageChange="pageChange")
+        .right
+            c-panel(title="热门文章")
+                .content
+                    p.article-item(v-for="(article,index) in hotArticles",:key="index")
+                        span.index {{index+1}}
+                        nuxt-link(:to="'/article/'+article.id") {{article.title}}
+            c-panel(title="热门标签")
+                .content.tag-content
+                    nuxt-link.tag-item(:to="'/tag/'+tag.id",v-for="(tag,index) in hotTags",:key="index") {{tag.name}}
 </template>
 <script>
   import { CCarousel, CCarouselItem } from '~/components/common/carousel'
   import CArticleList from '~/components/article/list'
+  import CPanel from '~/components/common/panel'
 
   export default {
     head () {
@@ -24,15 +35,32 @@
           articles: [],
           count: 0,
           size: 6,
-          page: 0
+          page: 0,
+          hotArticles: [],
+          hotTags: []
         }
-        const {data} = await store.$api.article.getAll({
+
+        let res = await store.$api.article.getAll({
+          page: 0,
+          size: 6,
+          sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
+        })
+        result.hotArticles = res.data.content
+
+        res = await store.$api.tag.getAll({
+          page: 0,
+          size: 10,
+          sort: ['articleNum,DESC']
+        })
+        result.hotTags = res.data.content
+
+        res = await store.$api.article.getAll({
           page: result.page,
           size: result.size,
-          sort: 'updateAt,DESC'
+          sort: ['updateAt,DESC']
         })
-        result.count = data.totalElements
-        result.articles = data.content
+        result.count = res.data.totalElements
+        result.articles = res.data.content
         return result
       } catch (err) {
         error(err)
@@ -55,15 +83,11 @@
         this.articles = res.data.content
       }
     },
-    computed: {
-      hotArticles () {
-        return this.$store.state.article.hotArticles
-      }
-    },
     components: {
       CCarousel,
       CCarouselItem,
-      CArticleList
+      CArticleList,
+      CPanel
     }
   }
 </script>
@@ -71,35 +95,68 @@
     @import "~assets/scss/variables";
 
     .index-container {
-        > * {
-            margin-bottom: 1rem;
-            &:last-child {
-                margin-bottom: 0;
-            }
+        display: flex;
+        flex-direction: row;
+        .left{
+            flex: auto;
+            margin-right: 1em;
+
         }
-        .carousel-wrapper {
-            padding: 0.5rem;
-            background-color: $color-background;
-            .article-image-wrapper {
-                display: block;
-                position: relative;
+        .right{
+            width: 18em;
+        }
+    }
+    .carousel-wrapper {
+        box-shadow: 0 1px 3px rgba(26,26,26,.1);
+        padding: 0.5em;
+        background-color: $color-background;
+        .article-image-wrapper {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            .article-image {
                 width: 100%;
                 height: 100%;
-                .article-image {
-                    width: 100%;
-                    height: 100%;
-                }
-                .title {
-                    position: absolute;
-                    top: 1rem;
-                    right: 1rem;
-                    padding: 0.25rem 0.5rem;
-                    background-color: $color-background;
-                    opacity: 0.5;
-                }
             }
-
+            .title {
+                position: absolute;
+                top: 1em;
+                right: 1em;
+                padding: 0.25em 0.5em;
+                background-color: $color-background;
+                opacity: 0.5;
+            }
         }
 
+    }
+    .c-article-list-container{
+        margin-top: 1em;
+    }
+    .article-item{
+        .index{
+            display: inline-block;
+            background-color: $color-background-active;
+            width: 1.5em;
+            height: 1.5em;
+            line-height: 1.5em;
+            text-align: center;
+        }
+    }
+    .c-panel-container{
+        box-shadow: 0 1px 3px rgba(26,26,26,.1);
+        margin-bottom: 1rem;
+    }
+    .tag-content{
+        margin:0 -0.5em;
+    }
+    .tag-item{
+        display: inline-block;
+        padding: 0.25em;
+        background-color: $color-background;
+        margin: 0.5em;
+        &:hover{
+            background-color: $color-background-active;
+        }
     }
 </style>

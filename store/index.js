@@ -5,8 +5,6 @@ export const state = () => ({
   token: '',
   tokenName: 'rhys-blog-token',
   user: null,
-  isMenuShow: true,
-  isAsideShow: true,
   blog: {}
 })
 
@@ -19,12 +17,6 @@ export const mutations = {
   },
   setUser (state, user) {
     state.user = user
-  },
-  showMenu (state, flag) {
-    state.isMenuShow = flag
-  },
-  showAside (state, flag) {
-    state.isAsideShow = flag
   }
 }
 export const getters = {
@@ -37,19 +29,6 @@ export const actions = {
     try {
       const {data} = await this.$api.blog.getInfo()
       commit('setBlog', data)
-
-      let res = await this.$api.article.getAll({
-        page: 0,
-        size: 10,
-        sort: ['voteNum,DESC', 'commentNum,DESC', 'readNum,DESC']
-      })
-      commit('article/setHotArticles', res.data.content)
-      res = await this.$api.tag.getAll({
-        page: 0,
-        size: 10,
-        sort: 'articleNum,DESC'
-      })
-      commit('tag/setHotTags', res.data.content)
     } catch (err) {
       console.error(err)
     }

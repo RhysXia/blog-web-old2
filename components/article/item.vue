@@ -67,6 +67,7 @@
 
     $article-item-height: 10em;
     .c-article-item-container {
+        box-shadow: 0 1px 3px rgba(26,26,26,.1);
         display: flex;
         flex-direction: row;
         height: $article-item-height;

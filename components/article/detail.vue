@@ -16,13 +16,6 @@
                     span
                         i.fa.fa-clock-o
                         | {{article.createAt | formatDate}}
-                    .right
-                        button.btn.link(@click="fullPageClick")
-                            i.fa(:class="fullPage?'fa-compress':'fa-arrows-alt'")
-                            | 全屏阅读
-                        button.btn.link(@click="partFullPageClick")
-                            i.fa(:class="partFullPage?'fa-compress':'fa-expand'")
-                            | 通栏阅读
         .c-body
             c-show-more(:hiddenHeight="500")
                 .content(v-html="content",v-copyright)
@@ -60,29 +53,9 @@
         } else {
           return content
         }
-      },
-      fullPage () {
-        const isMenuShow = this.$store.state.isMenuShow
-        const isAsideShow = this.$store.state.isAsideShow
-        return !isMenuShow && !isAsideShow
-      },
-      partFullPage () {
-        const isMenuShow = this.$store.state.isMenuShow
-        const isAsideShow = this.$store.state.isAsideShow
-        return isMenuShow && !isAsideShow
       }
     },
     methods: {
-      fullPageClick () {
-        const flag = this.fullPage
-        this.$store.commit('showMenu', flag)
-        this.$store.commit('showAside', flag)
-      },
-      partFullPageClick () {
-        const flag = this.partFullPage
-        this.$store.commit('showMenu', true)
-        this.$store.commit('showAside', flag)
-      }
     },
     components: {
       CShowMore
