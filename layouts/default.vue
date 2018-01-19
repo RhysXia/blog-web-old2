@@ -49,6 +49,7 @@
     }
 
     .layout-main {
+        position: relative;
         width: $width-main;
         margin: 0 auto;
     }
@@ -56,6 +57,8 @@
     .layout-main {
         margin-top: 1rem;
     }
+
+
 </style>
 <style lang="scss">
     [v-cloak] {

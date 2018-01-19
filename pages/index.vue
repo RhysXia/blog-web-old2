@@ -98,16 +98,14 @@
         display: flex;
         flex-direction: row;
         .left{
-            flex: auto;
-            margin-right: 1em;
-
+            width: $width-main - 18 - 1;
+            margin-right: 1rem;
         }
         .right{
             width: 18em;
         }
     }
     .carousel-wrapper {
-        box-shadow: 0 1px 3px rgba(26,26,26,.1);
         padding: 0.5em;
         background-color: $color-background;
         .article-image-wrapper {
@@ -144,7 +142,6 @@
         }
     }
     .c-panel-container{
-        box-shadow: 0 1px 3px rgba(26,26,26,.1);
         margin-bottom: 1rem;
     }
     .tag-content{

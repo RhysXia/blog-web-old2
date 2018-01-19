@@ -36,7 +36,6 @@ md.renderer.rules.fence = function (tokens, idx, options, env, slf) {
   }).join('')
   return `
         <div class="md-code-wrapper">
-            <h2 class="code-title">${lang || 'unknown'} Language</h2>
             <pre class="code-main ${lang ? 'lang-' + lang : ''}">
               <ul class="code-lines">${lineNums}</ul>
               <code class="code-content">${content}\n</code>

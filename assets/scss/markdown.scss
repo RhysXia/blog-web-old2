@@ -7,6 +7,7 @@
   flex-direction: column;
   background-color: $color-background;
   margin: 1em 0;
+  /**
   .code-title {
     font-size: 1.2em;
     text-align: center;
@@ -15,12 +16,12 @@
     color: $color-text-white;
     margin: 0;
   }
+  **/
   .code-main {
     position: relative;
     display: flex;
     flex-direction: row;
     border: 1px solid $color-border-base;
-    border-top-width: 0;
     margin: 0;
     > * {
       padding: 0.5em 0;

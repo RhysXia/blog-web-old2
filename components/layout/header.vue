@@ -1,5 +1,5 @@
 <template lang="pug">
-    header.c-header-container
+    header.c-header-container.shadow
         .c-wrapper
             .c-left
                 nuxt-link(to="/")
@@ -66,7 +66,6 @@
     @import "~assets/scss/variables";
     .c-header-container{
         background-color: $color-background;
-        box-shadow: 0 1px 3px rgba(26,26,26,.1);
     }
     .c-wrapper,.c-left,.c-right{
         display: flex;

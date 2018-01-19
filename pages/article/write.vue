@@ -439,6 +439,9 @@
         .info-wrapper {
             background-color: $color-background;
         }
+        .category-wrapper,.tag-wrapper{
+            background-color: $color-background;
+        }
         .category-wrapper {
             font-size: 1.1rem;
             .append {
