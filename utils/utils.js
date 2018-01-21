@@ -30,15 +30,6 @@ export function findComponentsDownward (context, componentName, depth) {
 }
 
 /**
- * 去掉两边空格
- * @param str
- * @returns {string}
- */
-export function trim (str) {
-  return str.replace(/^\s+/, '').replace(/\s+$/, '')
-}
-
-/**
  * 判断元素是否在数组中
  * @param value
  * @param arrays

@@ -133,9 +133,7 @@ module.exports = require("nuxt");
 /***/ (function(module, exports) {
 
 module.exports = {
-  /*
-  ** Headers of the page
-  */
+
   head: {
     title: 'Ryths Blog',
     titleTemplate: '%s | ryths.cn',
@@ -158,13 +156,9 @@ module.exports = {
     max: 100,
     maxAge: 1000 * 60 * 15
   },
-  /*
-  ** Global CSS
-  */
+
   css: ['~/assets/scss/public.scss'],
-  /*
-  ** Customize the progress-bar color
-  */
+
   loading: { color: '#4dce9b', failedColor: '#F56C6C' },
   plugins: ['~/plugins/http', '~/plugins/token', '~/plugins/filters', '~/plugins/components'
   // {src: '~/plugins/offline', ssr: false}
@@ -184,7 +178,8 @@ module.exports = {
     //   return {x: 0, y: 0}
     // },
     middleware: ['change-col-page']
-  }
+  },
+  modules: ['~/module/transition']
 };
 
 /***/ })

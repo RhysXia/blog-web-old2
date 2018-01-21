@@ -51,7 +51,7 @@
     .layout-main {
         position: relative;
         width: $width-main;
-        margin: 0 auto;
+        margin: 1em auto;
     }
 
     .layout-main {

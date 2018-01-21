@@ -48,7 +48,6 @@
   import CTextarea from '~/components/common/textarea'
   import fixed from '~/utils/directive/fixed'
   import CPanel from '~/components/common/panel'
-  import { trim } from '../../utils/utils'
 
   export default {
     directives: {
@@ -125,7 +124,7 @@
       },
       async publish () {
         const article = this.article
-        if (!trim(article.poster)) {
+        if (!article.poster.trim()) {
           this.$message({
             content: '请上传海报',
             type: 'error',
@@ -133,7 +132,7 @@
           })
           return
         }
-        if (!trim(article.title)) {
+        if (!article.title.trim()) {
           this.$message({
             content: '请输入标题',
             type: 'error',
@@ -141,7 +140,7 @@
           })
           return
         }
-        if (!trim(article.content)) {
+        if (!article.content.trim()) {
           this.$message({
             content: '请输入文章内容',
             type: 'error',
@@ -149,7 +148,7 @@
           })
           return
         }
-        if (!trim(article.info)) {
+        if (!article.info.trim()) {
           this.$message({
             content: '请输入文章简介',
             type: 'error',
@@ -240,7 +239,7 @@
       },
       async addCategory () {
         const category = this.category
-        if (category.name === null || trim(category.name) === '') {
+        if (category.name === null || category.name.trim()) {
           this.$message({
             content: '分类名不能为空',
             type: 'error',
@@ -248,7 +247,7 @@
           })
           return
         }
-        if (category.description === null || trim(category.description) === '') {
+        if (category.description === null || category.description.trim()) {
           this.$message({
             content: '描述不能为空',
             type: 'error',

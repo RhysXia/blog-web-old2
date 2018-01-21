@@ -1,7 +1,5 @@
 module.exports = {
-  /*
-  ** Headers of the page
-  */
+
   head: {
     title: 'Ryths Blog',
     titleTemplate: '%s | ryths.cn',
@@ -37,15 +35,11 @@ module.exports = {
     max: 100,
     maxAge: 1000 * 60 * 15
   },
-  /*
-  ** Global CSS
-  */
+
   css: [
     '~/assets/scss/public.scss'
   ],
-  /*
-  ** Customize the progress-bar color
-  */
+
   loading: {color: '#4dce9b', failedColor: '#F56C6C'},
   plugins: [
     '~/plugins/http',
@@ -75,5 +69,8 @@ module.exports = {
     middleware: [
       'change-col-page'
     ]
-  }
+  },
+  modules: [
+    '~/module/transition'
+  ]
 }
