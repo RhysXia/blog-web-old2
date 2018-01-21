@@ -100,7 +100,7 @@
           })
           return
         }
-        if (user.password.trim() && user.password !== user.rePassword) {
+        if (user.password && user.password !== user.rePassword) {
           this.$message({
             content: '确认密码和密码要相同',
             duration: 2000,
