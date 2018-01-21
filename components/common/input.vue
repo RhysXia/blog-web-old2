@@ -1,17 +1,13 @@
 <template lang="pug">
-    .c-input-container(:class="containerClass",@click="click",v-clickoutside="outClick")
+    .c-input-container
         input.input(ref="input",v-if="type==='password'",:readonly="readonly",v-model="content",type="password",:placeholder="placeholder")
         input.input(ref="input",v-else,v-model="content",:readonly="readonly",type = "text",:placeholder="placeholder")
         slot(name="append")
 </template>
 <script>
-  import clickoutside from '~/utils/directive/clickoutside'
 
   export default {
     name: 'c-input',
-    directives: {
-      clickoutside
-    },
     props: {
       value: {
         type: String,
@@ -33,15 +29,7 @@
     data () {
       return {
         content: this.value,
-        active: false,
-        outClickDisabled: false
-      }
-    },
-    computed: {
-      containerClass () {
-        return {
-          'c-input-container-active': this.active
-        }
+        active: false
       }
     },
     watch: {
@@ -53,24 +41,8 @@
       }
     },
     methods: {
-      outClick () {
-        if (!this.outClickDisabled) {
-          this.active = false
-        }
-      },
       focus () {
         this.$refs.input.focus()
-        this.outClickDisabled = true
-        this.active = true
-        // outClick响应比较慢
-        setTimeout(() => {
-          this.outClickDisabled = false
-        }, 500)
-      },
-      click () {
-        if (!this.readonly) {
-          this.active = true
-        }
       }
     }
   }
@@ -80,29 +52,25 @@
     @import "~assets/scss/variables";
 
     .c-input-container {
-        box-sizing: border-box;
-        border: 1px solid $color-border-base;
-        border-radius: 0.2em;
-        background-color: $color-background;
-        transition: border-color 0.4s ease;
         display: flex;
         flex-direction: row;
         align-items: center;
-        overflow: hidden;
-        position: relative;
         .input {
-            height: 100%;
-            margin: 0.25em 0.5em;
+            box-sizing: border-box;
+            border: 1px solid $color-border-base;
+            border-radius: 0.2em;
+            background-color: $color-background;
+            transition: border-color 0.4s ease;
+            padding: 0.3em 0.6em;
             display: flex;
-            flex: 1 1 auto;
-            border: none;
+            flex: auto;
             outline: none;
-            background-color: transparent;
             font-size: inherit;
+            &:not([readonly]):focus {
+                border-color: $color-primary;
+
+            }
         }
     }
 
-    .c-input-container-active {
-        border-color: $color-primary;
-    }
 </style>

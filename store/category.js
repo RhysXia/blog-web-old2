@@ -1,5 +1,3 @@
-export const state = () => ({
-  selfCategories: []
-})
+export const state = () => ({})
 export const mutations = {}
 export const actions = {}

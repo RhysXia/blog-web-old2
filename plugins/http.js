@@ -27,8 +27,17 @@ export default ({req, store}, inject) => {
     return response
   }, error => {
     if (error.response) {
+      const message = error.response.data.message
       error.statusCode = error.response.status
-      error.message = error.response.data.message || error.message
+      if (message) {
+        if (message instanceof Array) {
+          error.message = message.reduce((left, right) => {
+            return `${left},${right}`
+          })
+        } else {
+          error.message = message
+        }
+      }
     } else {
       error.statusCode = 408
     }

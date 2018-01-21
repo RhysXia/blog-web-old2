@@ -7,19 +7,21 @@
   flex-direction: column;
   background-color: $color-background;
   margin: 1em 0;
-  border: 1px solid $color-border-base;
-  //.code-title {
-  //  font-size: 1.2em;
-  //  text-align: center;
-  //  background-color: $color-success;
-  //  padding: 0.5em 0;
-  //  color: $color-text-white;
-  //  margin: 0;
-  //}
+  /**
+  .code-title {
+    font-size: 1.2em;
+    text-align: center;
+    background-color: $color-success;
+    padding: 0.5em 0;
+    color: $color-text-white;
+    margin: 0;
+  }
+  **/
   .code-main {
     position: relative;
     display: flex;
     flex-direction: row;
+    border: 1px solid $color-border-base;
     margin: 0;
     > * {
       padding: 0.5em 0;

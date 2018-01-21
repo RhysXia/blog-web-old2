@@ -1,6 +1,6 @@
 <template lang="pug">
     .c-panel-container
-        slot(name="title")
+        slot(name="header")
             h4.title {{title}}
         slot
 </template>

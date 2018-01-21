@@ -1,34 +1,33 @@
 <template lang="pug">
-    .c-header-container
-        .content-wrapper
-            c-row(type="flex",align="middle",justify="space-between")
-                c-col
-                    nuxt-link(to="/")
-                        h1.logo {{blog.name}}
-                c-col
-                    .action(v-if="!isLogin")
-                        nuxt-link.login(to="/auth/login") 登录
-                        //nuxt-link(to="/auth/register") 注册
-                    .action(v-else)
-                        c-dropdown.dropdown
-                            c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
-                            c-dropdown-menu(slot="list")
-                                c-dropdown-item
-                                    nuxt-link.dropdown-item(:to="'/user/'+user.id") 个人中心
-                                c-dropdown-item
-                                    nuxt-link.dropdown-item(to="/article/write") 写文章
-                                c-dropdown-item
-                                    nuxt-link.dropdown-item(to="/user/setting") 设置
-                                c-dropdown-item
-                                    button.dropdown-item(@click="logout") 注销
+    header.c-header-container.shadow
+        .c-wrapper
+            .c-left
+                nuxt-link(to="/")
+                    h1.c-logo {{blog.name}}
+                nuxt-link.menu(to="/") 首页
+                nuxt-link.menu(to="/about") 关于
+            .c-right
+                c-input(placeholder="搜索")
+                template(v-if="!isLogin")
+                    nuxt-link(to="/auth/login") 登录
+                    //nuxt-link(to="/auth/register") 注册
+                template(v-else)
+                    c-dropdown
+                        c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
+                        c-dropdown-menu(slot="list")
+                            c-dropdown-item
+                                nuxt-link.c-dropdown-item(:to="'/user/'+user.id") 个人中心
+                            c-dropdown-item
+                                nuxt-link.c-dropdown-item(to="/article/write") 写文章
+                            c-dropdown-item
+                                nuxt-link.c-dropdown-item(to="/user/setting") 设置
+                    button.link(@click="logout") 注销
 </template>
 <script>
-  import {
-    CDropdown, CDropdownItem,
-    CDropdownMenu
-  } from '~/components/common/dropdown'
+  import { CDropdown, CDropdownItem, CDropdownMenu } from '~/components/common/dropdown'
   import CAvatar from '~/components/common/avatar'
   import CBadge from '~/components/common/badge'
+  import CInput from '~/components/common/input'
 
   export default {
     name: 'c-header',
@@ -58,50 +57,49 @@
       CDropdownItem,
       CDropdownMenu,
       CAvatar,
-      CBadge
+      CBadge,
+      CInput
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
-
-    .c-header-container {
+    .c-header-container{
         background-color: $color-background;
+    }
+    .c-wrapper,.c-left,.c-right{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .c-wrapper {
         height: $height-header;
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
-        .content-wrapper{
-            margin: 0 auto;
-            width: $content-width;
+        justify-content: space-between;
+        width: $width-main;
+        margin: 0 auto;
+    }
+    .c-logo{
+        font-size: 1.5em;
+    }
+    .c-dropdown-item{
+        display: block;
+        padding: 0.5em 0.7em;
+        &:hover{
+            background-color: $color-background-active;
         }
-        .logo {
-            font-size: 1.4rem;
+    }
+    .c-right,.c-left{
+        margin-right: -0.5em;
+        >*{
+            margin-right: 0.5em;
+        }
+    }
+    .menu{
+        display: inline-block;
+        padding: 0 0.5em;
+        color: $color-text;
+        &:hover,&.nuxt-link-exact-active{
             color: $color-primary;
-        }
-        .action {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-right: -1rem;
-            .login{
-                padding-right: 1rem;
-            }
-            .dropdown{
-                margin-right: 1rem;
-            }
-            .dropdown-item {
-                display: block;
-                width: 100%;
-                box-sizing: border-box;
-                padding: 0.5rem 1.5rem;
-                background-color: transparent;
-                color: $color-primary;
-                text-align: left;
-                &:hover {
-                    background-color: $color-background-active;
-                    color: color-active($color-primary);
-                }
-            }
         }
     }
 </style>

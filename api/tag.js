@@ -1,25 +1,25 @@
 export default http => {
-    const tag = {}
+  const tag = {}
 
-    tag.getAll = ({page, size, sort = '', name = null}) => {
-        return http.get('/tags', {
-            params: {
-                page,
-                size,
-                sort,
-                name
-            }
-        })
-    }
+  tag.getAll = ({page, size, sort = '', name = null}) => {
+    return http.get('/tags', {
+      params: {
+        page,
+        size,
+        sort,
+        name
+      }
+    })
+  }
 
-    tag.add = ({name}) => {
-        return http.post('/tags', {
-            name
-        })
-    }
+  tag.add = ({name}) => {
+    return http.post('/tags', {
+      name
+    })
+  }
 
-    tag.getById = id => {
-        return http.get(`/tags/${id}`)
-    }
-    return tag
+  tag.getById = id => {
+    return http.get(`/tags/${id}`)
+  }
+  return tag
 }

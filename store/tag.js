@@ -1,11 +1,5 @@
-export const state = () => ({
-  hotTags: []
-})
+export const state = () => ({})
 
-export const mutations = {
-  setHotTags (state, tags) {
-    state.hotTags = tags
-  }
-}
+export const mutations = {}
 export const getters = {}
 export const actions = {}
