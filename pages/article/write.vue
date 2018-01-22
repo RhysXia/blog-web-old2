@@ -239,7 +239,7 @@
       },
       async addCategory () {
         const category = this.category
-        if (category.name === null || category.name.trim()) {
+        if (!category.name.trim()) {
           this.$message({
             content: '分类名不能为空',
             type: 'error',
@@ -247,7 +247,7 @@
           })
           return
         }
-        if (category.description === null || category.description.trim()) {
+        if (!category.description.trim()) {
           this.$message({
             content: '描述不能为空',
             type: 'error',
