@@ -11,7 +11,7 @@
                         c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
                     h2.nickname
                         | {{user.nickname}}
-                    p.info {{user.info?user.info:'他太懒了，什么都没写'}}
+                    pre.info {{user.info?user.info:'他太懒了，什么都没写'}}
             c-col(:span="20")
                 .right-wrapper
                     .tabs

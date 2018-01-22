@@ -9,8 +9,12 @@ export default http => {
     return http.get(`/users/${id}`)
   }
 
-  user.update = user => {
-    return http.put('/users', user)
+  user.updateBase = user => {
+    return http.put('/users/base', user)
+  }
+
+  user.updatePassword = ({password, newPassword}) => {
+    return http.put('/users/password', {password, newPassword})
   }
 
   return user

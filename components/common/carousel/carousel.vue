@@ -9,7 +9,7 @@
                 .c-index-item(:class="{'is-active':index-1===activeIndex}")
 </template>
 <script>
-  import { findComponentsDownward } from '../../../utils/utils'
+  import { findComponentsDownward } from '~/utils/utils'
 
   export default {
     name: 'c-carousel',

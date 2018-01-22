@@ -1,43 +1,41 @@
 <template lang="pug">
-    .user-setting-container
-        c-panel
-            .header(slot="header")
-                button(@click="updateClick") {{isUpdate?'取消':'修改'}}
-                button(@click="confirm",v-if="isUpdate") 确定修改
-            .body
+    c-tab-group.user-setting-container
+        c-tab(name="基本信息")
+            .body-info
                 .left
-                    c-upload(action="https://api.ryths.cn/users/images",name="image",:headers="headers",:onSuccess="onFileSuccess")
-                        .upload-wrapper
-                            c-avatar.avatar(:imgUrl="copyUser.avatar",type="square",width="100%",height="100%")
+                    .input-wrapper
+                        label.label 昵称
+                        c-input(v-model="copyUser.nickname")
+                    .input-wrapper
+                        label.label 简介
+                        c-textarea(v-model="copyUser.info",autoHeight)
+                    button.submit(@click="saveBase") 保存
                 .right
-                    .item
-                        span.label 用户名
-                        c-input.input(v-model="copyUser.username",:readonly="!isUpdate")
-                    .item
-                        span.label 昵称
-                        c-input.input(v-model="copyUser.nickname",:readonly="!isUpdate")
-                    template(v-if="isUpdate")
-                        .item
-                            span.label 密码
-                            c-input.input(v-model="copyUser.password")
-                        .item
-                            span.label 确认密码
-                            c-input.input(v-model="copyUser.rePassword")
-        c-modal.modal(v-model="isConfirm",title="请输入原始用户名密码")
-            .item
-                span.label 用户名
-                c-input.input(v-model="copyUser.confirmUsername")
-            .item
-                span.label 密码
-                c-input.input(v-model="copyUser.confirmPassword")
-            .footer(slot="footer")
-                button.confirm(@click="submit") 确定
-                button.cancel(@click="cancelSubmit") 取消
+                    .avatar-wrapper
+                        .avatar
+                            c-avatar(:imgUrl="copyUser.avatar",type="square",width="100%",height="100%")
+                    c-upload(:action="avatar.url",:headers="avatar.headers",:name="avatar.name",:onSuccess="onFileSuccess")
+                        button.upload-avatar 修改头像
+        c-tab(name="密码管理")
+            .body
+                .input-wrapper
+                    label.label 原始密码
+                    c-input(v-model="copyUser.password",type="password")
+                .input-wrapper
+                    label.label 新密码
+                    c-input(v-model="copyUser.newPassword",type="password")
+                .input-wrapper
+                    label.label 确认新密码
+                    c-input(v-model="copyUser.reNewPassword",type="password")
+                button.submit(@click="savePassword") 保存
+
+
 </template>
 
 <script>
   import CInput from '~/components/common/input'
-  import CPanel from '~/components/common/panel'
+  import CTextarea from '~/components/common/textarea'
+  import { CTab, CTabGroup } from '~/components/common/tab'
   import CUpload from '~/components/common/upload'
   import CAvatar from '~/components/common/avatar'
   import CModal from '~/components/common/modal'
@@ -49,95 +47,61 @@
       return store.getters.isLogin
     },
     computed: {
-      ...mapState(['user', 'token']),
-      headers () {
+      ...mapState(['user', 'token', 'serverURL']),
+      avatar () {
         const headers = {}
         headers.Authorization = this.token
-        return headers
+        const url = this.serverURL + '/users/avatar'
+        const name = 'avatar'
+        return {headers, url, name}
       }
     },
     data () {
       return {
         copyUser: {
-          username: null,
-          password: null,
-          rePassword: null,
-          nickname: null,
-          info: null,
           avatar: null,
-          confirmUsername: '',
-          confirmPassword: ''
-        },
-        isUpdate: false,
-        isConfirm: false
+          nickname: '',
+          info: '',
+          password: '',
+          newPassword: '',
+          reNewPassword: ''
+        }
+      }
+    },
+    watch: {
+      user () {
+        this.reset()
       }
     },
     methods: {
-      onFileSuccess (data) {
-        this.copyUser.avatar = data
-      },
-      updateClick () {
-        if (this.isUpdate) {
-          this.reset()
-        }
-        this.isUpdate = !this.isUpdate
-      },
-      confirm () {
-        const user = this.copyUser
-        if (!user.username && !user.username.trim()) {
+      async savePassword () {
+        const password = this.copyUser.password
+        const newPassword = this.copyUser.newPassword
+        const reNewPassword = this.copyUser.reNewPassword
+        if (!password.trim() || !newPassword.trim() || !reNewPassword.trim()) {
           this.$message({
-            content: '用户名不能为空',
+            content: '(新)密码不能为空',
             duration: 2000,
             type: 'error'
           })
           return
         }
-        if (!user.nickname && !user.nickname.trim()) {
+        if (newPassword !== reNewPassword) {
           this.$message({
-            content: '昵称不能为空',
-            duration: 2000,
-            type: 'error'
-          })
-          return
-        }
-        if (user.password && user.password !== user.rePassword) {
-          this.$message({
-            content: '确认密码和密码要相同',
-            duration: 2000,
-            type: 'error'
-          })
-          return
-        }
-        this.isConfirm = true
-      },
-      cancelSubmit () {
-        this.isConfirm = false
-        this.copyUser.confirmUsername = ''
-        this.copyUser.confirmPassword = ''
-      },
-      async submit () {
-        if (!this.copyUser.confirmUsername.trim()) {
-          this.$message({
-            content: '请输入用户名',
-            duration: 2000,
-            type: 'error'
-          })
-          return
-        }
-        if (!this.copyUser.confirmPassword.trim()) {
-          this.$message({
-            content: '请输入密码',
+            content: '新密码和确认新密码不匹配',
             duration: 2000,
             type: 'error'
           })
           return
         }
         try {
-          await this.$api.user.update(this.copyUser)
-          const {data} = await this.$api.user.getSelf()
-          this.$store.commit('setUser', data)
-          this.isConfirm = false
-          this.isUpdate = false
+          await this.$api.user.updatePassword({password, newPassword})
+          this.reset()
+          this.$message({
+            content: '修改成功',
+            duration: 2000,
+            type: 'success'
+          })
         } catch (e) {
           this.$message({
             content: e.message,
@@ -146,13 +110,50 @@
           })
         }
       },
+      async saveBase () {
+        const nickname = this.copyUser.nickname
+        const info = this.copyUser.info
+        if (!nickname.trim()) {
+          this.$message({
+            content: '昵称不能为空',
+            duration: 2000,
+            type: 'error'
+          })
+          return
+        }
+        try {
+          await this.$api.user.updateBase({nickname, info})
+          const res = await this.$api.user.getSelf()
+          this.$store.commit('setUser', res.data)
+          this.$message({
+            content: '修改成功',
+            duration: 2000,
+            type: 'success'
+          })
+        } catch (e) {
+          this.$message({
+            content: e.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
+      async onFileSuccess (data) {
+        const res = await this.$api.user.getSelf()
+        this.$store.commit('setUser', res.data)
+        this.$message({
+          content: '修改成功',
+          duration: 2000,
+          type: 'success'
+        })
+      },
       reset () {
-        this.copyUser.username = this.user.username
+        this.copyUser.avatar = this.user.avatar
         this.copyUser.nickname = this.user.nickname
         this.copyUser.info = this.user.info
-        this.copyUser.avatar = this.user.avatar
-        this.copyUser.password = null
-        this.copyUser.rePassword = null
+        this.copyUser.password = ''
+        this.copyUser.newPassword = ''
+        this.copyUser.reNewPassword = ''
       }
     },
     created () {
@@ -160,7 +161,9 @@
     },
     components: {
       CInput,
-      CPanel,
+      CTextarea,
+      CTab,
+      CTabGroup,
       CUpload,
       CAvatar,
       CModal
@@ -170,110 +173,59 @@
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
 
     .user-setting-container {
-        .header {
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid $color-border-base;
-            @include clearfix;
-            button {
-                float: right;
-                margin-left: 1em;
-                background-color: $color-success;
-                color: $color-text-white;
-                border: none;
-                border-radius: 0;
-                padding: 0.3em 1em;
-                &:hover {
-                    background-color: $color-success-active;
-                }
-            }
-        }
-        .body {
+        background-color: $color-background;
+        padding: 1em;
+        .body-info {
             display: flex;
             flex-direction: row;
-            align-items: flex-start;
-            margin-top: 1em;
-        }
-        .left {
-            display: flex;
-            flex: 1;
-            margin-right: 1em;
-            .upload-wrapper {
-                position: relative;
-                width: 100%;
-                padding-top: 100%;
-                .avatar, &:after {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                }
-                &:after {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    z-index: $z-index-l;
-                    font-size: 1.2em;
-                    font-weight: bold;
-                    color: $color-success;
-                }
-                &:hover {
-                    &:after {
-                        content: '更换头像';
-                        background-color: rgba(255, 255, 255, 0.5);
-                    }
-                }
-            }
-        }
-        .right {
-            display: flex;
-            flex-direction: column;
-            flex: 4;
-            .item {
+            .left, .right {
                 display: flex;
-                flex: auto;
-                flex-direction: row;
-                align-items: center;
-                margin-bottom: 1em;
-                .label {
-                    display: inline-block;
-                    width: 5em;
-                }
-                .input {
-                    display: flex;
-                    flex: auto;
-                }
+                flex-direction: column;
             }
-        }
-        .modal {
-            .item {
-                margin-bottom: 1em;
+            .left {
+                flex: 4;
+                margin-right: 1em;
             }
-            .footer {
-                @include clearfix;
-                button {
-                    float: right;
-                    box-sizing: border-box;
-                    margin-left: 1em;
-                    transition: background-color 0.4s ease;
-                }
-                .confirm {
-                    color: $color-text-white;
-                    background-color: $color-primary;
-                    border: 1px solid $color-primary;
-                    &:hover {
-                        background-color: $color-primary-active;
+            .right {
+                flex: 1;
+                .avatar-wrapper {
+                    width: 100%;
+                    padding-top: 100%;
+                    position: relative;
+                    margin-bottom: 1em;
+                    .avatar {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
                     }
                 }
-                .cancel {
+                .upload-avatar {
                     border: 1px solid $color-border-base;
+                    width: 100%;
+                    padding: 0.5em 1em;
+                    border-radius: 3px;
                     &:hover {
                         background-color: $color-background-active;
                     }
                 }
+            }
+        }
+        .input-wrapper {
+            margin-bottom: 1em;
+            .label {
+                font-weight: bold;
+                font-size: 1.1em;
+            }
+        }
+        .submit {
+            background-color: $color-primary;
+            color: $color-text-white;
+            &:hover {
+                background-color: $color-primary-active;
             }
         }
     }
