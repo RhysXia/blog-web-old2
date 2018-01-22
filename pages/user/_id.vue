@@ -17,7 +17,6 @@
                     .tabs
                         nuxt-link.tab(:to="'/user/'+user.id") 总概
                         nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
-                        nuxt-link.tab(v-if="isSelf",:to="'/user/'+user.id+'/profile'") 个人资料
                     nuxt-child
 </template>
 <script>

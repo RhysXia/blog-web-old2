@@ -41,7 +41,7 @@
         })
         result.articles = res.data.content
 
-        if (store.getters.isLogin && userId === store.state.user.id) {
+        if (store.getters.permissions.includes('GET:/drafts/self')) {
           res = await store.$api.draft.getSelf({page: 0, size: 100})
           result.drafts = res.data.content
         }

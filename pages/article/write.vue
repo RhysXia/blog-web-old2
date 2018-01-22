@@ -347,6 +347,11 @@
     asyncData ({store, error}) {
       if (!store.getters.isLogin) {
         error({statusCode: 500, message: '请登陆后重试'})
+        return
+      }
+
+      if (!store.getters.permissions.includes('POST:/articles')) {
+        error({statusCode: 500, message: '你没有写文章的权限'})
       }
     },
     components: {
@@ -441,7 +446,7 @@
         .info-wrapper {
             background-color: $color-background;
         }
-        .category-wrapper,.tag-wrapper{
+        .category-wrapper, .tag-wrapper {
             background-color: $color-background;
         }
         .category-wrapper {

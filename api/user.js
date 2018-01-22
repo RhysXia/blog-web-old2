@@ -17,5 +17,9 @@ export default http => {
     return http.put('/users/password', {password, newPassword})
   }
 
+  user.register = ({username, password, nickname}) => {
+    return http.post('/users/register', {username, password, nickname})
+  }
+
   return user
 }

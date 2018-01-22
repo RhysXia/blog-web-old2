@@ -22,7 +22,23 @@ export const mutations = {
 export const getters = {
   isLogin (state) {
     return state.user !== null
+  },
+  permissions (state) {
+    const user = state.user
+    if (!user) {
+      return []
+    }
+    const permissions = []
+    user.roles.forEach(it => {
+      it.permissions.forEach(i => {
+        permissions.push(i)
+      })
+    })
+    return permissions.map(it => {
+      return `${it.method}:${it.url}`
+    })
   }
+
 }
 export const actions = {
   async nuxtServerInit ({commit}) {

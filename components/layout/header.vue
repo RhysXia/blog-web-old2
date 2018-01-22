@@ -10,21 +10,25 @@
                 c-input(placeholder="搜索")
                 template(v-if="!isLogin")
                     nuxt-link(to="/auth/login") 登录
-                    //nuxt-link(to="/auth/register") 注册
+                    nuxt-link(to="/auth/register") 注册
                 template(v-else)
                     c-dropdown
                         c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
                         c-dropdown-menu(slot="list")
                             c-dropdown-item
                                 nuxt-link.c-dropdown-item(:to="'/user/'+user.id") 个人中心
-                            c-dropdown-item
+                            c-dropdown-item(v-if="isWrite")
                                 nuxt-link.c-dropdown-item(to="/article/write") 写文章
                             c-dropdown-item
                                 nuxt-link.c-dropdown-item(to="/user/setting") 设置
-                    button.link(@click="logout") 注销
+                            c-dropdown-item
+                                button.c-dropdown-item.link(@click="logout")  注销
 </template>
 <script>
-  import { CDropdown, CDropdownItem, CDropdownMenu } from '~/components/common/dropdown'
+  import {
+    CDropdown, CDropdownItem,
+    CDropdownMenu
+  } from '~/components/common/dropdown'
   import CAvatar from '~/components/common/avatar'
   import CBadge from '~/components/common/badge'
   import CInput from '~/components/common/input'
@@ -43,6 +47,9 @@
       },
       blog () {
         return this.$store.state.blog
+      },
+      isWrite () {
+        return this.$store.getters.permissions.includes('POST:/articles')
       }
     },
     methods: {
@@ -64,41 +71,53 @@
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    .c-header-container{
+
+    .c-header-container {
         background-color: $color-background;
     }
-    .c-wrapper,.c-left,.c-right{
+
+    .c-wrapper, .c-left, .c-right {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
+
     .c-wrapper {
         height: $height-header;
         justify-content: space-between;
         width: $width-main;
         margin: 0 auto;
     }
-    .c-logo{
+
+    .c-logo {
         font-size: 1.5em;
     }
-    .c-dropdown-item{
+
+    .c-dropdown-item {
         display: block;
         padding: 0.5em 0.7em;
-        &:hover{
+        &:hover {
             background-color: $color-background-active;
         }
     }
-    .c-right,.c-left{
+
+    .link {
+        width: 100%;
+        text-align: left;
+    }
+
+    .c-right, .c-left {
         margin-right: -0.5em;
-        >*{
+        > * {
             margin-right: 0.5em;
         }
     }
-    .menu{
+
+    .menu {
         display: inline-block;
         padding: 0 0.5em;
         color: $color-text;
-        &:hover,&.nuxt-link-exact-active{
+        &:hover, &.nuxt-link-exact-active {
             color: $color-primary;
         }
     }
