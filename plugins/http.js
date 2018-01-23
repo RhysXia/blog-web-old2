@@ -38,8 +38,6 @@ export default ({req, store}, inject) => {
           error.message = message
         }
       }
-    } else {
-      error.statusCode = 408
     }
     return Promise.reject(error)
   })

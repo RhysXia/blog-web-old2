@@ -63,7 +63,7 @@
         result.articles = res.data.content
         return result
       } catch (err) {
-        error(err)
+        error({statusCode: err.statusCode, message: err.message})
       }
     },
     data () {
@@ -97,14 +97,15 @@
     .index-container {
         display: flex;
         flex-direction: row;
-        .left{
+        .left {
             width: $width-main - 18 - 1;
             margin-right: 1rem;
         }
-        .right{
+        .right {
             width: 18em;
         }
     }
+
     .carousel-wrapper {
         padding: 0.5em;
         background-color: $color-background;
@@ -128,31 +129,37 @@
         }
 
     }
-    .c-article-list-container{
+
+    .c-article-list-container {
         margin-top: 1em;
     }
-    .article-item{
-        .index{
+
+    .article-item {
+        .index {
             display: inline-block;
             background-color: $color-background-active;
             width: 1.5em;
             height: 1.5em;
             line-height: 1.5em;
             text-align: center;
+            margin-right: 0.5em;
         }
     }
-    .c-panel-container{
+
+    .c-panel-container {
         margin-bottom: 1rem;
     }
-    .tag-content{
-        margin:0 -0.5em;
+
+    .tag-content {
+        margin: 0 -0.5em;
     }
-    .tag-item{
+
+    .tag-item {
         display: inline-block;
         padding: 0.25em;
         background-color: $color-background;
         margin: 0.5em;
-        &:hover{
+        &:hover {
             background-color: $color-background-active;
         }
     }

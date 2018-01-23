@@ -33,16 +33,16 @@
       }
     },
     async asyncData ({params, error, store}) {
-      const id = params.id
+      const id = Number(params.id)
       const result = {
         user: {}
       }
       try {
-        const {data} = await store.$api.user.getById(id)
-        result.user = data
+        const res = await store.$api.user.getById(id)
+        result.user = res.data
         return result
       } catch (err) {
-        error({statusCode: 500, message: err.message})
+        error({statusCode: err.statusCode, message: err.message})
       }
     },
     computed: {

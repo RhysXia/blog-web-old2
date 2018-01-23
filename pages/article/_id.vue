@@ -72,7 +72,7 @@
         }
         return result
       } catch (err) {
-        error(err)
+        error({statusCode: err.statusCode, message: err.message})
       }
     },
     head () {

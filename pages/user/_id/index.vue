@@ -45,10 +45,9 @@
           res = await store.$api.draft.getSelf({page: 0, size: 100})
           result.drafts = res.data.content
         }
-
         return result
       } catch (err) {
-        error(err)
+        error({statusCode: err.statusCode, message: err.message})
       }
     },
     data () {

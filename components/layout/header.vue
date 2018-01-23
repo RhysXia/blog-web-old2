@@ -7,7 +7,7 @@
                 nuxt-link.menu(to="/") 首页
                 nuxt-link.menu(to="/about") 关于
             .c-right
-                c-input(placeholder="搜索")
+                //c-input(placeholder="搜索")
                 template(v-if="!isLogin")
                     nuxt-link(to="/auth/login") 登录
                     nuxt-link(to="/auth/register") 注册

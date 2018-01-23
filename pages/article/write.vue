@@ -58,6 +58,16 @@
         title: '写作'
       }
     },
+    asyncData ({store, error}) {
+      if (!store.getters.isLogin) {
+        error({statusCode: 500, message: '请登陆后重试'})
+        return
+      }
+
+      if (!store.getters.permissions.includes('POST:/articles')) {
+        error({statusCode: 500, message: '你没有写文章的权限'})
+      }
+    },
     data () {
       return {
         article: {
@@ -342,16 +352,6 @@
         }
         this.article.tagIds = []
         this.article.categoryId = -1
-      }
-    },
-    asyncData ({store, error}) {
-      if (!store.getters.isLogin) {
-        error({statusCode: 500, message: '请登陆后重试'})
-        return
-      }
-
-      if (!store.getters.permissions.includes('POST:/articles')) {
-        error({statusCode: 500, message: '你没有写文章的权限'})
       }
     },
     components: {
