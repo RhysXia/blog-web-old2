@@ -33,8 +33,7 @@
                         b.name {{reply.author.nickname}}
                     span.info.light {{reply.author.info}}
                 .middle
-                    show-more(:hiddenHeight="100")
-                        .content(v-html="reply.content")
+                    .content(v-html="reply.content")
 
 
 </template>
