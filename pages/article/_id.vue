@@ -23,12 +23,17 @@
                     .left
                         c-avatar(:imgUrl="user.avatar")
                     .right
+                        .reply(v-if="replyCommentIndex>=0")
+                            span.reply-title 回复
+                                b {{comments[replyCommentIndex].author.nickname}}
+                            button.close(@click="replyCommentIndex=-1")
+                                i.fa.fa-close
                         c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
                             button.submit(slot="button",@click="commentSubmit") 提交
                 template(v-if="!count")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
-                    c-comment-list(:comments="comments",@item-delete="itemDelete",:total="count",:pageSize="size",@pageChange="pageChange")
+                    c-comment-list(@reply="replyHandler",:comments="comments",@item-delete="itemDelete",:total="count",:pageSize="size",@pageChange="pageChange")
 </template>
 <script>
   import CCommentList from '~/components/comment/list'
@@ -86,7 +91,8 @@
     },
     data () {
       return {
-        commentContent: ''
+        commentContent: '',
+        replyCommentIndex: -1
       }
     },
     computed: {
@@ -117,6 +123,9 @@
       }
     },
     methods: {
+      replyHandler (index) {
+        this.replyCommentIndex = index
+      },
       async deleteArticle () {
         try {
           await this.$api.article.deleteById(this.article.id)
@@ -218,11 +227,21 @@
             })
             return
           }
-          await this.$api.comment.add({
-            content,
-            contentType: 'MARKDOWN',
-            articleId
-          })
+          if (this.replyCommentIndex >= 0) {
+            const commentId = this.comments[this.replyCommentIndex].id
+            await this.$api.reply.add({
+              content,
+              contentType: 'MARKDOWN',
+              commentId
+            })
+            this.replyCommentIndex = -1
+          } else {
+            await this.$api.comment.add({
+              content,
+              contentType: 'MARKDOWN',
+              articleId
+            })
+          }
 
           const res = await this.$api.comment.getAllByArticleId({
             articleId: this.article.id,
@@ -278,7 +297,7 @@
 
     .article-id-container {
         > * {
-            margin-bottom: 1rem;
+            margin-bottom: 1em;
             &:last-child {
                 margin-bottom: 0;
             }
@@ -335,19 +354,36 @@
                 justify-content: space-between;
                 background-color: $color-background;
                 border-radius: 5px;
-                padding: 0.5rem;
+                padding: 0.5em;
                 .title {
-                    font-size: 1.2rem;
+                    font-size: 1.2em;
                     margin: 0;
                 }
             }
             .body {
-                margin-top: 1rem;
-                font-size: 1rem;
+                margin-top: 1em;
+                font-size: 1em;
                 > * {
-                    margin-bottom: 0.9rem;
+                    margin-bottom: 0.9em;
                     &:last-child {
                         margin-bottom: 0;
+                    }
+                }
+                .reply {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: $color-success;
+                    color: $color-text-white;
+                    padding: 0.5em;
+                    margin-bottom: 1em;
+                    border-radius: 3px;
+                    .reply-title{
+                        display: block;
+
+                    }
+                    .close{
+                        color: $color-warn;
                     }
                 }
                 .write {
@@ -355,13 +391,13 @@
                     flex-direction: row;
                     align-items: flex-start;
                     background-color: $color-background;
-                    padding: 0.7rem;
+                    padding: 0.7em;
                     .left {
-                        margin-right: 0.5rem;
+                        margin-right: 0.5em;
                     }
                     .right {
                         width: 100%;
-                        font-size: 0.8rem;
+                        font-size: 0.8em;
                         .submit {
                             height: 100%;
                             padding: 0.5em 1em;

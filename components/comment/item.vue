@@ -1,34 +1,46 @@
 <template lang="pug">
     .c-comment-item-container
-        nuxt-link(:to="'/user/'+comment.author.id")
-            avatar.left(:width="60",:height="60",:imgUrl="comment.author.avatar")
-        .right
-            .top
-                nuxt-link(:to="'/user/'+comment.author.id")
-                    b.name {{comment.author.nickname}}
-                span.info.light {{comment.author.info}}
-                b.floor.light \#{{comment.floorNum}}
-            .middle
-                show-more(:hiddenHeight="100")
+        .c-comment-wrapper
+            nuxt-link(:to="'/user/'+comment.author.id")
+                avatar.left(:width="60",:height="60",:imgUrl="comment.author.avatar")
+            .right
+                .top
+                    nuxt-link(:to="'/user/'+comment.author.id")
+                        b.name {{comment.author.nickname}}
+                    span.info.light {{comment.author.info}}
+                    b.floor.light \#{{comment.floorNum}}
+                .middle
                     .content(v-html="content")
-            .bottom.light
-                span
-                    i.fa.fa-clock-o
-                    | {{comment.createAt | formatDate}}
-                button
-                    i.fa.fa-reply
-                    | 回复
-                button
-                    i.fa.fa-hand-pointer-o
-                    | 顶
-                button.delete(@click="$emit('item-delete')",v-if="showDelete")
-                    i.fa.fa-remove
-                    | 删除
+                .bottom.light
+                    span
+                        i.fa.fa-clock-o
+                        | {{comment.createAt | formatDate}}
+                    button(@click="$emit('reply')",v-if="isLogin")
+                        i.fa.fa-reply
+                        | 回复
+                    //button
+                        i.fa.fa-hand-pointer-o
+                        | 顶
+                    button.delete(@click="$emit('item-delete')",v-if="showDelete")
+                        i.fa.fa-remove
+                        | 删除
+        .reply(v-for="reply in comment.replies",:key="reply.id")
+            nuxt-link(:to="'/user/'+reply.author.id")
+                avatar.left(:width="50",:height="50",:imgUrl="reply.author.avatar")
+            .right
+                .top
+                    nuxt-link(:to="'/user/'+reply.author.id")
+                        b.name {{reply.author.nickname}}
+                    span.info.light {{reply.author.info}}
+                .middle
+                    show-more(:hiddenHeight="100")
+                        .content(v-html="reply.content")
+
+
 </template>
 <script>
   import Avatar from '../common/avatar'
   import markdown from '~/utils/markdown'
-  import ShowMore from '../common/show-more'
 
   export default {
     name: 'c-comment-item',
@@ -36,6 +48,14 @@
       comment: {
         type: Object,
         default: () => {
+        }
+      }
+    },
+    data () {
+      return {
+        reply: {
+          content: '',
+          contentType: 'MARKDOWN'
         }
       }
     },
@@ -61,8 +81,7 @@
       }
     },
     components: {
-      Avatar,
-      ShowMore
+      Avatar
     }
   }
 </script>
@@ -70,12 +89,14 @@
     @import "~assets/scss/variables";
 
     .c-comment-item-container {
-        background-color: $color-background;
-        padding: 0.7em;
-        border-radius: 5px;
         position: relative;
-        display: flex;
-        flex-direction: row;
+        .c-comment-wrapper ,.reply{
+            padding: 0.7em;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            background-color: $color-background;
+        }
         .left {
             margin-right: 0.5em;
         }
@@ -132,6 +153,11 @@
             .light {
                 color: $color-text-light;
             }
+        }
+        .reply {
+            font-size: 0.8em;
+            margin-left: 3em;
+            margin-top: 0.5em;
         }
     }
 </style>

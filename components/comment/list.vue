@@ -1,7 +1,7 @@
 <template lang="pug">
     .c-comment-list-container
         transition-group(name="list",tag="div")
-            item.item(v-for="(comment,index) in comments",:key="comment.id",:comment="comment",@item-delete="$emit('item-delete',index)")
+            item.item(v-for="(comment,index) in comments",:key="comment.id",:comment="comment",@item-delete="$emit('item-delete',index)",@reply="$emit('reply',index)")
         pagination(:total="total",:pageSize="pageSize",@pageChange="pageChange")
 </template>
 <script>
