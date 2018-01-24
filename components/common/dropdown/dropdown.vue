@@ -21,8 +21,9 @@
         default: 'bottom'
       },
       trigger: {
+        // none表示不触发
         validator (val) {
-          return ['click', 'hover'].includes(val)
+          return ['click', 'hover', 'none'].includes(val)
         },
         default: 'hover'
       },
@@ -57,6 +58,9 @@
         this.visible = false
       },
       refClick () {
+        if (this.trigger === 'none') {
+          return
+        }
         this.visible = true
       },
       mouseenter () {

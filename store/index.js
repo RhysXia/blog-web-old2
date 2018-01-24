@@ -4,7 +4,7 @@ export const state = () => ({
   serverURL: 'https://api.ryths.cn',
   token: '',
   tokenName: 'rhys-blog-token',
-  user: null,
+  loginUser: null,
   blog: {}
 })
 
@@ -15,16 +15,16 @@ export const mutations = {
   setToken (state, token) {
     state.token = token
   },
-  setUser (state, user) {
-    state.user = user
+  setLoginUser (state, user) {
+    state.loginUser = user
   }
 }
 export const getters = {
   isLogin (state) {
-    return state.user !== null
+    return state.loginUser !== null
   },
   permissions (state) {
-    const user = state.user
+    const user = state.loginUser
     if (!user) {
       return []
     }
@@ -57,7 +57,7 @@ export const actions = {
     // 登陆成功，保存token到store
     const token = res.data.id
     commit('setToken', token)
-    commit('setUser', res.data.user)
+    commit('setLoginUser', res.data.user)
     const config = {
       path: '/'
     }
@@ -71,7 +71,7 @@ export const actions = {
       await this.$api.auth.logout()
     } catch (err) {}
     commit('setToken', '')
-    commit('setUser', null)
+    commit('setLoginUser', null)
     removeCookie(state.tokenName)
   }
 }

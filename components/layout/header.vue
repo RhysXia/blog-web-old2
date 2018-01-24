@@ -13,14 +13,14 @@
                     nuxt-link(to="/auth/register") 注册
                 template(v-else)
                     c-dropdown
-                        c-avatar(height="45px",width="45px",:imgUrl="user.avatar")
+                        c-avatar(height="45px",width="45px",:imgUrl="loginUser.avatar")
                         c-dropdown-menu(slot="list")
                             c-dropdown-item
-                                nuxt-link.c-dropdown-item(:to="'/user/'+user.id") 个人中心
+                                nuxt-link.c-dropdown-item(:to="'/user/'+loginUser.id") 个人中心
                             c-dropdown-item(v-if="isWrite")
                                 nuxt-link.c-dropdown-item(to="/article/write") 写文章
                             c-dropdown-item
-                                nuxt-link.c-dropdown-item(to="/user/setting") 设置
+                                nuxt-link.c-dropdown-item(to="/loginUser/setting") 设置
                             c-dropdown-item
                                 button.c-dropdown-item.link(@click="logout")  注销
 </template>
@@ -42,8 +42,8 @@
       isLogin () {
         return this.$store.getters.isLogin
       },
-      user () {
-        return this.$store.state.user
+      loginUser () {
+        return this.$store.state.loginUser
       },
       blog () {
         return this.$store.state.blog

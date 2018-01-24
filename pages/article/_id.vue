@@ -21,7 +21,7 @@
             .body
                 .write(ref="writer",v-if="isLogin")
                     .left
-                        c-avatar(:imgUrl="user.avatar")
+                        c-avatar(:imgUrl="loginUser.avatar")
                     .right
                         .reply(v-if="replyCommentIndex>=0")
                             span.reply-title 回复
@@ -97,7 +97,7 @@
     },
     computed: {
       ...mapState({
-        user: state => state.user,
+        loginUser: state => state.loginUser,
         article: state => state.article.article,
         commentList: state => state.comment.list
       }),
@@ -105,7 +105,7 @@
         'isLogin'
       ]),
       isSelf () {
-        const loginUser = this.user
+        const loginUser = this.loginUser
         const author = this.article.author
         if (loginUser && loginUser.id) {
           if (author.id === loginUser.id) {

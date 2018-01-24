@@ -14,7 +14,7 @@ export default async ({req, store}, inject) => {
     // 请求用户数据
     const {data} = await store.$api.user.getSelf()
     // 设置user
-    store.commit('setUser', data)
+    store.commit('setLoginUser', data)
   } catch (err) {
     console.error(err)
     // token过期，使cookies失效

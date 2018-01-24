@@ -32,7 +32,6 @@
 
 <script>
   import markdown from '~/utils/markdown'
-  import CShowMore from '~/components/common/show-more'
   import copyright from '~/utils/directive/copyright'
 
   export default {
@@ -54,11 +53,6 @@
           return content
         }
       }
-    },
-    methods: {
-    },
-    components: {
-      CShowMore
     }
   }
 </script>

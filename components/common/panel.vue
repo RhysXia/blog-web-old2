@@ -2,7 +2,8 @@
     .c-panel-container
         slot(name="header")
             h4.title {{title}}
-        slot
+        .c-content
+            slot
 </template>
 
 <script>
@@ -27,6 +28,9 @@
             padding-bottom: 0.5em;
             border-bottom: 1px solid $color-border-base;
             margin: 0;
+        }
+        .c-content{
+            margin-top: 0.5em;
         }
     }
 </style>

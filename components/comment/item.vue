@@ -1,11 +1,11 @@
 <template lang="pug">
     .c-comment-item-container
         .c-comment-wrapper
-            nuxt-link(:to="'/user/'+comment.author.id")
+            nuxt-link(:to="'/loginUser/'+comment.author.id")
                 avatar.left(:width="60",:height="60",:imgUrl="comment.author.avatar")
             .right
                 .top
-                    nuxt-link(:to="'/user/'+comment.author.id")
+                    nuxt-link(:to="'/loginUser/'+comment.author.id")
                         b.name {{comment.author.nickname}}
                     span.info.light {{comment.author.info}}
                     b.floor.light \#{{comment.floorNum}}
@@ -25,11 +25,11 @@
                         i.fa.fa-remove
                         | 删除
         .reply(v-for="reply in comment.replies",:key="reply.id")
-            nuxt-link(:to="'/user/'+reply.author.id")
+            nuxt-link(:to="'/loginUser/'+reply.author.id")
                 avatar.left(:width="50",:height="50",:imgUrl="reply.author.avatar")
             .right
                 .top
-                    nuxt-link(:to="'/user/'+reply.author.id")
+                    nuxt-link(:to="'/loginUser/'+reply.author.id")
                         b.name {{reply.author.nickname}}
                     span.info.light {{reply.author.info}}
                 .middle
@@ -62,8 +62,8 @@
       isLogin () {
         return this.$store.getters.isLogin
       },
-      user () {
-        return this.$store.state.user
+      loginUser () {
+        return this.$store.state.loginUser
       },
       content () {
         const content = this.comment.content
@@ -76,7 +76,7 @@
       // 评论是自己的或者自己是文章作者，都可以删除评论
       showDelete () {
         return this.isLogin &&
-          (this.user.id === this.comment.author.id || this.user.id === this.comment.article.author.id)
+          (this.loginUser.id === this.comment.author.id || this.loginUser.id === this.comment.article.author.id)
       }
     },
     components: {

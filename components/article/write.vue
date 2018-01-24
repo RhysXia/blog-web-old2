@@ -1,83 +1,60 @@
 <template lang="pug">
     // 写作界面没有必要在服务器端渲染
-    .article-write-container
+    .c-article-write-container
         .c-article
-            c-upload.image-wrapper(:action="image.action",:headers="image.headers",:name="image.name",:onSuccess="image.onSuccess")
-                img.image(v-if="article.poster",:src="article.poster")
+            c-upload.image-wrapper(:action="article.action",:headers="article.headers",:name="article.name",:onSuccess="article.onSuccess")
+                img.image(v-if="value.poster",:src="value.poster")
                 .image.anon(v-else)
                     i.fa.fa-camera
             .title-wrapper
-                c-input.title(v-model.trim="article.title",type="text",placeholder="请输入标题")
+                c-input.title(v-model.trim="value.title",type="text",placeholder="请输入标题")
             .info-wrapper
-                c-textarea(v-model="article.info",placeholder="请输入概要")
+                c-textarea(v-model="value.info",placeholder="请输入概要")
             .editor-wrapper
-                c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
+                c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="value.content",:imageUpload="imageUpload")
         .c-action
-            c-panel(title="选择分类")
-                c-select
-                    c-option(v-for="category in categoryList.content",:key="category.id")
-                        .name {{category.name}}
-                        .desc {{category.description}}
 </template>
 <script>
+  import { clone } from '~/utils/utils'
   import CEditor from '~/components/common/editor'
   import CInput from '~/components/common/input'
   import CTextarea from '~/components/common/textarea'
   import CUpload from '~/components/common/upload'
   import { mapState } from 'vuex'
-  import CPanel from '~/components/common/panel'
-  import { COption, CSelect } from '~/components/common/select'
+  import CPanel from '../common/panel'
 
   export default {
-    async asyncData ({store, error}) {
-      if (!store.getters.permissions.includes('POST:/articles')) {
-        error({statusCode: 500, message: '你没有权限访问'})
-      }
-      try {
-        let res = await store.$api.category.getAllByUserId({
-          userId: store.state.loginUser.id,
-          page: 0,
-          size: 100
-        })
-        store.commit('category/setList', res.data)
-
-        res = await store.$api.tag.getAll({
-          page: 0,
-          size: 10
-        })
-        store.commit('tag/setList', res.data)
-      } catch (err) {
-        error({statusCode: err.statusCode, message: err.message})
+    name: 'c-article-write',
+    props: {
+      value: {
+        type: Object,
+        required: true
+      },
+      categories: {
+        type: Array,
+        required: true
+      },
+      tags: {
+        type: Array,
+        required: true
       }
     },
     data () {
-      return {
-        article: {
-          title: '',
-          poster: '',
-          info: '',
-          content: '',
-          contentType: 'MARKDOWN',
-          categoryId: -1,
-          tagIds: []
-        }
-      }
+      return {}
     },
     computed: {
       ...mapState(['token', 'serverURL']),
-      ...mapState({
-        categoryList: state => state.category.list,
-        tagList: state => state.tag.list
-      }),
-      image () {
-        return {
+      article () {
+        const _article = {
           name: 'image',
           action: this.serverURL + '/articles/images',
           headers: {
             Authorization: this.token
           },
-          onSuccess: data => {
-            this.article.poster = data
+          onSuccess: async data => {
+            const copy = clone(this.value)
+            copy.poster = data
+            this.$emit('input', copy)
             this.$message({
               content: '修改成功',
               duration: 2000,
@@ -85,6 +62,7 @@
             })
           }
         }
+        return _article
       }
     },
     methods: {
@@ -103,9 +81,7 @@
       CPanel,
       CInput,
       CTextarea,
-      CUpload,
-      COption,
-      CSelect
+      CUpload
     }
   }
 </script>
@@ -115,7 +91,7 @@
 
     $height-poster: 15em;
 
-    .article-write-container {
+    .c-article-write-container {
         display: flex;
         flex-direction: row;
         align-items: flex-start;

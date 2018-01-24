@@ -22,6 +22,7 @@
 <script>
   import CAvatar from '~/components/common/avatar'
   import { CBreadcrumb, CBreadcrumbItem } from '~/components/common/breadcrumb'
+  import { mapState } from 'vuex'
 
   export default {
     validate ({params}) {
@@ -34,18 +35,17 @@
     },
     async asyncData ({params, error, store}) {
       const id = Number(params.id)
-      const result = {
-        user: {}
-      }
       try {
         const res = await store.$api.user.getById(id)
-        result.user = res.data
-        return result
+        this.$store.commit('user/setUser', res.data)
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
     },
     computed: {
+      ...mapState({
+        user: state => state.user.user
+      }),
       childName () {
         const fullName = this.$route.fullPath
         if (fullName.endsWith('category')) {

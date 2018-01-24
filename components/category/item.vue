@@ -32,11 +32,11 @@
       isLogin () {
         return this.$store.getters.isLogin
       },
-      user () {
-        return this.$store.state.user
+      loginUser () {
+        return this.$store.state.loginUser
       },
       isSelf () {
-        return this.isLogin && this.category.author.id === this.user.id
+        return this.isLogin && this.category.author.id === this.loginUser.id
       }
     },
     components: {

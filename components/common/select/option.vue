@@ -11,9 +11,12 @@
   export default {
     name: 'c-option',
     props: {
-      value: null,
+      value: {
+        required: true
+      },
       label: {
-        type: String
+        type: String,
+        required: true
       }
     },
     data () {

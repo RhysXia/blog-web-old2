@@ -46,7 +46,7 @@
     },
     computed: {
       isSelf () {
-        const loginUser = this.$store.state.user
+        const loginUser = this.$store.state.loginUser
         if (loginUser && loginUser.id) {
           if (loginUser.id === this.article.author.id) {
             return true

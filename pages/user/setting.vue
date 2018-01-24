@@ -14,7 +14,7 @@
                     .avatar-wrapper
                         .avatar
                             c-avatar(:imgUrl="copyUser.avatar",type="square",width="100%",height="100%")
-                    c-upload(:action="avatar.url",:headers="avatar.headers",:name="avatar.name",:onSuccess="onFileSuccess")
+                    c-upload(:action="avatar.url",:headers="avatar.headers",:name="avatar.name",:onSuccess="avatar.onSuccess")
                         button.upload-avatar 修改头像
         c-tab(name="密码管理")
             .body
@@ -53,7 +53,16 @@
         headers.Authorization = this.token
         const url = this.serverURL + '/users/avatar'
         const name = 'avatar'
-        return {headers, url, name}
+        const onSuccess = async data => {
+          const res = await this.$api.user.getSelf()
+          this.$store.commit('setUser', res.data)
+          this.$message({
+            content: '修改成功',
+            duration: 2000,
+            type: 'success'
+          })
+        }
+        return {headers, url, name, onSuccess}
       }
     },
     data () {
@@ -137,15 +146,6 @@
             type: 'error'
           })
         }
-      },
-      async onFileSuccess (data) {
-        const res = await this.$api.user.getSelf()
-        this.$store.commit('setUser', res.data)
-        this.$message({
-          content: '修改成功',
-          duration: 2000,
-          type: 'success'
-        })
       },
       reset () {
         this.copyUser.avatar = this.user.avatar

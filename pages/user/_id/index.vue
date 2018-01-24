@@ -1,30 +1,27 @@
 <template lang="pug">
     .self-info-container
-        template(v-if="drafts.length>0")
+        template(v-if="draftList.content&&draftList.content.length>0")
             h2.title 草稿
-            c-draft-list(:drafts.sync="drafts")
-        template(v-if="categories.length>0")
+            c-draft-item(v-for="draft in draftList.content",:key="draft.id",:draft="draft")
+        template(v-if="categoryList.content&&categoryList.content.length>0")
             h2.title 常用分类
-            c-category-list(:categories.sync="categories")
-        template(v-if="articles.length>0")
+            c-category-item(v-for="category in categoryList.content",:key="category.id",:category="category")
+
+        template(v-if="articleList.content&&articleList.content.length>0")
             h2.title 最近文章
-            c-article-list.article-list(:articles.sync="articles",:showPage="false")
+            c-article-item(v-for="article in articleList.content",:key="article.id",:article="article")
 </template>
 
 <script>
-  import CArticleList from '~/components/article/list'
-  import CCategoryList from '~/components/category/list'
-  import CDraftList from '~/components/draft/list'
+  import CArticleItem from '~/components/article/item'
+  import CCategoryItem from '~/components/category/item'
+  import CDraftItem from '~/components/draft/item'
+  import { mapState } from 'vuex'
 
   export default {
     name: 'info',
     async asyncData ({params, store, error}) {
       const userId = Number(params.id)
-      const result = {
-        categories: [],
-        articles: [],
-        drafts: []
-      }
       try {
         let res = await store.$api.category.getAllByUserId({
           userId,
@@ -32,31 +29,34 @@
           size: 4,
           sort: 'weight,DESC'
         })
-        result.categories = res.data.content
+        store.commit('category/setList', res.data)
         res = await store.$api.article.getAllByUserId({
           userId,
           page: 0,
           size: 6,
           sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
         })
-        result.articles = res.data.content
+        store.commit('article/setList', res.data)
 
         if (store.getters.permissions.includes('GET:/drafts/self')) {
           res = await store.$api.draft.getSelf({page: 0, size: 100})
-          result.drafts = res.data.content
+          store.commit('draft/setList', res.data)
         }
-        return result
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
     },
-    data () {
-      return {}
+    computed: {
+      ...mapState({
+        articleList: state => state.article.list,
+        draftList: state => state.draft.list,
+        categoryList: state => state.category.list
+      })
     },
     components: {
-      CArticleList,
-      CCategoryList,
-      CDraftList
+      CArticleItem,
+      CCategoryItem,
+      CDraftItem
     }
   }
 </script>
