@@ -3,25 +3,29 @@
         .left
             .carousel-wrapper
                 c-carousel(width="100%",height="200px")
-                    c-carousel-item(v-for="(article,index) in  hotArticles.slice(0)",:key="index")
+                    c-carousel-item(v-for="(article,index) in  hotArticles.content.slice(0)",:key="index")
                         nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
                             img.article-image(:src="article.poster")
                             span.title {{article.title}}
-            c-article-list(:articles.sync="articles",:total="count",:pageSize="size",@pageChange="pageChange")
+            .article-list
+                c-article-item.article-wrapper(@delete="deleteArticle(article.id)",:article="article",v-for="article in articleList.content",:key="article.id")
+                c-pagination(@change="pageChange",:totalPages="articleList.totalPages",:page="articleList.number+1")
         .right
             c-panel(title="热门文章")
                 .content
-                    p.article-item(v-for="(article,index) in hotArticles",:key="index")
+                    p.article-item(v-for="(article,index) in hotArticles.content",:key="index")
                         span.index {{index+1}}
                         nuxt-link(:to="'/article/'+article.id") {{article.title}}
             c-panel(title="热门标签")
                 .content.tag-content
-                    nuxt-link.tag-item(:to="'/tag/'+tag.id",v-for="(tag,index) in hotTags",:key="index") {{tag.name}}
+                    nuxt-link.tag-item(:to="'/tag/'+tag.id",v-for="(tag,index) in hotTags.content",:key="index") {{tag.name}}
 </template>
 <script>
   import { CCarousel, CCarouselItem } from '~/components/common/carousel'
-  import CArticleList from '~/components/article/list'
+  import CArticleItem from '~/components/article/item'
   import CPanel from '~/components/common/panel'
+  import { mapState } from 'vuex'
+  import CPagination from '~/components/common/pagination'
 
   export default {
     head () {
@@ -29,39 +33,30 @@
         title: '首页'
       }
     },
-    async asyncData ({store, error}) {
+    async asyncData ({store, error, query}) {
+      const size = 6
+      const page = (query.page || 1) - 1
       try {
-        const result = {
-          articles: [],
-          count: 0,
-          size: 6,
-          page: 0,
-          hotArticles: [],
-          hotTags: []
-        }
-
         let res = await store.$api.article.getAll({
           page: 0,
           size: 6,
           sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
         })
-        result.hotArticles = res.data.content
+        store.commit('article/setHotArticles', res.data)
 
         res = await store.$api.tag.getAll({
           page: 0,
           size: 10,
           sort: ['articleNum,DESC']
         })
-        result.hotTags = res.data.content
+        store.commit('tag/setHotTags', res.data)
 
         res = await store.$api.article.getAll({
-          page: result.page,
-          size: result.size,
+          page: page,
+          size: size,
           sort: ['updateAt,DESC']
         })
-        result.count = res.data.totalElements
-        result.articles = res.data.content
-        return result
+        store.commit('article/setList', res.data)
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
@@ -71,23 +66,60 @@
         refresh: true
       }
     },
+    computed: {
+      ...mapState({
+        hotArticles: state => state.article.hotArticles,
+        hotTags: state => state.tag.hotTags,
+        articleList: state => state.article.list
+      })
+    },
     methods: {
+      async deleteArticle (id) {
+        try {
+          await this.$api.article.deleteById(id)
+          await this.pageChange(this.articleList.number + 1)
+          this.$message({
+            content: '删除成功',
+            duration: 2000,
+            type: 'success'
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
       async pageChange (val) {
-        this.page = val - 1
-        const res = await this.$api.article.getAll({
-          page: this.page,
-          size: this.size,
-          sort: 'updateAt,DESC'
-        })
-        this.count = res.data.totalElements
-        this.articles = res.data.content
+        try {
+          const page = val - 1
+          const size = this.articleList.size
+          const res = await this.$api.article.getAll({
+            page, size, sort: 'updateAt,DESC'
+          })
+          this.$store.commit('article/setList', res.data)
+          this.$router.push({
+            path: '/',
+            query: {
+              page: val
+            }
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
       }
     },
     components: {
       CCarousel,
       CCarouselItem,
-      CArticleList,
-      CPanel
+      CArticleItem,
+      CPanel,
+      CPagination
     }
   }
 </script>
@@ -104,63 +136,55 @@
         .right {
             width: 18em;
         }
-    }
-
-    .carousel-wrapper {
-        padding: 0.5em;
-        background-color: $color-background;
-        .article-image-wrapper {
-            display: block;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            .article-image {
+        .carousel-wrapper {
+            padding: 0.5em;
+            background-color: $color-background;
+            .article-image-wrapper {
+                display: block;
+                position: relative;
                 width: 100%;
                 height: 100%;
+                .article-image {
+                    width: 100%;
+                    height: 100%;
+                }
+                .title {
+                    position: absolute;
+                    top: 1em;
+                    right: 1em;
+                    padding: 0.25em 0.5em;
+                    background-color: $color-background;
+                    opacity: 0.5;
+                }
             }
-            .title {
-                position: absolute;
-                top: 1em;
-                right: 1em;
-                padding: 0.25em 0.5em;
-                background-color: $color-background;
-                opacity: 0.5;
-            }
+
         }
 
-    }
+        .article-list {
+            position: relative;
+        }
+        .article-wrapper {
+            margin: 1em 0;
+        }
 
-    .c-article-list-container {
-        margin-top: 1em;
-    }
+        .c-panel-container {
+            margin-bottom: 1rem;
+        }
 
-    .article-item {
-        .index {
+        .tag-content {
+            margin: 0 -0.5em;
+        }
+
+        .tag-item {
             display: inline-block;
-            background-color: $color-background-active;
-            width: 1.5em;
-            height: 1.5em;
-            line-height: 1.5em;
-            text-align: center;
-            margin-right: 0.5em;
+            padding: 0.25em 0.5em;
+            background-color: $color-background-dark;
+            margin: 0.5em;
+            &:hover {
+                background-color: $color-background-dark-active;
+            }
         }
     }
 
-    .c-panel-container {
-        margin-bottom: 1rem;
-    }
 
-    .tag-content {
-        margin: 0 -0.5em;
-    }
-
-    .tag-item {
-        display: inline-block;
-        padding: 0.25em;
-        background-color: $color-background;
-        margin: 0.5em;
-        &:hover {
-            background-color: $color-background-active;
-        }
-    }
 </style>

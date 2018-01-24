@@ -45,14 +45,15 @@ module.exports = {
     '~/plugins/http',
     '~/plugins/token',
     '~/plugins/filters',
-    '~/plugins/components'
-    // {src: '~/plugins/offline', ssr: false}
+    '~/plugins/components',
+    {src: '~/plugins/velocity', ssr: false}
   ],
   build: {
     vendor: [
       '~/plugins/http',
       '~/plugins/token',
-      '~/plugins/filters'
+      '~/plugins/filters',
+      'velocity-animate'
     ],
     extractCSS: true,
     extend (config, {isDev}) {
@@ -64,13 +65,14 @@ module.exports = {
   },
   router: {
     // scrollBehavior (to, from, savedPosition) {
+    //   console.log(from, to,savedPosition)
+    //   if (savedPosition) {
+    //     return savedPosition
+    //   }
     //   return {x: 0, y: 0}
     // },
     middleware: [
       'change-col-page'
     ]
-  },
-  modules: [
-    '~/module/transition'
-  ]
+  }
 }

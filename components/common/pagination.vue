@@ -1,49 +1,63 @@
 <template lang="pug">
-    ul.c-pagination-container(v-if="totalPages>1")
-        li.c-page(@click="click(1)",:class="{'c-disabled':activeIndex<=1}")
+    ul.c-pagination-container
+        li.c-page(@click="click(1)",:class="{'c-disabled':currentPage<=1}")
             i.fa.fa-angle-double-left
-        li.c-page(@click="click(activeIndex-1)",:class="{'c-disabled':activeIndex<=1}")
+        li.c-page(@click="click(currentPage-1)",:class="{'c-disabled':currentPage<=1}")
             i.fa.fa-angle-left
-        li.c-page(v-for="index in totalPages",:key="index",:class="{'c-active':activeIndex===index}",@click="activeIndex=index") {{index}}
-        li.c-page(@click="click(activeIndex+1)",:class="{'c-disabled':activeIndex>=totalPages}")
+        li.c-page(v-for="index in cTotalPages",:key="index",:class="{'c-active':currentPage===index}",@click="currentPage=index") {{index}}
+        li.c-page(@click="click(currentPage+1)",:class="{'c-disabled':currentPage>=cTotalPages}")
             i.fa.fa-angle-right
-        li.c-page(@click="click(totalPages)",:class="{'c-disabled':activeIndex>=totalPages}")
+        li.c-page(@click="click(cTotalPages)",:class="{'c-disabled':currentPage>=cTotalPages}")
             i.fa.fa-angle-double-right
 </template>
 
 <script>
   export default {
     name: 'c-pagination',
+    model: {
+      prop: 'page',
+      event: 'change'
+    },
     props: {
       total: {
         type: Number
       },
-      pageSize: {
+      size: {
         type: Number,
-        default: 5
+        default: 10
+      },
+      page: {
+        type: Number,
+        required: true
+      },
+      totalPages: {
+        type: Number
       }
     },
     data () {
       return {
-        activeIndex: 1
-      }
-    },
-    watch: {
-      activeIndex (val) {
-        this.$emit('pageChange', val)
+        currentPage: this.page
       }
     },
     computed: {
-      totalPages () {
-        return Math.floor((this.total + this.pageSize - 1) / this.pageSize)
+      cTotalPages () {
+        if (this.totalPages) {
+          return this.totalPages
+        }
+        return Math.floor((this.total + this.size - 1) / this.size)
+      }
+    },
+    watch: {
+      currentPage (val) {
+        this.$emit('change', val)
+      },
+      page (val) {
+        this.currentPage = val
       }
     },
     methods: {
       click (val) {
-        if (this.total <= 0) {
-          return
-        }
-        this.activeIndex = val
+        this.currentPage = val
       }
     }
   }

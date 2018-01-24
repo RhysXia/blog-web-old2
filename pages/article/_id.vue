@@ -2,7 +2,7 @@
     .article-id-container
         c-article-detail(:article="article")
             .footer(slot="footer",slot-scope="props")
-                span.like(@click="voteClick",:class="{'is-login-like':isLogin,'is-voted':isVoted&&isLogin}")
+                span.like(@click="voteClick",:class="{'is-login-like':isLogin,'is-voted':article.isVoted}")
                     b {{props.article.voteNum}}
                     | 人点赞
                 span.read
@@ -14,68 +14,68 @@
         .comment-wrapper
             .header
                 h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
-                span.info(v-if="count")
+                span.info(v-if="article.commentNum")
                     | 共
-                    b {{count}}
+                    b {{article.commentNum}}
                     | 条评论
             .body
-                .write(v-if="isLogin")
+                .write(ref="writer",v-if="isLogin")
                     .left
                         c-avatar(:imgUrl="user.avatar")
                     .right
                         .reply(v-if="replyCommentIndex>=0")
                             span.reply-title 回复
-                                b {{comments[replyCommentIndex].author.nickname}}
+                                b {{commentList.content[replyCommentIndex].author.nickname}}
                             button.close(@click="replyCommentIndex=-1")
                                 i.fa.fa-close
                         c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
                             button.submit(slot="button",@click="commentSubmit") 提交
-                template(v-if="!count")
+                template(v-if="!article.commentNum")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
-                    c-comment-list(@reply="replyHandler",:comments="comments",@item-delete="itemDelete",:total="count",:pageSize="size",@pageChange="pageChange")
+                    c-comment-item(@delete="commentDelete(comment.id)",@reply="replyHandler(index)",:comment="comment",:key="comment.id",v-for="(comment,index) in commentList.content")
+                    c-pagination(@change="pageChange",:totalPages="commentList.totalPages",:page="commentList.number+1")
+
 </template>
 <script>
-  import CCommentList from '~/components/comment/list'
+  import CCommentItem from '~/components/comment/item'
   import CAvatar from '~/components/common/avatar'
   import CEditor from '~/components/common/editor'
   import CArticleDetail from '~/components/article/detail'
+  import CPagination from '~/components/common/pagination'
+  import { clone } from '~/utils/utils'
+  import { mapGetters, mapState } from 'vuex'
 
   export default {
     validate ({params}) {
       const id = Number(params.id)
       return /^\d+$/.test(id)
     },
-    async asyncData ({params, store, error}) {
+    async asyncData ({params, store, error, query}) {
+      const page = (query.page || 1) - 1
+      const size = 10
+      const id = Number(params.id)
       try {
-        const id = Number(params.id)
-        const result = {
-          article: {},
-          comments: [],
-          page: 0,
-          size: 5,
-          count: 0,
-          isVoted: false
-        }
         const {data} = await store.$api.article.getById(id)
-        result.article = data
-        let res = await store.$api.comment.getAllByArticleId({
-          articleId: id,
-          page: result.page,
-          size: result.size,
-          sort: 'floorNum,DESC'
-        })
-        result.comments = res.data.content
-        result.count = res.data.totalElements
 
         // 判断是否点赞了该文章
         if (store.getters.isLogin) {
-          res = await store.$api.article.getVote(id)
+          let res = await store.$api.article.getVote(id)
           if (res.data) {
-            result.isVoted = res.data
+            data.isVoted = res.data
           }
+        } else {
+          data.isVoted = false
         }
-        return result
+        store.commit('article/setArticle', data)
+
+        let res = await store.$api.comment.getAllByArticleId({
+          articleId: id,
+          page,
+          size,
+          sort: 'floorNum,DESC'
+        })
+        store.commit('comment/setList', res.data)
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
@@ -96,14 +96,16 @@
       }
     },
     computed: {
-      user () {
-        return this.$store.state.user
-      },
-      isLogin () {
-        return this.$store.getters.isLogin
-      },
+      ...mapState({
+        user: state => state.user,
+        article: state => state.article.article,
+        commentList: state => state.comment.list
+      }),
+      ...mapGetters([
+        'isLogin'
+      ]),
       isSelf () {
-        const loginUser = this.$store.state.user
+        const loginUser = this.user
         const author = this.article.author
         if (loginUser && loginUser.id) {
           if (author.id === loginUser.id) {
@@ -125,6 +127,8 @@
     methods: {
       replyHandler (index) {
         this.replyCommentIndex = index
+        // 滚动到编辑器
+        this.$velocity(this.$refs.writer, 'scroll', {duration: 400, offset: 0})
       },
       async deleteArticle () {
         try {
@@ -144,24 +148,36 @@
         }
       },
       async checkVote () {
+        let isVoted = false
         try {
           const res = await this.$api.article.getVote(this.article.id)
-          this.isVoted = res.data
+          isVoted = res.data
         } catch (err) {
-          this.isVoted = false
+          isVoted = false
         }
+        this.$store.commit('article/setArticle', isVoted)
       },
       async pageChange (val) {
+        // 页面改变时，replyCommentIndex置为-1
+        this.replyCommentIndex = -1
         try {
-          this.page = val - 1
+          const page = val - 1
+          const size = this.commentList.size
           const res = await this.$api.comment.getAllByArticleId({
             articleId: this.article.id,
-            page: this.page,
-            size: this.size,
+            page,
+            size,
             sort: 'floorNum,DESC'
           })
-          this.comments = res.data.content
-          this.count = res.data.totalElements
+          this.$store.commit('comment/setList', res.data)
+          this.$router.push({
+            path: `/article/${this.article.id}`,
+            query: {
+              page: val
+            }
+          })
+          // 滚动到评论开始的地方
+          this.$velocity(this.$refs.writer, 'scroll', {duration: 400, offset: 0})
         } catch (err) {
           this.$message({
             content: err.message,
@@ -172,17 +188,16 @@
       },
       async voteClick () {
         try {
-          const id = this.article.id
-          const isVoted = this.isVoted
-          if (isVoted) {
-            await this.$api.article.deleteVote(id)
-            this.isVoted = false
-            this.article.voteNum--
+          const article = clone(this.article)
+          if (article.isVoted) {
+            await this.$api.article.deleteVote(article.id)
+            article.voteNum--
           } else {
-            await this.$api.article.addVote(id)
-            this.isVoted = true
-            this.article.voteNum++
+            await this.$api.article.addVote(article.id)
+            article.voteNum++
           }
+          article.isVoted = !article.isVoted
+          this.$store.commit('article/article', article)
         } catch (err) {
           this.$message({
             content: err.message,
@@ -191,17 +206,10 @@
           })
         }
       },
-      async itemDelete (index) {
+      async commentDelete (id) {
         try {
-          await this.$api.comment.deleteById(this.comments[index].id)
-          const {data} = await this.$api.comment.getAllByArticleId({
-            articleId: this.article.id,
-            page: this.page,
-            size: this.size,
-            sort: 'floorNum,DESC'
-          })
-          this.comments = data.content
-          this.count = data.totalElements
+          await this.$api.comment.deleteById(id)
+          await this.pageChange(this.commentList.number + 1)
           this.$message({
             content: '删除成功',
             type: 'success',
@@ -228,30 +236,23 @@
             return
           }
           if (this.replyCommentIndex >= 0) {
-            const commentId = this.comments[this.replyCommentIndex].id
+            const commentId = this.commentList.content[this.replyCommentIndex].id
             await this.$api.reply.add({
               content,
               contentType: 'MARKDOWN',
               commentId
             })
             this.replyCommentIndex = -1
+            // 获取当前页
+            await this.pageChange(this.commentList.number + 1)
           } else {
             await this.$api.comment.add({
               content,
               contentType: 'MARKDOWN',
               articleId
             })
+            await this.pageChange(1)
           }
-
-          const res = await this.$api.comment.getAllByArticleId({
-            articleId: this.article.id,
-            page: this.page,
-            size: this.size,
-            sort: 'floorNum,DESC'
-          })
-          this.comments = res.data.content
-          this.count = res.data.totalElements
-
           this.$message({
             type: 'success',
             duration: 2000,
@@ -277,23 +278,21 @@
       }
     },
     beforeRouteEnter (to, from, next) {
-      // 获取from的路径
-      const path = from.fullPath
-      // 将跳转来的路径记录下来
-      to.meta.from = path
+      // 获取from的路径，将跳转来的路径记录下来
+      to.meta.from = from.fullPath
       next()
     },
     components: {
-      CCommentList,
+      CCommentItem,
       CAvatar,
       CEditor,
-      CArticleDetail
+      CArticleDetail,
+      CPagination
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
 
     .article-id-container {
         > * {
@@ -378,11 +377,11 @@
                     padding: 0.5em;
                     margin-bottom: 1em;
                     border-radius: 3px;
-                    .reply-title{
+                    .reply-title {
                         display: block;
 
                     }
-                    .close{
+                    .close {
                         color: $color-warn;
                     }
                 }

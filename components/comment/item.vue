@@ -21,7 +21,7 @@
                     //button
                         i.fa.fa-hand-pointer-o
                         | 顶
-                    button.delete(@click="$emit('item-delete')",v-if="showDelete")
+                    button.delete(@click="$emit('delete')",v-if="showDelete")
                         i.fa.fa-remove
                         | 删除
         .reply(v-for="reply in comment.replies",:key="reply.id")
