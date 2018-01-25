@@ -1,5 +1,5 @@
 <template lang="pug">
-    .article-detail-container
+    .c-article--detail
         slot(name="header",:article="article")
             .c-header
                 h1.title {{article.title}}
@@ -60,7 +60,7 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .article-detail-container {
+    .c-article--detail {
         background-color: $color-background;
         padding: 1em;
         border-radius: 5px;

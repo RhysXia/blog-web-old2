@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-breadcrumb-container
+    .c-breadcrumb
         slot
 </template>
 

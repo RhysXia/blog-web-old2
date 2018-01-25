@@ -30,7 +30,6 @@
     CDropdownMenu
   } from '~/components/common/dropdown'
   import CAvatar from '~/components/common/avatar'
-  import CBadge from '~/components/common/badge'
   import CInput from '~/components/common/input'
 
   export default {
@@ -64,7 +63,6 @@
       CDropdownItem,
       CDropdownMenu,
       CAvatar,
-      CBadge,
       CInput
     }
   }
@@ -104,6 +102,7 @@
     .link {
         width: 100%;
         text-align: left;
+        border: none;
     }
 
     .c-right, .c-left {

@@ -1,7 +1,7 @@
 <template lang="pug">
-    .c-textarea-container(:class="classes")
-        textarea.c-textarea(:readonly="readonly",:placeholder="placeholder",v-if="autoHeight",v-model="content",v-autoheight="height",@click="click",v-clickoutside="outClick")
-        textarea.c-textarea(:readonly="readonly",:placeholder="placeholder",:style="{height:height+'px'}",v-else,v-model="content",@click="click",v-clickoutside="outClick")
+    .c-textarea(:class="classes")
+        textarea.c-textarea__content(:readonly="readonly",:placeholder="placeholder",v-if="autoHeight",v-model="content",v-autoheight="height",@click="click",v-clickoutside="outClick")
+        textarea.c-textarea__content(:readonly="readonly",:placeholder="placeholder",:style="{height:height+'px'}",v-else,v-model="content",@click="click",v-clickoutside="outClick")
 </template>
 
 <script>
@@ -53,7 +53,7 @@
     computed: {
       classes () {
         if (this.active && !this.readonly) {
-          return ['is-active']
+          return ['c-textarea--active']
         }
         return []
       }
@@ -72,12 +72,12 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-textarea-container {
+    .c-textarea {
         border-radius: 0.3em;
         padding: 5px;
         border: 1px solid $color-border-base;
         transition: border-color 0.4s ease-in-out;
-        .c-textarea {
+        .c-textarea__content {
             box-sizing: border-box;
             width: 100%;
             outline: none;
@@ -85,8 +85,8 @@
             resize: none;
             background-color: transparent;
         }
-        &.is-active {
-            border-color: $color-primary;
-        }
+    }
+    .c-textarea--active {
+        border-color: $color-primary;
     }
 </style>

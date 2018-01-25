@@ -1,6 +1,21 @@
 <template lang="pug">
-    .c-editor-container(:style="barPosition==='top'?'border-bottom-width:1px':'border-top-width:1px'")
-        .c-actions(:style="barStyle",v-fixed="fixedTop",v-if="fixedTop!=undefined")
+    .c-editor(:style="barPosition==='top'?'border-bottom-width:1px':'border-top-width:1px'")
+        .c-editor__button-list(:style="barStyle",v-fixed="fixedTop",v-if="fixedTop!=undefined")
+            span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
+                i.fa.fa-smile-o
+                .c-editor__emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
+                    span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
+            span(@click="imageClick")
+                i.fa.fa-image
+            span(@click="inputLink")
+                i.fa.fa-link
+            span(@click="inputCode")
+                i.fa.fa-code
+            span(@click.stop="preview=!preview")
+                i.fa.fa-eye
+            .c-editor__slot
+                slot(name="button")
+        .c-editor__button-list(:style="barStyle",v-else)
             span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
                 i.fa.fa-smile-o
                 .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
@@ -13,28 +28,13 @@
                 i.fa.fa-code
             span(@click.stop="preview=!preview")
                 i.fa.fa-eye
-            .right
+            .c-editor__slot
                 slot(name="button")
-        .c-actions(:style="barStyle",v-else)
-            span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
-                i.fa.fa-smile-o
-                .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
-                    span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
-            span(@click="imageClick")
-                i.fa.fa-image
-            span(@click="inputLink")
-                i.fa.fa-link
-            span(@click="inputCode")
-                i.fa.fa-code
-            span(@click.stop="preview=!preview")
-                i.fa.fa-eye
-            .right
-                slot(name="button")
-        input.c-upload(type="file",ref="upload",@change="inputImage")
-        .c-editor-wrapper(:style="editorStyle")
-            textarea.editor(ref="textarea",v-autoheight="textHeight",v-model="content")
-            transition(name="preview-slide",mode="out-in")
-                .preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
+        input.c-editor__input(type="file",ref="upload",@change="inputImage")
+        .c-editor__content-wrapper(:style="editorStyle")
+            textarea.c-editor__content(ref="textarea",v-autoheight="textHeight",v-model="content")
+            transition(name="c-editor__content__preview--animation",mode="out-in")
+                .c-editor__content__preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
 
 </template>
 <script>
@@ -179,8 +179,8 @@
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
 
-    @include slide(preview-slide, bottom, 0.5s)
-    .c-editor-container {
+    @include slide(c-editor__content__preview--animation, bottom, 0.5s)
+    .c-editor{
         display: flex;
         flex-direction: column;
         background-color: $color-background;
@@ -188,7 +188,7 @@
         border: 1px solid $color-border-base;
         border-top-width: 0;
         border-bottom-width: 0;
-        .c-actions {
+        .c-editor__button-list {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -208,7 +208,7 @@
                 &:hover {
                     background-color: rgba(200, 200, 200, 0.5);
                 }
-                .emoji-list {
+                .c-editor__emoji-list {
                     z-index: $z-index-l;
                     position: absolute;
                     left: 0;
@@ -221,7 +221,7 @@
                     }
                 }
             }
-            .right {
+            .c-editor__slot {
                 position: relative;
                 display: block;
                 height: 100%;
@@ -229,17 +229,17 @@
                 box-sizing: border-box;
             }
         }
-        .c-upload {
+        .c-editor__input {
             display: none;
         }
-        .c-editor-wrapper {
+        .c-editor__content-wrapper {
             position: relative;
-            .editor,
-            .preview {
+            .c-editor__content,
+            .c-editor__content__preview {
                 padding: 0.5em;
                 box-sizing: border-box;
             }
-            .editor {
+            .c-editor__content {
                 border: none;
                 outline: none;
                 width: 100%;
@@ -247,7 +247,7 @@
                 resize: none;
                 display: block;
             }
-            .preview {
+            .c-editor__content__preview {
                 position: absolute;
                 top: 0;
                 width: 100%;

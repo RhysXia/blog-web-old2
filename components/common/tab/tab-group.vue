@@ -1,8 +1,8 @@
 <template lang="pug">
-    .c-tab-group-container
-        .c-header
-            button.c-tab-btn(@click="activeIndex=tab.index",:class="{'c-active-tab':tab.index === activeIndex}",v-for="tab in children",:key="tab.index") {{tab.name}}
-        .c-body
+    .c-tab-group
+        .c-tab-group__header
+            button.c-tab-group__btn(@click="activeIndex=tab.index",:class="{'c-tab-group__btn--active':tab.index === activeIndex}",v-for="tab in children",:key="tab.index") {{tab.name}}
+        .c-tab-group__body
             slot
 </template>
 
@@ -48,19 +48,19 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-tab-group-container {
-        .c-header {
+    .c-tab-group{
+        .c-tab-group__header {
             box-sizing: border-box;
             border-bottom: 1px solid $color-border-base;
-            .c-tab-btn {
+            .c-tab-group__btn {
                 padding: 0.5em 1em;
             }
-            .c-active-tab {
+            .c-tab-group__btn--active {
                 border-bottom: 1px solid $color-success;
                 color: $color-success;
             }
         }
-        .c-body {
+        .c-tab-group__body {
             padding: 1em;
         }
     }

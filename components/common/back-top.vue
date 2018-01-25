@@ -1,6 +1,6 @@
 <template lang="pug">
-    transition(name="back-top-slide")
-        .c-back-top-container(v-show="isShow",:style="styles",@click="click")
+    transition(name="c-back-top--animation")
+        .c-back-top(v-show="isShow",:style="styles",@click="click")
             i.fa.fa-arrow-circle-up
 </template>
 
@@ -92,8 +92,8 @@
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
 
-    @include slide(back-top-slide, left)
-    .c-back-top-container {
+    @include slide(c-back-top--animation, left)
+    .c-back-top {
         z-index: $z-index-l;
         position: fixed;
         cursor: pointer;

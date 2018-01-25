@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-carousel-item-container(:style="[styles]")
+    .c-carousel__item(:style="[styles]")
         slot
 </template>
 
@@ -61,7 +61,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .c-carousel-item-container {
+    .c-carousel__item {
         // 必须设置position，否则z-index无效
         position: absolute;
         top: 0;

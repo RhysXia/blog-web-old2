@@ -1,12 +1,12 @@
 <template lang="pug">
-    transition(name="c-message-tran",@after-leave="afterLeave")
-        .c-message-container(v-show="visible",:class="'c-message-'+type")
-            i.icon.iconfont(:class="'icon-'+type")
-            .content {{content}}
+    transition(name="c-message--animation",@after-leave="afterLeave")
+        .c-message(v-show="visible",:class="'c-message--'+type")
+            i.c-message__icon.iconfont(:class="'icon-'+type")
+            .c-message__content {{content}}
 </template>
 
 <script>
-  import { oneOf } from '../../../utils/utils'
+  import { oneOf } from '~/utils/utils'
 
   export default {
     name: 'c-message',
@@ -60,7 +60,7 @@
     @import "~assets/scss/variables";
     @import "./assets/iconfont.css";
 
-    .c-message-container {
+    .c-message {
         position: fixed;
         top: 2em;
         left: 50%;
@@ -71,38 +71,38 @@
         padding: 0.4em 1em;
         border-radius: 0.2em;
         border: 1px solid;
-        .icon {
+        .c-message__icon {
             display: inline-block;
             margin-right: 0.5em;
             font-size: 1.5em;
             &:before {
             }
         }
-        &.c-message-info {
-            border-color: $color-primary;
-            color: $color-primary-active;
-            background-color: $color-primary-light;
-        }
-        &.c-message-error {
-            border-color: $color-danger;
-            color: $color-danger-active;
-            background-color: $color-danger-light;
-        }
-        &.c-message-info {
-            color: $color-success;
-            border-color: $color-success-active;
-            background-color: $color-success-light;
-        }
-        &.c-message-success {
-            color: $color-success;
-            border-color: $color-success-active;
-            background-color: $color-success-light;
-        }
-        &.c-message-warning {
-            color: $color-warn;
-            border-color: $color-white-active;
-            background-color: $color-warn-light;
-        }
+    }
+    .c-message--info {
+        border-color: $color-primary;
+        color: $color-primary-active;
+        background-color: $color-primary-light;
+    }
+    .c-message--error {
+        border-color: $color-danger;
+        color: $color-danger-active;
+        background-color: $color-danger-light;
+    }
+    .c-message--info {
+        color: $color-success;
+        border-color: $color-success-active;
+        background-color: $color-success-light;
+    }
+    .c-message--success {
+        color: $color-success;
+        border-color: $color-success-active;
+        background-color: $color-success-light;
+    }
+    .c-message--warning {
+        color: $color-warn;
+        border-color: $color-white-active;
+        background-color: $color-warn-light;
     }
 
     .c-message-tran-enter-active,
@@ -110,14 +110,14 @@
         transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out;
     }
 
-    .c-message-tran-enter-to,
-    .c-message-tran-leave {
+    .c-message--animation-enter-to,
+    .c-message--animation-leave {
         top: 2em;
         opacity: 1;
     }
 
-    .c-message-tran-enter,
-    .c-message-tran-leave-to {
+    .c-message--animation-enter,
+    .c-message--animation-leave-to {
         top: 0;
         opacity: 0;
     }

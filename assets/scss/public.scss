@@ -61,13 +61,24 @@ a, .link {
 
 button {
   outline: none;
-  border: none;
+  border: 1px solid $color-border-base;
   padding: 0.25rem 0.8rem;
-  background-color: transparent;
+  background-color: $color-background;
   transition: background-color 0.4s ease;
   cursor: pointer;
   color: $color-text;
+  border-radius: 2px;
 }
+
+button.primary{
+  border: none;
+  background-color: $color-primary;
+  color: $color-text-white;
+  &:hover{
+    background-color: $color-primary-active;
+  }
+}
+
 
 //page
 .page-enter-active,

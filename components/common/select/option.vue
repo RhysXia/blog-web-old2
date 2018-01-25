@@ -1,7 +1,8 @@
 <template lang="pug">
-    c-dropdown-item
-        .c-option-container(@click.stop="click",:class="classes")
-            slot {{label}}
+    transition(name="c-option--animation")
+        c-dropdown-item(v-if="isShow")
+            .c-option(@click.stop="click",:class="classes")
+                slot {{label}}
 </template>
 
 <script>
@@ -26,43 +27,59 @@
       }
     },
     computed: {
-      active () {
-        let active = false
-        if (this.parent) {
-          for (let item of this.parent.activeKeyValues) {
-            if (item.value === this.value) {
-              active = true
-              break
-            }
-          }
+      isShow () {
+        if (!this.parent) {
+          return true
         }
-        return active
+        if (this.parent.filterable) {
+          return this.label.includes(this.parent.inputContent)
+        }
+        return true
+      },
+      active () {
+        if (!this.parent) {
+          return false
+        }
+        return this.parent.selectValues.includes(this.value)
       },
       classes () {
         if (this.active) {
-          return ['is-active']
+          return ['c-option--active']
         }
         return []
       }
     },
     methods: {
       click () {
-        if (this.parent) {
-          this.parent.clickChild(this.index)
+        if (!this.parent) {
+          return
+        }
+        // 判断是否包含当前option
+        if (this.active) {
+          this.parent.selectValues = this.parent.selectValues.filter(it => {
+            return it !== this.value
+          })
+        } else if (this.parent.multiple) {
+          this.parent.selectValues.push(this.value)
+        } else {
+          this.parent.selectValues = [this.value]
         }
       }
     },
     created () {
       this.parent = findComponentUpward(this, 'c-select')
       if (this.parent) {
-        this.parent.updateOptions()
+        this.parent.children.push(this)
       }
     },
     beforeDestroy () {
       if (this.parent) {
-        this.parent.updateOptions()
+        this.parent.children = this.parent.children.filter(it => {
+          return it.value === this.value
+        })
       }
-    },
+    }
+    ,
     components: {
       CDropdownItem
     }
@@ -72,13 +89,29 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-option-container {
+    .c-option {
         padding: 0.5em;
         &:hover {
             background-color: rgba(200, 200, 200, 0.5);
         }
-        &.is-active {
-            background-color: rgba(200, 200, 200, 0.5);
-        }
+    }
+
+    .c-option--active {
+        background-color: rgba(200, 200, 200, 0.5);
+    }
+
+    .c-option--animation-enter-active,
+    .c-option--animation-leave-active {
+        transition: opacity 0.4s;
+    }
+
+    .c-option--animation-enter,
+    .c-option--animation-leave-to {
+        opacity: 0.5;
+    }
+
+    .c-option--animation-leave,
+    .c-option--animation-enter-to {
+        opacity: 1;
     }
 </style>

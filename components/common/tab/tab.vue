@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-tab-container(v-show="isShow")
+    .c-tab(v-show="isShow")
         slot
 </template>
 

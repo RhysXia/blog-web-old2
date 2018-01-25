@@ -3,9 +3,9 @@
         slot
 </template>
 <script>
-  import { oneOf } from '../../utils/utils'
+  import { oneOf } from '~/utils/utils'
 
-  const prefixCls = 'c-row-container'
+  const prefixCls = 'c-row'
   export default {
     name: 'c-row',
     props: {

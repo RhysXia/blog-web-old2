@@ -1,8 +1,8 @@
 <template lang="pug">
-    .c-checkbox-container(:class="{'is-checked':value}")
-        span.checkbox
-            input.checkbox-input(type="checkbox",v-model="val")
-        span.label(@click="val=!val") {{label}}
+    .c-checkbox(:class="{'c-checkbox--checked':value}")
+        span.c-checkbox__wrapper
+            input.c-checkbox__input(type="checkbox",v-model="val")
+        span.c-checkbox__label(@click="val=!val") {{label}}
 </template>
 <script>
   export default {
@@ -35,27 +35,28 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-checkbox-container {
+    .c-checkbox {
         cursor: pointer;
         display: flex;
         flex-direction: row;
         align-items: center;
-        .checkbox {
+        .c-checkbox__wrapper {
             height: 1em;
             margin-right: 0.5em;
-            .checkbox-input {
+            .c-checkbox__input {
                 outline: none;
                 border: none;
                 height: 1em;
                 width: 1em;
             }
         }
-        &.is-checked {
-            color: $color-primary;
-            .checkbox {
-            }
+
+        .c-checkbox__label {
         }
-        .label {
+    }
+    .c-checkbox--checked {
+        color: $color-primary;
+        .checkbox {
         }
     }
 </style>

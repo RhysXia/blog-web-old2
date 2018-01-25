@@ -1,8 +1,9 @@
 <template lang="pug">
-    .c-panel-container
-        slot(name="header")
-            h4.title {{title}}
-        .c-content
+    .c-panel
+        .c-panel__header
+            slot(name="header")
+                h4.c-panel__header--title {{title}}
+        .c-panel__body
             slot
 </template>
 
@@ -21,15 +22,17 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-panel-container {
+    .c-panel {
         background-color: $color-background;
         padding: 0.5em;
-        .title {
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid $color-border-base;
-            margin: 0;
+        .c-panel__header{
+            .c-panel__header--title{
+                padding-bottom: 0.5em;
+                border-bottom: 1px solid $color-border-base;
+                margin: 0;
+            }
         }
-        .c-content{
+        .c-panel__body{
             margin-top: 0.5em;
         }
     }

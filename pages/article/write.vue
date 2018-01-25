@@ -8,16 +8,40 @@
                     i.fa.fa-camera
             .title-wrapper
                 c-input.title(v-model.trim="article.title",type="text",placeholder="请输入标题")
-            .info-wrapper
-                c-textarea(v-model="article.info",placeholder="请输入概要")
             .editor-wrapper
                 c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
         .c-action
+            c-panel(title="操作")
+                .operation-list
+                    button.primary(@click="punish") 发表
+                    button(@click="saveAsDraft") 保存草稿
+            .info-wrapper
+                c-textarea(v-model="article.info",placeholder="请输入概要")
             c-panel(title="选择分类")
-                c-select
-                    c-option(v-for="category in categoryList.content",:key="category.id")
-                        .name {{category.name}}
-                        .desc {{category.description}}
+                c-row(:gutter="6")
+                    c-col(:span="18")
+                        c-select(v-model="article.categoryId")
+                            c-option(:label="category.name",:value="category.id",v-for="category in categories",:key="category.id")
+                    c-col(:span="6")
+                        button(v-show="!isNewCategory",@click="isNewCategory=true") 新建
+                transition(name="slide")
+                    .category-create(v-show="isNewCategory")
+                        c-input(v-model="category.name",placeholder="输入分类名称")
+                        c-input(v-model="category.description",placeholder="输入分类描述")
+                        button.primary(@click="addCategory") 提交
+                        button(@click="isNewCategory=false") 取消
+            c-panel(title="选择标签")
+                c-row(:gutter="6")
+                    c-col(:span="18")
+                        c-select(remote,multiple,@remote="remoteTagHandler",v-model="article.tagIds")
+                            c-option(:label="tag.name",:value="tag.id",v-for="tag in tags",:key="tag.id")
+                    c-col(:span="6")
+                        button(v-show="!isNewTag",@click="isNewTag=true") 新建
+                transition(name="slide")
+                    .tag-create(v-show="isNewTag")
+                        c-input(v-model="tag.name",placeholder="输入标签名称")
+                        button.primary(@click="addTag") 提交
+                        button(@click="isNewTag=false") 取消
 </template>
 <script>
   import CEditor from '~/components/common/editor'
@@ -29,46 +53,76 @@
   import { COption, CSelect } from '~/components/common/select'
 
   export default {
-    async asyncData ({store, error}) {
+    async asyncData ({store, error, query}) {
       if (!store.getters.permissions.includes('POST:/articles')) {
         error({statusCode: 500, message: '你没有权限访问'})
       }
       try {
-        let res = await store.$api.category.getAllByUserId({
+        const data = {
+          tags: [],
+          categories: [],
+          draftId: -1,
+          article: {
+            title: '',
+            poster: '',
+            info: '',
+            content: '',
+            contentType: 'MARKDOWN',
+            categoryId: -1,
+            tagIds: []
+          }
+        }
+        let res
+        const draftId = query.draftId
+        if (draftId) {
+          res = await store.$api.draft.getById(draftId)
+          const draft = res.data
+          data.article = {
+            title: draft.title || '',
+            poster: draft.poster || '',
+            info: draft.info || '',
+            content: draft.content || '',
+            contentType: draft.contentType,
+            categoryId: draft.categoryId || -1,
+            tagIds: (draft.tagIds || '').split(',').map(it => {
+              return Number(it)
+            })
+          }
+          data.draftId = Number(draftId)
+        }
+
+        res = await store.$api.category.getAllByUserId({
           userId: store.state.loginUser.id,
           page: 0,
           size: 100
         })
-        store.commit('category/setList', res.data)
-
+        data.categories = res.data.content
         res = await store.$api.tag.getAll({
           page: 0,
           size: 10
         })
-        store.commit('tag/setList', res.data)
+        data.tags = res.data.content
+        return data
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
     },
     data () {
       return {
-        article: {
-          title: '',
-          poster: '',
-          info: '',
-          content: '',
-          contentType: 'MARKDOWN',
-          categoryId: -1,
-          tagIds: []
+        category: {
+          name: '',
+          description: '',
+          weight: 0
+        },
+        isNewCategory: false,
+        isNewTag: false,
+        tag: {
+          name: ''
         }
       }
     },
     computed: {
-      ...mapState(['token', 'serverURL']),
-      ...mapState({
-        categoryList: state => state.category.list,
-        tagList: state => state.tag.list
-      }),
+      ...mapState(['token', 'serverURL', 'loginUser']),
       image () {
         return {
           name: 'image',
@@ -79,7 +133,7 @@
           onSuccess: data => {
             this.article.poster = data
             this.$message({
-              content: '修改成功',
+              content: '上传成功',
               duration: 2000,
               type: 'success'
             })
@@ -88,13 +142,196 @@
       }
     },
     methods: {
+      async saveAsDraft () {
+        try {
+          const article = this.article
+          if (!article.title.trim()) {
+            this.$message({
+              content: '文章标题不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          if (this.draftId >= 0) {
+            await this.$api.draft.update({
+              ...article,
+              id: this.draftId
+            })
+          } else {
+            const res = await this.$api.draft.add(article)
+            this.draftId = res.data.id
+          }
+          this.$message({
+            content: '保存成功',
+            duration: 2000,
+            type: 'success'
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
+      async punish () {
+        try {
+          const article = this.article
+          if (!article.title.trim()) {
+            this.$message({
+              content: '文章标题不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          if (!article.info.trim()) {
+            this.$message({
+              content: '文章简介不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          if (!article.poster.trim()) {
+            this.$message({
+              content: '文章图片不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          if (!article.content.trim()) {
+            this.$message({
+              content: '文章内容不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          if (!article.categoryId) {
+            this.$message({
+              content: '文章分类不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          if (article.tagIds.length === 0) {
+            this.$message({
+              content: '文章标签不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+
+          let config = {...article}
+          if (this.draftId >= 0) {
+            config.draftId = this.draftId
+          }
+          let res = await this.$api.article.add(config)
+          this.$message({
+            content: '发表成功',
+            duration: 2000,
+            type: 'success'
+          })
+
+          // 跳转到文章页
+          this.$router.push(`/article/${res.data.id}`)
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
+      async addCategory () {
+        try {
+          if (!this.category.name.trim()) {
+            this.$message({
+              content: '分类名不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          if (!this.category.description.trim()) {
+            this.$message({
+              content: '分类描述不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          let res = await this.$api.category.add(this.category)
+          this.article.categoryId = res.data.id
+          res = await this.$api.category.getAllByUserId({
+            userId: this.loginUser.id,
+            page: 0,
+            size: 100
+          })
+          this.categories = res.data.content
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
+      async addTag () {
+        try {
+          if (!this.tag.name.trim()) {
+            this.$message({
+              content: '标签名不能为空',
+              duration: 2000,
+              type: 'error'
+            })
+            return
+          }
+          let res = await this.$api.tag.add(this.tag)
+          this.tags.push(res.data)
+          this.article.tagIds.push(res.data.id)
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
+      remoteTagHandler (name) {
+        if (this.__tagTimer) {
+          clearTimeout(this.__tagTimer)
+          this.__tagTimer = null
+        }
+        this.__tagTimer = setTimeout(() => {
+          this.$api.tag.getAll({
+            page: 0,
+            size: 10,
+            name: `%${name}%`
+          }).then(res => {
+            this.tags = res.data.content
+          }).catch(err => {
+            this.$message({
+              content: err.message,
+              duration: 2000,
+              type: 'error'
+            })
+          })
+        }, 500)
+      },
       async imageUpload (files) {
         if (!files || files.length === 0) {
           return
         }
         const formData = new FormData()
         formData.append('image', files[0])
-        const res = await this.$api.article.uploadImage(formData)
+        const res = await
+          this.$api.article.uploadImage(formData)
         return res.data
       }
     },
@@ -119,16 +356,51 @@
         display: flex;
         flex-direction: row;
         align-items: flex-start;
+        .operation-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            > * {
+                margin-top: 1em;
+                width: 100%;
+            }
+        }
+        .slide-enter-active,
+        .slide-leave-active {
+            transform-origin: 0 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .slide-enter,
+        .slide-leave-to {
+            transform: scaleY(0);
+            opacity: 0;
+        }
+        .slide-leave,
+        .slide-enter-to {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        .category-create, .tag-create {
+            margin-top: 1em;
+            border-top: 1px dashed $color-border-base;
+            > * {
+                margin-top: 1em;
+            }
+            .primary {
+                margin-right: 1em;
+            }
+        }
         .c-article, .c-action {
             display: flex;
             flex-direction: column;
+            > * {
+                margin-bottom: 0.5em;
+            }
         }
         .c-article {
             flex: 3;
             margin-right: 1em;
-            > * {
-                margin-bottom: 0.5em;
-            }
+
         }
         .c-action {
             flex: 1;

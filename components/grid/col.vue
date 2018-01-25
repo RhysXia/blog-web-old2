@@ -3,9 +3,9 @@
         slot
 </template>
 <script>
-  import { findComponentUpward } from '../../utils/utils'
+  import { findComponentUpward } from '~/utils/utils'
 
-  const prefixCls = 'c-col-container'
+  const prefixCls = 'c-col'
   export default {
     name: 'c-col',
     props: {

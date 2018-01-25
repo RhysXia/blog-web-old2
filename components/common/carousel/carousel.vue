@@ -1,12 +1,12 @@
 <template lang="pug">
-    .c-carousel-container(:style="styles",@mouseenter.stop="mouseEnter",@mouseleave.stop="mouseLeave")
-        .c-content-wrapper
+    .c-carousel(:style="styles",@mouseenter.stop="mouseEnter",@mouseleave.stop="mouseLeave")
+        .c-carousel__content--wrapper
             slot
-        i.c-direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
-        i.c-direction.fa.fa-angle-right(@click="moveTo(activeIndex+1)")
-        ul.c-index-wrapper(v-if="childNum>0")
-            li.c-index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
-                .c-index-item(:class="{'is-active':index-1===activeIndex}")
+        i.c-carousel__direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
+        i.c-carousel__direction.fa.fa-angle-right(@click="moveTo(activeIndex+1)")
+        ul.c-carousel__index__wrapper(v-if="childNum>0")
+            li.c-carousel__index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
+                .c-carousel__index__item(:class="{'c-carousel__index__item--active':index-1===activeIndex}")
 </template>
 <script>
   import { findComponentsDownward } from '~/utils/utils'
@@ -111,15 +111,15 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-carousel-container {
+    .c-carousel {
         position: relative;
-        .c-content-wrapper {
+        .c-carousel__content--wrapper {
             position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
         }
-        .c-direction {
+        .c-carousel__direction {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -137,28 +137,28 @@
                 right: 0.5em;
             }
         }
-        .c-index-wrapper {
+        .c-carousel__index__wrapper {
             display: block;
             position: absolute;
             bottom: 1em;
             cursor: pointer;
             left: 50%;
             transform: translateX(-50%);
-            .c-index {
+            .c-carousel__index {
                 display: inline-block;
                 padding: 5px;
-                .c-index-item {
+                .c-carousel__index__item {
                     width: 5px;
                     height: 5px;
                     border-radius: 50%;
                     background-color: $color-border-base;
                     opacity: 0.3;
-                    &.is-active {
+                    &.c-carousel__index__item--active {
                         opacity: 1;
                     }
                 }
                 &:hover {
-                    .c-index-item {
+                    .c-carousel__index__item {
                         opacity: 1;
                     }
                 }

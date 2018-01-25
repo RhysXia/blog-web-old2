@@ -1,7 +1,7 @@
 <template lang="pug">
-    .c-upload-container
-        input.c-upload-input(ref="file",type="file",:multiple="multiple",@change="handleChange")
-        .trigger(@click="$refs.file.click()")
+    .c-upload
+        input.c-upload__input(ref="file",type="file",:multiple="multiple",@change="handleChange")
+        .c-upload__content(@click="$refs.file.click()")
             slot
 
 </template>
@@ -71,13 +71,13 @@
 </script>
 
 <style lang="scss" scoped>
-    .c-upload-container {
+    .c-upload {
         width: 100%;
         height: 100%;
-        .c-upload-input {
+        .c-upload__input {
             display: none;
         }
-        .trigger {
+        .c-upload__content {
             cursor: pointer;
         }
     }

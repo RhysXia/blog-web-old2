@@ -1,19 +1,19 @@
 <template lang="pug">
-    transition(name="c-modal")
-        .c-modal-container(v-if="val",@click='outClick')
-            .c-modal-wrapper(@click.stop,:style="{width:width}")
-                .c-modal-header
+    transition(name="c-modal--animation")
+        .c-modal(v-if="val",@click='outClick')
+            .c-modal__wrapper(@click.stop,:style="{width:width}")
+                .c-modal__header
                     slot(name="header")
-                        span.title {{title}}
-                    span.close(@click="val=false")
+                        span.c-modal__title {{title}}
+                    span.c-modal__close(@click="val=false")
                         i.fa.fa-close
-                .c-modal-main
+                .c-modal__body
                     slot
-                .c-modal-footer
+                .c-modal__footer
                     slot(name="footer")
-                        .button-wrapper
-                            button.confirm(@click="confirm") 确定
-                            button.cancel(@click="cancel") 取消
+                        .c-modal__button-wrapper
+                            button.c-modal__button.primary(@click="confirm") 确定
+                            button.c-modal__button(@click="cancel") 取消
 </template>
 <script>
 
@@ -85,22 +85,22 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-modal-enter-active,
-    .c-modal-leave-active {
+    .c-modal--animation-enter-active,
+    .c-modal--animation-leave-active {
         transition: transform 0.4s ease-in-out;
     }
 
-    .c-modal-enter,
-    .c-modal-leave-to {
+    .c-modal--animation-enter,
+    .c-modal--animation-leave-to {
         transform: translateY(-100%);
     }
 
-    .c-modal-enter-to,
-    .c-modal-leave {
+    .c-modal--animation-enter-to,
+    .c-modal--animation-leave {
         transform: translateY(0);
     }
 
-    .c-modal-container {
+    .c-modal {
         position: fixed;
         left: 0;
         top: 0;
@@ -108,7 +108,7 @@
         height: 100%;
         background-color: $color-shadow;
         z-index: $z-index-max;
-        .c-modal-wrapper {
+        .c-modal__wrapper {
             background-color: $color-white;
             border: 1px solid $color-border-base;
             border-radius: 5px;
@@ -119,17 +119,17 @@
             > * {
                 padding: 0.5em;
             }
-            .c-modal-header {
+            .c-modal__header {
                 position: relative;
                 border-bottom: 1px solid $color-border-base;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
-                .title {
+                .c-modal__title {
                     font-weight: bold;
                 }
-                .close {
+                .c-modal__close {
                     display: block;
                     cursor: pointer;
                     padding: 0.5em;
@@ -138,32 +138,17 @@
                     }
                 }
             }
-            .c-modal-main {
+            .c-modal__body {
 
             }
-            .c-modal-footer {
+            .c-modal__footer {
                 border-top: 1px solid $color-border-base;
-                .button-wrapper {
+                .c-modal__button-wrapper {
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-end;
-                    button {
-                        transition: background-color 0.4s ease;
-                    }
-                    .confirm {
-                        background-color: $color-primary;
-                        color: $color-text-white;
+                    .primary {
                         margin-right: 0.5em;
-                        &:hover {
-                            background-color: $color-primary-active;
-                        }
-                    }
-                    .cancel {
-                        background-color: $color-white;
-                        border: 1px solid $color-border-base;
-                        &:hover {
-                            background-color: $color-white-active;
-                        }
                     }
                 }
             }

@@ -1,7 +1,7 @@
 <template lang="pug">
-    .c-input-container
-        input.input(ref="input",v-if="type==='password'",:readonly="readonly",v-model="content",type="password",:placeholder="placeholder")
-        input.input(ref="input",v-else,v-model="content",:readonly="readonly",type = "text",:placeholder="placeholder")
+    .c-input
+        input.c-input__input(ref="input",v-if="type==='password'",:readonly="readonly",v-model="content",type="password",:placeholder="placeholder")
+        input.c-input__input(ref="input",v-else,v-model="content",:readonly="readonly",type = "text",:placeholder="placeholder")
         slot(name="append")
 </template>
 <script>
@@ -51,11 +51,11 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-input-container {
+    .c-input{
         display: flex;
         flex-direction: row;
         align-items: center;
-        .input {
+        .c-input__input {
             box-sizing: border-box;
             border: 1px solid $color-border-base;
             border-radius: 0.2em;

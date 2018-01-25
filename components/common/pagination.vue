@@ -1,13 +1,13 @@
 <template lang="pug">
-    ul.c-pagination-container
-        li.c-page(@click="click(1)",:class="{'c-disabled':currentPage<=1}")
+    ul.c-pagination
+        li.c-pagination__item(@click="click(1)",:class="{'c-pagination__item--disabled':currentPage<=1}")
             i.fa.fa-angle-double-left
-        li.c-page(@click="click(currentPage-1)",:class="{'c-disabled':currentPage<=1}")
+        li.c-pagination__item(@click="click(currentPage-1)",:class="{'c-pagination__item--disabled':currentPage<=1}")
             i.fa.fa-angle-left
-        li.c-page(v-for="index in cTotalPages",:key="index",:class="{'c-active':currentPage===index}",@click="currentPage=index") {{index}}
-        li.c-page(@click="click(currentPage+1)",:class="{'c-disabled':currentPage>=cTotalPages}")
+        li.c-pagination__item(v-for="index in cTotalPages",:key="index",:class="{'c-pagination__item--active':currentPage===index}",@click="currentPage=index") {{index}}
+        li.c-pagination__item(@click="click(currentPage+1)",:class="{'c-pagination__item--disabled':currentPage>=cTotalPages}")
             i.fa.fa-angle-right
-        li.c-page(@click="click(cTotalPages)",:class="{'c-disabled':currentPage>=cTotalPages}")
+        li.c-pagination__item(@click="click(cTotalPages)",:class="{'c-pagination__item--disabled':currentPage>=cTotalPages}")
             i.fa.fa-angle-double-right
 </template>
 
@@ -67,10 +67,10 @@
     @import "~assets/scss/variables";
     @import "~assets/scss/mixins";
 
-    .c-pagination-container {
+    .c-pagination {
         position: relative;
         text-align: center;
-        .c-page {
+        .c-pagination__item {
             display: inline-block;
             font-size: 1em;
             font-weight: bold;
@@ -85,10 +85,10 @@
                 color: $color-primary;
             }
         }
-        .c-active {
+        .c-pagination__item--active {
             color: $color-primary;
         }
-        .c-disabled {
+        .c-pagination__item--disabled {
             color: $color-disabled;
             cursor: not-allowed;
             &:hover {

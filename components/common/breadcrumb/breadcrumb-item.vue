@@ -1,8 +1,8 @@
 <template lang="pug">
-    span.c-breadcrumb-item-container
-        router-link.c-link(v-if="to",:to="to")
+    span.c-breadcrumb__item
+        router-link.link(v-if="to",:to="to")
             slot
-        span.c-link(v-else)
+        span.link(v-else)
             slot
         span(v-if="separator") {{separator}}
 </template>
@@ -40,7 +40,7 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-breadcrumb-item-container {
+    .c-breadcrumb-item {
 
     }
 </style>

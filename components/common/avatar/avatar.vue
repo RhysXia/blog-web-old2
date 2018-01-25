@@ -1,7 +1,7 @@
 <template lang="pug">
-    .c-avatar-container(:style="styles")
-        img.image(:src="imgUrl",v-if="imgUrl")
-        .image.anon(v-else)
+    .c-avatar(:style="styles")
+        img.c-avatar__image(:src="imgUrl",v-if="imgUrl")
+        .c-avatar__image.c-avatar__image--anno(v-else)
 </template>
 
 <script>
@@ -49,14 +49,14 @@
 </script>
 
 <style lang="scss" scoped>
-    .c-avatar-container {
+    .c-avatar {
         position: relative;
         overflow: hidden;
-        .image {
+        .c-avatar__image {
             width: 100%;
             height: 100%;
         }
-        .anon {
+        .c-avatar__image--anno {
             background-image: url("./anon.png");
             background-size: cover;
         }
