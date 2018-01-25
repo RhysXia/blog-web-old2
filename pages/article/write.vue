@@ -1,7 +1,7 @@
 <template lang="pug">
     // 写作界面没有必要在服务器端渲染
     .article-write-container
-        .c-article
+        .article
             c-upload.image-wrapper(:action="image.action",:headers="image.headers",:name="image.name",:onSuccess="image.onSuccess")
                 img.image(v-if="article.poster",:src="article.poster")
                 .image.anon(v-else)
@@ -10,7 +10,7 @@
                 c-input.title(v-model.trim="article.title",type="text",placeholder="请输入标题")
             .editor-wrapper
                 c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
-        .c-action
+        .action
             c-panel(title="操作")
                 .operation-list
                     button.primary(@click="punish") 发表
@@ -166,6 +166,12 @@
             content: '保存成功',
             duration: 2000,
             type: 'success'
+          })
+          this.$router.push({
+            path: '/article/write',
+            query: {
+              draftId: this.draftId
+            }
           })
         } catch (err) {
           this.$message({
@@ -390,19 +396,19 @@
                 margin-right: 1em;
             }
         }
-        .c-article, .c-action {
+        .article, .action {
             display: flex;
             flex-direction: column;
             > * {
                 margin-bottom: 0.5em;
             }
         }
-        .c-article {
+        .article {
             flex: 3;
             margin-right: 1em;
 
         }
-        .c-action {
+        .action {
             flex: 1;
         }
         .image-wrapper {
