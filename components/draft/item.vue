@@ -39,8 +39,8 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        margin-right: -0.5em;
         .delete{
+            border: none;
             color: $color-danger;
             font-weight: bold;
             padding: 0.5em;

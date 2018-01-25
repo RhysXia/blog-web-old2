@@ -14,7 +14,7 @@
                 .operation-list
                     button.primary(@click="punish") 发表
                     // 已经发表的文章不需要保存到草稿
-                    button(@click="saveAsDraft",v-if="!articleId") 保存草稿
+                    button(@click="saveAsDraft",v-if="articleId<0") 保存草稿
             .info-wrapper
                 c-textarea(v-model="article.info",placeholder="请输入概要")
             c-panel(title="选择分类")

@@ -66,9 +66,11 @@
             }
             .dropdown {
                 margin-right: -0.5em;
-                .menu{
-                    color: $color-text;
+                .menu,.item{
+                    border: none;
                     background-color: transparent;
+                }
+                .menu{
                     padding: 0.5em 1em;
                     &:hover{
                         color: $color-text-deep;

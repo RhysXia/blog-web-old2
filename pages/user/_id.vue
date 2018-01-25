@@ -8,7 +8,8 @@
             c-col(:span="4")
                 .left-wrapper
                     .avatar-wrapper
-                        c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
+                        .avatar
+                            c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
                     h2.nickname
                         | {{user.nickname}}
                     pre.info {{user.info?user.info:'他太懒了，什么都没写'}}
@@ -22,7 +23,6 @@
 <script>
   import CAvatar from '~/components/common/avatar'
   import { CBreadcrumb, CBreadcrumbItem } from '~/components/common/breadcrumb'
-  import { mapState } from 'vuex'
 
   export default {
     validate ({params}) {
@@ -36,16 +36,17 @@
     async asyncData ({params, error, store}) {
       const id = Number(params.id)
       try {
+        const data = {
+          user: {}
+        }
         const res = await store.$api.user.getById(id)
-        this.$store.commit('user/setUser', res.data)
+        data.user = res.data
+        return data
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
     },
     computed: {
-      ...mapState({
-        user: state => state.user.user
-      }),
       childName () {
         const fullName = this.$route.fullPath
         if (fullName.endsWith('category')) {
@@ -89,8 +90,12 @@
             position: relative;
             width: 100%;
             padding-bottom: 100%;
-            .c-avatar-container {
+            .c-avatar {
                 position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
             }
         }
         .nickname {
