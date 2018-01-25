@@ -2,7 +2,7 @@
     .article-id-container
         c-article-detail(:article="article")
             .footer(slot="footer",slot-scope="props")
-                span.like(@click="voteClick",:class="{'is-login-like':isLogin,'is-voted':article.isVoted}")
+                span.like(@click="voteClick",:class="{'is-login-like':isLogin,'is-voted':isVoted}")
                     b {{props.article.voteNum}}
                     | 人点赞
                 span.read
@@ -25,7 +25,7 @@
                     .right
                         .reply(v-if="replyCommentIndex>=0")
                             span.reply-title 回复
-                                b {{commentList.content[replyCommentIndex].author.nickname}}
+                                b {{comments[replyCommentIndex].author.nickname}}
                             button.close(@click="replyCommentIndex=-1")
                                 i.fa.fa-close
                         c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
@@ -33,8 +33,8 @@
                 template(v-if="!article.commentNum")
                     .no-content 好可怜，都没人理我~
                 template(v-else)
-                    c-comment-item(@delete="commentDelete(comment.id)",@reply="replyHandler(index)",:comment="comment",:key="comment.id",v-for="(comment,index) in commentList.content")
-                    c-pagination(@change="pageChange",:totalPages="commentList.totalPages",:page="commentList.number+1")
+                    c-comment-item(@delete="commentDelete(comment.id)",@reply="replyHandler(index)",:comment="comment",:key="comment.id",v-for="(comment,index) in comments")
+                    c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
 
 </template>
 <script>
@@ -43,7 +43,6 @@
   import CEditor from '~/components/common/editor'
   import CArticleDetail from '~/components/article/detail'
   import CPagination from '~/components/common/pagination'
-  import { clone } from '~/utils/utils'
   import { mapGetters, mapState } from 'vuex'
 
   export default {
@@ -52,30 +51,48 @@
       return /^\d+$/.test(id)
     },
     async asyncData ({params, store, error, query}) {
-      const page = (query.page || 1) - 1
-      const size = 10
+      const page = Number((query.page || 1))
+      const size = 8
       const id = Number(params.id)
       try {
-        const {data} = await store.$api.article.getById(id)
+        const data = {
+          // 评论页
+          page,
+          // 评论数
+          size,
+          // 评论总页数
+          totalPages: 0,
+          // 文章id
+          id,
+          article: {},
+          comments: [],
+          isVoted: false
+        }
+
+        // 获取文章
+        let res = await store.$api.article.getById(id)
+        data.article = res.data
 
         // 判断是否点赞了该文章
         if (store.getters.isLogin) {
-          let res = await store.$api.article.getVote(id)
+          res = await store.$api.article.getVote(id)
           if (res.data) {
             data.isVoted = res.data
           }
         } else {
           data.isVoted = false
         }
-        store.commit('article/setArticle', data)
 
-        let res = await store.$api.comment.getAllByArticleId({
+        // 获取评论列表
+        res = await store.$api.comment.getAllByArticleId({
           articleId: id,
-          page,
+          page: page - 1,
           size,
           sort: 'floorNum,DESC'
         })
-        store.commit('comment/setList', res.data)
+        data.comments = res.data.content
+        data.totalPages = res.data.totalPages
+        return data
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
@@ -97,9 +114,7 @@
     },
     computed: {
       ...mapState({
-        loginUser: state => state.loginUser,
-        article: state => state.article.article,
-        commentList: state => state.comment.list
+        loginUser: state => state.loginUser
       }),
       ...mapGetters([
         'isLogin'
@@ -155,27 +170,30 @@
         } catch (err) {
           isVoted = false
         }
-        this.$store.commit('article/setArticle', isVoted)
+        this.isVoted = isVoted
       },
       async pageChange (val) {
         // 页面改变时，replyCommentIndex置为-1
         this.replyCommentIndex = -1
         try {
           const page = val - 1
-          const size = this.commentList.size
+          const size = this.size
           const res = await this.$api.comment.getAllByArticleId({
             articleId: this.article.id,
             page,
             size,
             sort: 'floorNum,DESC'
           })
-          this.$store.commit('comment/setList', res.data)
+          this.comments = res.data.content
+          this.totalPages = res.data.totalPages
+
           this.$router.push({
             path: `/article/${this.article.id}`,
             query: {
               page: val
             }
           })
+          this.page = val
           // 滚动到评论开始的地方
           this.$velocity(this.$refs.writer, 'scroll', {duration: 400, offset: 0})
         } catch (err) {
@@ -188,16 +206,15 @@
       },
       async voteClick () {
         try {
-          const article = clone(this.article)
-          if (article.isVoted) {
+          const article = this.article
+          if (this.isVoted) {
             await this.$api.article.deleteVote(article.id)
             article.voteNum--
           } else {
             await this.$api.article.addVote(article.id)
             article.voteNum++
           }
-          article.isVoted = !article.isVoted
-          this.$store.commit('article/article', article)
+          this.isVoted = !this.isVoted
         } catch (err) {
           this.$message({
             content: err.message,
@@ -209,7 +226,7 @@
       async commentDelete (id) {
         try {
           await this.$api.comment.deleteById(id)
-          await this.pageChange(this.commentList.number + 1)
+          await this.pageChange(this.page)
           this.$message({
             content: '删除成功',
             type: 'success',
@@ -236,7 +253,7 @@
             return
           }
           if (this.replyCommentIndex >= 0) {
-            const commentId = this.commentList.content[this.replyCommentIndex].id
+            const commentId = this.comments[this.replyCommentIndex].id
             await this.$api.reply.add({
               content,
               contentType: 'MARKDOWN',
@@ -244,7 +261,7 @@
             })
             this.replyCommentIndex = -1
             // 获取当前页
-            await this.pageChange(this.commentList.number + 1)
+            await this.pageChange(this.page)
           } else {
             await this.$api.comment.add({
               content,
@@ -382,6 +399,8 @@
 
                     }
                     .close {
+                        border: none;
+                        background-color: transparent;
                         color: $color-warn;
                     }
                 }

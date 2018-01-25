@@ -18,7 +18,7 @@
         .c-editor__button-list(:style="barStyle",v-else)
             span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
                 i.fa.fa-smile-o
-                .emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
+                .c-editor__emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
                     span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
             span(@click="imageClick")
                 i.fa.fa-image
@@ -189,10 +189,10 @@
         border-top-width: 0;
         border-bottom-width: 0;
         .c-editor__button-list {
+            position: relative;
             display: flex;
             flex-direction: row;
             align-items: center;
-            position: relative;
             border: 1px solid $color-border-base;
             border-left: none;
             border-right: none;

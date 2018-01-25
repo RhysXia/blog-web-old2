@@ -135,6 +135,7 @@
                     font-weight: bold;
                     color: inherit;
                     padding: 0.25em;
+                    border: none;
                     &:hover {
                         color: $color-text-deep;
                     }

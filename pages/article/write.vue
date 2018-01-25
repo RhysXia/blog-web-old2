@@ -374,7 +374,7 @@
         .slide-enter-active,
         .slide-leave-active {
             transform-origin: 0 0;
-            transition: transform 0.4s ease, opacity 0.4s ease;
+            transition: height 0.4s ease, opacity 0.4s ease;
         }
         .slide-enter,
         .slide-leave-to {

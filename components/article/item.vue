@@ -93,6 +93,7 @@
             }
             .dropdown {
                 .menu {
+                    border: none;
                     color: $color-text;
                     background-color: transparent;
                     padding: 0.5em 1em;
@@ -101,6 +102,7 @@
                     }
                 }
                 .item {
+                    border: none;
                     padding: 1em 2em;
                     &:hover {
                         background-color: $color-background-active;
