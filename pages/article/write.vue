@@ -1,5 +1,4 @@
 <template lang="pug">
-    // 写作界面没有必要在服务器端渲染
     .article-write-container
         .article
             c-upload.image-wrapper(:action="image.action",:headers="image.headers",:name="image.name",:onSuccess="image.onSuccess")
@@ -14,7 +13,8 @@
             c-panel(title="操作")
                 .operation-list
                     button.primary(@click="punish") 发表
-                    button(@click="saveAsDraft") 保存草稿
+                    // 已经发表的文章不需要保存到草稿
+                    button(@click="saveAsDraft",v-if="!articleId") 保存草稿
             .info-wrapper
                 c-textarea(v-model="article.info",placeholder="请输入概要")
             c-panel(title="选择分类")
@@ -62,6 +62,7 @@
           tags: [],
           categories: [],
           draftId: -1,
+          articleId: -1,
           article: {
             title: '',
             poster: '',
@@ -73,6 +74,7 @@
           }
         }
         let res
+        // 如果是编辑草稿
         const draftId = query.draftId
         if (draftId) {
           res = await store.$api.draft.getById(draftId)
@@ -89,6 +91,25 @@
             })
           }
           data.draftId = Number(draftId)
+        } else {
+          // 如果是修改文章
+          const articleId = query.articleId
+          if (articleId) {
+            res = await store.$api.article.getById(articleId)
+            const article = res.data
+            data.article = {
+              title: article.title,
+              poster: article.poster,
+              info: article.info,
+              content: article.content,
+              contentType: article.contentType,
+              categoryId: article.category.id,
+              tagIds: article.tags.map(it => {
+                return it.id
+              })
+            }
+            data.articleId = Number(articleId)
+          }
         }
 
         res = await store.$api.category.getAllByUserId({
@@ -232,12 +253,19 @@
             })
             return
           }
-
+          let res
           let config = {...article}
-          if (this.draftId >= 0) {
-            config.draftId = this.draftId
+          // 如果是已经发布的文章进行修改
+          if (this.articleId >= 0) {
+            config.id = this.articleId
+            res = await this.$api.article.update(config)
+          } else {
+            // 如果是草稿或者新建的文章
+            if (this.draftId >= 0) {
+              config.draftId = this.draftId
+            }
+            res = await this.$api.article.add(config)
           }
-          let res = await this.$api.article.add(config)
           this.$message({
             content: '发表成功',
             duration: 2000,

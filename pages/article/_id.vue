@@ -153,7 +153,7 @@
             type: 'error',
             duration: 2000
           })
-          this.$router.push(this.$route.meta.from)
+          this.$router.push('/')
         } catch (err) {
           this.$message({
             content: err.message,
@@ -293,11 +293,6 @@
         const {data} = await this.$api.comment.uploadImage(formData)
         return data
       }
-    },
-    beforeRouteEnter (to, from, next) {
-      // 获取from的路径，将跳转来的路径记录下来
-      to.meta.from = from.fullPath
-      next()
     },
     components: {
       CCommentItem,
