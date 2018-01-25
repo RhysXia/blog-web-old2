@@ -20,7 +20,7 @@
                             c-dropdown-item(v-if="isWrite")
                                 nuxt-link.c-dropdown-item(to="/article/write") 写文章
                             c-dropdown-item
-                                nuxt-link.c-dropdown-item(to="/loginUser/setting") 设置
+                                nuxt-link.c-dropdown-item(to="/user/setting") 设置
                             c-dropdown-item
                                 button.c-dropdown-item.link(@click="logout")  注销
 </template>
