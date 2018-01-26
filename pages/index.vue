@@ -8,7 +8,7 @@
                             img.article-image(:src="article.poster")
                             span.title {{article.title}}
             .article-list
-                c-article-item.article-wrapper(:data-index="index",@delete="deleteArticle(article.id)",:article="article",v-for="(article,index) in articles",:key="article.id")
+                c-article-item.article-wrapper(@delete="deleteArticle(article.id)",:article="article",v-for="article in articles",:key="article.id")
                 c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
         .right
             c-panel(title="热门文章")
@@ -32,6 +32,8 @@
         title: '首页'
       }
     },
+    watchQuery: ['page'],
+    key: to => to.fullPath,
     async asyncData ({store, error, query}) {
       const size = 8
       const page = Number(query.page || 1)
@@ -99,27 +101,22 @@
         }
       },
       async pageChange (val) {
-        try {
-          const page = val - 1
-          const size = this.size
-          const res = await this.$api.article.getAll({
-            page, size, sort: 'updateAt,DESC'
+        if (val === this.page) {
+          let res = await this.$api.article.getAll({
+            page: val - 1,
+            size: this.size,
+            sort: ['updateAt,DESC']
           })
           this.articles = res.data.content
-          this.page = val
-          this.$router.push({
-            path: '/',
-            query: {
-              page: val
-            }
-          })
-        } catch (err) {
-          this.$message({
-            content: err.message,
-            duration: 2000,
-            type: 'error'
-          })
+          this.totalPages = res.data.totalPages
+          return
         }
+        this.$router.push({
+          path: '/',
+          query: {
+            page: val
+          }
+        })
       }
     },
     components: {

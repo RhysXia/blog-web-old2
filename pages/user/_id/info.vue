@@ -31,7 +31,6 @@
   import CInput from '~/components/common/input'
 
   export default {
-    name: 'info',
     async asyncData ({params, store, error}) {
       const userId = Number(params.id)
       try {
@@ -81,12 +80,20 @@
       async categorySubmit () {
         try {
           await this.$api.category.update(this.category)
-
+          const userId = this.userId
+          let res = await this.$api.category.getAllByUserId({
+            userId,
+            page: 0,
+            size: 4,
+            sort: 'weight,DESC'
+          })
+          this.categories = res.data.content
           this.$message({
             content: '修改成功',
             duration: 2000,
             type: 'success'
           })
+          this.isModal = false
         } catch (err) {
           this.$message({
             content: err.message,
@@ -101,24 +108,6 @@
         this.category.description = category.description
         this.category.weight = category.weight
         this.isModal = true
-      },
-      async deleteDraft (id) {
-        try {
-          await this.$api.draft.deleteById(id)
-          this.$message({
-            content: '删除成功',
-            duration: 2000,
-            type: 'success'
-          })
-          let res = await this.$api.draft.getSelf({page: 0, size: 100})
-          this.drafts = res.data.content
-        } catch (err) {
-          this.$message({
-            content: err.message,
-            duration: 2000,
-            type: 'error'
-          })
-        }
       },
       async deleteCategory (id) {
         try {
@@ -136,6 +125,24 @@
             duration: 2000,
             type: 'success'
           })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
+      async deleteDraft (id) {
+        try {
+          await this.$api.draft.deleteById(id)
+          this.$message({
+            content: '删除成功',
+            duration: 2000,
+            type: 'success'
+          })
+          let res = await this.$api.draft.getSelf({page: 0, size: 100})
+          this.drafts = res.data.content
         } catch (err) {
           this.$message({
             content: err.message,

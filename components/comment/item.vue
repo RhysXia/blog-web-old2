@@ -34,7 +34,10 @@
                     span.info.light {{reply.author.info}}
                 .middle
                     .content(v-html="reply.content")
-
+                .bottom.light
+                    span
+                        i.fa.fa-clock-o
+                        | {{reply.createAt | formatDate}}
 
 </template>
 <script>

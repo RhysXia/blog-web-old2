@@ -3,58 +3,99 @@
         .tag
             h1.name {{tag.name}}
             p.count 文章数：{{tag.articleNum}}
-        c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
+        c-article-item(@delete="deleteArticle(article.id)",:article="article",v-for="article in articles",:key="article.id")
+        c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
 </template>
 
 <script>
-  import CArticleList from '~/components/article/list'
+  import CArticleItem from '~/components/article/item'
+  import CPagination from '~/components/common/pagination'
 
   export default {
+    head () {
+      const keywords = this.articles.map(it => it.title)
+      return {
+        title: this.tag.name,
+        meta: [
+          {name: 'keywords', content: keywords.join(',')}
+        ]
+      }
+    },
+    watchQuery: ['page'],
+    key: to => to.fullPath,
     validate ({params}) {
       const id = Number(params.id)
       return /^\d+$/.test(id)
     },
-    async asyncData ({params, store, error}) {
+    async asyncData ({params, query, store, error}) {
       const tagId = Number(params.id)
-      const result = {
+      const page = Number(query.page || 1)
+      const size = 8
+      const data = {
         articles: [],
-        page: 0,
-        size: 6,
-        count: 0,
+        page,
+        size,
+        totalPages: 0,
         tag: {}
 
       }
       try {
         let res = await store.$api.tag.getById(tagId)
-        result.tag = res.data
+        data.tag = res.data
         res = await store.$api.article.getAllByTagId({
           tagId,
-          page: result.pageNum,
-          size: result.size,
+          page: page - 1,
+          size,
           sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
         })
-        result.articles = res.data.content
-        result.count = res.data.totalElements
-        return result
+        data.articles = res.data.content
+        data.totalPages = res.data.totalPages
+        return data
       } catch (err) {
         error({statusCode: 500, message: err.message})
       }
     },
     methods: {
+      async deleteArticle (id) {
+        try {
+          await this.$api.article.deleteById(id)
+          await this.pageChange(this.page)
+          this.$message({
+            content: '删除成功',
+            duration: 2000,
+            type: 'success'
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
       async pageChange (val) {
-        this.page = val - 1
-        const res = await this.$api.article.getAllByTagId({
-          tagId: this.tag.id,
-          page: this.page,
-          size: this.size,
-          sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
+        if (val === this.page) {
+          let res = await this.$api.article.getAllByTagId({
+            tagId: this.tag.id,
+            page: val - 1,
+            size: this.size,
+            sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
+          })
+          this.articles = res.data.content
+          this.totalPages = res.data.totalPages
+          return
+        }
+        this.$router.push({
+          path: `/tag/${this.tag.id}`,
+          query: {
+            page: val
+          }
         })
-        this.count = res.data.totalElements
-        this.articles = res.data.content
       }
     },
     components: {
-      CArticleList
+      CArticleItem,
+      CPagination
     }
   }
 </script>

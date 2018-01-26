@@ -12,7 +12,7 @@
                     span.update(@click="$router.push({path:'/article/write',query:{articleId:article.id}})") 修改
                     span.delete(@click="deleteArticle") 删除
         .comment-wrapper
-            .header
+            .header(ref="comment-header")
                 h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
                 span.info(v-if="article.commentNum")
                     | 共
@@ -46,6 +46,8 @@
   import { mapGetters, mapState } from 'vuex'
 
   export default {
+    watchQuery: ['page'],
+    key: to => to.fullPath,
     validate ({params}) {
       const id = Number(params.id)
       return /^\d+$/.test(id)
@@ -173,36 +175,24 @@
         this.isVoted = isVoted
       },
       async pageChange (val) {
-        // 页面改变时，replyCommentIndex置为-1
-        this.replyCommentIndex = -1
-        try {
-          const page = val - 1
-          const size = this.size
-          const res = await this.$api.comment.getAllByArticleId({
+        if (val === this.page) {
+          // 获取评论列表
+          let res = await this.$api.comment.getAllByArticleId({
             articleId: this.article.id,
-            page,
-            size,
+            page: val - 1,
+            size: this.size,
             sort: 'floorNum,DESC'
           })
           this.comments = res.data.content
           this.totalPages = res.data.totalPages
-
-          this.$router.push({
-            path: `/article/${this.article.id}`,
-            query: {
-              page: val
-            }
-          })
-          this.page = val
-          // 滚动到评论开始的地方
-          this.$velocity(this.$refs.writer, 'scroll', {duration: 400, offset: 0})
-        } catch (err) {
-          this.$message({
-            content: err.message,
-            type: 'error',
-            duration: 2000
-          })
+          return
         }
+        this.$router.push({
+          path: `/article/${this.article.id}`,
+          query: {
+            page: val
+          }
+        })
       },
       async voteClick () {
         try {
@@ -226,12 +216,12 @@
       async commentDelete (id) {
         try {
           await this.$api.comment.deleteById(id)
-          await this.pageChange(this.page)
           this.$message({
             content: '删除成功',
             type: 'success',
             duration: 2000
           })
+          await this.pageChange(this.page)
         } catch (err) {
           this.$message({
             content: err.message,
@@ -252,6 +242,7 @@
             })
             return
           }
+          // 如果是回复
           if (this.replyCommentIndex >= 0) {
             const commentId = this.comments[this.replyCommentIndex].id
             await this.$api.reply.add({
@@ -260,22 +251,23 @@
               commentId
             })
             this.replyCommentIndex = -1
-            // 获取当前页
-            await this.pageChange(this.page)
           } else {
+            // 如果是评论
             await this.$api.comment.add({
               content,
               contentType: 'MARKDOWN',
               articleId
             })
-            await this.pageChange(1)
           }
           this.$message({
             type: 'success',
             duration: 2000,
             content: '评论成功'
           })
+          // 评论编辑框置空
           this.commentContent = ''
+          // 重新跳转到当前页
+          this.pageChange(this.page)
         } catch (err) {
           this.$message({
             content: err.message,

@@ -16,7 +16,7 @@
             c-col(:span="20")
                 .right-wrapper
                     .tabs
-                        nuxt-link.tab(:to="'/user/'+user.id") 总概
+                        nuxt-link.tab(:to="'/user/'+user.id+'/info'") 总概
                         nuxt-link.tab(:to="'/user/'+user.id+'/category'") 分类
                     nuxt-child
 </template>
@@ -134,7 +134,7 @@
                     height: 2px;
                     content: '';
                 }
-                &.nuxt-link-exact-active {
+                &.nuxt-link-active {
                     &:after {
                         background-color: $color-primary;
                     }

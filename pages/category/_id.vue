@@ -4,57 +4,99 @@
             h1.name {{category.name}}
             p.desc {{category.description}}
             p.count 文章数：{{category.articleNum}}
-        c-article-list(:articles="articles",:total="count",:pageSize="size",@pageChange="pageChange")
+        c-article-item(@delete="deleteArticle(article.id)",:article="article",v-for="article in articles",:key="article.id")
+        c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
+
 </template>
 
 <script>
-  import CArticleList from '~/components/article/list'
+  import CArticleItem from '~/components/article/item'
+  import CPagination from '~/components/common/pagination'
 
   export default {
+    head () {
+      const keywords = this.articles.map(it => it.title)
+      return {
+        title: this.category.name,
+        meta: [
+          {name: 'keywords', content: keywords.join(',')},
+          {name: 'description', content: this.category.description}
+        ]
+      }
+    },
+    watchQuery: ['page'],
+    key: to => to.fullPath,
     validate ({params}) {
       return /^\d+$/.test(params.id)
     },
-    async asyncData ({params, store, error}) {
+    async asyncData ({params, query, store, error}) {
       const categoryId = Number(params.id)
-      const result = {
+      const page = Number(query.page || 1)
+      const size = 8
+      const data = {
         articles: [],
-        page: 0,
-        size: 6,
-        count: 0,
+        page,
+        size,
+        totalPages: 0,
         category: {}
-
       }
       try {
         let res = await store.$api.category.getById(categoryId)
-        result.category = res.data
+        data.category = res.data
         res = await store.$api.article.getAllByCategoryId({
           categoryId,
-          page: result.page,
-          size: result.size,
+          page: page - 1,
+          size,
           sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
         })
-        result.articles = res.data.content
-        result.count = res.data.totalElements
-        return result
+        data.articles = res.data.content
+        data.totalPages = res.data.totalPages
+        return data
       } catch (err) {
         error({statusCode: 500, message: err.message})
       }
     },
     methods: {
+      async deleteArticle (id) {
+        try {
+          await this.$api.article.deleteById(id)
+          await this.pageChange(this.page)
+          this.$message({
+            content: '删除成功',
+            duration: 2000,
+            type: 'success'
+          })
+        } catch (err) {
+          this.$message({
+            content: err.message,
+            duration: 2000,
+            type: 'error'
+          })
+        }
+      },
       async pageChange (val) {
-        this.page = val - 1
-        const res = await this.$api.article.getAllByCategoryId({
-          categoryId: this.category.id,
-          page: this.page,
-          size: this.size,
-          sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
+        if (val === this.page) {
+          let res = await this.$api.article.getAllByCategoryId({
+            categoryId: this.category.id,
+            page: val - 1,
+            size: this.size,
+            sort: ['voteNum,DESC', 'readNum,DESC', 'updateAt,DESC']
+          })
+          this.articles = res.data.content
+          this.totalPages = res.data.totalPages
+          return
+        }
+        this.$router.push({
+          path: `/category/${this.category.id}`,
+          query: {
+            page: val
+          }
         })
-        this.count = res.data.totalElements
-        this.articles = res.data.content
       }
     },
     components: {
-      CArticleList
+      CArticleItem,
+      CPagination
     }
   }
 </script>
@@ -67,7 +109,7 @@
             background-color: $color-background;
             margin-bottom: 1rem;
             padding: 1rem;
-            .name ,.desc {
+            .name, .desc {
                 text-align: center;
                 color: $color-text-light;
             }
