@@ -1,6 +1,6 @@
 <template lang="pug">
     .c-select(v-clickoutside="outClick")
-        c-dropdown(trigger="none",v-model="isShow")
+        c-dropdown(trigger="custom",v-model="isShow")
             .c-select__header(:class="headerClass",ref="header",@click="headerClick")
                 .c-select__header__wrapper
                     .c-select__tag(@click.stop,v-for="tag in tags",:key="tag.id")

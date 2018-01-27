@@ -1,29 +1,19 @@
 <template lang="pug">
-    ul.c-dropdown-menu-container
+    ul.c-dropdown__menu
         slot
 </template>
 
 <script>
-  import { findComponentUpward } from '../../../utils/utils'
 
   export default {
-    name: 'c-dropdown-menu',
-    data () {
-      return {}
-    },
-    methods: {},
-    created () {
-      const parent = findComponentUpward(this, 'dropdown')
-      this.parent = parent
-    }
+    name: 'c-dropdown-menu'
   }
 </script>
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-dropdown-menu-container {
-        margin: 0;
-        position: relative;
+    .c-dropdown__menu {
+        background-color: $dropdown-bg;
     }
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-    li.c-dropdown-item-container
+    li.c-dropdown__item
         slot
 </template>
 
@@ -10,8 +10,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .c-dropdown-item-container {
-        position: relative;
-        word-break: keep-all;
+    .c-dropdown__item {
+        white-space: nowrap;
     }
 </style>
