@@ -1,25 +1,50 @@
 <template lang="pug">
-    .c-checkbox(:class="{'c-checkbox--checked':value}")
-        span.c-checkbox__wrapper
-            input.c-checkbox__input(type="checkbox",v-model="val")
-        span.c-checkbox__label(@click="val=!val") {{label}}
+    span.c-checkbox(:class="classes",@click="click")
+        span.c-checkbox__inner
+        input.c-checkbox__input(type="checkbox",:value="isChecked")
+        span.c-checkbox__label
+            slot
+                span {{label}}
 </template>
 <script>
   export default {
     name: 'c-checkbox',
     props: {
+      // 单独使用时只能传boolean值
       value: {
-        type: Boolean,
+        type: [Boolean, String, Number],
         default: false
       },
       label: {
         type: String,
         default: ''
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
       return {
-        val: this.value
+        val: this.value,
+        parent: null
+      }
+    },
+    computed: {
+      isChecked () {
+        if (this.parent) {
+          return this.parent.val.includes(this.val)
+        }
+        if (typeof this.val === 'boolean') {
+          return this.val
+        }
+        return false
+      },
+      classes () {
+        return {
+          'c-checkbox--checked': this.isChecked,
+          'c-checkbox--disabled': this.disabled
+        }
       }
     },
     watch: {
@@ -29,6 +54,24 @@
       value (val) {
         this.val = val
       }
+    },
+    methods: {
+      click () {
+        if (this.disabled) {
+          return
+        }
+        if (!this.parent) {
+          this.val = !this.isChecked
+          return
+        }
+        if (this.isChecked) {
+          this.parent.val = this.parent.val.filter(it => {
+            return it !== this.val
+          })
+        } else {
+          this.parent.val.push(this.val)
+        }
+      }
     }
   }
 </script>
@@ -36,27 +79,77 @@
     @import "~assets/scss/variables";
 
     .c-checkbox {
-        cursor: pointer;
-        display: flex;
-        flex-direction: row;
+        position: relative;
+        display: inline-flex;
         align-items: center;
-        .c-checkbox__wrapper {
-            height: 1em;
-            margin-right: 0.5em;
-            .c-checkbox__input {
-                outline: none;
-                border: none;
-                height: 1em;
-                width: 1em;
+        white-space: nowrap;
+        cursor: pointer;
+        .c-checkbox__inner {
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            position: relative;
+            top: 0;
+            left: 0;
+            border: 1px solid $border-color-base;
+            border-radius: $border-radius-small;
+            background-color: $checkbox-bg;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            &:after {
+                content: '';
+                display: table;
+                width: 0.4em;
+                height: 0.8em;
+                position: absolute;
+                top: 0.1em;
+                left: 0.3em;
+                box-sizing: border-box;
+                border: 0.15em solid #fff;
+                border-top: 0;
+                border-left: 0;
+                transform: rotate(45deg) scale(0);
+                transition: all 0.2s ease-in-out;
+            }
+        }
+        .c-checkbox__input {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 0;
+            left: 0;
+        }
+        .c-checkbox__label {
+            margin-left: 0.5em;
+        }
+    }
+
+    .c-checkbox--checked {
+        .c-checkbox__inner {
+            border-color: $primary-color;
+            background-color: $primary-color;
+            &:after {
+                transform: rotate(45deg) scale(1);
+            }
+        }
+    }
+
+    .c-checkbox--disabled {
+        &.c-checkbox--checked {
+            .c-checkbox__inner {
+                &:after {
+                    border-color: #ccc;
+                }
+            }
+        }
+        &.c-checkbox__inner {
+            background-color: #f3f3f3;
+            border-color: $border-color-base;
+            &:after {
+                animation-name: none;
+                border-color: #f3f3f3;
             }
         }
 
-        .c-checkbox__label {
-        }
-    }
-    .c-checkbox--checked {
-        color: $color-primary;
-        .checkbox {
-        }
     }
 </style>

@@ -145,7 +145,7 @@
             width: 100%;
             padding: 0.5em;
             background-color: $color-background;
-            height: 10em;
+            height: 15em;
             .article-image-wrapper {
                 display: block;
                 position: relative;

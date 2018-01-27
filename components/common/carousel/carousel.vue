@@ -4,7 +4,7 @@
             slot
         i.c-carousel__direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
         i.c-carousel__direction.fa.fa-angle-right(@click="moveTo(activeIndex+1)")
-        ul.c-carousel__index__wrapper(v-if="childNum>0")
+        ul.c-carousel__index--wrapper(v-if="childNum>0")
             li.c-carousel__index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
                 .c-carousel__index__item(:class="{'c-carousel__index__item--active':index-1===activeIndex}")
 </template>
@@ -125,7 +125,7 @@
                 right: 0.5em;
             }
         }
-        .c-carousel__index__wrapper {
+        .c-carousel__index--wrapper {
             display: block;
             position: absolute;
             bottom: 1em;

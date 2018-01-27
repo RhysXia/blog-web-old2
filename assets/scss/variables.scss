@@ -92,12 +92,18 @@ $text-color             : #495060;
 $border-radius-base     : 0.3em;
 $border-radius-small    : 0.2em;
 
+//border color
+$border-color-base      : #dddee1;  // outside
+$border-color-split     : #e9eaec;  // inside
 
 
 
 //avatar
-$avatar-bg: #ccc;
-$avatar-color: #fff;
-$avatar-size: 3em;
+$avatar-bg              : #ccc;
+$avatar-color           : #fff;
+$avatar-size            : 3em;
+
+//checkbox
+$checkbox-bg            :#fff;
 
 
