@@ -13,7 +13,7 @@
                 .right
                     .avatar-wrapper
                         .avatar
-                            c-avatar(:imgUrl="copyUser.avatar",type="square",width="100%",height="100%")
+                            c-avatar(:src="copyUser.avatar",shape="square",matchParent)
                     c-upload(:action="avatar.url",:headers="avatar.headers",:name="avatar.name",:onSuccess="avatar.onSuccess")
                         button.upload-avatar 修改头像
         c-tab(name="密码管理")
@@ -47,7 +47,7 @@
       return store.getters.isLogin
     },
     computed: {
-      ...mapState(['user', 'token', 'serverURL']),
+      ...mapState(['loginUser', 'token', 'serverURL']),
       avatar () {
         const headers = {}
         headers.Authorization = this.token
@@ -55,7 +55,7 @@
         const name = 'avatar'
         const onSuccess = async data => {
           const res = await this.$api.user.getSelf()
-          this.$store.commit('setUser', res.data)
+          this.$store.commit('setLoginUser', res.data)
           this.$message({
             content: '修改成功',
             duration: 2000,
@@ -78,7 +78,7 @@
       }
     },
     watch: {
-      user () {
+      loginUser () {
         this.reset()
       }
     },
@@ -133,7 +133,7 @@
         try {
           await this.$api.user.updateBase({nickname, info})
           const res = await this.$api.user.getSelf()
-          this.$store.commit('setUser', res.data)
+          this.$store.commit('setLoginUser', res.data)
           this.$message({
             content: '修改成功',
             duration: 2000,
@@ -148,9 +148,9 @@
         }
       },
       reset () {
-        this.copyUser.avatar = this.user.avatar
-        this.copyUser.nickname = this.user.nickname
-        this.copyUser.info = this.user.info
+        this.copyUser.avatar = this.loginUser.avatar
+        this.copyUser.nickname = this.loginUser.nickname
+        this.copyUser.info = this.loginUser.info
         this.copyUser.password = ''
         this.copyUser.newPassword = ''
         this.copyUser.reNewPassword = ''

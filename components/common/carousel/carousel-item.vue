@@ -1,16 +1,14 @@
 <template lang="pug">
-    .c-carousel__item(:style="[styles]")
+    .c-carousel__item(:style="styles")
         slot
 </template>
 
 <script>
-  import { findComponentUpward } from '../../../utils/utils'
 
   export default {
     name: 'c-carousel-item',
     data () {
       return {
-        parent: null,
         index: 0,
         isAnimated: false
       }
@@ -18,10 +16,7 @@
     computed: {
       styles () {
         const styles = {}
-        const parent = this.parent
-        if (!parent) {
-          return styles
-        }
+        const parent = this.$parent
         styles.height = parent.rHeight + 'px'
         styles.width = parent.rWidth + 'px'
         const isLast = this.index === parent.childNum - 1
@@ -41,20 +36,7 @@
         return styles
       },
       activeIndex () {
-        if (this.parent) {
-          return this.parent.activeIndex
-        }
-      }
-    },
-    created () {
-      this.parent = findComponentUpward(this, 'c-carousel')
-      if (this.parent) {
-        this.parent.updateChildren()
-      }
-    },
-    beforeDestroy () {
-      if (this.parent) {
-        this.parent.updateChildren()
+        return this.$parent.activeIndex
       }
     }
   }

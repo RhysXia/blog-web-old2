@@ -9,7 +9,7 @@
                 .left-wrapper
                     .avatar-wrapper
                         .avatar
-                            c-avatar(:imgUrl="user.avatar",type="square",width="100%",height="100%")
+                            c-avatar(:src="user.avatar",shape="square",matchParent) {{user.nickname}}
                     h2.nickname
                         | {{user.nickname}}
                     pre.info {{user.info?user.info:'他太懒了，什么都没写'}}

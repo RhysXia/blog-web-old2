@@ -1,8 +1,8 @@
 <template lang="pug">
     .index-container
         .left
-            .carousel-wrapper
-                c-carousel(width="100%",height="200px")
+            .carousel-wrapper(v-if="hotArticles.length>0")
+                c-carousel
                     c-carousel-item(v-for="(article,index) in  hotArticles",:key="index")
                         nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
                             img.article-image(:src="article.poster")
@@ -142,8 +142,10 @@
             width: 18em;
         }
         .carousel-wrapper {
+            width: 100%;
             padding: 0.5em;
             background-color: $color-background;
+            height: 10em;
             .article-image-wrapper {
                 display: block;
                 position: relative;

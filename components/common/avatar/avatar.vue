@@ -1,57 +1,83 @@
 <template lang="pug">
-    .c-avatar(:style="styles")
-        img.c-avatar__image(:src="imgUrl",v-if="imgUrl")
-        .c-avatar__image.c-avatar__image--anno(v-else)
+    .c-avatar(:class="classes",:style="matchParent?{width:'100%',height:'100%'}:{}")
+        img.c-avatar__image(:src="src",v-if="src")
+        .c-avatar__image.c-avatar__image--anno(v-if="!isSlotShow")
+        .c-avatar__content(ref="children",v-if="isSlotShow")
+            slot
 </template>
 
 <script>
   export default {
     name: 'c-avatar',
     props: {
-      imgUrl: {
+      // circle square
+      shape: {
+        type: String,
+        default: 'circle'
+      },
+      // 图片url
+      src: {
         type: String,
         default: ''
       },
-      width: {
-        type: [String, Number],
-        default: 50
-      },
-      height: {
-        type: [String, Number],
-        default: 50
-      },
-      // circle square
-      type: {
-        type: String,
-        default: 'circle'
+      matchParent: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
-      styles () {
-        let width = this.width
-        let height = this.height
-        const style = {}
-        if (this.type === 'circle') {
-          style.borderRadius = '50%'
+      isSlotShow () {
+        return !this.src && !!this.$slots.default
+      },
+      classes () {
+        if (this.shape === 'square') {
+          return ['c-avatar--square']
         }
-        if (typeof width === 'number') {
-          width = width + 'px'
-        }
-        if (typeof height === 'number') {
-          height = height + 'px'
-        }
-        style.width = width
-        style.height = height
-        return style
+        return ['c-avatar--circle']
       }
+    },
+    methods: {
+      updateSlotSize () {
+        const children = this.$refs.children
+        if (children) {
+          const childrenWidth = children.scrollWidth
+          const avatarWidth = this.$el.offsetWidth
+          let scale = 1
+          console.log(childrenWidth, avatarWidth)
+          if (avatarWidth < childrenWidth) {
+            scale = avatarWidth / childrenWidth
+          }
+          children.style.transform = `scale(${scale})`
+          children.style['ms-transform'] = `scale(${scale})`
+          children.style['webkit-transform'] = `scale(${scale})`
+          children.style.position = 'absolute'
+          children.style.transform = `scale(${scale})`
+        }
+      }
+    },
+    mounted () {
+      this.updateSlotSize()
+    },
+    updated () {
+      this.updateSlotSize()
     }
   }
 </script>
 
 <style lang="scss" scoped>
+    @import "~assets/scss/variables";
+
     .c-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
+        width: $avatar-size;
+        height: $avatar-size;
         overflow: hidden;
+        white-space: nowrap;
+        background-color: $avatar-bg;
+        color: $avatar-color;
         .c-avatar__image {
             width: 100%;
             height: 100%;
@@ -60,5 +86,15 @@
             background-image: url("./anon.png");
             background-size: cover;
         }
+        .c-avatar__content {
+        }
+    }
+
+    .c-avatar--square {
+        border-radius: $border-radius-small;
+    }
+
+    .c-avatar--circle {
+        border-radius: 50%;
     }
 </style>

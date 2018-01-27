@@ -4,7 +4,6 @@
 </template>
 
 <script>
-  import { findComponentsDownward } from '~/utils/utils'
 
   export default {
     name: 'c-breadcrumb',
@@ -14,26 +13,37 @@
         default: '/'
       }
     },
-    data () {
-      return {
-        children: []
-      }
-    },
     watch: {
-      children (val) {
-        for (let i = 0; i < val.length - 1; i++) {
-          val[i].separator = this.separator
-        }
+      separator () {
+        this.updateChildren()
       }
     },
     methods: {
       updateChildren () {
-        this.children = findComponentsDownward(this, 'c-breadcrumb-item', 1)
+        for (let i = 0; i < this.$children.length - 1; i++) {
+          this.$children[i].separator = this.separator
+        }
       }
+    },
+    mounted () {
+      console.log(this)
+      this.updateChildren()
+    },
+    updated () {
+      this.$nextTick(() => {
+        this.updateChildren()
+      })
     }
   }
 </script>
 
 <style lang="scss" scoped>
+    @import "~assets/scss/variables";
+
+    .c-breadcrumb {
+        color: #999;
+        font-size: 1em;
+
+    }
 
 </style>

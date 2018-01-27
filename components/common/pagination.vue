@@ -1,5 +1,5 @@
 <template lang="pug">
-    ul.c-pagination
+    ul.c-pagination(v-if="totalPages")
         li.c-pagination__item(@click="click(1)",:class="{'c-pagination__item--disabled':currentPage<=1}")
             i.fa.fa-angle-double-left
         li.c-pagination__item(@click="click(currentPage-1)",:class="{'c-pagination__item--disabled':currentPage<=1}")

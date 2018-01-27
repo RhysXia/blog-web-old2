@@ -1,14 +1,15 @@
 <template lang="pug">
     span.c-breadcrumb__item
-        router-link.link(v-if="to",:to="to")
+        router-link.c-breadcrumb__item--link(v-if="to",:to="to")
             slot
-        span.link(v-else)
+        span.c-breadcrumb__item--link(v-else)
             slot
-        span(v-if="separator") {{separator}}
+        span.c-breadcrumb__item--separator(v-if="$slots.separator")
+            slot(name="separator")
+        span.c-breadcrumb__item--separator(v-else-if="separator") {{separator}}
 </template>
 
 <script>
-  import { findComponentUpward } from '~/utils/utils'
 
   export default {
     name: 'c-breadcrumb-item',
@@ -19,19 +20,7 @@
     },
     data () {
       return {
-        separator: '',
-        parent: null
-      }
-    },
-    created () {
-      this.parent = findComponentUpward(this, 'c-breadcrumb')
-      if (this.parent) {
-        this.parent.updateChildren()
-      }
-    },
-    beforeDestroy () {
-      if (this.parent) {
-        this.parent.updateChildren()
+        separator: ''
       }
     }
   }
@@ -40,7 +29,18 @@
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
 
-    .c-breadcrumb-item {
-
+    .c-breadcrumb__item {
+        .c-breadcrumb__item--link {
+            text-decoration: none;
+            color: $text-color;
+            transition: color 0.2s ease-in-out;
+            cursor: pointer;
+            &:hover {
+                color: opacify($primary-color,0.2);
+            }
+        }
+        .c-breadcrumb__item--separator{
+            margin: 0 0.5em;
+        }
     }
 </style>

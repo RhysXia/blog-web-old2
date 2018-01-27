@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-carousel(:style="styles",@mouseenter.stop="mouseEnter",@mouseleave.stop="mouseLeave")
+    .c-carousel(@mouseenter.stop="mouseEnter",@mouseleave.stop="mouseLeave")
         .c-carousel__content--wrapper
             slot
         i.c-carousel__direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
@@ -9,19 +9,10 @@
                 .c-carousel__index__item(:class="{'c-carousel__index__item--active':index-1===activeIndex}")
 </template>
 <script>
-  import { findComponentsDownward } from '~/utils/utils'
 
   export default {
     name: 'c-carousel',
     props: {
-      width: {
-        type: String,
-        default: '100%'
-      },
-      height: {
-        type: String,
-        default: '100%'
-      },
       interval: {
         type: Number,
         default: 3000
@@ -40,14 +31,13 @@
     computed: {
       childNum () {
         return this.children.length
-      },
-      styles () {
-        let style = {}
-        style = {
-          width: this.width,
-          height: this.height
-        }
-        return style
+      }
+    },
+    watch: {
+      children (val) {
+        val.forEach((it, index) => {
+          it.index = index
+        })
       }
     },
     methods: {
@@ -82,15 +72,8 @@
       mouseLeave () {
         this.timer = setInterval(this.rollOneTime, this.interval)
       },
-      updateChildren () {
-        this.$nextTick(() => {
-          this.children = findComponentsDownward(this, 'c-carousel-item', 1)
-          for (let i = 0; i < this.children.length; i++) {
-            this.children[i].index = i
-          }
-        })
-      },
       init () {
+        this.children = this.$children
         this.rWidth = this.$el.offsetWidth
         this.rHeight = this.$el.offsetHeight
       },
@@ -104,6 +87,9 @@
       this.$nextTick(() => {
         this.timer = setInterval(this.rollOneTime, this.interval)
       })
+    },
+    updated () {
+      this.init()
     }
   }
 </script>
@@ -113,6 +99,8 @@
 
     .c-carousel {
         position: relative;
+        width: 100%;
+        height: 100%;
         .c-carousel__content--wrapper {
             position: relative;
             width: 100%;
@@ -124,7 +112,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 40px;
-            color: $color-text;
+            color: $text-color;
             opacity: 0.5;
             cursor: pointer;
             &:hover {

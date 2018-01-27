@@ -25,7 +25,7 @@
                                         | 评论了你
                                     router-link.message-watch(:to="'/message/comment'+'?commentId='+message.comment.id") 查看
                     c-dropdown
-                        c-avatar(height="45px",width="45px",:imgUrl="loginUser.avatar")
+                        c-avatar(:src="loginUser.avatar",shape="square") {{loginUser.nickname}}
                         c-dropdown-menu(slot="list")
                             c-dropdown-item
                                 nuxt-link.c-dropdown-item(:to="'/user/'+loginUser.id") 个人中心
