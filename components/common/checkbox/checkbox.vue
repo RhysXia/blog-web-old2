@@ -94,7 +94,6 @@
             border: 1px solid $border-color-base;
             border-radius: $border-radius-small;
             background-color: $checkbox-bg;
-            box-sizing: border-box;
             transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             &:after {
                 content: '';
@@ -102,10 +101,10 @@
                 width: 0.4em;
                 height: 0.8em;
                 position: absolute;
-                top: 0.1em;
-                left: 0.3em;
+                top: 0.15em;
+                left: 0.4em;
                 box-sizing: border-box;
-                border: 0.15em solid #fff;
+                border: 0.15em solid $checkbox-bg;
                 border-top: 0;
                 border-left: 0;
                 transform: rotate(45deg) scale(0);
@@ -126,8 +125,8 @@
 
     .c-checkbox--checked {
         .c-checkbox__inner {
-            border-color: $primary-color;
-            background-color: $primary-color;
+            border-color: $checkbox-bg;
+            background-color: $checkbox-checked;
             &:after {
                 transform: rotate(45deg) scale(1);
             }
@@ -135,21 +134,16 @@
     }
 
     .c-checkbox--disabled {
-        &.c-checkbox--checked {
-            .c-checkbox__inner {
-                &:after {
-                    border-color: #ccc;
-                }
-            }
-        }
-        &.c-checkbox__inner {
-            background-color: #f3f3f3;
+        cursor: not-allowed;
+        .c-checkbox__inner {
+            background-color: $checkbox-disabled;
             border-color: $border-color-base;
             &:after {
                 animation-name: none;
-                border-color: #f3f3f3;
             }
         }
-
+        .c-checkbox__label {
+            color: $checkbox-disabled;
+        }
     }
 </style>

@@ -70,40 +70,40 @@ $z-index-max: 2000;
 //=======================================
 
 //color
-$primary-color          : #4dce9b;
-$info-color             : #2db7f5;
-$success-color          : #19be6b;
-$warning-color          : #ff9900;
-$error-color            : #ed3f14;
-$link-color             : #4dce9b;
-$link-hover-color       : tint($link-color, 20%);
-$link-active-color      : shade($link-color, 5%);
-$selected-color         : fade($primary-color, 90%);
-$tooltip-color          : #fff;
-$subsidiary-color       : #80848f;
-$rate-star-color        : #f5a623;
+$primary-color: #4dce9b;
+$info-color: #2db7f5;
+$success-color: #19be6b;
+$warning-color: #ff9900;
+$error-color: #ed3f14;
+$link-color: #4dce9b;
+$link-hover-color: tint($link-color, 20%);
+$link-active-color: shade($link-color, 5%);
+$selected-color: fade($primary-color, 90%);
+$tooltip-color: #fff;
+$subsidiary-color: #80848f;
+$rate-star-color: #f5a623;
 
 //base
-$body-background        : #fff;
-$font-family            : "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-$code-family            : Consolas,Menlo,Courier,monospace;
-$title-color            : #1c2438;
-$text-color             : #495060;
-$border-radius-base     : 0.3em;
-$border-radius-small    : 0.2em;
+$body-background: #fff;
+$font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+$code-family: Consolas, Menlo, Courier, monospace;
+$title-color: #1c2438;
+$text-color: #495060;
+$border-radius-base: 0.3em;
+$border-radius-small: 0.2em;
 
 //border color
-$border-color-base      : #dddee1;  // outside
-$border-color-split     : #e9eaec;  // inside
-
-
+$border-color-base: #dddee1; // outside
+$border-color-split: #e9eaec; // inside
 
 //avatar
-$avatar-bg              : #ccc;
-$avatar-color           : #fff;
-$avatar-size            : 3em;
+$avatar-bg: #ccc;
+$avatar-color: #fff;
+$avatar-size: 3em;
 
 //checkbox
-$checkbox-bg            :#fff;
+$checkbox-bg: #fff;
+$checkbox-disabled: #ccc;
+$checkbox-checked: $primary-color;
 
 

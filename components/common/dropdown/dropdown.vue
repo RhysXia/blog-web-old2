@@ -21,9 +21,9 @@
         default: 'bottom'
       },
       trigger: {
-        // none表示不触发
+        // custom表示手动控制
         validator (val) {
-          return ['click', 'hover', 'none'].includes(val)
+          return ['click', 'hover', 'custom'].includes(val)
         },
         default: 'hover'
       },
@@ -58,7 +58,7 @@
         this.visible = false
       },
       refClick () {
-        if (this.trigger === 'none') {
+        if (this.trigger === '') {
           return
         }
         this.visible = true
@@ -79,45 +79,16 @@
 
 <style lang="scss" scoped>
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
 
     .c-dropdown {
-        position: relative;
-        cursor: pointer;
-        .c-dropdown__ref {
+        display: inline-block;
+        .c-dropdown__ref{
             position: relative;
-            background-color: transparent;
         }
-        .c-dropdown__list {
-            position: absolute;
-            z-index: $z-index-xl;
-            border: 1px solid $color-border-base;
-            border-radius: 0.3em;
-            background-color: $color-background;
+        .c-dropdown__list{
+            margin: 0.5em 0;
+            padding: 0.5em 0;
+            background-color: $body-background;
         }
-        .c-dropdown__list--bottom {
-            top: 100%;
-            left: 0;
-            min-width: 100%;
-            margin-top: 0.15em;
-        }
-        .c-dropdown__list--top {
-            bottom: 100%;
-            left: 0;
-            min-width: 100%;
-            margin-bottom: 0.15em;
-        }
-        .c-dropdown__list--left {
-            right: 100%;
-            top: 0;
-            min-height: 100%;
-        }
-        .c-dropdown__list--right {
-            left: 100%;
-            top: 0;
-            min-height: 100%;
-        }
-        @include slide(c-dropdown--slide-bottom, bottom);
-        @include slide(c-dropdown--slide-top, top);
     }
 </style>
