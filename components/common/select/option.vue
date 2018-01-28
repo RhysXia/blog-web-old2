@@ -1,5 +1,5 @@
 <template lang="pug">
-    transition(name="c-option--animation")
+    transition(name="c-option--fade")
         c-dropdown-item(v-if="isShow")
             .c-option(@click.stop="click",:class="classes")
                 slot {{label}}
@@ -91,6 +91,7 @@
 
     .c-option {
         padding: 0.5em;
+        cursor: pointer;
         &:hover {
             background-color: rgba(200, 200, 200, 0.5);
         }
@@ -100,18 +101,18 @@
         background-color: rgba(200, 200, 200, 0.5);
     }
 
-    .c-option--animation-enter-active,
+    .c-option--fade-enter-active,
     .c-option--animation-leave-active {
         transition: opacity 0.4s;
     }
 
-    .c-option--animation-enter,
-    .c-option--animation-leave-to {
+    .c-option--fade-enter,
+    .c-option--fade-leave-to {
         opacity: 0.5;
     }
 
-    .c-option--animation-leave,
-    .c-option--animation-enter-to {
+    .c-option--fade-leave,
+    .c-option--fade-enter-to {
         opacity: 1;
     }
 </style>

@@ -15,5 +15,6 @@
 
     .c-dropdown__menu {
         background-color: $dropdown-bg;
+        list-style: none;
     }
 </style>

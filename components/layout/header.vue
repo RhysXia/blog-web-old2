@@ -27,15 +27,10 @@
                     c-dropdown
                         c-avatar(:src="loginUser.avatar",shape="square") {{loginUser.nickname}}
                         c-dropdown-menu(slot="list")
-                            c-dropdown-item
-                                nuxt-link.c-dropdown-item(:to="'/user/'+loginUser.id") 个人中心
-                            c-dropdown-item(v-if="isWrite")
-                                nuxt-link.c-dropdown-item(to="/article/write") 写文章
-                            c-dropdown-item
-                                nuxt-link.c-dropdown-item(to="/user/setting") 设置
-                            c-dropdown-item
-                                button.c-dropdown-item.link(@click="logout")  注销
-                    button(@click="clickBtn") xx
+                            c-dropdown-item(@click="$router.push('/user/'+loginUser.id)") 个人中心
+                            c-dropdown-item(v-if="isWrite",@click="$router.push('/article/write')") 写文章
+                            c-dropdown-item(@click="$router.push('/user/setting')") 设置
+                            c-dropdown-item(@click="logout") 注销
 </template>
 <script>
   import {
@@ -63,14 +58,6 @@
       }
     },
     methods: {
-      clickBtn () {
-        this.$message({
-          content: '<b>123</b>',
-          type: 'success',
-          duration: 0,
-          showClose: true
-        })
-      },
       logout () {
         this.$store.dispatch('logout').then(() => {
           this.$router.push('/')
@@ -153,20 +140,6 @@
 
     .c-logo {
         font-size: 1.5em;
-    }
-
-    .c-dropdown-item {
-        display: block;
-        padding: 0.5em 0.7em;
-        &:hover {
-            background-color: $color-background-active;
-        }
-    }
-
-    .link {
-        width: 100%;
-        text-align: left;
-        border: none;
     }
 
     .c-left {

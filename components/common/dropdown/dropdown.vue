@@ -39,6 +39,11 @@
       value: {
         type: Boolean,
         default: false
+      },
+      // 点击子菜单时关闭菜单
+      closeOnClick: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
