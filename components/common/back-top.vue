@@ -1,10 +1,44 @@
 <template lang="pug">
     transition(name="c-back-top--slide")
         .c-back-top(v-show="isShow",:style="styles",@click="click")
-            i.fa.fa-arrow-circle-up
+            slot
+                i.fa.fa-arrow-circle-up
 </template>
 
 <script>
+  function scrollTop (el, from = 0, to, duration = 500) {
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = (
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+          return window.setTimeout(callback, 1000 / 60)
+        }
+      )
+    }
+    const difference = Math.abs(from - to)
+    const step = Math.ceil(difference / duration * 50)
+
+    function scroll (start, end, step) {
+      if (start === end) return
+
+      let d = (start + step > end) ? end : start + step
+      if (start > end) {
+        d = (start - step < end) ? end : start - step
+      }
+
+      if (el === window) {
+        window.scrollTo(d, d)
+      } else {
+        el.scrollTop = d
+      }
+      window.requestAnimationFrame(() => scroll(d, end, step))
+    }
+
+    scroll(from, to, step)
+  }
+
   export default {
     name: 'c-back-top',
     props: {
@@ -21,9 +55,9 @@
         type: Number
       },
       // 滚动所需时间
-      scrollTime: {
+      duration: {
         type: Number,
-        default: 500
+        default: 1000
       }
     },
     data () {
@@ -59,16 +93,7 @@
         this.clientHeight = document.documentElement.clientHeight || document.body.clientHeight
       },
       click () {
-        let scrollTop = this.scrollTop
-        let time = this.scrollTime / 10
-        const speed = scrollTop / time
-        this._timer = setInterval(() => {
-          scrollTop -= speed
-          if (scrollTop <= 0) {
-            clearInterval(this._timer)
-          }
-          window.scrollTo(0, scrollTop)
-        }, 10)
+        scrollTop(window, this.scrollTop, 0, this.duration)
       }
     },
     mounted () {
@@ -92,7 +117,6 @@
     @import "~assets/scss/variables";
 
     .c-back-top {
-        z-index: $z-index-l;
         position: fixed;
         cursor: pointer;
         display: inline-block;
