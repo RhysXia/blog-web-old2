@@ -9,7 +9,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .c-dropdown__item {
         white-space: nowrap;
     }

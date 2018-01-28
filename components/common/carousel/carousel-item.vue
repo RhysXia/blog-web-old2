@@ -42,7 +42,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .c-carousel__item {
         // 必须设置position，否则z-index无效
         position: absolute;

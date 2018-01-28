@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import CRow from '~/components/grid/row'
-import CCol from '~/components/grid/col'
+import { CCol, CRow } from '~/components/common/grid'
 import Message from '~/components/common/message'
 
 export default () => {

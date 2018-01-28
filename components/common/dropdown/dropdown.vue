@@ -79,7 +79,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/variables";
 
     @mixin slide($className,$direction:bottom,$duration:0.2s) {

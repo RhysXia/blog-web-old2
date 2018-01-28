@@ -70,7 +70,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .c-upload {
         width: 100%;
         height: 100%;
