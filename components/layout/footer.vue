@@ -1,7 +1,6 @@
 <template lang="pug">
-    c-row.c-footer-container(type="flex",align="middle",justify="center")
-        c-col
-            span &copy;Rhys Xia 2017. All rights reserved. 皖ICP备17009214号
+    .c-footer-container
+        span &copy;Rhys Xia 2017. All rights reserved. 皖ICP备17009214号
 
 </template>
 <script>
@@ -16,5 +15,8 @@
     .c-footer-container {
         background-color: $color-background;
         height: $height-footer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>

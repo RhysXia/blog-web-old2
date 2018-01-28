@@ -1,17 +1,10 @@
-<template lang="pug">
-    .c-tab(v-show="isShow")
-        slot
-</template>
-
 <script>
-  import { findComponentUpward } from '~/utils/utils'
-
   export default {
     name: 'c-tab',
+    inject: ['cTabGroup'],
     props: {
-      name: {
-        type: String,
-        required: true
+      label: {
+        type: String
       }
     },
     data () {
@@ -22,26 +15,27 @@
     },
     computed: {
       isShow () {
-        if (this.parent) {
-          return this.index === this.parent.activeIndex
-        }
-        return false
+        return this.index === this.cTabGroup.activeIndex
       }
     },
     created () {
-      this.parent = findComponentUpward(this, 'c-tab-group')
-      if (this.parent) {
-        this.parent.updateChildren()
-      }
+      this.cTabGroup.children.push(this)
     },
     beforeDestroy () {
-      if (this.parent) {
-        this.parent.updateChildren()
+      this.cTabGroup.children = this.cTabGroup.children.filter(it => {
+        return it.index !== this.index
+      })
+    },
+    render (h) {
+      if (!this.isShow) {
+        return
       }
+      return h('div', {
+        class: 'c-tab'
+      }, this.$slots.default)
     }
   }
 </script>
-
-<style>
+<style lang="scss">
 
 </style>

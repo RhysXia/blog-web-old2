@@ -77,9 +77,6 @@
     created () {
       this.updateTags()
     },
-    updated () {
-      this.updateTags()
-    },
     components: {
       CDropdownItem
     }

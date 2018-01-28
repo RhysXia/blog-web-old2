@@ -1,6 +1,6 @@
 <template lang="pug">
     c-tab-group.user-setting-container
-        c-tab(name="基本信息")
+        c-tab(label="基本信息")
             .body-info
                 .left
                     .input-wrapper
@@ -16,7 +16,7 @@
                             c-avatar(:src="copyUser.avatar",shape="square",matchParent)
                     c-upload(:action="avatar.url",:headers="avatar.headers",:name="avatar.name",:onSuccess="avatar.onSuccess")
                         button.upload-avatar 修改头像
-        c-tab(name="密码管理")
+        c-tab(label="密码管理")
             .body
                 .input-wrapper
                     label.label 原始密码
