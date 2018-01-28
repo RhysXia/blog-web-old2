@@ -5,7 +5,7 @@
             slot
                 p.c-message__content(v-if="asHTML",v-html="content")
                 p.c-message__content(v-else) {{content}}
-            i.c-message__close(v-if="showClose",@click="close")
+            i.c-message__close.iconfont.icon-close(v-if="showClose",@click="close")
 </template>
 
 <script>
@@ -81,36 +81,48 @@
         min-width: 20em;
         box-sizing: border-box;
         border-radius: $border-radius-small;
-        border: 1px solid $border-color-base;
+        border: 1px solid;
         position: fixed;
         left: 50%;
         top: 2em;
         transform: translateX(-50%);
-
+        overflow: hidden;
+        padding: 0.25em;
+        display: flex;
+        align-items: center;
+        .c-message__content {
+            margin: 0;
+            padding-left: 1em;
+        }
+        .c-message__close {
+            position: absolute;
+            top: 50%;
+            right: 1em;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: $message-close-color;
+            &:hover {
+                color: $message-close-hover-color;
+            }
+        }
     }
 
     .c-message--info {
-        border-color: $color-primary;
-        color: $color-primary-active;
-        background-color: $color-primary-light;
+        background-color: $message-info-bg;
+        border-color: $message-info-border;
+        color: $message-info-color;
+    }
+
+    .c-message--success {
+        color: $message-success-color;
+        border-color: $message-success-border;
+        background-color: $message-success-bg;
     }
 
     .c-message--error {
         border-color: $color-danger;
         color: $color-danger-active;
         background-color: $color-danger-light;
-    }
-
-    .c-message--info {
-        color: $color-success;
-        border-color: $color-success-active;
-        background-color: $color-success-light;
-    }
-
-    .c-message--success {
-        color: $color-success;
-        border-color: $color-success-active;
-        background-color: $color-success-light;
     }
 
     .c-message--warning {

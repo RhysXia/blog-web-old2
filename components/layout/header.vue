@@ -66,8 +66,9 @@
       clickBtn () {
         this.$message({
           content: '<b>123</b>',
-          type: 'info',
-          asHTML: true
+          type: 'success',
+          duration: 0,
+          showClose: true
         })
       },
       logout () {

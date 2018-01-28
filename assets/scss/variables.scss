@@ -128,7 +128,20 @@ $grid-breakpoints: (
 );
 
 //message
-$message-bg: #ebeef5;
+$message-close-color: transparentize($text-color, 0.4);
+$message-close-hover-color: $text-color;
+$message-info-color: $info-color;
+$message-info-bg: transparentize($info-color, 0.8);
+$message-info-border: transparentize($info-color, 0.4);
+$message-success-color: $success-color;
+$message-success-bg: transparentize($success-color, 0.8);
+$message-success-border: transparentize($success-color, 0.4);
+$message-warning-color: $warning-color;
+$message-warning-bg: transparentize($warning-color, 0.8);
+$message-warning-border: transparentize($warning-color, 0.4);
+$message-error-color: $error-color;
+$message-error-bg: transparentize($error-color, 0.8);
+$message-error-border: transparentize($error-color, 0.4);
 
 
 
