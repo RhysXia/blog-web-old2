@@ -122,7 +122,7 @@
         display: inline-block;
         i {
             font-size: 3em;
-            color: $color-success;
+            color: $back-top-color;
         }
     }
 

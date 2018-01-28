@@ -1,8 +1,7 @@
 <template lang="pug">
     .c-badge
         slot
-        transition(name="c-badge--animation")
-            sup.c-badge__content(:class="{ 'c-badge__content--fixed': $slots.default, 'c-badge__content--dot': isDot }",v-show="!hidden&&(content||isDot)") {{content}}
+        sup.c-badge__content(:class="{ 'c-badge__content--fixed': $slots.default, 'c-badge__content--dot': isDot }",v-show="!hidden&&(content||isDot)") {{content}}
 </template>
 
 <script>
@@ -44,13 +43,13 @@
         vertical-align: middle;
         display: inline-block;
         .c-badge__content {
-            background-color: $color-danger;
-            color: $color-text-white;
+            background-color: $badge-bg;
+            color: $badge-color;
             border-radius: 1em;
             font-size: 0.8em;
             height: 1.2em;
             line-height: 1.2em;
-            padding: 0 0.4em;
+            padding: 0 0.5em;
             text-align: center;
             white-space: nowrap;
             border: 1px solid #fff;

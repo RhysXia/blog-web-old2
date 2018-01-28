@@ -12,7 +12,7 @@
                     nuxt-link(to="/auth/login") 登录
                     nuxt-link(to="/auth/register") 注册
                 template(v-else)
-                    c-dropdown(v-if="messages.totalElements>0",position="left")
+                    c-dropdown(v-if="messages.totalElements>0")
                         c-badge(:value="messages.totalElements")
                             i.fa.fa-comments
                         c-dropdown-menu(slot="list")
