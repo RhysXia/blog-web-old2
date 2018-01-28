@@ -1,6 +1,6 @@
 <template lang="pug">
-    .index-container
-        .left
+    c-row.index-container(:gutter="14")
+        c-col(:span="18")
             .carousel-wrapper(v-if="hotArticles.length>0")
                 c-carousel
                     c-carousel-item(v-for="(article,index) in  hotArticles",:key="index")
@@ -10,7 +10,7 @@
             .article-list
                 c-article-item.article-wrapper(@delete="deleteArticle(article.id)",:article="article",v-for="article in articles",:key="article.id")
                 c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
-        .right
+        c-col(:span="6")
             c-panel(title="热门文章")
                 .content
                     p.article-item(v-for="(article,index) in hotArticles",:key="index")
@@ -132,17 +132,8 @@
     @import "~assets/scss/variables";
 
     .index-container {
-        display: flex;
-        flex-direction: row;
-        .left {
-            width: $width-main - 18 - 1;
-            margin-right: 1rem;
-        }
-        .right {
-            width: 18em;
-        }
         .carousel-wrapper {
-            width: 100%;
+            width: auto;
             padding: 0.5em;
             background-color: $color-background;
             height: 15em;

@@ -1,5 +1,5 @@
 <template lang="pug">
-    transition(name="c-back-top--animation")
+    transition(name="c-back-top--slide")
         .c-back-top(v-show="isShow",:style="styles",@click="click")
             i.fa.fa-arrow-circle-up
 </template>
@@ -90,9 +90,7 @@
 
 <style lang="scss">
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
 
-    @include slide(c-back-top--animation, left)
     .c-back-top {
         z-index: $z-index-l;
         position: fixed;
@@ -102,5 +100,23 @@
             font-size: 3em;
             color: $color-success;
         }
+    }
+
+    .c-back-top--slide-enter-active,
+    .c-back-top--slide-leave-active {
+        transform-origin: 0 0;
+        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    .c-back-top--slide-enter,
+    .c-back-top--slide-leave-to {
+        opacity: 0;
+        transform: scaleX(0.5);
+    }
+
+    .c-back-top--slide-leave,
+    .c-back-top--slide-enter-to {
+        opacity: 1;
+        transform: scaleX(1);
     }
 </style>

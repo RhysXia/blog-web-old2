@@ -35,6 +35,7 @@
                                 nuxt-link.c-dropdown-item(to="/user/setting") 设置
                             c-dropdown-item
                                 button.c-dropdown-item.link(@click="logout")  注销
+                    button(@click="clickBtn") xx
 </template>
 <script>
   import {
@@ -62,6 +63,13 @@
       }
     },
     methods: {
+      clickBtn () {
+        this.$message({
+          content: '<b>123</b>',
+          type: 'info',
+          asHTML: true
+        })
+      },
       logout () {
         this.$store.dispatch('logout').then(() => {
           this.$router.push('/')
@@ -117,12 +125,12 @@
         width: 18em;
         border-bottom: 1px solid $color-border-base;
         padding: 1em;
-        .message{
+        .message {
             height: 3em;
             display: inline-block;
             width: 15em;
         }
-        .message-watch{
+        .message-watch {
             height: 3em;
             width: 3em;
             display: inline-block;

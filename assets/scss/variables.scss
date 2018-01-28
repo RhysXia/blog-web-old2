@@ -90,7 +90,6 @@ $code-family: Consolas, Menlo, Courier, monospace;
 $title-color: #1c2438;
 $text-color: #495060;
 
-
 //border
 $border-color-base: #dddee1; // outside
 $border-color-split: #e9eaec; // inside
@@ -102,6 +101,11 @@ $avatar-bg: #ccc;
 $avatar-color: #fff;
 $avatar-size: 3em;
 
+//breadcrumb
+$breadcrumb-separator-color: #c0c4cc;
+$breadcrumb-color: $text-color;
+$breadcrumb-hover: transparentize($primary-color, 0.2);
+
 //checkbox
 $checkbox-bg: #fff;
 $checkbox-disabled: #ccc;
@@ -109,6 +113,22 @@ $checkbox-checked: $primary-color;
 
 //dropdown
 $dropdown-bg: #fff;
+
+//grid
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+$xl: 1920px;
+$grid-breakpoints: (
+        'xs': (max-width:$sm),
+        'sm':(min-width:$sm) and (max-width: $md),
+        'md':(min-width:$md) and (max-width: $lg),
+        'lg':(min-width:$lg) and (max-width: $xl),
+        'xl':(min-width:$xl)
+);
+
+//message
+$message-bg: #ebeef5;
 
 
 

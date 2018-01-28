@@ -19,7 +19,6 @@
       // bottom bottom-start bottom-end
       // top top-start top-end
       position: {
-        type: String,
         default: 'bottom',
         validator: val => {
           return [

@@ -33,7 +33,7 @@
         input.c-editor__input(type="file",ref="upload",@change="inputImage")
         .c-editor__content-wrapper(:style="editorStyle")
             textarea.c-editor__content(ref="textarea",v-autoheight="textHeight",v-model="content")
-            transition(name="c-editor__content__preview--animation",mode="out-in")
+            transition(name="c-editor__preview--slide",mode="out-in")
                 .c-editor__content__preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
 
 </template>
@@ -177,9 +177,25 @@
 </script>
 <style lang="scss">
     @import "~assets/scss/variables";
-    @import "~assets/scss/mixins";
 
-    @include slide(c-editor__content__preview--animation, bottom, 0.5s)
+    .c-editor__preview--slide-enter-active,
+    .c-editor__preview--slide-leave-active {
+        transform-origin: 0 0;
+        transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    }
+
+    .c-editor__preview--slide-enter,
+    .c-editor__preview--slide-leave-to {
+        opacity: 0;
+        transform: scaleY(0.5);
+    }
+
+    .c-editor__preview--slide-leave,
+    .c-editor__preview--slide-enter-to {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+    
     .c-editor{
         display: flex;
         flex-direction: column;

@@ -40,9 +40,7 @@
     @import "~assets/scss/variables";
 
     .c-breadcrumb {
-        color: #999;
         font-size: 1em;
-
     }
 
 </style>

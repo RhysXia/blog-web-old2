@@ -1,3 +1,4 @@
+import './grid.scss'
 import Col from './col'
 import Row from './row'
 

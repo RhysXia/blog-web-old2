@@ -1,8 +1,11 @@
 <template lang="pug">
-    transition(name="c-message--animation",@after-leave="afterLeave")
-        .c-message(v-show="visible",:class="'c-message--'+type")
+    transition(name="c-message--fade",@after-leave="afterLeave")
+        .c-message(v-show="visible",:class="'c-message--'+type",@mouseenter="clearTimer",@mouseleave="startTimer")
             i.c-message__icon.iconfont(:class="'icon-'+type")
-            .c-message__content {{content}}
+            slot
+                p.c-message__content(v-if="asHTML",v-html="content")
+                p.c-message__content(v-else) {{content}}
+            i.c-message__close(v-if="showClose",@click="close")
 </template>
 
 <script>
@@ -17,12 +20,22 @@
         default: 3000
       },
       type: {
+        default: 'info',
         validator (value) {
           return ['info', 'success', 'warning', 'error'].includes(value)
         }
       },
+      showClose: {
+        type: Boolean,
+        default: false
+      },
       onClose: {
         type: Function
+      },
+      // 内容作为html
+      asHTML: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -32,6 +45,9 @@
       }
     },
     methods: {
+      close () {
+        this.visible = false
+      },
       afterLeave () {
         if (this.visible) {
           return
@@ -46,6 +62,9 @@
             this.visible = false
           }, this.duration)
         }
+      },
+      clearTimer () {
+        clearTimeout(this.timer)
       }
     },
     mounted () {
@@ -59,23 +78,15 @@
     @import "./assets/iconfont.css";
 
     .c-message {
+        min-width: 20em;
+        box-sizing: border-box;
+        border-radius: $border-radius-small;
+        border: 1px solid $border-color-base;
         position: fixed;
-        top: 2em;
         left: 50%;
+        top: 2em;
         transform: translateX(-50%);
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 0.4em 1em;
-        border-radius: 0.2em;
-        border: 1px solid;
-        .c-message__icon {
-            display: inline-block;
-            margin-right: 0.5em;
-            font-size: 1.5em;
-            &:before {
-            }
-        }
+
     }
 
     .c-message--info {
@@ -108,19 +119,19 @@
         background-color: $color-warn-light;
     }
 
-    .c-message-tran-enter-active,
-    .c-message-tran-leave-active {
+    .c-message--fade-enter-active,
+    .c-message--fade-leave-active {
         transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out;
     }
 
-    .c-message--animation-enter-to,
-    .c-message--animation-leave {
+    .c-message--fade-enter-to,
+    .c-message--fade-leave {
         top: 2em;
         opacity: 1;
     }
 
-    .c-message--animation-enter,
-    .c-message--animation-leave-to {
+    .c-message--fade-enter,
+    .c-message--fade-leave-to {
         top: 0;
         opacity: 0;
     }

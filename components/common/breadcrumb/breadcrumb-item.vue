@@ -32,15 +32,16 @@
     .c-breadcrumb__item {
         .c-breadcrumb__item--link {
             text-decoration: none;
-            color: $text-color;
+            color: $breadcrumb-color;
             transition: color 0.2s ease-in-out;
             cursor: pointer;
             &:hover {
-                color: opacify($primary-color,0.2);
+                color: $breadcrumb-hover;
             }
         }
         .c-breadcrumb__item--separator{
             margin: 0 0.5em;
+            color: $breadcrumb-separator-color;
         }
     }
 </style>
