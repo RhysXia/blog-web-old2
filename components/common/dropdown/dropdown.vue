@@ -2,8 +2,8 @@
     .c-dropdown(v-clickoutside="handleClose",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
         .c-dropdown__ref(@click="refClick")
             slot
-        transition(:name="'c-dropdown__list--animation-'+position")
-            .c-dropdown__list(v-show="visible",:class="'c-dropdown__list--'+position")
+        transition(:name="'c-dropdown--slide-'+position")
+            .c-dropdown(v-show="visible",:class="'c-dropdown--'+position")
                 slot(name="list")
 </template>
 
@@ -128,84 +128,84 @@
         .c-dropdown__ref {
             position: relative;
         }
-        .c-dropdown__list {
+        .c-dropdown {
             background-color: transparent;
             position: absolute;
             z-index: 1;
             border-radius: $border-radius-base;
         }
 
-        .c-dropdown__list--bottom {
+        .c-dropdown--bottom {
             padding-top: 0.5em;
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        .c-dropdown__list--bottom-start {
+        .c-dropdown--bottom-start {
             padding-top: 0.5em;
             top: 100%;
             left: 0;
         }
 
-        .c-dropdown__list--bottom-end {
+        .c-dropdown--bottom-end {
             padding-top: 0.5em;
             top: 100%;
             right: 0;
         }
-        .c-dropdown__list--top {
+        .c-dropdown--top {
             padding-bottom: 0.5em;
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        .c-dropdown__list--top-start {
+        .c-dropdown--top-start {
             padding-bottom: 0.5em;
             bottom: 100%;
             left: 0;
         }
 
-        .c-dropdown__list--top-end {
+        .c-dropdown--top-end {
             padding-bottom: 0.5em;
             bottom: 100%;
             right: 0;
         }
-        .c-dropdown__list--left {
+        .c-dropdown--left {
             right: 100%;
             top: 50%;
             transform: translateY(-50%);
             padding-right: 0.5em;
         }
 
-        .c-dropdown__list--left-start {
+        .c-dropdown--left-start {
             right: 100%;
             top: 0;
             padding-right: 0.5em;
         }
-        .c-dropdown__list--left-end {
+        .c-dropdown--left-end {
             right: 100%;
             bottom: 0;
             padding-right: 0.5em;
         }
-        .c-dropdown__list--right {
+        .c-dropdown--right {
             left: 100%;
             top: 50%;
             transform: translateY(-50%);
             padding-left: 0.5em;
         }
-        .c-dropdown__list--right-start {
+        .c-dropdown--right-start {
             left: 100%;
             top: 0;
             padding-left: 0.5em;
         }
-        .c-dropdown__list--right-end {
+        .c-dropdown--right-end {
             left: 100%;
             bottom: 0;
             padding-left: 0.5em;
         }
 
-        @include slide-all(c-dropdown__list--animation, (top, top-start, top-end, left, left-start, left-end, right, right-start, right-end, bottom, bottom-start, bottom-end), 0.2s)
+        @include slide-all(c-dropdown--slide, (top, top-start, top-end, left, left-start, left-end, right, right-start, right-end, bottom, bottom-start, bottom-end), 0.2s)
 
     }
 

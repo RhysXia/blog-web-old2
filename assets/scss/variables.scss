@@ -89,12 +89,13 @@ $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "M
 $code-family: Consolas, Menlo, Courier, monospace;
 $title-color: #1c2438;
 $text-color: #495060;
-$border-radius-base: 0.3em;
-$border-radius-small: 0.2em;
 
-//border color
+
+//border
 $border-color-base: #dddee1; // outside
 $border-color-split: #e9eaec; // inside
+$border-radius-base: 0.3em;
+$border-radius-small: 0.2em;
 
 //avatar
 $avatar-bg: #ccc;
@@ -107,8 +108,9 @@ $checkbox-disabled: #ccc;
 $checkbox-checked: $primary-color;
 
 //dropdown
-
 $dropdown-bg: #fff;
+
+
 
 
 

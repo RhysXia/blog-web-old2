@@ -6,8 +6,6 @@
 </template>
 
 <script>
-  import { oneOf } from '~/utils/utils'
-
   export default {
     name: 'c-message',
     props: {
@@ -20,7 +18,7 @@
       },
       type: {
         validator (value) {
-          return oneOf(value, ['info', 'success', 'warning', 'error'])
+          return ['info', 'success', 'warning', 'error'].includes(value)
         }
       },
       onClose: {
@@ -79,26 +77,31 @@
             }
         }
     }
+
     .c-message--info {
         border-color: $color-primary;
         color: $color-primary-active;
         background-color: $color-primary-light;
     }
+
     .c-message--error {
         border-color: $color-danger;
         color: $color-danger-active;
         background-color: $color-danger-light;
     }
+
     .c-message--info {
         color: $color-success;
         border-color: $color-success-active;
         background-color: $color-success-light;
     }
+
     .c-message--success {
         color: $color-success;
         border-color: $color-success-active;
         background-color: $color-success-light;
     }
+
     .c-message--warning {
         color: $color-warn;
         border-color: $color-white-active;
