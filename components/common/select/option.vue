@@ -1,16 +1,15 @@
 <template lang="pug">
     transition(name="c-option--fade")
-        c-dropdown-item(v-if="isShow")
-            .c-option(@click.stop="click",:class="classes")
-                slot {{label}}
+        c-dropdown-item(v-if="isShow",:class="classes",@click="click")
+            slot {{label}}
 </template>
 
 <script>
-  import { findComponentUpward } from '../../../utils/utils'
   import { CDropdownItem } from '../dropdown'
 
   export default {
     name: 'c-option',
+    inject: ['cSelect'],
     props: {
       value: {
         required: true
@@ -28,19 +27,13 @@
     },
     computed: {
       isShow () {
-        if (!this.parent) {
-          return true
-        }
-        if (this.parent.filterable) {
-          return this.label.includes(this.parent.inputContent)
+        if (this.cSelect.filterable) {
+          return this.label.includes(this.cSelect.inputContent)
         }
         return true
       },
       active () {
-        if (!this.parent) {
-          return false
-        }
-        return this.parent.selectValues.includes(this.value)
+        return this.cSelect.selectValues.includes(this.value)
       },
       classes () {
         if (this.active) {
@@ -51,35 +44,42 @@
     },
     methods: {
       click () {
-        if (!this.parent) {
-          return
-        }
+        const select = this.cSelect
+
         // 判断是否包含当前option
         if (this.active) {
-          this.parent.selectValues = this.parent.selectValues.filter(it => {
+          select.selectValues = select.selectValues.filter(it => {
             return it !== this.value
           })
-        } else if (this.parent.multiple) {
-          this.parent.selectValues.push(this.value)
+          select.tags = select.tags.filter(it => {
+            return it.value !== this.value
+          })
+          return
+        }
+        if (select.multiple) {
+          select.selectValues.push(this.value)
+          select.tags.push({value: this.value, label: this.label})
         } else {
-          this.parent.selectValues = [this.value]
+          select.selectValues = [this.value]
+          select.tags = [{value: this.value, label: this.label}]
+        }
+      },
+      updateTags () {
+        const select = this.cSelect
+        if (select.selectValues.includes(this.value)) {
+          if (select.tags.map(it => it.value).includes(this.value)) {
+            return
+          }
+          select.tags.push({value: this.value, label: this.label})
         }
       }
     },
     created () {
-      this.parent = findComponentUpward(this, 'c-select')
-      if (this.parent) {
-        this.parent.children.push(this)
-      }
+      this.updateTags()
     },
-    beforeDestroy () {
-      if (this.parent) {
-        this.parent.children = this.parent.children.filter(it => {
-          return it.value === this.value
-        })
-      }
-    }
-    ,
+    updated () {
+      this.updateTags()
+    },
     components: {
       CDropdownItem
     }
@@ -89,16 +89,9 @@
 <style lang="scss">
     @import "~assets/scss/variables";
 
-    .c-option {
-        padding: 0.5em;
-        cursor: pointer;
-        &:hover {
-            background-color: rgba(200, 200, 200, 0.5);
-        }
-    }
-
     .c-option--active {
-        background-color: rgba(200, 200, 200, 0.5);
+        background-color: $select-active-bg;
+        color: $select-active-color;
     }
 
     .c-option--fade-enter-active,

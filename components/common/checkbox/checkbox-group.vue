@@ -4,10 +4,13 @@
 </template>
 
 <script>
-  import { findComponentsDownward } from '~/utils/utils'
-
   export default {
     name: 'c-checkbox-group',
+    provide () {
+      return {
+        cCheckboxGroup: this
+      }
+    },
     props: {
       value: {
         type: Array,
@@ -16,8 +19,7 @@
     },
     data () {
       return {
-        val: this.value,
-        children: []
+        val: this.value
       }
     },
     watch: {
@@ -27,20 +29,6 @@
       val (val) {
         this.$emit('input', val)
       }
-    },
-    methods: {
-      updateChildren () {
-        this.children = findComponentsDownward(this, 'c-checkbox')
-        this.children.forEach(it => {
-          it.parent = this
-        })
-      }
-    },
-    created () {
-      this.updateChildren()
-    },
-    updated () {
-      this.updateChildren()
     }
   }
 </script>

@@ -4,19 +4,14 @@
 </template>
 
 <script>
-  import { findComponentUpward } from '~/utils/utils'
 
   export default {
     name: 'c-dropdown-item',
+    inject: ['cDropdown'],
     props: {
       disabled: {
         type: Boolean,
         default: false
-      }
-    },
-    data () {
-      return {
-        parent: null
       }
     },
     methods: {
@@ -25,16 +20,10 @@
           return
         }
         this.$emit('click')
-        if (this.parent) {
-          this.parent.visible = false
+        if (this.cDropdown.closeOnClick) {
+          this.cDropdown.visible = false
         }
       }
-    },
-    created () {
-      this.parent = findComponentUpward(this, 'c-dropdown')
-    },
-    beforeUpdate () {
-      this.parent = findComponentUpward(this, 'c-dropdown')
     }
   }
 </script>
@@ -47,7 +36,7 @@
         padding: 0.5em 1em;
         cursor: pointer;
         margin: 0;
-        &:hover{
+        &:hover {
             background-color: $dropdown-hover-bg;
             color: $dropdown-hover-color;
         }

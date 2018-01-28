@@ -1,5 +1,6 @@
 export default {
   name: 'c-col',
+  inject: ['cRow'],
   props: {
     tag: {
       type: String,
@@ -25,11 +26,7 @@ export default {
   },
   computed: {
     gutter () {
-      let parent = this.$parent
-      while (parent && parent.$options.name !== 'c-row') {
-        parent = parent.$parent
-      }
-      return parent ? parent.gutter : 0
+      return this.cRow.gutter
     },
     classes () {
       const prefixCls = 'c-col'

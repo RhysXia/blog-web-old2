@@ -18,9 +18,10 @@
         type: [Object, String]
       }
     },
-    data () {
-      return {
-        separator: ''
+    inject: ['cBreadcrumb'],
+    computed: {
+      separator () {
+        return this.cBreadcrumb.separator
       }
     }
   }
@@ -39,7 +40,7 @@
                 color: $breadcrumb-hover;
             }
         }
-        .c-breadcrumb__item--separator{
+        .c-breadcrumb__item--separator {
             margin: 0 0.5em;
             color: $breadcrumb-separator-color;
         }

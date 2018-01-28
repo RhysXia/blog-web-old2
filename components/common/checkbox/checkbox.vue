@@ -9,6 +9,11 @@
 <script>
   export default {
     name: 'c-checkbox',
+    inject: {
+      cCheckboxGroup: {
+        default: null
+      }
+    },
     props: {
       // 单独使用时只能传boolean值
       value: {
@@ -32,8 +37,8 @@
     },
     computed: {
       isChecked () {
-        if (this.parent) {
-          return this.parent.val.includes(this.val)
+        if (this.cCheckboxGroup) {
+          return this.cCheckboxGroup.val.includes(this.val)
         }
         if (typeof this.val === 'boolean') {
           return this.val
@@ -60,16 +65,16 @@
         if (this.disabled) {
           return
         }
-        if (!this.parent) {
+        if (!this.cCheckboxGroup) {
           this.val = !this.isChecked
           return
         }
         if (this.isChecked) {
-          this.parent.val = this.parent.val.filter(it => {
+          this.cCheckboxGroup.val = this.cCheckboxGroup.val.filter(it => {
             return it !== this.val
           })
         } else {
-          this.parent.val.push(this.val)
+          this.cCheckboxGroup.val.push(this.val)
         }
       }
     }

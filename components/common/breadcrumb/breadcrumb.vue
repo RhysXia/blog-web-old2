@@ -13,25 +13,10 @@
         default: '/'
       }
     },
-    watch: {
-      separator () {
-        this.updateChildren()
+    provide () {
+      return {
+        cBreadcrumb: this
       }
-    },
-    methods: {
-      updateChildren () {
-        for (let i = 0; i < this.$children.length - 1; i++) {
-          this.$children[i].separator = this.separator
-        }
-      }
-    },
-    mounted () {
-      this.updateChildren()
-    },
-    updated () {
-      this.$nextTick(() => {
-        this.updateChildren()
-      })
     }
   }
 </script>
@@ -41,6 +26,11 @@
 
     .c-breadcrumb {
         font-size: 1em;
+        .c-breadcrumb__item:last-child {
+            .c-breadcrumb__item--separator {
+                display: none;
+            }
+        }
     }
 
 </style>

@@ -1,17 +1,15 @@
 <template lang="pug">
-    .c-select(v-clickoutside="outClick")
-        c-dropdown(trigger="custom",v-model="isShow")
-            .c-select__header(:class="headerClass",ref="header",@click="headerClick")
-                .c-select__header__wrapper
-                    .c-select__tag(@click.stop,v-for="tag in tags",:key="tag.id")
-                        c-tag(:name="tag.label",:closeable="multiple",@close="closeTag(tag.value)")
-                    input.c-select__input(ref="input",:disabled="!filterable && !remote",v-model="inputContent",:placeholder="placeholder")
-            c-dropdown-menu(slot="list")
-                slot
+    c-dropdown.c-select(trigger="click",v-model="isShow",:closeOnClick="!multiple")
+        .c-select__header(:class="headerClass",ref="header",@click="$refs.input.focus()")
+            .c-select__header--wrapper
+                .c-select__tag(@click.stop,v-for="tag in tags",:key="tag.id")
+                    c-tag(:name="tag.label",:closeable="multiple",@close="closeTag(tag.value)")
+                input.c-select__input(ref="input",:disabled="!filterable && !remote",v-model="inputContent",:placeholder="placeholder")
+        c-dropdown-menu(slot="list")
+            slot
 </template>
 
 <script>
-  import clickoutside from '~/utils/directive/clickoutside'
   import { CDropdown, CDropdownMenu } from '../dropdown'
   import CTag from '../tag'
 
@@ -28,8 +26,10 @@
 
   export default {
     name: 'c-select',
-    directives: {
-      clickoutside
+    provide () {
+      return {
+        cSelect: this
+      }
     },
     props: {
       value: {
@@ -56,8 +56,8 @@
       return {
         isShow: false,
         selectValues: valueToArray(this.value),
-        children: [],
-        inputContent: ''
+        inputContent: '',
+        tags: []
       }
     },
     watch: {
@@ -81,27 +81,16 @@
       }
     },
     methods: {
-      headerClick () {
-        if (this.multiple) {
-          this.$refs.input.focus()
-        }
-        this.isShow = true
-      },
       closeTag (val) {
         this.selectValues = this.selectValues.filter(it => {
           return it !== val
         })
-      },
-      outClick () {
-        this.isShow = false
+        this.tags = this.tags.filter(it => {
+          return it.value !== val
+        })
       }
     },
     computed: {
-      tags () {
-        return this.children.filter(it => {
-          return this.selectValues.includes(it.value)
-        })
-      },
       headerClass () {
         return {
           'c-select__header--active': this.isShow
@@ -119,36 +108,38 @@
 <style lang="scss">
     @import "~assets/scss/variables";
 
-    .c-select {
+    .c-select{
+        width: 100%;
+    }
+
+    .c-select__header {
         position: relative;
-        .c-select__header {
-            position: relative;
-            border-radius: 0.2em;
-            border: 1px solid $color-border-base;
-            transition: border-color 0.4s ease;
-            padding: 0.25em;
-            .c-select__header__wrapper {
-                margin: 0 -0.5em -0.5em 0;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            .c-select__tag, .c-select__input {
-                display: inline-flex;
-                margin: 0 0.5em 0.5em 0;
-                box-sizing: border-box;
-            }
-            .c-select__input {
-                outline: none;
-                border: none;
-                width: 5em;
-                flex: auto;
-                background-color: transparent;
-            }
+        border-radius: 0.2em;
+        border: 1px solid $border-color-base;
+        transition: border-color 0.2s ease-in-out;
+        padding: 0.25em;
+        .c-select__header--wrapper {
+            margin: 0 -0.5em -0.5em 0;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
         }
-        .c-select__header--active {
-            border-color: $color-primary;
+        .c-select__tag, .c-select__input {
+            display: inline-flex;
+            margin: 0 0.5em 0.5em 0;
+            box-sizing: border-box;
         }
+        .c-select__input {
+            outline: none;
+            border: none;
+            width: 4em;
+            flex: auto;
+            background-color: transparent;
+        }
+    }
+
+    .c-select__header--active {
+        border-color: $select-active-border-active;
     }
 
 

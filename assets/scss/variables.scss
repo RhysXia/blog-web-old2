@@ -146,6 +146,10 @@ $message-error-color: $error-color;
 $message-error-bg: transparentize($error-color, 0.8);
 $message-error-border: transparentize($error-color, 0.4);
 
+//select
+$select-active-bg: #ecf5ff;
+$select-active-color: $primary-color;
+$select-active-border-active: $primary-color;
 
 
 

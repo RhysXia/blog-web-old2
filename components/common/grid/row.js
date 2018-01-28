@@ -1,5 +1,11 @@
+
 export default {
   name: 'c-row',
+  provide () {
+    return {
+      cRow: this
+    }
+  },
   props: {
     tag: {
       type: String,
