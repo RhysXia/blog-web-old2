@@ -85,7 +85,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
     @import "~assets/scss/mixins";
 
     .auth-login-container {
@@ -95,7 +96,7 @@
             border-radius: 5px;
             .title {
                 text-align: center;
-                color: $color-primary;
+                color: $primary-color;
                 margin-bottom: 2rem;
             }
             .form {
@@ -117,13 +118,10 @@
                 }
                 .action {
                     .login {
-                        background-color: $color-primary;
+                        background-color: $primary-color;
                         color: $color-text-white;
                         width: 100%;
                         padding: 0.35rem 1rem;
-                        &:hover {
-                            background-color: $color-primary-active;
-                        }
                     }
                 }
             }

@@ -120,15 +120,15 @@
     }
 
     .c-message--error {
-        border-color: $color-danger;
-        color: $color-danger-active;
-        background-color: $color-danger-light;
+        border-color: $message-error-border;
+        color: $message-error-color;
+        background-color: $message-error-bg;
     }
 
     .c-message--warning {
-        color: $color-warn;
-        border-color: $color-white-active;
-        background-color: $color-warn-light;
+        color: $message-warning-color;
+        border-color: $message-warning-border;
+        background-color: $message-warning-bg;
     }
 
     .c-message--fade-enter-active,

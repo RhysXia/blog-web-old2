@@ -98,7 +98,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .c-header-container {
         background-color: $color-background;
@@ -161,7 +162,7 @@
         padding: 0 0.5em;
         color: $color-text;
         &:hover, &.nuxt-link-exact-active {
-            color: $color-primary;
+            color: $primary-color;
         }
     }
 </style>

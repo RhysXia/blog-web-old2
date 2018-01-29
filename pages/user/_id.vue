@@ -75,7 +75,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .user-self-container {
         .breadcrumb {
@@ -136,7 +137,7 @@
                 }
                 &.nuxt-link-active {
                     &:after {
-                        background-color: $color-primary;
+                        background-color: $primary-color;
                     }
                 }
             }

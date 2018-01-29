@@ -9,7 +9,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     $height-footer: 55px;
     .c-footer-container {

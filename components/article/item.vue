@@ -63,7 +63,7 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
 
     $article-item-height: 10em;
     .c-article-item-container {
@@ -73,9 +73,6 @@
         background-color: $color-background;
         padding: 0.5em;
         transition: background-color 0.4s ease;
-        &:hover {
-            background-color: $color-background-active;
-        }
         .left {
             .poster {
                 width: $article-item-height * 1.1;
@@ -104,9 +101,6 @@
                 .item {
                     border: none;
                     padding: 1em 2em;
-                    &:hover {
-                        background-color: $color-background-active;
-                    }
                 }
             }
             .title {

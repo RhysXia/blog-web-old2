@@ -296,7 +296,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .article-id-container {
         > * {
@@ -321,31 +322,19 @@
                 cursor: pointer;
             }
             .update {
-                background-color: $color-primary;
-                &:hover {
-                    background-color: $color-primary-active;
-                }
+                background-color: $primary-color;
             }
             .delete {
-                background-color: $color-danger;
-                &:hover {
-                    background-color: $color-danger-active;
-                }
+                background-color: $danger-color;
             }
             .is-login-like {
-                background-color: $color-primary;
+                background-color: $primary-color;
                 color: $color-text-white;
                 cursor: pointer;
                 transition: color 0.4s ease-in-out;
-                &:hover {
-                    background-color: $color-primary-active;
-                }
             }
             .is-voted {
-                background-color: $color-success !important;
-                &:hover {
-                    background-color: $color-success-active !important;
-                }
+                background-color: $success-color !important;
             }
         }
 
@@ -376,7 +365,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    background-color: $color-success;
+                    background-color: $success-color;
                     color: $color-text-white;
                     padding: 0.5em;
                     margin-bottom: 1em;
@@ -406,13 +395,10 @@
                         .submit {
                             height: 100%;
                             padding: 0.5em 1em;
-                            background-color: $color-primary;
+                            background-color: $primary-color;
                             color: $color-text-white;
                             float: right;
                             border-radius: 0;
-                            &:hover {
-                                background-color: $color-primary-active;
-                            }
                         }
                     }
                 }

@@ -29,7 +29,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .c-draft-item-container {
         border: 1px solid $color-border-base;
@@ -41,7 +42,7 @@
         justify-content: space-between;
         .delete{
             border: none;
-            color: $color-danger;
+            color: $danger-color;
             font-weight: bold;
             padding: 0.5em;
         }

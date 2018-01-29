@@ -17,7 +17,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .error-wrapper {
         position: absolute;

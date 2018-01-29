@@ -33,7 +33,7 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
 
     .error-container {
         position: fixed;
@@ -42,6 +42,5 @@
         top: 0;
         bottom: 0;
         background-color: $color-white;
-        z-index: $z-index-max;
     }
 </style>

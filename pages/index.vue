@@ -129,7 +129,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .index-container {
         .carousel-wrapper {
@@ -178,9 +179,6 @@
             padding: 0.25em 0.5em;
             background-color: $color-background-dark;
             margin: 0.5em;
-            &:hover {
-                background-color: $color-background-dark-active;
-            }
         }
         .article-item {
             height: 1.5em;
@@ -192,7 +190,6 @@
                 width: 1.5em;
                 text-align: center;
                 line-height: 1.5em;
-                background-color: $color-background-active;
             }
         }
     }

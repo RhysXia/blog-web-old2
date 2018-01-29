@@ -1,5 +1,5 @@
 @import "../css/normalize.css";
-@import "variables";
+@import "application";
 @import "mixins";
 
 html {
@@ -18,6 +18,11 @@ body {
   padding: 0;
 }
 
+a{
+  color: $primary-color;
+  text-decoration: none;
+}
+
 ::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
@@ -27,27 +32,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: rgba(95, 95, 95, .4);
   transition: background-color 0.15s;
-}
-
-
-button {
-  outline: none;
-  border: 1px solid $color-border-base;
-  padding: 0.25rem 0.8rem;
-  background-color: $color-background;
-  transition: background-color 0.4s ease;
-  cursor: pointer;
-  color: $color-text;
-  border-radius: 2px;
-}
-
-button.primary{
-  border: none;
-  background-color: $color-primary;
-  color: $color-text-white;
-  &:hover{
-    background-color: $color-primary-active;
-  }
 }
 
 

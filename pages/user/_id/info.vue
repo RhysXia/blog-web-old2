@@ -163,7 +163,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
     @import "~assets/scss/mixins";
 
     .self-info-container {

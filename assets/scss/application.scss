@@ -1,0 +1,30 @@
+@import "variables";
+
+//color
+
+$danger-color: #F56C6C;
+
+$color-warn: #FA7921;
+
+
+$color-white: #fff;
+
+$color-background-dark: #eee;
+
+$color-background: hsla(0, 0%, 100%, .6);
+
+$color-text: #555;
+$color-text-light: $color-text + 30;
+$color-text-deep: $color-text - 30;
+$color-text-white: #fff;
+$color-border-base: #d7dde4;
+$color-disabled: #c3cbd6;
+
+$color-link: $primary-color;
+
+
+
+//height
+$height-header: 4rem;
+$width-main: 75rem;
+

@@ -379,7 +379,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
     @import "~assets/scss/mixins";
 
     $height-poster: 15em;
@@ -478,7 +479,6 @@
                     }
                 }
                 &:hover {
-                    background-color: $color-background-active;
                     i {
                         color: $color-text;
                         &:after {

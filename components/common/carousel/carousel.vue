@@ -112,7 +112,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 40px;
-            color: $text-color;
+            color: $carousel-direction-color;
             opacity: 0.5;
             cursor: pointer;
             &:hover {
@@ -139,7 +139,7 @@
                     width: 5px;
                     height: 5px;
                     border-radius: 50%;
-                    background-color: $color-border-base;
+                    background-color: $carousel-direction-color;
                     opacity: 0.3;
                     &.c-carousel__index__item--active {
                         opacity: 1;

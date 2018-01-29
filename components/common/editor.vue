@@ -199,9 +199,9 @@
     .c-editor{
         display: flex;
         flex-direction: column;
-        background-color: $color-background;
+        background-color: $editor-bg;
         position: relative;
-        border: 1px solid $color-border-base;
+        border: 1px solid $border-color-base;
         border-top-width: 0;
         border-bottom-width: 0;
         .c-editor__button-list {
@@ -209,7 +209,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            border: 1px solid $color-border-base;
+            border: 1px solid $border-color-base;
             border-left: none;
             border-right: none;
             width: 100%;
@@ -225,7 +225,7 @@
                     background-color: rgba(200, 200, 200, 0.5);
                 }
                 .c-editor__emoji-list {
-                    z-index: $z-index-l;
+                    z-index: 1;
                     position: absolute;
                     left: 0;
                     width: 100%;

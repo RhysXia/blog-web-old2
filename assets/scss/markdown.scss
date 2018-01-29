@@ -1,4 +1,4 @@
-@import "~assets/scss/variables";
+@import "~assets/scss/application";
 @import 'highlight.js/styles/vs2015.css';
 
 .md-code-wrapper {
@@ -11,7 +11,7 @@
   .code-title {
     font-size: 1.2em;
     text-align: center;
-    background-color: $color-success;
+    background-color: $success-color;
     padding: 0.5em 0;
     color: $color-text-white;
     margin: 0;
@@ -90,10 +90,10 @@
 }
 
 .md-code-inline {
-  color: $color-danger;
+  color: $danger-color;
   padding: 2px 4px;
   font-size: 0.9em;
-  background-color: $color-danger + 120;
+  background-color: $danger-color + 120;
 }
 
 .md-code-block {

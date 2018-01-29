@@ -1,74 +1,3 @@
-//function
-@function color-active($color) {
-  @return $color - 30;
-}
-
-@function color-light($color) {
-  @return $color + 120
-}
-
-//grid
-$grid-breakpoints: (
-        xs: 0px,
-        sm: 768px,
-        md: 992px,
-        lg: 1200px
-) !default;
-
-$grid-row-prefixCls: c-row !default;
-$grid-col-prefixCls: c-col !default;
-
-//color
-$color-primary: #4dce9b;
-$color-primary-light: color-light($color-primary);
-$color-primary-active: color-active($color-primary);
-
-$color-danger: #F56C6C;
-$color-danger-active: color-active($color-danger);
-$color-danger-light: #fef0f0;
-
-$color-warn: #FA7921;
-$color-warn-active: color-active($color-warn);
-$color-warn-light: color-light($color-warn);
-
-$color-success: #2db7f5;
-$color-success-active: color-active($color-success);
-$color-success-light: #ceffff;
-
-$color-white: #fff;
-$color-white-active: color-active($color-white);
-
-$color-background-dark: #eee;
-$color-background-dark-active: color-active($color-background-dark);
-
-$color-background: hsla(0, 0%, 100%, .6);
-$color-background-active: color-active($color-background);
-
-$color-text: #555;
-$color-text-light: $color-text + 30;
-$color-text-deep: $color-text - 30;
-$color-text-white: #fff;
-$color-border-base: #d7dde4;
-$color-disabled: #c3cbd6;
-
-$color-link: $color-primary;
-$color-link-active: $color-primary-active;
-
-$color-shadow: $color-background-active;
-//height
-$height-header: 4rem;
-$width-main: 75rem;
-
-//z-index
-$z-index-xs: -1;
-$z-index-s: 1;
-$z-index-m: 10;
-$z-index-l: 100;
-$z-index-xl: 1000;
-$z-index-max: 2000;
-
-//=======================================
-
 //base color
 $primary-color: #19be6b;
 $info-color: #2db7f5;
@@ -84,7 +13,6 @@ $bg-color: #fff;
 
 //border
 $border-color-base: #dddee1; // outside
-$border-color-split: #e9eaec; // inside
 $border-radius-base: 0.3em;
 $border-radius-small: 0.2em;
 
@@ -97,6 +25,9 @@ $avatar-size: 3em;
 $breadcrumb-separator-color: #c0c4cc;
 $breadcrumb-color: $text-color;
 $breadcrumb-hover: transparentize($primary-color, 0.2);
+
+//carousel
+$carousel-direction-color: $primary-color;
 
 //checkbox
 $checkbox-bg: #fff;
@@ -153,8 +84,11 @@ $back-top-color: $success-color;
 $badge-bg: $error-color;
 $badge-color: #fff;
 
-//input
+//editor
+$editor-bg: #fff;
 
+
+//input
 $input-bg: #fff;
 $input-append-bg: #eee;
 $input-append-color: #909399;

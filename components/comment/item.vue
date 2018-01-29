@@ -88,7 +88,7 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
 
     .c-comment-item-container {
         position: relative;
@@ -147,9 +147,9 @@
                     }
                 }
                 .delete {
-                    color: $color-danger;
+                    color: $danger-color;
                     &:hover {
-                        color: color-active($color-danger);
+                        color: color-active($danger-color);
                     }
                 }
             }

@@ -41,7 +41,8 @@
   }
 </script>
 <style lang="scss">
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
     @import "~assets/scss/mixins";
 
     .layout-container {

@@ -168,7 +168,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .user-setting-container {
         background-color: $color-background;
@@ -204,9 +205,6 @@
                     width: 100%;
                     padding: 0.5em 1em;
                     border-radius: 3px;
-                    &:hover {
-                        background-color: $color-background-active;
-                    }
                 }
             }
         }
@@ -218,11 +216,8 @@
             }
         }
         .submit {
-            background-color: $color-primary;
+            background-color: $primary-color;
             color: $color-text-white;
-            &:hover {
-                background-color: $color-primary-active;
-            }
         }
     }
 </style>

@@ -41,7 +41,8 @@
   }
 </script>
 <style lang="scss" scoped>
-    @import "~assets/scss/variables";
+    @import "~assets/scss/application";
+
 
     .about-container {
         .left-wrapper,
@@ -64,7 +65,7 @@
                 span {
                     i {
                         display: inline-block;
-                        color: $color-primary;
+                        color: $primary-color;
                         width: 2rem;
                     }
                 }
@@ -74,7 +75,7 @@
             position: relative;
             .top {
                 height: 8rem;
-                background-color: $color-success;
+                background-color: $success-color;
             }
             .bottom {
                 text-align: center;
