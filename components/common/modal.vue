@@ -1,5 +1,5 @@
 <template lang="pug">
-    transition(name="c-modal--animation")
+    transition(name="c-modal--fade")
         .c-modal(v-if="val",@click='outClick')
             .c-modal__wrapper(@click.stop,:style="{width:width}")
                 .c-modal__header
@@ -85,18 +85,18 @@
 <style lang="scss">
     @import "~assets/scss/variables";
 
-    .c-modal--animation-enter-active,
-    .c-modal--animation-leave-active {
+    .c-modal--fade-enter-active,
+    .c-modal--fade-leave-active {
         transition: transform 0.4s ease-in-out;
     }
 
-    .c-modal--animation-enter,
-    .c-modal--animation-leave-to {
+    .c-modal--fade-enter,
+    .c-modal--fade-leave-to {
         transform: translateY(-100%);
     }
 
-    .c-modal--animation-enter-to,
-    .c-modal--animation-leave {
+    .c-modal--fade-enter-to,
+    .c-modal--fade-leave {
         transform: translateY(0);
     }
 
@@ -106,12 +106,11 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: $color-shadow;
-        z-index: $z-index-max;
+        background-color: $modal-shadow;
         .c-modal__wrapper {
-            background-color: $color-white;
-            border: 1px solid $color-border-base;
-            border-radius: 5px;
+            background-color: $modal-bg;
+            border: 1px solid $border-color-base;
+            border-radius: $border-color-base;
             position: absolute;
             left: 50%;
             top: 50%;
@@ -121,7 +120,7 @@
             }
             .c-modal__header {
                 position: relative;
-                border-bottom: 1px solid $color-border-base;
+                border-bottom: 1px solid $border-color-base;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -134,7 +133,7 @@
                     cursor: pointer;
                     padding: 0.5em;
                     &:hover {
-                        color: $color-primary;
+                        color: $primary-color;
                     }
                 }
             }
@@ -142,7 +141,7 @@
 
             }
             .c-modal__footer {
-                border-top: 1px solid $color-border-base;
+                border-top: 1px solid $border-color-base;
                 .c-modal__button-wrapper {
                     display: flex;
                     flex-direction: row;

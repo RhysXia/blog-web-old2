@@ -154,6 +154,7 @@ $badge-bg: $error-color;
 $badge-color: #fff;
 
 //input
+
 $input-bg: #fff;
 $input-append-bg: #eee;
 $input-append-color: #909399;
@@ -163,6 +164,20 @@ $input-border-color-hover: #c0c4cc;
 $input-disabled: #bbb;
 $input-bg-disabled: $bg-disabled;
 
+//modal
+$modal-shadow: transparentize(#fff, 0.5);
+$modal-bg: #fff;
+
+//pagination
+$pagination-bg: #fff;
+$pagination-disabled: $bg-disabled;
+
+//panel
+$panel-bg: #fff;
+
+//tag
+$tag-border--primary: transparentize($primary-color, 0.5);
+$tag--primary: $primary-color;
 
 
 

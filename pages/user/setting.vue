@@ -8,7 +8,7 @@
                         c-input(v-model="copyUser.nickname")
                     .input-wrapper
                         label.label 简介
-                        c-textarea(v-model="copyUser.info",autoHeight)
+                        c-input(type="textarea",v-model="copyUser.info",autoHeight)
                     button.submit(@click="saveBase") 保存
                 .right
                     .avatar-wrapper
@@ -34,11 +34,9 @@
 
 <script>
   import CInput from '~/components/common/input'
-  import CTextarea from '~/components/common/textarea'
   import { CTab, CTabGroup } from '~/components/common/tab'
   import CUpload from '~/components/common/upload'
   import CAvatar from '~/components/common/avatar'
-  import CModal from '~/components/common/modal'
   import { mapState } from 'vuex'
 
   export default {
@@ -161,12 +159,10 @@
     },
     components: {
       CInput,
-      CTextarea,
       CTab,
       CTabGroup,
       CUpload,
-      CAvatar,
-      CModal
+      CAvatar
     }
   }
 </script>

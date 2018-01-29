@@ -43,7 +43,7 @@
         display: inline-flex;
         flex-direction: row;
         align-items: center;
-        border: 1px solid $color-border-base;
+        border: 1px solid $border-color-base;
         padding: 0.1em 0.5em;
         border-radius: 0.2em;
         .c-tag__close {
@@ -53,11 +53,11 @@
     }
 
     .c-tag--primary {
-        border-color: $color-primary-light;
-        color: $color-primary;
+        border-color: $tag-border--primary;
+        color: $tag--primary;
         &:hover {
             .close {
-                color: $color-primary-active;
+                color: $tag--primary;
             }
         }
     }
