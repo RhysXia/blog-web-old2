@@ -1,7 +1,8 @@
 <template lang="pug">
-    span.c-checkbox(:class="classes",@click="click")
+    span.c-checkbox(:class="classes")
         span.c-checkbox__inner
-        input.c-checkbox__input(type="checkbox",:value="isChecked")
+        input.c-checkbox__input(v-if="isGroup",:disabled="disabled",type="checkbox",:value="value",v-model="cCheckboxGroup.val")
+        input.c-checkbox__input(v-else,:disabled="disabled",type="checkbox",:true-value="trueValue",:false-value="falseValue",v-model="val")
         span.c-checkbox__label
             slot
                 span {{label}}
@@ -15,7 +16,12 @@
       }
     },
     props: {
-      // 单独使用时只能传boolean值
+      trueValue: {
+        default: true
+      },
+      falseValue: {
+        default: false
+      },
       value: {
         type: [Boolean, String, Number],
         default: false
@@ -31,51 +37,34 @@
     },
     data () {
       return {
-        val: this.value,
-        parent: null
+        val: this.value
       }
     },
     computed: {
-      isChecked () {
-        if (this.cCheckboxGroup) {
-          return this.cCheckboxGroup.val.includes(this.val)
-        }
-        if (typeof this.val === 'boolean') {
-          return this.val
-        }
-        return false
+      isGroup () {
+        return this.cCheckboxGroup !== null
       },
       classes () {
         return {
           'c-checkbox--checked': this.isChecked,
           'c-checkbox--disabled': this.disabled
         }
+      },
+      isChecked () {
+        if (this.isGroup) {
+          return this.cCheckboxGroup.val.includes(this.value)
+        }
+        return this.val === this.trueValue
       }
     },
     watch: {
       val (value) {
-        this.$emit('input', value)
+        if (!this.cCheckboxGroup) {
+          this.$emit('input', value)
+        }
       },
       value (val) {
         this.val = val
-      }
-    },
-    methods: {
-      click () {
-        if (this.disabled) {
-          return
-        }
-        if (!this.cCheckboxGroup) {
-          this.val = !this.isChecked
-          return
-        }
-        if (this.isChecked) {
-          this.cCheckboxGroup.val = this.cCheckboxGroup.val.filter(it => {
-            return it !== this.val
-          })
-        } else {
-          this.cCheckboxGroup.val.push(this.val)
-        }
       }
     }
   }
@@ -88,7 +77,6 @@
         display: inline-flex;
         align-items: center;
         white-space: nowrap;
-        cursor: pointer;
         .c-checkbox__inner {
             display: inline-block;
             width: 1.2rem;
@@ -118,10 +106,15 @@
         }
         .c-checkbox__input {
             position: absolute;
-            width: 0;
-            height: 0;
+            cursor: pointer;
+            right: 0;
+            bottom: 0;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 1;
         }
         .c-checkbox__label {
             margin-left: 0.5em;

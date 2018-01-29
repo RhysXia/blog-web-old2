@@ -1,7 +1,7 @@
 <template lang="pug">
     .c-input
-        input.c-input__input(ref="input",v-if="type==='password'",:readonly="readonly",v-model="content",type="password",:placeholder="placeholder")
-        input.c-input__input(ref="input",v-else,v-model="content",:readonly="readonly",type = "text",:placeholder="placeholder")
+        textarea(v-if="type=='textarea'",v-model="content",:placeholder="placeholder",:readonly="readonly")
+        input.c-input__input(v-else,ref="input",:type="type",:readonly="readonly",v-model="content",:placeholder="placeholder")
         slot(name="append")
 </template>
 <script>
@@ -18,10 +18,22 @@
         default: ''
       },
       type: {
-        type: String,
-        default: 'text'
+        default: 'text',
+        validator (val) {
+          return ['text', 'textarea', 'password', 'url', 'email', 'data'].includes(val)
+        }
       },
       readonly: {
+        type: Boolean,
+        default: false
+      },
+      // 自适应高度，针对textarea，
+      // object：{max:100,min:10} // px
+      autoSize: {
+        type: [Boolean, Object],
+        default: false
+      },
+      clearable: {
         type: Boolean,
         default: false
       }
@@ -51,7 +63,7 @@
 <style lang="scss">
     @import "~assets/scss/variables";
 
-    .c-input{
+    .c-input {
         display: flex;
         flex-direction: row;
         align-items: center;
