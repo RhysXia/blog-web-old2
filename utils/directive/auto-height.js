@@ -2,19 +2,17 @@
  * 使组件的高度根据内容变化
  */
 
-
-
 export default {
   bind (el, binding, vNode) {
     initData(el, binding, vNode)
+    onInput(el, binding, vNode)
     el.oninput = e => {
       onInput(el, binding, vNode)
     }
   },
-  update (el, binding, vNode, oldVnode) {
-    initData(el, binding, vNode)
-  },
   componentUpdated (el, binding, vNode, oldVnode) {
+    initData(el, binding, vNode)
+    onInput(el, binding, vNode)
   },
   unbind (el, binding) {
     document.body.removeChild(el.__copy)
@@ -42,7 +40,7 @@ const initData = (el, binding, vNode) => {
   if (typeof value === 'object') {
     minHeight = value.min || 0
     maxHeight = value.max || 0
-  } else {
+  } else if (typeof value === 'number') {
     minHeight = value
   }
   try {
@@ -50,13 +48,16 @@ const initData = (el, binding, vNode) => {
     maxHeight = Number(maxHeight)
   } catch (err) {
     console.warn(
-      'the value should be Number(String can be parsed as Number) or Object:{min:Number,max:Number}')
+      'the value should be Number or Object:{min:Number,max:Number}')
   }
 
   el.__minHeight = minHeight
   el.__maxHeight = maxHeight
 
-  el.style.minHeight = minHeight + 'px'
+  if (minHeight > 0) {
+    el.style.minHeight = minHeight + 'px'
+  }
+
   if (maxHeight > 0) {
     el.style.maxHeight = maxHeight + 'px'
   }
@@ -93,6 +94,7 @@ const CONTEXT_STYLE = [
 
 const onInput = (el, binding, vNode) => {
   const copy = el.__copy
+
   copy.value = el.value || el.placeholder || ''
 
   const style = window.getComputedStyle(copy)

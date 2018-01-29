@@ -159,7 +159,16 @@ $back-top-color: $success-color;
 
 //badge
 $badge-bg: $error-color;
-$badge-color:#fff;
+$badge-color: #fff;
+
+//input
+$input-bg: #fff;
+$input-append-bg: #eee;
+$input-append-color: #909399;
+$input-border-color: $border-color-base;
+$input-border-color-active:$primary-color;
+$input-border-color-hover: #c0c4cc;
+
 
 
 

@@ -94,9 +94,6 @@
                     .label {
                         font-weight: bold;
                     }
-                    input {
-                        width: 100%;
-                    }
                 }
                 .checkbox-wrapper {
                 }
