@@ -56,10 +56,14 @@
       }
     },
     mounted () {
-      this.updateSlotSize()
+      this.$nextTick(() => {
+        this.updateSlotSize()
+      })
     },
     updated () {
-      this.updateSlotSize()
+      this.$nextTick(() => {
+        this.updateSlotSize()
+      })
     }
   }
 </script>

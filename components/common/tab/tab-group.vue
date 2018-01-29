@@ -11,10 +11,6 @@
         type: Number,
         default: 0
       },
-      animated: {
-        type: Boolean,
-        default: true
-      },
       barPosition: {
         default: 'top',
         validator (val) {

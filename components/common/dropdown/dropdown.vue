@@ -1,5 +1,5 @@
 <template lang="pug">
-    .c-dropdown(v-clickoutside="handleClose",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
+    .c-dropdown(v-clickoutside="clickOutside",@mouseenter.stop="mouseenter",@mouseleave.stop="mouseleave")
         .c-dropdown__ref(@click="refClick")
             slot
         transition(:name="'c-dropdown--slide-'+position")
@@ -65,11 +65,15 @@
       }
     },
     methods: {
-      handleClose () {
+      clickOutside () {
+        this.$emit('clickOutside')
+        if (this.trigger === 'custom') {
+          return
+        }
         this.visible = false
       },
       refClick () {
-        if (this.trigger === '') {
+        if (this.trigger === 'custom') {
           return
         }
         this.visible = true

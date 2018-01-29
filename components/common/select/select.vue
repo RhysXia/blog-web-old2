@@ -50,11 +50,16 @@
       placeholder: {
         type: String,
         default: ''
+      },
+      // 默认展开
+      expand: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
       return {
-        isShow: false,
+        isShow: this.expand,
         selectValues: valueToArray(this.value),
         inputContent: '',
         tags: []
@@ -85,9 +90,6 @@
         this.selectValues = this.selectValues.filter(it => {
           return it !== val
         })
-        this.tags = this.tags.filter(it => {
-          return it.value !== val
-        })
       }
     },
     computed: {
@@ -108,7 +110,7 @@
 <style lang="scss">
     @import "~assets/scss/variables";
 
-    .c-select{
+    .c-select {
         width: 100%;
     }
 

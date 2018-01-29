@@ -19,10 +19,10 @@
         if (this.disabled) {
           return
         }
-        this.$emit('click')
         if (this.cDropdown.closeOnClick) {
           this.cDropdown.visible = false
         }
+        this.$emit('click')
       }
     }
   }
