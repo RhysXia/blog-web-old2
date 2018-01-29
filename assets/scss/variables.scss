@@ -69,26 +69,18 @@ $z-index-max: 2000;
 
 //=======================================
 
-//color
-$primary-color: #4dce9b;
+//base color
+$primary-color: #19be6b;
 $info-color: #2db7f5;
-$success-color: #19be6b;
+$success-color: #2d8cf0;
 $warning-color: #ff9900;
 $error-color: #ed3f14;
-$link-color: #4dce9b;
-$link-hover-color: tint($link-color, 20%);
-$link-active-color: shade($link-color, 5%);
-$selected-color: fade($primary-color, 90%);
-$tooltip-color: #fff;
-$subsidiary-color: #80848f;
-$rate-star-color: #f5a623;
 
-//base
-$body-background: #fff;
-$font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-$code-family: Consolas, Menlo, Courier, monospace;
-$title-color: #1c2438;
 $text-color: #495060;
+$text-disabled-color: #ccc;
+$bg-disabled: #f3f3f3;
+$border-color: #dddee1;
+$bg-color: #fff;
 
 //border
 $border-color-base: #dddee1; // outside
@@ -166,8 +158,10 @@ $input-bg: #fff;
 $input-append-bg: #eee;
 $input-append-color: #909399;
 $input-border-color: $border-color-base;
-$input-border-color-active:$primary-color;
+$input-border-color-active: $primary-color;
 $input-border-color-hover: #c0c4cc;
+$input-disabled: #bbb;
+$input-bg-disabled: $bg-disabled;
 
 
 

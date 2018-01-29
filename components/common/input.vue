@@ -8,7 +8,7 @@
                 slot(name="prepend")
             .c-input__wrapper
                 input.c-input__input(@focus="focus",@blur="blur",:type="type",:readonly="readonly",v-model="content",:placeholder="placeholder")
-                span.c-input__close(@click="content=''",v-if="clearable && content")
+                span.c-input__close(@click="content=''",v-if="clearable && !readonly && content")
                     i.fa.fa-close
             span.c-input__append(v-if="$slots.append")
                 slot(name="append")
@@ -73,9 +73,9 @@
     computed: {
       classes () {
         return {
-          'c-input--readonly': this.readonly,
-          'c-input--focus': this.isFocus,
-          'c-input--active': this.isActive
+          'c-input--focus': this.isFocus && !this.readonly,
+          'c-input--active': this.isActive && !this.readonly,
+          'c-input--readonly': this.readonly
         }
       }
     },
@@ -176,7 +176,7 @@
             box-sizing: border-box;
             width: 100%;
             resize: none;
-            transition: border-color 0.2s ease-in-out,height 0.2s ease;
+            transition: border-color 0.2s ease-in-out, height 0.2s ease;
             padding: 0.5em;
             &:hover {
                 border-color: $input-border-color-hover;
@@ -190,6 +190,25 @@
             border-color: $input-border-color-active !important;
             .c-input__close {
                 display: inline-block;
+            }
+        }
+    }
+
+    .c-input--readonly {
+        color: $input-disabled;
+        background-color: $input-bg-disabled;
+        .c-input__wrapper {
+            .c-input__input{
+                cursor: not-allowed;
+            }
+            &:hover {
+                border-color: $input-border-color;
+            }
+        }
+        .c-input__textarea{
+            cursor: not-allowed;
+            &:hover{
+                border-color: $input-border-color;
             }
         }
     }

@@ -4,7 +4,7 @@
             .c-select__header--wrapper
                 .c-select__tag(@click.stop,v-for="tag in tags",:key="tag.id")
                     c-tag(:name="tag.label",:closeable="multiple",@close="closeTag(tag.value)")
-                input.c-select__input(ref="input",:disabled="!filterable && !remote",v-model="inputContent",:placeholder="placeholder")
+                c-input(ref="input",:readonly="!filterable && !remote",v-model="inputContent",:placeholder="placeholder")
         c-dropdown-menu(slot="list")
             slot
 </template>
@@ -12,6 +12,7 @@
 <script>
   import { CDropdown, CDropdownMenu } from '../dropdown'
   import CTag from '../tag'
+  import CInput from '../input'
 
   // 将selectValues总是转为数组
   const valueToArray = (value) => {
@@ -90,6 +91,9 @@
         this.selectValues = this.selectValues.filter(it => {
           return it !== val
         })
+        this.tags = this.tags.filter(it => {
+          return it.value !== val
+        })
       }
     },
     computed: {
@@ -102,7 +106,8 @@
     components: {
       CDropdownMenu,
       CDropdown,
-      CTag
+      CTag,
+      CInput
     }
   }
 </script>
@@ -126,17 +131,31 @@
             flex-direction: row;
             flex-wrap: wrap;
         }
-        .c-select__tag, .c-select__input {
+        .c-select__tag {
             display: inline-flex;
             margin: 0 0.5em 0.5em 0;
             box-sizing: border-box;
         }
-        .c-select__input {
-            outline: none;
-            border: none;
+        .c-input {
+            display: flex;
             width: 4em;
             flex: auto;
+            outline: none;
+            border: none;
             background-color: transparent;
+            margin: 0 0.5em 0.5em 0;
+            > * {
+                border: none;
+            }
+            .c-input__input {
+                cursor: text;
+                height: 1.5em;
+            }
+        }
+        .c-input--readonly {
+            .c-input__input {
+                cursor: pointer;
+            }
         }
     }
 
