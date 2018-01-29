@@ -16,7 +16,7 @@
                     // 已经发表的文章不需要保存到草稿
                     button(@click="saveAsDraft",v-if="articleId<0") 保存草稿
             .info-wrapper
-                c-textarea(v-model="article.info",placeholder="请输入概要")
+                c-input(type="textarea",:autoSize="{min:100,max:100}",v-model="article.info",placeholder="请输入概要")
             c-panel(title="选择分类")
                 c-row(:gutter="6")
                     c-col(:span="18")
@@ -46,7 +46,6 @@
 <script>
   import CEditor from '~/components/common/editor'
   import CInput from '~/components/common/input'
-  import CTextarea from '~/components/common/textarea'
   import CUpload from '~/components/common/upload'
   import { mapState } from 'vuex'
   import CPanel from '~/components/common/panel'
@@ -373,7 +372,6 @@
       CEditor,
       CPanel,
       CInput,
-      CTextarea,
       CUpload,
       COption,
       CSelect

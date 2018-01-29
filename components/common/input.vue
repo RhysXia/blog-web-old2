@@ -1,13 +1,19 @@
 <template lang="pug">
     .c-input
-        textarea(v-if="type=='textarea'",v-model="content",:placeholder="placeholder",:readonly="readonly")
+        template(v-if="type==='textarea'")
+            textarea(v-if="autoSize",v-autoheight="autoSize",v-model="content",:placeholder="placeholder",:readonly="readonly")
+            textarea(v-else,v-model="content",:placeholder="placeholder",:readonly="readonly")
         input.c-input__input(v-else,ref="input",:type="type",:readonly="readonly",v-model="content",:placeholder="placeholder")
         slot(name="append")
 </template>
 <script>
+  import autoheight from '~/utils/directive/auto-height'
 
   export default {
     name: 'c-input',
+    directives: {
+      autoheight
+    },
     props: {
       value: {
         type: String,

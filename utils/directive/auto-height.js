@@ -1,75 +1,123 @@
 /**
  * 使组件的高度根据内容变化
  */
-export default {
-  bind (el, binding, vnode) {
-    let minHeight = 0
-    if (binding.expression) {
-      minHeight = binding.value
-    }
-    el.__minHeight__ = minHeight
-    // 获取el的实际宽度
-    const width = el.scrollWidth
-    const copyElement = el.cloneNode(true)
-    if (el.style.transition) {
-      el.style.transition += ',height 0.2s ease'
-    } else {
-      el.style.transition = 'height 0.2s ease'
-    }
-    copyElement.style.visibility = 'hidden'
-    copyElement.style.position = 'absolute'
-    copyElement.style.top = '0'
-    copyElement.style.zIndex = '-1'
-    copyElement.style.overflow = 'hidden'
-    copyElement.style.width = width + 'px'
-    el.style.height = minHeight + 'px'
-    document.body.appendChild(copyElement)
-    el.__ele__ = copyElement
 
+
+
+export default {
+  bind (el, binding, vNode) {
+    initData(el, binding, vNode)
     el.oninput = e => {
-      setStyles(el)
+      onInput(el, binding, vNode)
     }
   },
-  update (el, binding, vnode, oldVnode) {
-    let minHeight = 0
-    if (binding.expression) {
-      minHeight = binding.value
-    }
-    el.__minHeight__ = minHeight
-    setStyles(el)
+  update (el, binding, vNode, oldVnode) {
+    initData(el, binding, vNode)
   },
-  componentUpdated (el, binding, vnode, oldVnode) {
+  componentUpdated (el, binding, vNode, oldVnode) {
   },
   unbind (el, binding) {
-    const element = el.__ele__
-    if (element) {
-      document.body.removeChild(element)
-    }
+    document.body.removeChild(el.__copy)
   }
 }
 
-function setStyles (el) {
-  const copyElement = el.__ele__
-  const {width, padding, fontSize, lineHeight, border, boxSizing, outline, borderImage} = document.defaultView.getComputedStyle(
-    el, null)
-  // 保证样式影响尺寸的样式相同
-  copyElement.style.width = width
-  copyElement.style.padding = padding
-  copyElement.style.fontSize = fontSize
-  copyElement.style.lineHeight = lineHeight
-  copyElement.style.border = border
-  copyElement.style.borderImage = borderImage
-  copyElement.style.outline = outline
-  copyElement.style.boxSizing = boxSizing
+let HIDDEN_STYLE = {
+  height: '0 !important',
+  visibility: 'hidden !important',
+  overflow: 'hidden !important',
+  position: 'absolute !important',
+  'z-index': '-1000 !important',
+  top: '0 !important',
+  right: '0 !important'
+}
 
-  // 设置内容
-  copyElement.value = el.value
+HIDDEN_STYLE = Object.keys(HIDDEN_STYLE).
+  map(it => `${it}:${HIDDEN_STYLE[it]}`).
+  join(';')
 
-  const minHeight = el.__minHeight__
-  const scrollHeight = copyElement.scrollHeight
-  if (scrollHeight > minHeight) {
-    el.style.height = scrollHeight + 'px'
+const initData = (el, binding, vNode) => {
+  let minHeight = 0
+  let maxHeight = 0
+  const value = binding.value
+  if (typeof value === 'object') {
+    minHeight = value.min || 0
+    maxHeight = value.max || 0
   } else {
-    el.style.height = minHeight + 'px'
+    minHeight = value
+  }
+  try {
+    minHeight = Number(minHeight)
+    maxHeight = Number(maxHeight)
+  } catch (err) {
+    console.warn(
+      'the value should be Number(String can be parsed as Number) or Object:{min:Number,max:Number}')
+  }
+
+  el.__minHeight = minHeight
+  el.__maxHeight = maxHeight
+
+  el.style.minHeight = minHeight + 'px'
+  if (maxHeight > 0) {
+    el.style.maxHeight = maxHeight + 'px'
+  }
+
+  let copy = el.__copy
+  if (!copy) {
+    copy = el.__copy = el.cloneNode()
+    document.body.appendChild(copy)
+  }
+  const style = window.getComputedStyle(el)
+  const contextStyle = CONTEXT_STYLE.map(
+    name => `${name}:${style.getPropertyValue(name)}`).join(';')
+
+  copy.setAttribute('style', `${contextStyle};${HIDDEN_STYLE}`)
+}
+
+const CONTEXT_STYLE = [
+  'letter-spacing',
+  'line-height',
+  'padding-top',
+  'padding-bottom',
+  'font-family',
+  'font-weight',
+  'font-size',
+  'text-rendering',
+  'text-transform',
+  'width',
+  'text-indent',
+  'padding-left',
+  'padding-right',
+  'border-width',
+  'box-sizing'
+]
+
+const onInput = (el, binding, vNode) => {
+  const copy = el.__copy
+  copy.value = el.value || el.placeholder || ''
+
+  const style = window.getComputedStyle(copy)
+
+  let height = copy.scrollHeight
+
+  const boxSizing = style.getPropertyValue('box-sizing')
+  if (boxSizing === 'border-box') {
+    const borderSize = (
+      parseFloat(style.getPropertyValue('border-bottom-width')) +
+      parseFloat(style.getPropertyValue('border-top-width'))
+    )
+    height = height + borderSize
+  } else if (boxSizing === 'content-box') {
+    const paddingSize = (
+      parseFloat(style.getPropertyValue('padding-bottom')) +
+      parseFloat(style.getPropertyValue('padding-top'))
+    )
+    height = height - paddingSize
+  }
+  if (height < el.__minHeight) {
+    el.style.height = el.__minHeight + 'px'
+  } else if (el.__maxHeight > 0 && height > el.__maxHeight) {
+    el.style.height = el.__maxHeight + 'px'
+  } else {
+    el.style.height = height + 'px'
   }
 }
