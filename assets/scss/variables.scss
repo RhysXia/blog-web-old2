@@ -1,14 +1,14 @@
 //base color
-$primary-color: #19be6b;
-$info-color: #2db7f5;
-$success-color: #2d8cf0;
-$warning-color: #ff9900;
-$error-color: #ed3f14;
+$primary-color: #409eff;
+$info-color: #909399;
+$success-color: #67c23a;
+$warning-color: #e6a23c;
+$error-color: #f56c6c;
 
 $link-color: $primary-color;
 $link-color--hover: darken($primary-color, 10%);
 
-$text-color: #303133;
+$text-color: #606266;
 $text-color--secondary: lighten($text-color, 20%);
 $text-color--disabled: #ccc;
 
@@ -23,6 +23,43 @@ $border-radius--small: 0.2em;
 $avatar-bg-color: darken($bg-color, 18%);
 $avatar-color: #fff;
 $avatar-size: 3em;
+
+//button
+$button-color: #fff;
+$button-radius: $border-radius--small;
+
+$button-bg-color: $bg-color;
+$button-bg-color--default: $button-bg-color;
+$button-color--default: $text-color;
+$button-border-color--default: darken($border-color, 10%);
+$button-bg-color--default--hover: lighten($primary-color, 30%);
+$button-color--default--hover: darken($primary-color, 5%);
+$button-border-color--default--hover: $primary-color;
+
+$button-bg-color--success: $success-color;
+$button-border-color--success: $button-bg-color--success;
+$button-bg-color--success--hover: lighten($button-bg-color--success, 8%);
+$button-border-color--success--hover: $button-bg-color--success--hover;
+
+$button-bg-color--primary: $primary-color;
+$button-border-color--primary: $button-bg-color--primary;
+$button-bg-color--primary--hover: lighten($button-bg-color--primary, 8%);
+$button-border-color--primary--hover: $button-bg-color--primary--hover;
+
+$button-bg-color--info: $info-color;
+$button-border-color--info: $button-bg-color--info;
+$button-bg-color--info--hover: lighten($button-bg-color--info, 8%);
+$button-border-color--info--hover: $button-bg-color--info--hover;
+
+$button-bg-color--warning: $warning-color;
+$button-border-color--warning: $button-bg-color--warning;
+$button-bg-color--warning--hover: lighten($button-bg-color--warning, 8%);
+$button-border-color--warning--hover: $button-bg-color--warning--hover;
+
+$button-bg-color--error: $error-color;
+$button-border-color--error: $button-bg-color--error;
+$button-bg-color--error--hover: lighten($button-bg-color--error, 8%);
+$button-border-color--error--hover: $button-bg-color--error--hover;
 
 //breadcrumb
 $breadcrumb-color: $text-color;

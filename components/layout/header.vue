@@ -33,10 +33,7 @@
                             c-dropdown-item(@click="logout") 注销
 </template>
 <script>
-  import {
-    CDropdown, CDropdownItem,
-    CDropdownMenu
-  } from '~/components/common/dropdown'
+  import { CDropdown, CDropdownItem, CDropdownMenu } from '~/components/common/dropdown'
   import CAvatar from '~/components/common/avatar'
   import CInput from '~/components/common/input'
   import CBadge from '~/components/common/badge'
@@ -99,7 +96,6 @@
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/application";
-
 
     .c-header-container {
         background-color: $color-background;
