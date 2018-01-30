@@ -98,10 +98,10 @@
             color: $button-color--default--hover;
             border-color: $button-border-color--default--hover;
         }
-        &.c-button--disabled{
-            &:hover{
+        &.c-button--disabled {
+            &:hover {
                 background-color: $button-bg-color--default;
-                color: $button-color--default;
+                color: $button-color;
                 border-color: $button-border-color--default;
             }
         }
@@ -121,8 +121,8 @@
             }
         }
 
-        &.c-button--disabled{
-            &:hover{
+        &.c-button--disabled {
+            &:hover {
                 background-color: $button-bg-color--primary;
                 border-color: $button-border-color--primary;
             }
@@ -147,8 +147,8 @@
                 color: $button-border-color--success--hover;
             }
         }
-        &.c-button--disabled{
-            &:hover{
+        &.c-button--disabled {
+            &:hover {
                 background-color: $button-bg-color--success;
                 border-color: $button-border-color--success;
             }
@@ -187,8 +187,8 @@
                     color: $button-border-color--success--hover;
                 }
             }
-            &.c-button--disabled{
-                &:hover{
+            &.c-button--disabled {
+                &:hover {
                     background-color: $button-bg-color--success;
                     border-color: $button-border-color--success;
                 }
@@ -214,8 +214,8 @@
                 color: $button-border-color--warning--hover;
             }
         }
-        &.c-button--disabled{
-            &:hover{
+        &.c-button--disabled {
+            &:hover {
                 background-color: $button-bg-color--warning;
                 border-color: $button-border-color--warning;
             }
@@ -240,8 +240,8 @@
                 color: $button-border-color--info--hover;
             }
         }
-        &.c-button--disabled{
-            &:hover{
+        &.c-button--disabled {
+            &:hover {
                 background-color: $button-bg-color--info;
                 border-color: $button-border-color--info;
             }
@@ -250,6 +250,22 @@
                     color: $button-border-color--info;
                 }
             }
+        }
+    }
+
+    .c-button--text {
+        background-color: $button-bg-color--text;
+        color: $button-color--text;
+        border: none;
+        &:hover {
+            color: $button-color--text--hover;
+        }
+
+        &.c-button--disabled {
+            &:hover {
+                color: $button-color--text;
+            }
+
         }
     }
 </style>

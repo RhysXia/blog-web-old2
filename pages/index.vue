@@ -25,6 +25,8 @@
   import CArticleItem from '~/components/article/item'
   import CPanel from '~/components/common/panel'
   import CPagination from '~/components/common/pagination'
+  import CTag from '~/components/common/tag'
+  import CButton from '~/components/common/button'
 
   export default {
     head () {
@@ -124,7 +126,9 @@
       CCarouselItem,
       CArticleItem,
       CPanel,
-      CPagination
+      CPagination,
+      CTag,
+      CButton
     }
   }
 </script>

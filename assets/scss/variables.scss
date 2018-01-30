@@ -61,6 +61,10 @@ $button-border-color--error: $button-bg-color--error;
 $button-bg-color--error--hover: lighten($button-bg-color--error, 8%);
 $button-border-color--error--hover: $button-bg-color--error--hover;
 
+$button-bg-color--text: transparent;
+$button-color--text: $text-color;
+$button-color--text--hover: $primary-color;
+
 //breadcrumb
 $breadcrumb-color: $text-color;
 $breadcrumb-separator-color: lighten($breadcrumb-color, 30%);
@@ -97,15 +101,19 @@ $grid-breakpoints: (
 //message
 $message-close-color: lighten($text-color, 10%);
 $message-close-color--hover: darken($text-color, 10%);
+
 $message-info-color: $info-color;
 $message-info-bg-color: lighten($message-info-color, 30%);
 $message-info-border-color: darken($message-info-color, 10%);
+
 $message-success-color: $success-color;
 $message-success-bg-color: lighten($message-success-color, 30%);
 $message-success-border-color: darken($message-success-color, 10%);
+
 $message-warning-color: $warning-color;
 $message-warning-bg-color: lighten($message-warning-color, 30%);
 $message-warning-border-color: darken($message-warning-color, 10%);
+
 $message-error-color: $error-color;
 $message-error-bg-color: lighten($message-error-color, 30%);
 $message-error-border-color: darken($message-error-color, 10%);
@@ -156,14 +164,32 @@ $pagination-bg-color: $bg-color;
 $pagination-color: $text-color;
 $pagination-color--hover: $link-color--hover;
 $pagination-color--active: $link-color--hover;
-$pagination-color--disabled: darken($pagination-bg-color, 10%);
+$pagination-color--disabled: lighten($pagination-color, 20%);
 
 //panel
 $panel-bg-color: $bg-color;
+$panel-box-shadow--hover: 0 1px 6px rgba(0, 0, 0, .2);
 
 //tag
-$tag-border-color--primary: transparentize($primary-color, 0.5);
+$tag-bg-color: $bg-color;
+
 $tag-color--primary: $primary-color;
+$tag-color--info: $info-color;
+$tag-color--success: $success-color;
+$tag-color--error: $error-color;
+$tag-color--warning: $warning-color;
+
+$tag-border-color--primary: lighten($tag-color--primary, 10%);
+$tag-border-color--info: lighten($tag-color--info, 10%);
+$tag-border-color--success: lighten($tag-color--success, 10%);
+$tag-border-color--error: lighten($tag-color--error, 10%);
+$tag-border-color--warning: lighten($tag-color--warning, 10%);
+
+$tag-bg-color--primary: lighten($primary-color, 30%);
+$tag-bg-color--info: lighten($info-color, 30%);
+$tag-bg-color--success: lighten($success-color, 30%);
+$tag-bg-color--error: lighten($error-color, 30%);
+$tag-bg-color--warning: lighten($warning-color, 30%);
 
 
 
