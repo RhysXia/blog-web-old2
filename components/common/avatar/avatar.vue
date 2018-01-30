@@ -1,8 +1,8 @@
 <template lang="pug">
     .c-avatar(:class="classes",:style="matchParent?{width:'100%',height:'100%'}:{}")
         img.c-avatar__image(:src="src",v-if="src")
-        .c-avatar__image.c-avatar__image--anno(v-if="!isSlotShow")
-        .c-avatar__content(ref="children",v-if="isSlotShow")
+        .c-avatar__image.c-avatar__image--anno(v-else-if="!isSlotShow")
+        .c-avatar__content(ref="children",v-else)
             slot
 </template>
 
@@ -47,11 +47,9 @@
           if (avatarWidth < childrenWidth) {
             scale = avatarWidth / childrenWidth
           }
-          children.style.transform = `scale(${scale})`
-          children.style['ms-transform'] = `scale(${scale})`
-          children.style['webkit-transform'] = `scale(${scale})`
-          children.style.position = 'absolute'
-          children.style.transform = `scale(${scale})`
+          children.style.transform = `translate(-50%,-50%) scale(${scale})`
+          children.style['ms-transform'] = `translate(-50%,-50%) scale(${scale})`
+          children.style['webkit-transform'] = `translate(-50%,-50%) scale(${scale})`
         }
       }
     },
@@ -72,15 +70,12 @@
     @import "~assets/scss/variables";
 
     .c-avatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         position: relative;
         width: $avatar-size;
         height: $avatar-size;
         overflow: hidden;
         white-space: nowrap;
-        background-color: $avatar-bg;
+        background-color: $avatar-bg-color;
         color: $avatar-color;
         .c-avatar__image {
             width: 100%;
@@ -91,11 +86,15 @@
             background-size: cover;
         }
         .c-avatar__content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            padding: 0.2em;
         }
     }
 
     .c-avatar--square {
-        border-radius: $border-radius-small;
+        border-radius: $border-radius--small;
     }
 
     .c-avatar--circle {

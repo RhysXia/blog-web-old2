@@ -106,11 +106,11 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: $modal-shadow;
+        background-color: $modal-shadow-color;
         .c-modal__wrapper {
-            background-color: $modal-bg;
-            border: 1px solid $border-color-base;
-            border-radius: $border-color-base;
+            background-color: $modal-bg-color;
+            border: 1px solid $border-color;
+            border-radius: $border-color;
             position: absolute;
             left: 50%;
             top: 50%;
@@ -120,7 +120,7 @@
             }
             .c-modal__header {
                 position: relative;
-                border-bottom: 1px solid $border-color-base;
+                border-bottom: 1px solid $border-color;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -132,8 +132,9 @@
                     display: block;
                     cursor: pointer;
                     padding: 0.5em;
+                    color: $modal-close-color;
                     &:hover {
-                        color: $primary-color;
+                        color: $modal-close-color--hover;
                     }
                 }
             }
@@ -141,7 +142,7 @@
 
             }
             .c-modal__footer {
-                border-top: 1px solid $border-color-base;
+                border-top: 1px solid $border-color;
                 .c-modal__button-wrapper {
                     display: flex;
                     flex-direction: row;

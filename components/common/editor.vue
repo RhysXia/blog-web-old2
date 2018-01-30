@@ -199,9 +199,9 @@
     .c-editor{
         display: flex;
         flex-direction: column;
-        background-color: $editor-bg;
+        background-color: $editor-bg-color;
         position: relative;
-        border: 1px solid $border-color-base;
+        border: 1px solid $border-color;
         border-top-width: 0;
         border-bottom-width: 0;
         .c-editor__button-list {
@@ -209,7 +209,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            border: 1px solid $border-color-base;
+            border: 1px solid $border-color;
             border-left: none;
             border-right: none;
             width: 100%;

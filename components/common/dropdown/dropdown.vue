@@ -143,10 +143,9 @@
         }
         .c-dropdown__list {
             min-width: 100%;
-            background-color: transparent;
             position: absolute;
             z-index: 1;
-            border-radius: $border-radius-base;
+            border-radius: $border-radius;
         }
 
         .c-dropdown__list--bottom {

@@ -84,11 +84,11 @@
                 transition: color 0.2s ease-in-out;
                 cursor: pointer;
                 &:hover {
-                    color: $tab-active-color;
+                    color: $tab-label-color--hover;
                 }
             }
             .c-tab-group__label--active {
-                color: $tab-active-color;
+                color: $tab-label-color--active;
             }
         }
         .c-tab-group__body {
@@ -101,9 +101,9 @@
         .c-tab-group__header {
             flex-direction: row;
             order: 1;
-            border-bottom: 1px solid $border-color-base;
+            border-bottom: 1px solid $border-color;
             .c-tab-group__label--active {
-                border-bottom: 1px solid $tab-active-color;
+                border-bottom: 1px solid $tab-label-color--active;
             }
         }
         .c-tab-group__body {
@@ -116,9 +116,9 @@
         .c-tab-group__header {
             flex-direction: row;
             order: 2;
-            border-top: 1px solid $border-color-base;
+            border-top: 1px solid $border-color;
             .c-tab-group__label--active {
-                border-top: 1px solid $tab-active-color;
+                border-top: 1px solid $tab-label-color--active;
             }
         }
         .c-tab-group__body {
@@ -131,9 +131,9 @@
         .c-tab-group__header {
             flex-direction: column;
             order: 1;
-            border-right: 1px solid $border-color-base;
+            border-right: 1px solid $border-color;
             .c-tab-group__label--active {
-                border-right: 1px solid $tab-active-color;
+                border-right: 1px solid $tab-label-color--active;
             }
         }
         .c-tab-group__body {
@@ -146,9 +146,9 @@
         .c-tab-group__header {
             flex-direction: column;
             order: 2;
-            border-left: 1px solid $border-color-base;
+            border-left: 1px solid $border-color;
             .c-tab-group__label--active {
-                border-left: 1px solid $tab-active-color;
+                border-left: 1px solid $tab-label-color--active;
             }
         }
         .c-tab-group__body {

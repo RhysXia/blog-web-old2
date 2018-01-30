@@ -37,7 +37,7 @@
             transition: color 0.2s ease-in-out;
             cursor: pointer;
             &:hover {
-                color: $breadcrumb-hover;
+                color: $breadcrumb-color--hover;
             }
         }
         .c-breadcrumb__item--separator {

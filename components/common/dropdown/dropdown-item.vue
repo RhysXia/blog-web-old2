@@ -37,13 +37,17 @@
         cursor: pointer;
         margin: 0;
         &:hover {
-            background-color: $dropdown-hover-bg;
-            color: $dropdown-hover-color;
+            background-color: $dropdown-bg-color--hover;
+            color: $dropdown-color--hover;
         }
     }
 
     .c-dropdown__item--disabled {
-        color: $dropdown-disabled-color;
-        cursor: default;
+        color: $dropdown-color--disabled;
+        cursor: not-allowed;
+        &:hover{
+            color: $dropdown-color--disabled;
+            background-color: $dropdown-bg-color;
+        }
     }
 </style>

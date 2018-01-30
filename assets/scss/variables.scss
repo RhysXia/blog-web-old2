@@ -5,40 +5,44 @@ $success-color: #2d8cf0;
 $warning-color: #ff9900;
 $error-color: #ed3f14;
 
-$text-color: #495060;
-$text-disabled-color: #ccc;
-$bg-disabled: #f3f3f3;
-$border-color: #dddee1;
+$link-color: $primary-color;
+$link-color--hover: darken($primary-color, 10%);
+
+$text-color: #303133;
+$text-color--secondary: lighten($text-color, 20%);
+$text-color--disabled: #ccc;
+
 $bg-color: #fff;
+$border-color: #dddee1;
 
 //border
-$border-color-base: #dddee1; // outside
-$border-radius-base: 0.3em;
-$border-radius-small: 0.2em;
+$border-radius: 0.3em;
+$border-radius--small: 0.2em;
 
 //avatar
-$avatar-bg: #ccc;
+$avatar-bg-color: darken($bg-color, 18%);
 $avatar-color: #fff;
 $avatar-size: 3em;
 
 //breadcrumb
-$breadcrumb-separator-color: #c0c4cc;
 $breadcrumb-color: $text-color;
-$breadcrumb-hover: transparentize($primary-color, 0.2);
+$breadcrumb-separator-color: lighten($breadcrumb-color, 30%);
+$breadcrumb-color--hover: $link-color--hover;
 
 //carousel
 $carousel-direction-color: $primary-color;
 
 //checkbox
-$checkbox-bg: #fff;
-$checkbox-disabled: #ccc;
-$checkbox-checked: $primary-color;
+$checkbox-bg-color: $bg-color;
+$checkbox-color--disabled: $text-color--disabled;
+$checkbox-bg-color--disabled: darken($checkbox-bg-color, 10%);
+$checkbox-bg-color--checked: $link-color;
 
 //dropdown
-$dropdown-bg: #fff;
-$dropdown-hover-bg: #ecf5ff;
-$dropdown-hover-color: $primary-color;
-$dropdown-disabled-color: #bbb;
+$dropdown-bg-color: $bg-color;
+$dropdown-bg-color--hover: darken($bg-color, 5%);
+$dropdown-color--hover: $link-color--hover;
+$dropdown-color--disabled: $text-color--disabled;
 
 //grid
 $sm: 768px;
@@ -54,64 +58,74 @@ $grid-breakpoints: (
 );
 
 //message
-$message-close-color: transparentize($text-color, 0.4);
-$message-close-hover-color: $text-color;
+$message-close-color: lighten($text-color, 10%);
+$message-close-color--hover: darken($text-color, 10%);
 $message-info-color: $info-color;
-$message-info-bg: transparentize($info-color, 0.8);
-$message-info-border: transparentize($info-color, 0.4);
+$message-info-bg-color: lighten($message-info-color, 30%);
+$message-info-border-color: darken($message-info-color, 10%);
 $message-success-color: $success-color;
-$message-success-bg: transparentize($success-color, 0.8);
-$message-success-border: transparentize($success-color, 0.4);
+$message-success-bg-color: lighten($message-success-color, 30%);
+$message-success-border-color: darken($message-success-color, 10%);
 $message-warning-color: $warning-color;
-$message-warning-bg: transparentize($warning-color, 0.8);
-$message-warning-border: transparentize($warning-color, 0.4);
+$message-warning-bg-color: lighten($message-warning-color, 30%);
+$message-warning-border-color: darken($message-warning-color, 10%);
 $message-error-color: $error-color;
-$message-error-bg: transparentize($error-color, 0.8);
-$message-error-border: transparentize($error-color, 0.4);
+$message-error-bg-color: lighten($message-error-color, 30%);
+$message-error-border-color: darken($message-error-color, 10%);
 
 //select
-$select-active-bg: #ecf5ff;
-$select-active-color: $primary-color;
-$select-active-border-active: $primary-color;
+$select-bg: $bg-color;
+$select-color--active: $primary-color;
+$select-bg-color--active: darken($select-bg, 5%);
+$select-color--hover: darken($select-color--active, 5%);
+$select-bg-color--hover: $select-bg-color--active;
+$select-border-color: $border-color;
+$select-border-color--active: $primary-color;
 
 //tab
-$tab-active-color: $primary-color;
+$tab-label-color--hover: $primary-color;
+$tab-label-color--active: $primary-color;
 
 //back-top
 $back-top-color: $success-color;
 
 //badge
-$badge-bg: $error-color;
+$badge-bg-color: $error-color;
 $badge-color: #fff;
+$badge-border-color: #fff;
 
 //editor
-$editor-bg: #fff;
-
+$editor-bg-color: $bg-color;
 
 //input
-$input-bg: #fff;
-$input-append-bg: #eee;
-$input-append-color: #909399;
-$input-border-color: $border-color-base;
-$input-border-color-active: $primary-color;
-$input-border-color-hover: #c0c4cc;
-$input-disabled: #bbb;
-$input-bg-disabled: $bg-disabled;
+$input-bg-color: $bg-color;
+$input-append-bg-color: darken($input-bg-color, 10%);
+$input-append-color: $text-color--secondary;
+$input-border-color: $border-color;
+$input-border-color--active: $primary-color;
+$input-border-color--hover: darken($input-border-color, 10%);
+$input-color--disabled: $text-color--disabled;
+$input-bg-color--disabled: darken($input-bg-color, 5%);
 
 //modal
-$modal-shadow: transparentize(#fff, 0.5);
-$modal-bg: #fff;
+$modal-shadow-color: rgba(darken($bg-color, 20%), 0.5);
+$modal-bg-color: $bg-color;
+$modal-close-color: lighten($text-color, 10%);
+$modal-close-color--hover: darken($text-color, 10%);
 
 //pagination
-$pagination-bg: #fff;
-$pagination-disabled: $bg-disabled;
+$pagination-bg-color: $bg-color;
+$pagination-color: $text-color;
+$pagination-color--hover: $link-color--hover;
+$pagination-color--active: $link-color--hover;
+$pagination-color--disabled: darken($pagination-bg-color, 10%);
 
 //panel
-$panel-bg: #fff;
+$panel-bg-color: $bg-color;
 
 //tag
-$tag-border--primary: transparentize($primary-color, 0.5);
-$tag--primary: $primary-color;
+$tag-border-color--primary: transparentize($primary-color, 0.5);
+$tag-color--primary: $primary-color;
 
 
 

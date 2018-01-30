@@ -23,12 +23,12 @@
     @import "~assets/scss/variables";
 
     .c-panel {
-        background-color: $panel-bg;
+        background-color: $panel-bg-color;
         padding: 0.5em;
         .c-panel__header{
             .c-panel__header--title{
                 padding-bottom: 0.5em;
-                border-bottom: 1px solid $border-color-base;
+                border-bottom: 1px solid $border-color;
                 margin: 0;
             }
         }

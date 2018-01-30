@@ -69,7 +69,7 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/variables";
 
     .c-checkbox {
@@ -84,9 +84,9 @@
             position: relative;
             top: 0;
             left: 0;
-            border: 1px solid $border-color-base;
-            border-radius: $border-radius-small;
-            background-color: $checkbox-bg;
+            border: 1px solid $border-color;
+            border-radius: $border-radius--small;
+            background-color: $checkbox-bg-color;
             transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             &:after {
                 content: '';
@@ -97,7 +97,7 @@
                 top: 0.15em;
                 left: 0.4em;
                 box-sizing: border-box;
-                border: 0.15em solid $checkbox-bg;
+                border: 0.15em solid $checkbox-bg-color;
                 border-top: 0;
                 border-left: 0;
                 transform: rotate(45deg) scale(0);
@@ -123,8 +123,7 @@
 
     .c-checkbox--checked {
         .c-checkbox__inner {
-            border-color: $checkbox-bg;
-            background-color: $checkbox-checked;
+            background-color: $checkbox-bg-color--checked;
             &:after {
                 transform: rotate(45deg) scale(1);
             }
@@ -132,16 +131,17 @@
     }
 
     .c-checkbox--disabled {
-        cursor: not-allowed;
         .c-checkbox__inner {
-            background-color: $checkbox-disabled;
-            border-color: $border-color-base;
+            background-color: $checkbox-bg-color--disabled;
             &:after {
                 animation-name: none;
             }
         }
+        .c-checkbox__input{
+            cursor: not-allowed;
+        }
         .c-checkbox__label {
-            color: $checkbox-disabled;
+            color: $checkbox-color--disabled;
         }
     }
 </style>

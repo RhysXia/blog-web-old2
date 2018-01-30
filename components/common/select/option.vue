@@ -1,6 +1,6 @@
 <template lang="pug">
     transition(name="c-option--fade")
-        c-dropdown-item(v-if="isShow",:class="classes",@click="click")
+        c-dropdown-item.c-option(v-if="isShow",:class="classes",@click="click")
             slot {{label}}
 </template>
 
@@ -85,10 +85,16 @@
 
 <style lang="scss">
     @import "~assets/scss/variables";
-
+    .c-option{
+        background-color: $bg-color;
+        &:hover{
+            background-color: $select-bg-color--hover;
+            color: $select-color--hover;
+        }
+    }
     .c-option--active {
-        background-color: $select-active-bg;
-        color: $select-active-color;
+        background-color: $select-bg-color--active;
+        color: $select-color--active;
     }
 
     .c-option--fade-enter-active,

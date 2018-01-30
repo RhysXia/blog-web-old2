@@ -1,6 +1,6 @@
 <template lang="pug">
     transition(name="c-back-top--slide")
-        .c-back-top(v-show="isShow",:style="styles",@click="click")
+        span.c-back-top(v-show="isShow",:style="styles",@click="click")
             slot
                 i.fa.fa-arrow-circle-up
 </template>

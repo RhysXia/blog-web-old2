@@ -14,7 +14,7 @@
     @import "~assets/scss/variables";
 
     .c-dropdown__menu {
-        background-color: $dropdown-bg;
+        background-color: $dropdown-bg-color;
         list-style: none;
         margin: 0;
         padding: 0;

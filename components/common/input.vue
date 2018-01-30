@@ -1,14 +1,14 @@
 <template lang="pug">
     .c-input(:class="classes")
         template(v-if="type==='textarea'")
-            textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px',overflow:'hidden'}",@blur="blur",v-if="autoSize",v-autoheight="autoSize",v-model="content",:placeholder="placeholder",:readonly="readonly")
-            textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px'}",@blur="blur",v-else,v-model="content",:placeholder="placeholder",:readonly="readonly")
+            textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px',overflow:'hidden'}",@blur="blur",v-if="autoSize",v-autoheight="autoSize",v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
+            textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px'}",@blur="blur",v-else,v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
         template(v-else)
             span.c-input__prepend(v-if="$slots.prepend")
                 slot(name="prepend")
             .c-input__wrapper
-                input.c-input__input(@focus="focus",@blur="blur",:type="type",:readonly="readonly",v-model="content",:placeholder="placeholder")
-                span.c-input__close(@click="content=''",v-if="clearable && !readonly && content")
+                input.c-input__input(@focus="focus",@blur="blur",:type="type",:disabled="disabled",:readonly="readonly",v-model="content",:placeholder="placeholder")
+                span.c-input__close(@click="content=''",v-if="clearable && !readonly && !disabled && content")
                     i.fa.fa-close
             span.c-input__append(v-if="$slots.append")
                 slot(name="append")
@@ -37,6 +37,10 @@
         }
       },
       readonly: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       },
@@ -75,7 +79,8 @@
         return {
           'c-input--focus': this.isFocus && !this.readonly,
           'c-input--active': this.isActive && !this.readonly,
-          'c-input--readonly': this.readonly
+          'c-input--readonly': this.readonly,
+          'c-input--disabled': this.disabled
         }
       }
     },
@@ -98,14 +103,14 @@
         display: inline-table;
         align-items: center;
         flex-direction: row;
-        background-color: $input-bg;
+        background-color: $input-bg-color;
         border-collapse: separate;
         width: 100%;
         .c-input__prepend,
         .c-input__append {
             display: table-cell;
             vertical-align: middle;
-            background-color: $input-append-bg;
+            background-color: $input-append-bg-color;
             color: $input-append-color;
             position: relative;
             white-space: nowrap;
@@ -128,7 +133,7 @@
             box-sizing: border-box;
             display: table-cell;
             vertical-align: middle;
-            border: 1px solid $border-color-base;
+            border: 1px solid $border-color;
             transition: border-color 0.2s ease-in-out;
             width: 100%;
             .c-input__input {
@@ -151,23 +156,23 @@
                 transform: translateY(-50%);
                 color: $input-border-color;
                 &:hover {
-                    color: $input-border-color-hover
+                    color: $input-border-color--hover
                 }
             }
             &:hover {
-                border-color: $input-border-color-hover;
+                border-color: $input-border-color--hover;
                 .c-input__close {
                     display: inline-block;
                 }
             }
         }
         > *:first-child {
-            border-top-left-radius: $border-radius-small;
-            border-bottom-left-radius: $border-radius-small;
+            border-top-left-radius: $border-radius--small;
+            border-bottom-left-radius: $border-radius--small;
         }
         > *:last-child {
-            border-top-right-radius: $border-radius-small;
-            border-bottom-right-radius: $border-radius-small;
+            border-top-right-radius: $border-radius--small;
+            border-bottom-right-radius: $border-radius--small;
         }
 
         .c-input__textarea {
@@ -179,7 +184,7 @@
             transition: border-color 0.2s ease-in-out, height 0.2s ease;
             padding: 0.5em;
             &:hover {
-                border-color: $input-border-color-hover;
+                border-color: $input-border-color--hover;
             }
         }
     }
@@ -187,29 +192,37 @@
     .c-input--focus {
         .c-input__textarea,
         .c-input__wrapper {
-            border-color: $input-border-color-active !important;
+            border-color: $input-border-color--active !important;
             .c-input__close {
                 display: inline-block;
             }
         }
     }
 
+    .c-input--disabled,
     .c-input--readonly {
-        color: $input-disabled;
-        background-color: $input-bg-disabled;
         .c-input__wrapper {
-            .c-input__input{
-                cursor: not-allowed;
-            }
             &:hover {
                 border-color: $input-border-color;
             }
         }
-        .c-input__textarea{
-            cursor: not-allowed;
-            &:hover{
+        .c-input__textarea {
+            &:hover {
                 border-color: $input-border-color;
             }
+        }
+    }
+
+    .c-input--disabled {
+        color: $input-color--disabled;
+        background-color: $input-bg-color--disabled;
+        .c-input__wrapper {
+            .c-input__input {
+                cursor: not-allowed;
+            }
+        }
+        .c-input__textarea {
+            cursor: not-allowed;
         }
     }
 

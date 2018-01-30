@@ -43,7 +43,7 @@
         vertical-align: middle;
         display: inline-block;
         .c-badge__content {
-            background-color: $badge-bg;
+            background-color: $badge-bg-color;
             color: $badge-color;
             border-radius: 1em;
             font-size: 0.8em;
@@ -52,7 +52,7 @@
             padding: 0 0.5em;
             text-align: center;
             white-space: nowrap;
-            border: 1px solid #fff;
+            border: 1px solid $badge-border-color;
         }
         .c-badge__content--fixed {
             position: absolute;

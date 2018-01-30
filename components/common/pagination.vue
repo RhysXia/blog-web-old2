@@ -126,20 +126,20 @@
             line-height: 2em;
             text-align: center;
             cursor: pointer;
-            background-color: $pagination-bg;
+            background-color: $pagination-bg-color;
             margin: 0 0.2em;
             &:hover {
-                color: $primary-color;
+                color: $pagination-color--hover;
             }
         }
         .c-pagination__item--active {
-            color: $primary-color;
+            color: $pagination-color--active;
         }
         .c-pagination__item--disabled {
-            color: $pagination-disabled;
+            color: $pagination-color--disabled;
             cursor: not-allowed;
             &:hover {
-                color: $pagination-disabled;
+                color: $pagination-color--disabled;
             }
         }
     }

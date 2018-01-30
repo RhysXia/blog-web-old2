@@ -122,7 +122,7 @@
     .c-select__header {
         position: relative;
         border-radius: 0.2em;
-        border: 1px solid $border-color-base;
+        border: 1px solid $select-border-color;
         transition: border-color 0.2s ease-in-out;
         padding: 0.25em;
         .c-select__header--wrapper {
@@ -160,7 +160,7 @@
     }
 
     .c-select__header--active {
-        border-color: $select-active-border-active;
+        border-color: $select-border-color--active;
     }
 
 

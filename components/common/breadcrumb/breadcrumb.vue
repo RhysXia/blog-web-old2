@@ -25,7 +25,6 @@
     @import "~assets/scss/variables";
 
     .c-breadcrumb {
-        font-size: 1em;
         .c-breadcrumb__item:last-child {
             .c-breadcrumb__item--separator {
                 display: none;
