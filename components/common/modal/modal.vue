@@ -1,21 +1,22 @@
 <template lang="pug">
-    .c-modal(tabindex="-1",v-if="val",@click="outClick",@keyup.esc="escPress",:class="classes")
-        .c-modal--wrapper(@click.stop,:style="styles")
-            span.c-modal__close(@click="close")
-                i.fa.fa-close
-            .c-modal__header
-                slot(name="header")
-                    h1.c-modal__title {{title}}
-            .c-modal__body
-                slot
-            .c-modal__footer
-                slot(name="footer")
-                    .c-modal__button
-                        c-button(@click="$emit('on-confirm')",type="primary") 确定
-                        c-button(@click="$emit('on-cancel')") 取消
+    transition(name="c-modal--fade")
+        .c-modal(tabindex="-1",v-if="visible",@click="outClick",@keyup.esc="escPress",:class="classes")
+            .c-modal--wrapper(@click.stop,:style="styles")
+                span.c-modal__close(@click="close",v-if="closeable")
+                    i.fa.fa-close
+                .c-modal__header
+                    slot(name="header")
+                        h1.c-modal__title {{title}}
+                .c-modal__body
+                    slot
+                .c-modal__footer
+                    slot(name="footer")
+                        .c-modal__button
+                            c-button(@click="$emit('on-confirm')",type="primary") 确定
+                            c-button(@click="$emit('on-cancel')") 取消
 </template>
 <script>
-  import CButton from './button'
+  import CButton from '../button/index'
 
   export default {
     name: 'c-modal',
@@ -48,25 +49,32 @@
       closeOnPressESC: {
         type: Boolean,
         default: true
+      },
+      closeable: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
       return {
-        val: this.value,
+        visible: this.value,
         bodyOverflow: null
       }
     },
     watch: {
-      val (v) {
+      visible (v) {
         if (v) {
           this.$nextTick(() => {
             this.$el.focus()
           })
         }
         this.$emit('input', v)
+        if (!v) {
+          this.$emit('on-close')
+        }
       },
-      value (val) {
-        this.val = val
+      value (visible) {
+        this.visible = visible
       }
     },
     computed: {
@@ -88,21 +96,21 @@
     },
     methods: {
       close () {
-        this.val = false
+        this.visible = false
       },
       outClick () {
-        if (this.closeOnClickMask) {
-          this.val = false
+        if (this.closeOnClickMask && this.closeable) {
+          this.visible = false
         }
       },
       escPress () {
-        if (this.closeOnPressESC) {
-          this.val = false
+        if (this.closeOnPressESC && this.closeable) {
+          this.visible = false
         }
       }
     },
     mounted () {
-      if (this.val) {
+      if (this.visible) {
         this.$nextTick(() => {
           this.$el.focus()
         })
@@ -182,6 +190,34 @@
 
                 }
             }
+        }
+    }
+
+    .c-modal--fade-enter-active,
+    .c-modal--fade-leave-active {
+        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+        transform-origin: 0 0;
+        .c-modal--wrapper {
+            transform-origin: 0 0;
+            transition: transform 0.4s ease-in-out;
+        }
+    }
+
+    .c-modal--fade-enter,
+    .c-modal--fade-leave-to {
+        opacity: 0;
+        transform: translateY(0);
+        .c-modal--wrapper {
+            transform: scaleY(0);
+        }
+    }
+
+    .c-modal--fade-leave,
+    .c-modal--fade-enter-to {
+        opacity: 1;
+        transform: translateY(1);
+        .c-modal--wrapper {
+            transform: scaleY(1);
         }
     }
 
