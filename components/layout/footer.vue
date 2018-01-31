@@ -12,12 +12,10 @@
     @import "~assets/scss/application";
 
 
-    $height-footer: 55px;
     .c-footer-container {
-        background-color: $color-background;
-        height: $height-footer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background-color: $bg-color;
+        height: $footer-height;
+        line-height: $footer-height;
+        text-align: center;
     }
 </style>

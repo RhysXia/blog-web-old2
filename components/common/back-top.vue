@@ -123,6 +123,10 @@
         i {
             font-size: 3em;
             color: $back-top-color;
+            transition: color 0.2s ease-in-out;
+            &:hover{
+                color: $back-top-color--hover;
+            }
         }
     }
 

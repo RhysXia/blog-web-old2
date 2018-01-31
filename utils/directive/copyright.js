@@ -1,6 +1,9 @@
 export default {
   bind (el, binding, vnode) {
-    el.oncopy = copy
+    el.addEventListener('copy', copy)
+  },
+  unbind (el) {
+    el.removeEventListener('copy', copy)
   }
 }
 

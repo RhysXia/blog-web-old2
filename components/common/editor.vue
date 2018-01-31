@@ -213,6 +213,7 @@
             border-left: none;
             border-right: none;
             width: 100%;
+            z-index: 1;
             span {
                 display: inline-block;
                 padding: 0.5em;

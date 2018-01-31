@@ -1,3 +1,9 @@
+/**
+ * 向上查找指定名称的组件
+ * @param context
+ * @param componentName
+ * @returns {*}
+ */
 export function findComponentUpward (context, componentName) {
   let parent = context.$parent
   while (parent && parent.$options.name !== componentName) {
@@ -30,23 +36,6 @@ export function findComponentsDownward (context, componentName, depth) {
 }
 
 /**
- * 判断元素是否在数组中
- * @param value
- * @param arrays
- * @returns {boolean}
- */
-export function oneOf (value, arrays) {
-  if (arrays.length) {
-    for (const val of arrays) {
-      if (value === val) {
-        return true
-      }
-    }
-  }
-  return false
-}
-
-/**
  * 获取元素距页面顶部的距离
  * @param element
  * @returns {number}
@@ -59,6 +48,21 @@ export function getOffsetTop (element) {
     parent = parent.offsetParent
   }
   return offsetTop
+}
+
+/**
+ * 获取元素距页面左侧的距离
+ * @param element
+ * @returns {number}
+ */
+export function getOffsetLeft (element) {
+  let offsetLeft = element.offsetLeft
+  let parent = element.offsetParent
+  while (parent) {
+    offsetLeft += parent.offsetLeft
+    parent = parent.offsetParent
+  }
+  return offsetLeft
 }
 
 /**
@@ -79,15 +83,9 @@ export function getViewTop (element) {
  * @returns {number}
  */
 export function getViewLeft (element) {
-  let left = element.offsetLeft
-  let parent = element.offsetParent
-  while (parent) {
-    left += parent.offsetLeft
-    parent = parent.offsetParent
-  }
   const scrollLeft = document.body.scrollLeft ||
     document.documentElement.scrollLeft
-  return left - scrollLeft
+  return getOffsetLeft(element) - scrollLeft
 }
 
 /**

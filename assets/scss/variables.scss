@@ -133,7 +133,8 @@ $tab-label-color--hover: $primary-color;
 $tab-label-color--active: $primary-color;
 
 //back-top
-$back-top-color: $success-color;
+$back-top-color: $link-color;
+$back-top-color--hover: $link-color--hover;
 
 //badge
 $badge-bg-color: $error-color;

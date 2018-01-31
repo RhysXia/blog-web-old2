@@ -1,34 +1,39 @@
 <template lang="pug">
-    c-row.index-container(:gutter="14")
+    c-row.index(:gutter="14")
         c-col(:span="18")
-            .carousel-wrapper(v-if="hotArticles.length>0")
+            .index__carousel(v-if="hotArticles.length>0")
                 c-carousel
                     c-carousel-item(v-for="(article,index) in  hotArticles",:key="index")
-                        nuxt-link.article-image-wrapper(:to="'/article/'+article.id")
-                            img.article-image(:src="article.poster")
-                            span.title {{article.title}}
-            .article-list
-                c-article-item.article-wrapper(@delete="deleteArticle(article.id)",:article="article",v-for="article in articles",:key="article.id")
+                        nuxt-link.index__carousel__content(:to="'/article/'+article.id")
+                            img.article__image(:src="article.poster")
+                            span.article__title {{article.title}}
+            .index__articles
+                c-article-item.article-wrapper(:article="article",v-for="article in articles",:key="article.id")
                 c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
-        c-col(:span="6")
-            c-panel(title="热门文章")
-                .content
-                    p.article-item(v-for="(article,index) in hotArticles",:key="index")
-                        span.index {{index+1}}
-                        nuxt-link(:to="'/article/'+article.id") {{article.title}}
-            c-panel(title="热门标签")
-                .content.tag-content
-                    nuxt-link.tag-item(:to="'/tag/'+tag.id",v-for="(tag,index) in hotTags",:key="index") {{tag.name}}
+        c-col(:span="6",v-fixed)
+            c-panel(title="热门文章",v-if="hotArticles.length>0")
+                ul.index__panel--articles
+                    li.article-item(v-for="(article,index) in hotArticles",:key="index")
+                        nuxt-link(:to="'/article/'+article.id")
+                            span.index {{index+1}}
+                            | {{article.title}}
+            c-panel(title="热门标签",v-if="hotTags.length>0")
+                ul.index__panel--tags
+                    li.tag-item(v-for="(tag,index) in hotTags",:key="index")
+                        nuxt-link(:to="'/tag/'+tag.id") {{tag.name}}
 </template>
 <script>
   import { CCarousel, CCarouselItem } from '~/components/common/carousel'
-  import CArticleItem from '~/components/article/item'
+  import CArticleItem from '~/components/article/item-show'
   import CPanel from '~/components/common/panel'
   import CPagination from '~/components/common/pagination'
   import CTag from '~/components/common/tag'
-  import CButton from '~/components/common/button'
+  import fixed from '~/utils/directive/fixed'
 
   export default {
+    directives: {
+      fixed
+    },
     head () {
       return {
         title: '首页'
@@ -85,23 +90,6 @@
       }
     },
     methods: {
-      async deleteArticle (id) {
-        try {
-          await this.$api.article.deleteById(id)
-          await this.pageChange(this.page)
-          this.$message({
-            content: '删除成功',
-            duration: 2000,
-            type: 'success'
-          })
-        } catch (err) {
-          this.$message({
-            content: err.message,
-            duration: 2000,
-            type: 'error'
-          })
-        }
-      },
       async pageChange (val) {
         if (val === this.page) {
           let res = await this.$api.article.getAll({
@@ -127,73 +115,94 @@
       CArticleItem,
       CPanel,
       CPagination,
-      CTag,
-      CButton
+      CTag
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/application";
 
-
-    .index-container {
-        .carousel-wrapper {
-            width: auto;
-            padding: 0.5em;
-            background-color: $color-background;
+    .index {
+        > * > * {
+            margin-bottom: 1em;
+        }
+        .index__carousel {
             height: 15em;
-            .article-image-wrapper {
-                display: block;
+            padding: 0.5em;
+            background-color: $bg-color;
+            .index__carousel__content {
                 position: relative;
+                display: block;
                 width: 100%;
                 height: 100%;
-                .article-image {
+                .article__image {
                     width: 100%;
                     height: 100%;
                 }
-                .title {
+                .article__title {
                     position: absolute;
+                    display: block;
                     top: 1em;
                     right: 1em;
-                    padding: 0.25em 0.5em;
-                    background-color: $color-background;
-                    opacity: 0.5;
+                    padding: 0.5em;
+                    background-color: darken($bg-color, 10%);
+                    transition: background-color 0.2s ease-in-out;
+                    &:hover {
+                        background-color: darken($bg-color, 15%);
+                    }
                 }
             }
-
+        }
+        .index__articles {
+            > * {
+                margin-bottom: 1em;
+            }
         }
 
-        .article-list {
-            position: relative;
-        }
-        .article-wrapper {
-            margin: 1em 0;
-        }
 
-        .c-panel-container {
-            margin-bottom: 1rem;
+        .index__panel--articles,
+        .index__panel--tags {
+            list-style: none;
+            margin: 0 0 -1em 0;
+            padding: 0;
         }
-
-        .tag-content {
-            margin: 0 -0.5em;
+        .index__panel--articles {
+            .article-item {
+                display: block;
+                margin-bottom: 1em;
+                a {
+                    display: block;
+                    .index {
+                        display: inline-block;
+                        padding: 0 0.5em;
+                        color: $text-color;
+                        background-color: darken($bg-color, 10%);
+                        margin-right: 0.5em;
+                        transition: 0.2s ease-in-out;
+                    }
+                    &:hover {
+                        .index {
+                            transform: rotate(360deg);
+                            margin-right: 1em;
+                        }
+                    }
+                }
+            }
         }
-
-        .tag-item {
-            display: inline-block;
-            padding: 0.25em 0.5em;
-            background-color: $color-background-dark;
-            margin: 0.5em;
-        }
-        .article-item {
-            height: 1.5em;
-            line-height: 1.5em;
-            .index {
+        .index__panel--tags {
+            margin-right: -0.5em;
+            .tag-item {
                 display: inline-block;
-                margin-right: 0.5em;
-                height: 1.5em;
-                width: 1.5em;
-                text-align: center;
-                line-height: 1.5em;
+                margin: 0 0.5em 1em 0;
+                a {
+                    display: inline-block;
+                    padding: 0.15em 0.5em;
+                    background-color: darken($bg-color, 10%);
+                    transition: 0.2s ease-in-out;
+                    &:hover {
+                        transform: skewX(-10deg) scale(1.1, 1.1);
+                    }
+                }
             }
         }
     }
