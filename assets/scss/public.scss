@@ -5,9 +5,9 @@
 html {
   font-size: 14px;
   line-height: 1.4;
-  color: $color-text;
+  color: $text-color;
   font-family: "Lucida Grande", Lucida Sans Unicode, Hiragino Sans GB, WenQuanYi Micro Hei, Verdana, Aril, sans-serif;
-  background-color: $color-background-dark;
+  background-color: $body-bg-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,8 +19,12 @@ body {
 }
 
 a{
-  color: $primary-color;
+  color: $link-color;
   text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  &:hover{
+    color: $link-color--hover;
+  }
 }
 
 ::-webkit-scrollbar {

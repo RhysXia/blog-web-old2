@@ -2,6 +2,16 @@
 
 //color
 
+$body-bg-color: darken($bg-color,8%);
+
+//height
+$header-height: 4rem;
+$main-width: 75rem;
+
+
+
+
+
 $danger-color: #F56C6C;
 
 $color-warn: #FA7921;
@@ -24,7 +34,5 @@ $color-link: $primary-color;
 
 
 
-//height
-$height-header: 4rem;
-$width-main: 75rem;
+
 

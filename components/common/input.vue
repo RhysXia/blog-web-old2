@@ -85,11 +85,13 @@
       }
     },
     methods: {
-      focus () {
+      focus (e) {
         this.isFocus = true
+        this.$emit('focus', e)
       },
-      blur () {
+      blur (e) {
         this.isFocus = false
+        this.$emit('blur', e)
       }
     }
   }
@@ -135,7 +137,6 @@
             vertical-align: middle;
             border: 1px solid $border-color;
             transition: border-color 0.2s ease-in-out;
-            width: 100%;
             .c-input__input {
                 width: 100%;
                 box-sizing: border-box;

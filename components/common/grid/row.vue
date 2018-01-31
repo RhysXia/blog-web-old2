@@ -72,7 +72,7 @@
 
         &--flex {
             display: flex;
-            &:before,
+            flex-direction: row;
             &:after {
                 display: none;
             }

@@ -8,8 +8,7 @@
         default: 'div'
       },
       span: {
-        type: Number,
-        default: 24
+        type: Number
       },
       offset: {
         type: Number

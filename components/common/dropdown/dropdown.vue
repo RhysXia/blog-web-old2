@@ -53,7 +53,8 @@
     },
     data () {
       return {
-        visible: this.value
+        visible: this.value,
+        isClick: false
       }
     },
     watch: {
@@ -70,12 +71,14 @@
         if (this.trigger === 'custom') {
           return
         }
+        this.isClick = false
         this.visible = false
       },
       refClick () {
         if (this.trigger === 'custom') {
           return
         }
+        this.isClick = true
         this.visible = true
       },
       mouseenter () {
@@ -84,7 +87,7 @@
         }
       },
       mouseleave () {
-        if (this.trigger === 'hover') {
+        if (this.trigger === 'hover' && !this.isClick) {
           this.visible = false
         }
       }
@@ -140,6 +143,7 @@
         position: relative;
         .c-dropdown__ref {
             position: relative;
+            cursor: pointer;
         }
         .c-dropdown__list {
             min-width: 100%;

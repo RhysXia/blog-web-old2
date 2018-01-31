@@ -1,7 +1,7 @@
 <template lang="pug">
-    .c-badge
+    .c-badge(:class="classes")
         slot
-        sup.c-badge__content(:class="{ 'c-badge__content--fixed': $slots.default, 'c-badge__content--dot': isDot }",v-show="!hidden&&(content||isDot)") {{content}}
+        sup.c-badge__content(v-show="!hidden&&(content||isDot)") {{content}}
 </template>
 
 <script>
@@ -30,6 +30,12 @@
           return max < value ? `${max}+` : value
         }
         return value
+      },
+      classes () {
+        return {
+          'c-badge--fixed': this.$slots.default,
+          'c-badge--dot': this.isDot
+        }
       }
     }
   }
@@ -43,6 +49,7 @@
         vertical-align: middle;
         display: inline-block;
         .c-badge__content {
+            display: inline-block;
             background-color: $badge-bg-color;
             color: $badge-color;
             border-radius: 1em;
@@ -53,21 +60,26 @@
             text-align: center;
             white-space: nowrap;
             border: 1px solid $badge-border-color;
+            top: 0;
         }
-        .c-badge__content--fixed {
+    }
+
+    .c-badge--fixed {
+        .c-badge__content {
             position: absolute;
             top: 0;
-            right: 1em;
-            transform: translateX(100%) translateY(-50%);
+            right: 0;
+            transform: translate(50%, -50%);
         }
-        .c-badge__content--dot {
+    }
+
+    .c-badge--dot {
+        .c-badge__content {
             height: 0.5em;
             width: 0.5em;
             padding: 0;
-            right: 0;
-        }
-        .c-badge__content--fixed.c-badge__content--dot {
-            right: 0.5em;
+            border-radius: 50%;
         }
     }
+
 </style>

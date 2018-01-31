@@ -12,7 +12,8 @@ $text-color: #606266;
 $text-color--secondary: lighten($text-color, 20%);
 $text-color--disabled: #ccc;
 
-$bg-color: #fff;
+//$bg-color: #fff;
+$bg-color: rgba(#fff,0.9);
 $border-color: #dddee1;
 
 //border

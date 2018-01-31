@@ -1,29 +1,31 @@
 <template lang="pug">
-    header.c-header-container.shadow
-        .c-wrapper
-            .c-left
+    header.c-header
+        .c-header--wrapper
+            .c-header--left
                 nuxt-link(to="/")
-                    h1.c-logo {{blog.name}}
-                nuxt-link.menu(to="/") 首页
-                nuxt-link.menu(to="/about") 关于
-            .c-right
-                //c-input(placeholder="搜索")
+                    h1.c-header__logo {{blog.name}}
+                nuxt-link.c-header__menu(to="/") 首页
+                nuxt-link.c-header__menu(to="/about") 关于
+            .c-header--right
+                .c-header__search(:class="inputClasses",@keyup.enter="searchHandler")
+                    c-input(v-model="searchContent",placeholder="搜索",@focus="inputFocus",@blur="inputBlur")
+                        span(slot="append") 搜索
                 template(v-if="!isLogin")
-                    nuxt-link(to="/auth/login") 登录
-                    nuxt-link(to="/auth/register") 注册
+                    nuxt-link.c-header__menu(to="/auth/login") 登录
+                    nuxt-link.c-header__menu(to="/auth/register") 注册
                 template(v-else)
                     c-dropdown(v-if="messages.totalElements>0")
                         c-badge(:value="messages.totalElements")
                             i.fa.fa-comments
-                        c-dropdown-menu(slot="list")
+                        c-dropdown-menu(slot="list",maxHeight="10em")
                             c-dropdown-item(v-for="message in messages.content",:key="message.id")
-                                .message-wrapper
-                                    span.message
+                                .c-header__message--wrapper
+                                    span.c-header__message
                                         router-link(:to="'/user/'+message.user.id") {{message.user.nickname}}
                                         | 在
                                         router-link(:to="'/article/'+message.article.id") {{message.article.title}}
                                         | 评论了你
-                                    router-link.message-watch(:to="'/message/comment'+'?commentId='+message.comment.id") 查看
+                                    router-link.c-header__message__btn(:to="'/message/comment'+'?commentId='+message.comment.id") 查看
                     c-dropdown
                         c-avatar(:src="loginUser.avatar",shape="square") {{loginUser.nickname}}
                         c-dropdown-menu(slot="list")
@@ -37,6 +39,7 @@
   import CAvatar from '~/components/common/avatar'
   import CInput from '~/components/common/input'
   import CBadge from '~/components/common/badge'
+  import CButton from '~/components/common/button'
   import { mapGetters, mapState } from 'vuex'
 
   export default {
@@ -44,7 +47,9 @@
     data () {
       return {
         messages: {},
-        timer: null
+        timer: null,
+        isInputFocused: false,
+        searchContent: ''
       }
     },
     computed: {
@@ -52,9 +57,23 @@
       ...mapGetters(['isLogin']),
       isWrite () {
         return this.$store.getters.permissions.includes('POST:/articles')
+      },
+      inputClasses () {
+        return {
+          'c-header__search--focus': this.isInputFocused
+        }
       }
     },
     methods: {
+      searchHandler () {
+        console.log(this.searchContent)
+      },
+      inputFocus () {
+        this.isInputFocused = true
+      },
+      inputBlur () {
+        this.isInputFocused = false
+      },
       logout () {
         this.$store.dispatch('logout').then(() => {
           this.$router.push('/')
@@ -90,75 +109,95 @@
       CDropdownMenu,
       CAvatar,
       CInput,
-      CBadge
+      CBadge,
+      CButton
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/application";
 
-    .c-header-container {
-        background-color: $color-background;
-    }
-
-    .fa-comments {
-        font-size: 2em;
-        color: $color-text-light;
-    }
-
-    .message-wrapper {
-        width: 18em;
-        border-bottom: 1px solid $color-border-base;
-        padding: 1em;
-        .message {
-            height: 3em;
-            display: inline-block;
-            width: 15em;
+    .c-header {
+        position: sticky;
+        z-index: 1;
+        top: 0;
+        background-color: $bg-color;
+        .c-header--wrapper {
+            width: $main-width;
+            height: $header-height;
+            margin: 0 auto auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .message-watch {
-            height: 3em;
-            width: 3em;
-            display: inline-block;
+        .c-header--left,
+        .c-header--right {
+            display: flex;
+            align-items: center;
         }
-    }
-
-    .c-wrapper, .c-left, .c-right {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .c-wrapper {
-        height: $height-header;
-        justify-content: space-between;
-        width: $width-main;
-        margin: 0 auto;
-    }
-
-    .c-logo {
-        font-size: 1.5em;
-    }
-
-    .c-left {
-        margin-right: -0.5em;
-        > * {
+        .c-header__logo {
+            padding: 0;
+            font-size: 1.8em;
+            margin: 0 1em 0 0;
+        }
+        .c-header__menu {
+            display: inline-block;
+            font-size: 1em;
             margin-right: 0.5em;
+            color: $text-color;
+            padding: 0.5em;
+            &:hover {
+                color: $link-color;
+            }
+            &.nuxt-link-exact-active {
+                color: $link-color;
+            }
         }
-    }
+        .c-header__search {
+            transition: width 0.4s ease-in-out;
+            width: 10em;
+            .c-input__append {
+                cursor: pointer;
+                transition: 0.4s ease-in-out;
+                &:hover {
+                    color: $link-color--hover;
+                }
+            }
+            &.c-header__search--focus {
+                width: 20em;
+                .c-input__append {
+                    background-color: $primary-color;
+                    border-color: $primary-color;
+                    color: $bg-color;
+                    &:hover {
+                        background-color: darken($primary-color, 10%);
+                    }
+                }
+            }
+        }
+        .c-dropdown {
+            margin-left: 2em;
+            .fa-comments {
+                font-size: 2em;
+                color: $info-color;
+            }
+        }
+        .c-header__message--wrapper {
+            width: 20em;
+            padding: 0.5em;
+            color: $text-color;
+            &:hover {
+                color: $text-color;
+            }
+            .c-header__message {
+                white-space: nowrap;
+                margin-right: 3em;
+            }
+            .c-header__message__btn {
+                float: right;
+                width: 3em;
+            }
+        }
 
-    .c-right {
-        margin-right: -2em;
-        > * {
-            margin-right: 2em;
-        }
-    }
-
-    .menu {
-        display: inline-block;
-        padding: 0 0.5em;
-        color: $color-text;
-        &:hover, &.nuxt-link-exact-active {
-            color: $primary-color;
-        }
     }
 </style>

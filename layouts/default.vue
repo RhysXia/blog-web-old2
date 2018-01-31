@@ -50,13 +50,10 @@
 
     .layout-main {
         position: relative;
-        width: $width-main;
-        margin: 1em auto;
+        width: $main-width;
+        margin: 1em auto auto;
     }
 
-    .layout-main {
-        margin-top: 1rem;
-    }
 
 
 </style>
