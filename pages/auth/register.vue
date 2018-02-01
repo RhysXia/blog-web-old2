@@ -1,28 +1,27 @@
 <template lang="pug">
-    c-row.auth-login-container(type="flex",justify="center")
-        c-col.form-wrapper(:span="10")
-            h2.title 欢迎注册
-            .form
-                .input-wrapper
-                    span.label 用户名
-                    c-input(v-focus,type="text",v-model="user.username",placeholder="请输入用户名")
-                .input-wrapper
-                    span.label 密码
-                    c-input(type="password",v-model="user.password",placeholder="请输入密码")
-                .input-wrapper
-                    span.label 确认密码
-                    c-input(type="password",v-model="user.rePassword",placeholder="请输入确认密码")
-                .input-wrapper
-                    span.label 昵称
-                    c-input(v-model="user.nickname",placeholder="请输入昵称")
-                .action
-                    button.login(@click="submit") 注册
+    .auth-register
+        h2.title 欢迎注册
+        .form
+            .input-wrapper
+                span.label 用户名
+                c-input(v-focus,type="text",v-model="user.username",placeholder="请输入用户名")
+            .input-wrapper
+                span.label 密码
+                c-input(type="password",v-model="user.password",placeholder="请输入密码")
+            .input-wrapper
+                span.label 确认密码
+                c-input(type="password",v-model="user.rePassword",placeholder="请输入确认密码")
+            .input-wrapper
+                span.label 昵称
+                c-input(v-model="user.nickname",placeholder="请输入昵称")
+            c-button(type="primary",long,@click="submit") 注册
 
 </template>
 
 <script>
   import focus from '~/utils/directive/focus'
   import CInput from '~/components/common/input'
+  import CButton from '~/components/common/button'
 
   export default {
     directives: {
@@ -79,7 +78,8 @@
       }
     },
     components: {
-      CInput
+      CInput,
+      CButton
     }
   }
 </script>
@@ -87,45 +87,29 @@
 <style lang="scss" scoped>
     @import "~assets/scss/application";
 
-    @import "~assets/scss/mixins";
-
-    .auth-login-container {
-        .form-wrapper {
-            background-color: $color-background;
-            padding: 1rem;
-            border-radius: 5px;
-            .title {
-                text-align: center;
-                color: $primary-color;
-                margin-bottom: 2rem;
-            }
-            .form {
-                > * {
-                    margin-bottom: 1rem;
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-                .input-wrapper {
-                    .label {
-                        font-weight: bold;
-                    }
-                    input {
-                        width: 100%;
-                    }
-                }
-                .checkbox-wrapper {
-                }
-                .action {
-                    .login {
-                        background-color: $primary-color;
-                        color: $color-text-white;
-                        width: 100%;
-                        padding: 0.35rem 1rem;
-                    }
+    .auth-register {
+        height: 100%;
+        background-color: $bg-color;
+        width: 40%;
+        padding: 1em;
+        margin: 10% auto auto;
+        .title {
+            text-align: center;
+            color: $primary-color;
+            margin-bottom: 2em;
+        }
+        .form {
+            > * {
+                margin-bottom: 1em;
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
-
+            .input-wrapper {
+                .label {
+                    font-weight: bold;
+                }
+            }
         }
     }
 </style>

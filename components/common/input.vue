@@ -1,13 +1,13 @@
 <template lang="pug">
     .c-input(:class="classes")
         .c-input__wrapper(v-if="type==='textarea'")
-            textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px',overflow:'hidden'}",@blur="blur",v-if="autoSize",v-autoheight="autoSize",v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
-            textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px'}",@blur="blur",v-else,v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
+            textarea.c-input__textarea(@focus="focusHandler",:style="{minHeight:minHeight +'px',overflow:'hidden'}",@blur="blurHandler",v-if="autoSize",v-autoheight="autoSize",v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
+            textarea.c-input__textarea(@focus="focusHandler",:style="{minHeight:minHeight +'px'}",@blur="blurHandler",v-else,v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
         template(v-else)
             span.c-input__prepend(v-if="$slots.prepend")
                 slot(name="prepend")
             .c-input__wrapper
-                input.c-input__input(@focus="focus",@blur="blur",:type="type",:disabled="disabled",:readonly="readonly",v-model="content",:placeholder="placeholder")
+                input.c-input__input(@focus="focusHandler",@blur="blurHandler",:type="type",:disabled="disabled",:readonly="readonly",v-model="content",:placeholder="placeholder")
                 span.c-input__close(@click="content=''",v-if="clearable && !readonly && !disabled && content")
                     i.fa.fa-close
             span.c-input__append(v-if="$slots.append")
@@ -85,13 +85,17 @@
       }
     },
     methods: {
-      focus (e) {
+      focusHandler (e) {
         this.isFocus = true
         this.$emit('focus', e)
       },
-      blur (e) {
+      blurHandler (e) {
         this.isFocus = false
         this.$emit('blur', e)
+      },
+      focus () {
+        const input = (this.$el.getElementsByTagName('input') || this.$el.getElementsByTagName('textarea'))[0]
+        input.focus()
       }
     }
   }

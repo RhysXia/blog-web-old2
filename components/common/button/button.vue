@@ -1,5 +1,5 @@
 <template lang="pug">
-    button.c-button(@click="click",:type="nativeType",:class="classes")
+    button.c-button(@focus="focusHandler",@blur="blurHandler",@click="click",:type="nativeType",:class="classes")
         slot
 </template>
 <script>
@@ -35,6 +35,11 @@
         default: false
       }
     },
+    data () {
+      return {
+        isFocus: false
+      }
+    },
     computed: {
       classes () {
         return {
@@ -42,11 +47,23 @@
           'c-button--round': this.round,
           'c-button--plain': this.plain,
           'c-button--disabled': this.disabled,
-          'c-button--long': this.long
+          'c-button--long': this.long,
+          'c-button--focused': this.isFocus && !this.disabled
         }
       }
     },
     methods: {
+      focus () {
+        this.$el.focus()
+      },
+      focusHandler (e) {
+        this.isFocus = true
+        this.$emit('focus', e)
+      },
+      blurHandler (e) {
+        this.isFocus = false
+        this.$emit('blur', e)
+      },
       click (e) {
         if (!this.disabled) {
           this.$emit('click', e)
@@ -103,6 +120,7 @@
         background-color: $button-bg-color--default;
         color: $button-color--default;
         border-color: $button-border-color--default;
+        &.c-button--focused,
         &:hover {
             background-color: $button-bg-color--default--hover;
             color: $button-color--default--hover;
@@ -120,6 +138,7 @@
     .c-button--primary {
         background-color: $button-bg-color--primary;
         border-color: $button-border-color--primary;
+        &.c-button--focused,
         &:hover {
             background-color: $button-bg-color--primary--hover;
             border-color: $button-border-color--primary--hover;
@@ -147,6 +166,7 @@
     .c-button--success {
         background-color: $button-bg-color--success;
         border-color: $button-border-color--success;
+        .c-button--focused,
         &:hover {
             background-color: $button-bg-color--success--hover;
             border-color: $button-border-color--success--hover;
@@ -173,6 +193,7 @@
     .c-button--error {
         background-color: $button-bg-color--error;
         border-color: $button-border-color--error;
+        .c-button--focused,
         &:hover {
             background-color: $button-bg-color--error--hover;
             border-color: $button-border-color--error--hover;
@@ -187,6 +208,7 @@
         .c-button--success {
             background-color: $button-bg-color--success;
             border-color: $button-border-color--success;
+            .c-button--focused,
             &:hover {
                 background-color: $button-bg-color--success--hover;
                 border-color: $button-border-color--success--hover;
@@ -214,6 +236,7 @@
     .c-button--warning {
         background-color: $button-bg-color--warning;
         border-color: $button-border-color--warning;
+        .c-button--focused,
         &:hover {
             background-color: $button-bg-color--warning--hover;
             border-color: $button-border-color--warning--hover;
@@ -240,6 +263,7 @@
     .c-button--info {
         background-color: $button-bg-color--info;
         border-color: $button-border-color--info;
+        .c-button--focused,
         &:hover {
             background-color: $button-bg-color--info--hover;
             border-color: $button-border-color--info--hover;

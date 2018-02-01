@@ -76,7 +76,7 @@
         background-color: $bg-color;
         width: 40%;
         padding: 1em;
-        margin: 15% auto auto;
+        margin: 10% auto auto;
         .title {
             text-align: center;
             color: $primary-color;

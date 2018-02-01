@@ -75,10 +75,13 @@ $breadcrumb-color--hover: $link-color--hover;
 $carousel-direction-color: $primary-color;
 
 //checkbox
+$checkbox-border-color: $border-color;
 $checkbox-bg-color: $bg-color;
 $checkbox-color--disabled: $text-color--disabled;
 $checkbox-bg-color--disabled: darken($checkbox-bg-color, 10%);
 $checkbox-bg-color--checked: $link-color;
+$checkbox-border-color--focus: $primary-color;
+$checkbox-border-color--hover: darken($checkbox-border-color, 10%);
 
 //dropdown
 $dropdown-bg-color: $bg-color;
@@ -148,7 +151,7 @@ $editor-toolbar-color--hover: $primary-color;
 $editor-toolbar-bg-color--hover: darken($editor-bg-color, 10%);
 $editor-toolbar-popup-shadow: 0 1px 3px rgba(0, 0, 0, .3);
 $editor-preview-bg-color: darken($bg-color, 5%);
-$editor-popup-color:darken($bg-color, 5%);
+$editor-popup-color: darken($bg-color, 5%);
 
 //input
 $input-bg-color: $bg-color;
