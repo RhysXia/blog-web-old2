@@ -139,8 +139,8 @@
     }
 
     .c-dropdown {
-        display: inline-block;
         position: relative;
+        display: inline-block;
         .c-dropdown__ref {
             position: relative;
             cursor: pointer;

@@ -9,7 +9,7 @@
       type: {
         default: 'default',
         validator (val) {
-          return ['default', 'primary', 'success', 'warning', 'danger', 'info', 'text'].includes(val)
+          return ['default', 'primary', 'success', 'warning', 'error', 'info', 'text'].includes(val)
         }
       },
       disabled: {
@@ -111,7 +111,7 @@
         &.c-button--disabled {
             &:hover {
                 background-color: $button-bg-color--default;
-                color: $button-color;
+                color: $button-color--default;
                 border-color: $button-border-color--default;
             }
         }

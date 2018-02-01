@@ -396,7 +396,6 @@
 
         & > * > * {
             margin-bottom: 1em;
-            width: 100%;
         }
         .article-write__poster--wrapper {
             width: 100%;
@@ -447,20 +446,12 @@
                 margin-bottom: 1em;
             }
         }
-        .info-panel {
-            .c-input {
-                width: 100%;
-            }
-        }
 
         .panel-item--create {
             border-top: 1px dotted $border-color;
             margin-top: 1em;
             > * {
                 margin-top: 1em;
-            }
-            .c-input {
-                width: 100%;
             }
             .c-button {
                 margin-right: 0.5em;

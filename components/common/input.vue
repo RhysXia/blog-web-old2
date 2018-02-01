@@ -108,6 +108,7 @@
         padding: 0;
         margin: 0;
         box-sizing: border-box;
+        width: 100%;
         .c-input__prepend,
         .c-input__append {
             display: table-cell;
@@ -154,6 +155,7 @@
             .c-input__textarea {
                 resize: none;
                 padding: 0.5em;
+                transition: height 0.2s ease;
             }
             .c-input__close {
                 position: absolute;
@@ -212,9 +214,6 @@
             .c-input__input {
                 cursor: not-allowed;
             }
-        }
-        .c-input__textarea {
-            cursor: not-allowed;
         }
     }
 

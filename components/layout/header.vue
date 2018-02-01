@@ -119,7 +119,7 @@
 
     .c-header {
         position: sticky;
-        z-index: 1;
+        z-index: 2;
         top: 0;
         background-color: $bg-color;
         .c-header--wrapper {

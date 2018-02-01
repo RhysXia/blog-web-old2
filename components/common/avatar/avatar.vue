@@ -78,6 +78,7 @@
         background-color: $avatar-bg-color;
         color: $avatar-color;
         .c-avatar__image {
+            display: block;
             width: 100%;
             height: 100%;
         }

@@ -35,7 +35,7 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/application";
 
     $article-item-height: 10em;

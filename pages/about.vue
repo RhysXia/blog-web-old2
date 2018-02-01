@@ -111,7 +111,7 @@
             outline: none;
             border: none;
             padding: 1em;
-            background-color: $color-background;
+            background-color: $bg-color;
         }
     }
 </style>

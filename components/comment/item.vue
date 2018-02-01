@@ -1,6 +1,6 @@
 <template lang="pug">
-    .c-comment-item-container
-        .c-comment-wrapper
+    .c-comment-item
+        .c-comment--wrapper
             nuxt-link(:to="'/loginUser/'+comment.author.id")
                 avatar.left(:width="60",:height="60",:imgUrl="comment.author.avatar")
             .right
@@ -11,7 +11,7 @@
                     b.floor.light \#{{comment.floorNum}}
                 .middle
                     .content(v-html="content")
-                .bottom.light
+                .bottom
                     span
                         i.fa.fa-clock-o
                         | {{comment.createAt | formatDate}}
@@ -24,7 +24,7 @@
                     button.delete(@click="$emit('delete')",v-if="showDelete")
                         i.fa.fa-remove
                         | 删除
-        .reply(v-for="reply in comment.replies",:key="reply.id")
+        .c-reply--wrapper(v-for="reply in comment.replies",:key="reply.id")
             nuxt-link(:to="'/loginUser/'+reply.author.id")
                 avatar.left(:width="50",:height="50",:imgUrl="reply.author.avatar")
             .right
@@ -34,7 +34,7 @@
                     span.info.light {{reply.author.info}}
                 .middle
                     .content(v-html="reply.content")
-                .bottom.light
+                .bottom
                     span
                         i.fa.fa-clock-o
                         | {{reply.createAt | formatDate}}
@@ -90,14 +90,19 @@
 <style lang="scss" scoped>
     @import "~assets/scss/application";
 
-    .c-comment-item-container {
+    .c-comment-item {
         position: relative;
-        .c-comment-wrapper ,.reply{
+        .c-comment--wrapper,
+        .c-reply--wrapper {
             padding: 0.7em;
             border-radius: 5px;
             display: flex;
             flex-direction: row;
-            background-color: $color-background;
+            background-color: $bg-color;
+            transition: 0.2s ease-in-out;
+            &:hover {
+                background-color: lighten($body-bg-color, 5%);
+            }
         }
         .left {
             margin-right: 0.5em;
@@ -130,34 +135,33 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
+                color: lighten($text-color, 3%);
                 > * {
                     margin-right: 0.5em;
                 }
                 button {
+                    cursor: pointer;
+                    color: inherit;
                     background-color: transparent;
                     font-weight: bold;
-                    color: inherit;
                     padding: 0.25em;
                     border: none;
                     &:hover {
-                        color: $color-text-deep;
+                        color: $text-color;
                     }
                     i {
                         padding-right: 0.25em;
                     }
                 }
                 .delete {
-                    color: $danger-color;
+                    color: lighten($danger-color, 3%);
                     &:hover {
-                        color: color-active($danger-color);
+                        color: $danger-color;
                     }
                 }
             }
-            .light {
-                color: $color-text-light;
-            }
         }
-        .reply {
+        .c-reply--wrapper {
             font-size: 0.8em;
             margin-left: 3em;
             margin-top: 0.5em;

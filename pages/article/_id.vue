@@ -1,37 +1,40 @@
 <template lang="pug">
-    .article-id-container
+    .article-id
         c-article-detail(:article="article")
-            .footer(slot="footer",slot-scope="props")
-                span.like(@click="voteClick",:class="{'is-login-like':isLogin,'is-voted':isVoted}")
-                    b {{props.article.voteNum}}
-                    | 人点赞
-                span.read
-                    b {{props.article.readNum}}
-                    | 人阅读
-                template(v-if="isSelf")
-                    span.update(@click="$router.push({path:'/article/write',query:{articleId:article.id}})") 修改
-                    span.delete(@click="deleteArticle") 删除
-        .comment-wrapper
-            .header(ref="comment-header")
-                h2.title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
-                span.info(v-if="article.commentNum")
+            template(slot="footer")
+                .article__footer--left
+                    c-button.article__vote(:type="isVoted?'success':'primary'",@click="voteClick")
+                        b {{article.voteNum}}
+                        | 人喜欢
+                    span
+                        b {{article.readNum}}
+                        | 人阅读
+                .article__footer--right(v-if="isSelf")
+                    c-button(type="warning",@click="$router.push({path:'/article/write',query:{articleId:article.id}})") 修改
+                    c-button(type="error",@click="deleteArticle") 删除
+        .comment--wrapper
+            .comment__header(ref="comment-header")
+                h2.comment__title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
+                span.comment__info(v-if="article.commentNum")
                     | 共
                     b {{article.commentNum}}
                     | 条评论
-            .body
-                .write(ref="writer",v-if="isLogin")
-                    .left
-                        c-avatar(:imgUrl="loginUser.avatar")
-                    .right
-                        .reply(v-if="replyCommentIndex>=0")
-                            span.reply-title 回复
+            .comment__body
+                .comment__write(ref="writer")
+                    .comment__write--left
+                        c-avatar(:src="loginUser.avatar",shape="square") {{loginUser.nickname}}
+                    .comment__write--right
+                        .reply__header(v-if="replyCommentIndex>=0")
+                            span.reply__title 回复
                                 b {{comments[replyCommentIndex].author.nickname}}
-                            button.close(@click="replyCommentIndex=-1")
+                            span.reply__close(@click="replyCommentIndex=-1")
                                 i.fa.fa-close
-                        c-editor(:textHeight="150",barPosition="bottom",v-model="commentContent",:imageUpload="commentImageUpload")
-                            button.submit(slot="button",@click="commentSubmit") 提交
+                        .reply__body
+                            c-editor(:minHeight="150",v-model="commentContent",:imageUpload="commentImageUpload")
+                        .reply__footer
+                            c-button(type="primary",@click="commentSubmit") 提交
                 template(v-if="!article.commentNum")
-                    .no-content 好可怜，都没人理我~
+                    .comment__content--no 好可怜，都没人理我~
                 template(v-else)
                     c-comment-item(@delete="commentDelete(comment.id)",@reply="replyHandler(index)",:comment="comment",:key="comment.id",v-for="(comment,index) in comments")
                     c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
@@ -40,6 +43,7 @@
 <script>
   import CCommentItem from '~/components/comment/item'
   import CAvatar from '~/components/common/avatar'
+  import CButton from '~/components/common/button'
   import CEditor from '~/components/common/editor'
   import CArticleDetail from '~/components/article/detail'
   import CPagination from '~/components/common/pagination'
@@ -291,126 +295,102 @@
       CAvatar,
       CEditor,
       CArticleDetail,
-      CPagination
+      CPagination,
+      CButton
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/application";
+    @import "~assets/scss/mixins";
 
-
-    .article-id-container {
+    .article-id {
         > * {
             margin-bottom: 1em;
-            &:last-child {
-                margin-bottom: 0;
+        }
+        .article__footer--left {
+            display: inline-block;
+            > * {
+                margin-right: 1em;
             }
         }
-        .footer {
-            border-top: 1px solid $color-border-base;
-            padding-top: 1em;
-            span {
-                background-color: $color-background-dark;
-                display: inline-block;
-                padding: 0.3em 0.5em;
-                margin-right: 0.5em;
+        .article__footer--right {
+            > * {
+                margin-left: 1em;
             }
-            .update, .delete {
-                float: right;
-                padding: 0.3em 1em;
-                color: $color-text-white;
-                cursor: pointer;
-            }
-            .update {
-                background-color: $primary-color;
-            }
-            .delete {
-                background-color: $danger-color;
-            }
-            .is-login-like {
-                background-color: $primary-color;
-                color: $color-text-white;
-                cursor: pointer;
-                transition: color 0.4s ease-in-out;
-            }
-            .is-voted {
-                background-color: $success-color !important;
-            }
+            float: right;
         }
 
-        .comment-wrapper {
-            .header {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                background-color: $color-background;
-                border-radius: 5px;
-                padding: 0.5em;
-                .title {
-                    font-size: 1.2em;
+        .comment--wrapper {
+            > * {
+                margin-bottom: 1em;
+            }
+            .comment__header {
+                background-color: $bg-color;
+                padding: 1em;
+                .comment__title {
+                    display: inline-block;
                     margin: 0;
+                    padding: 0;
+                    font-size: 1.2em;
+                    font-weight: bold;
+                }
+                .comment__info {
+                    float: right;
                 }
             }
-            .body {
-                margin-top: 1em;
-                font-size: 1em;
-                > * {
-                    margin-bottom: 0.9em;
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-                .reply {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    background-color: $success-color;
-                    color: $color-text-white;
-                    padding: 0.5em;
-                    margin-bottom: 1em;
-                    border-radius: 3px;
-                    .reply-title {
-                        display: block;
 
-                    }
-                    .close {
-                        border: none;
-                        background-color: transparent;
-                        color: $color-warn;
-                    }
+            .comment__body {
+                > * {
+                    margin-bottom: 0.5em;
                 }
-                .write {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: flex-start;
-                    background-color: $color-background;
-                    padding: 0.7em;
-                    .left {
-                        margin-right: 0.5em;
+            }
+
+            .comment__write {
+                .comment__write--left {
+                    float: left;
+                    font-size: 2em;
+                }
+                .comment__write--right {
+                    margin-left: 7em;
+                    .reply__header {
+                        display: block;
+                        background-color: $bg-color;
+                        margin-bottom: 0.5em;
+                        padding: 0.5em;
                     }
-                    .right {
-                        width: 100%;
-                        font-size: 0.8em;
-                        .submit {
-                            height: 100%;
-                            padding: 0.5em 1em;
-                            background-color: $primary-color;
-                            color: $color-text-white;
-                            float: right;
-                            border-radius: 0;
+                    .reply__close {
+                        float: right;
+                        color: $error-color;
+                        cursor: pointer;
+                        padding: 0 0.25em;
+                        &:hover {
+                            color: darken($error-color, 10%);
                         }
                     }
-                }
-                .no-content {
-                    height: 80px;
-                    text-align: center;
-                    line-height: 80px;
-                    font-weight: bold;
-                    background-color: $color-background;
+                    .reply__footer {
+                        background-color: $bg-color;
+                        padding: 0.5em;
+                        @include clearfix;
+                        .c-button{
+                            float: right;
+                        }
+                    }
 
+                    .reply__body{
+                        padding: 0 1em;
+                        background-color: $bg-color;
+                    }
                 }
+            }
 
+            .comment__content--no{
+                background-color: $bg-color;
+                text-align: center;
+                height: 5em;
+                line-height: 5em;
+                font-weight: bold;
+                font-size: 1.1em;
             }
         }
     }

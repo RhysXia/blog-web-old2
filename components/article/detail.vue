@@ -1,31 +1,34 @@
 <template lang="pug">
     .c-article--detail
-        slot(name="header",:article="article")
-            .c-header
-                h1.title {{article.title}}
-                .info
-                    span
+        .c-article__header
+            slot(name="header",:article="article")
+                h1.article__title {{article.title}}
+                ul.article__info.article__info--header
+                    li
                         i.fa.fa-user
                         nuxt-link(:to="'/user/'+article.author.id") {{article.author.nickname}}
-                    span
+                    li
                         i.fa.fa-tag
-                        nuxt-link.tag(:to="'/tag/'+tag.id",v-for="tag in article.tags",:key="tag.id") {{tag.name}}
-                    span
+                        nuxt-link(:to="'/tag/'+tag.id",v-for="tag in article.tags",:key="tag.id") {{tag.name}}
+                    li
                         i.fa.fa-list
                         nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
-                    span
+                    li
                         i.fa.fa-clock-o
                         | {{article.createAt | formatDate}}
-        .c-body
+        .c-article__body
             .content(v-html="content",v-copyright)
-        slot(name="footer",:article="article")
-            .c-footer
-                span.read
-                    b {{article.readNum}}
-                    | 人阅读
-                span.like
-                    b {{article.voteNum}}
-                    | 人喜欢
+        .c-article__footer
+            slot(name="footer",:article="article")
+                ul.article__info.article__info--footer
+                    li
+                        span.article__info--read
+                            b {{article.readNum}}
+                            | 人阅读
+                    li
+                        span.article__info--vote
+                            b {{article.voteNum}}
+                            | 人喜欢
 
 
 </template>
@@ -57,65 +60,71 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/application";
 
-
     .c-article--detail {
-        background-color: $color-background;
-        padding: 1em;
-        border-radius: 5px;
-        .c-header {
-            padding-bottom: 1em;
-            border-bottom: 1px solid $color-border-base;
-            .title {
-                text-align: center;
-                margin: 0.5em 0 0.6em 0;
-            }
-            .action {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-            }
-            .info {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: center;
-                margin-top: 0.5em;
-                span {
-                    margin-left: 0.5em;
-                    i {
-                        padding-right: 0.25em;
-                    }
-                }
-                .tag {
-                    margin-right: 0.2em;
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-                .right {
-                    display: flex;
-                    flex: 1 1 auto;
-                    justify-content: flex-end;
-                    align-items: center;
-                }
+        background-color: $bg-color;
+        border-radius: $border-radius;
+        box-sizing: border-box;
+        .c-article__header,
+        .c-article__body,
+        .c-article__footer {
+            padding: 1em;
+        }
 
-            }
-        }
-        .body {
-        }
-        .c-footer {
-            border-top: 1px solid $color-border-base;
-            padding-top: 1em;
-            .read, .like {
+        .article__info {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            li {
                 display: inline-block;
-                background-color: $color-background-dark;
-                padding: 0.2em 0.5em;
+                margin-right: 1em;
+                &:last-child {
+                    margin-right: 0;
+                }
             }
-            .read {
-                margin-right: 0.5em;
+        }
+
+        .c-article__header {
+            border-bottom: 1px solid $border-color;
+            .article__title {
+                margin: 0;
+                padding: 0;
+                font-size: 1.4em;
+                text-align: center;
+            }
+        }
+        .article__info--header {
+            margin-top: 1em;
+            i {
+                margin-right: 0.25em;
+            }
+            a {
+                &:hover {
+                    text-decoration: underline;
+                }
+                & + a {
+                    margin-left: 0.5em;
+                }
+            }
+        }
+        .c-article__footer {
+            border-top: 1px solid $border-color;
+        }
+        .article__info--footer {
+            .article__info--read,
+            .article__info--vote {
+                display: inline-block;
+                color: $bg-color;
+                padding: 0.25em 0.5em;
+            }
+            .article__info--read {
+                background-color: $success-color;
+            }
+
+            .article__info--vote {
+                background-color: $primary-color;
             }
         }
     }

@@ -180,6 +180,7 @@
     @import "~assets/scss/variables";
 
     .c-editor {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -277,7 +278,6 @@
             display: flex;
             width: 100%;
             .c-editor__content {
-                width: 100%;
             }
         }
 
