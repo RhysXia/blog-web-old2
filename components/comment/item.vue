@@ -22,7 +22,7 @@
                         i.fa.fa-hand-pointer-o
                         | 顶
                     button.delete(@click="$emit('delete')",v-if="showDelete")
-                        i.fa.fa-remove
+                        i.fa.fa-emove
                         | 删除
         .c-reply--wrapper(v-for="reply in comment.replies",:key="reply.id")
             nuxt-link(:to="'/loginUser/'+reply.author.id")

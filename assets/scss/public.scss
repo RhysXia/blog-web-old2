@@ -18,11 +18,11 @@ body {
   padding: 0;
 }
 
-a{
+a {
   color: $link-color;
   text-decoration: none;
   transition: color 0.2s ease-in-out;
-  &:hover{
+  &:hover {
     color: $link-color--hover;
   }
 }
@@ -38,6 +38,9 @@ a{
   transition: background-color 0.15s;
 }
 
+html,body, #__nuxt, #__layout {
+  height: 100%;
+}
 
 //page
 .page-enter-active,

@@ -120,6 +120,7 @@
         position: fixed;
         cursor: pointer;
         display: inline-block;
+        z-index: 1;
         i {
             font-size: 3em;
             color: $back-top-color;

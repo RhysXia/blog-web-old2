@@ -42,18 +42,20 @@
 </script>
 <style lang="scss">
     @import "~assets/scss/application";
-
     @import "~assets/scss/mixins";
 
     .layout-container {
+        min-height: 100%;
+        position: relative;
     }
 
     .layout-main {
         position: relative;
+        display: block;
         width: $main-width;
-        margin: 1em auto auto;
+        margin: 1em auto;
+        padding-bottom: $footer-height;
     }
-
 
 
 </style>

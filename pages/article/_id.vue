@@ -20,7 +20,7 @@
                     b {{article.commentNum}}
                     | 条评论
             .comment__body
-                .comment__write(ref="writer")
+                .comment__write(ref="writer",v-if="isLogin")
                     .comment__write--left
                         c-avatar(:src="loginUser.avatar",shape="square") {{loginUser.nickname}}
                     .comment__write--right

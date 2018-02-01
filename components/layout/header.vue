@@ -75,9 +75,8 @@
         this.isInputFocused = false
       },
       logout () {
-        this.$store.dispatch('logout').then(() => {
-          this.$router.push('/')
-        }).catch(() => {})
+        this.$router.push('/')
+        this.$store.dispatch('logout')
       },
       async getMessages () {
         try {

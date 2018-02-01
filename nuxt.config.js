@@ -1,5 +1,4 @@
 module.exports = {
-
   head: {
     title: 'Ryths Blog',
     titleTemplate: '%s | ryths.cn',

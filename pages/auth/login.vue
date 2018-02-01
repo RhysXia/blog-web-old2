@@ -1,24 +1,22 @@
 <template lang="pug">
-    c-row.auth-login-container(type="flex",justify="center")
-        c-col.form-wrapper(:span="10")
-            h2.title 欢迎登陆
-            .form
-                .input-wrapper
-                    span.label 用户名
-                    c-input(v-focus,type="text",v-model="user.username",placeholder="请输入用户名")
-                .input-wrapper
-                    span.label 密码
-                    c-input(type="password",v-model="user.password",placeholder="请输入密码")
-                .checkbox-wrapper
-                    c-checkbox(v-model="user.remember",label="记住我")
-                .action
-                    button.login(@click="submit") 登陆
+    .auth-login
+        h2.title 欢迎登陆
+        .form
+            .input-wrapper
+                span.label 用户名
+                c-input(v-focus,type="text",v-model="user.username",placeholder="请输入用户名")
+            .input-wrapper(v-focus)
+                span.label 密码
+                c-input(type="password",v-model="user.password",placeholder="请输入密码")
+            c-checkbox(v-model="user.emember",label="记住我")
+            c-button(type="primary",long,@click="submit") 登陆
 
 </template>
 
 <script>
   import focus from '~/utils/directive/focus'
   import CInput from '~/components/common/input'
+  import CButton from '~/components/common/button'
   import { CCheckbox } from '~/components/common/checkbox'
 
   export default {
@@ -30,7 +28,7 @@
         user: {
           username: '',
           password: '',
-          remember: false
+          emember: false
         }
       }
     },
@@ -64,7 +62,8 @@
     },
     components: {
       CInput,
-      CCheckbox
+      CCheckbox,
+      CButton
     }
   }
 </script>
@@ -72,42 +71,29 @@
 <style lang="scss" scoped>
     @import "~assets/scss/application";
 
-    @import "~assets/scss/mixins";
-
-    .auth-login-container {
-        .form-wrapper {
-            background-color: $color-background;
-            padding: 1rem;
-            border-radius: 5px;
-            .title {
-                text-align: center;
-                color: $primary-color;
-                margin-bottom: 2rem;
-            }
-            .form {
-                > * {
-                    margin-bottom: 1rem;
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-                .input-wrapper {
-                    .label {
-                        font-weight: bold;
-                    }
-                }
-                .checkbox-wrapper {
-                }
-                .action {
-                    .login {
-                        background-color: $primary-color;
-                        color: $color-text-white;
-                        width: 100%;
-                        padding: 0.35rem 1rem;
-                    }
+    .auth-login {
+        height: 100%;
+        background-color: $bg-color;
+        width: 40%;
+        padding: 1em;
+        margin: 15% auto auto;
+        .title {
+            text-align: center;
+            color: $primary-color;
+            margin-bottom: 2em;
+        }
+        .form {
+            > * {
+                margin-bottom: 1em;
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
-
+            .input-wrapper {
+                .label {
+                    font-weight: bold;
+                }
+            }
         }
     }
 </style>
