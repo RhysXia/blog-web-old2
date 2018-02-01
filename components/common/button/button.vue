@@ -29,6 +29,10 @@
         validator (val) {
           return ['button', 'submit', 'reset'].includes(val)
         }
+      },
+      long: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
@@ -37,7 +41,8 @@
           [`c-button--${this.type}`]: true,
           'c-button--round': this.round,
           'c-button--plain': this.plain,
-          'c-button--disabled': this.disabled
+          'c-button--disabled': this.disabled,
+          'c-button--long': this.long
         }
       }
     },
@@ -71,6 +76,11 @@
         border-radius: $button-radius;
         padding: 0.4em 0.6em;
         border: 1px solid;
+    }
+
+    .c-button--long {
+        display: block;
+        width: 100%;
     }
 
     .c-button--round {

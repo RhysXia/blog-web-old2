@@ -29,7 +29,7 @@
             ul.c-editor__emoji--popup(v-show="isEmojiShow")
                 li(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
         .c-editor__body(:class="bodyClasses")
-            c-input.c-editor__content(type="textarea",autoSize,:minHeight="minHeight",v-model="content")
+            c-input.c-editor__content(ref="textarea",type="textarea",autoSize,:minHeight="minHeight",v-model="content")
             transition(name="c-editor__preview--slide",mode="out-in")
                 .c-editor__preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
         input.c-editor__upload(type="file",ref="upload",@change="inputImage")
@@ -158,7 +158,8 @@
         this.insert('[name](http://)', 1, 5)
       },
       insert (str, posStart, posEnd) {
-        const ele = this.$refs.textarea
+        const wrapper = this.$refs.textarea
+        const ele = wrapper.$el.getElementsByTagName('textarea')[0]
         ele.focus()
         const {start, end} = getPos(ele)
         const content = this.content
@@ -181,17 +182,21 @@
     .c-editor {
         display: flex;
         flex-direction: column;
+        align-items: center;
         .c-editor__toolbar--wrapper {
             position: relative;
             display: flex;
             z-index: 1;
             box-sizing: border-box;
+            width: 100%;
+            background-color: $editor-bg-color;
+            padding: 0.25em;
         }
 
         .c-editor__toolbar--wrapper--top {
             order: 1;
             .c-editor__toolbar {
-                border-bottom: none;
+                /*border-bottom: none;*/
 
             }
             .c-editor__emoji--popup {
@@ -202,7 +207,7 @@
         .c-editor__toolbar--wrapper--bottom {
             order: 2;
             .c-editor__toolbar {
-                border-top: none;
+                /*border-top: none;*/
 
             }
             .c-editor__emoji--popup {
@@ -211,13 +216,12 @@
         }
 
         .c-editor__toolbar {
+            box-sizing: border-box;
             position: relative;
             display: flex;
-            width: 100%;
             flex-direction: row;
             align-items: center;
-            background-color: $editor-bg-color;
-            border: 1px solid $border-color;
+            //border: 1px solid $border-color;
             span {
                 display: inline-block;
                 box-sizing: border-box;
@@ -272,7 +276,7 @@
             position: relative;
             display: flex;
             width: 100%;
-            .c-editor__content{
+            .c-editor__content {
                 width: 100%;
             }
         }

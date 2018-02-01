@@ -1,16 +1,20 @@
 <template lang="pug">
-    .c-popover
-        .c-popover__reference(@mouseenter="enter",@mouseleave="leave",ref="reference")
-            slot()
+    .c-popover(@mouseenter="enter",@mouseleave="leave",@click="click",v-clickoutside="outClick")
+        .c-popover__reference(ref="reference")
+            slot
         .c-popover__popper(ref="popper",v-show="visible")
             slot(name="popper")
 </template>
 
 <script>
+  import clickoutside from '~/utils/directive/clickoutside'
   import Popper from 'popper.js'
 
   export default {
     name: 'c-popover',
+    directives: {
+      clickoutside
+    },
     props: {
       placement: {
         default: 'auto',
@@ -23,43 +27,81 @@
             'bottom', 'bottom-start', 'bottom-end'
           ].includes(val)
         }
+      },
+      trigger: {
+        default: 'hover',
+        validator (val) {
+          return ['click', 'hover', 'custom'].includes(val)
+        }
+      },
+      value: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
       return {
         visible: false,
-        popper: null
+        popper: null,
+        isClicked: false
+      }
+    },
+    watch: {
+      value (val) {
+        this.visible = val
+      },
+      visible (val) {
+        this.$emit('input', val)
+        if (val) {
+          this.$nextTick(() => {
+            this.createPopper()
+          })
+        }
       }
     },
     methods: {
-      enter () {
-        this.visible = true
-        this.$nextTick(() => {
-          if (this.popper) {
-            this.popper.scheduleUpdate()
-            return
+      createPopper () {
+        if (this.popper) {
+          this.popper.options.placement = this.placement
+          this.popper.scheduleUpdate()
+          return
+        }
+        this.popper = new Popper(this.$refs.reference, this.$refs.popper, {
+          placement: this.placement,
+          onCreate: (data) => {
+            this.$emit('popper-create', data)
+          },
+          onUpdate: (data) => {
+            this.$emit('popper-update', data)
+          },
+          modifiers: {
+
           }
-          this.popper = new Popper(this.$refs.reference, this.$refs.popper, {
-            placement: this.placement,
-            onCreate: (data) => {
-            },
-            onUpdate: (data) => {
-            },
-            modifiers: {
-              applyStyle: {enabled: false},
-              applyCustomStyle: {
-                enabled: true,
-                fu: (data) => {
-                  console.log(data)
-                },
-                order: 900
-              }
-            }
-          })
         })
+        this.popper.scheduleUpdate()
+      },
+      enter () {
+        if (this.trigger !== 'hover') {
+          return
+        }
+        this.visible = true
       },
       leave () {
-        // this.visible = false
+        if (this.trigger !== 'hover') {
+          return
+        }
+        if (this.isClicked) {
+          return
+        }
+        this.visible = false
+      },
+      click () {
+        this.isClicked = true
+        this.visible = true
+      },
+      outClick () {
+        this.visible = false
+        this.isClicked = false
       }
     },
     beforeDestroy () {

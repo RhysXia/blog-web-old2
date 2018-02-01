@@ -144,15 +144,16 @@
                 appearance: none;
                 outline: 0;
                 background-color: transparent;
-                padding: 0 0.5em;
                 margin: 0;
                 border: none;
             }
             .c-input__input {
                 height: 2em;
+                padding: 0 0.5em;
             }
             .c-input__textarea {
                 resize: none;
+                padding: 0.5em;
             }
             .c-input__close {
                 position: absolute;

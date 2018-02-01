@@ -1,35 +1,14 @@
 <template lang="pug">
-    .article-write-container
-        button(@click="placement='bottom-end'") xx
-        c-popover(:placement="placement")
-            c-button xx
-            .cc(slot="popper")
-                p xxxxxxxxxxxxxxxx
-                p xxxx
-                p xxxx
-                p xxxx
-                p xxxx
-                p xxxx
-                p xxxx
-
-        .article
-            c-upload.image-wrapper(:action="image.action",:headers="image.headers",:name="image.name",:onSuccess="image.onSuccess")
-                img.image(v-if="article.poster",:src="article.poster")
-                .image.anon(v-else)
+    c-row.article-write(:gutter="14")
+        c-col(:span="18")
+            c-upload.article-write__poster--wrapper(:action="image.action",:headers="image.headers",:name="image.name",:onSuccess="image.onSuccess")
+                img.article-write__poster(v-if="article.poster",:src="article.poster")
+                .article-write__poster.article-write__poster--anon(v-else)
                     i.fa.fa-camera
-            .title-wrapper
-                c-input(v-model.trim="article.title",type="text",placeholder="请输入标题")
-                    span(slot="prepend") xxx
-                    span(slot="append") xxx
-            .editor-wrapper
-                c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
-        .action
-            c-panel(title="操作")
-                .operation-list
-                    button.primary(@click="punish") 发表
-                    // 已经发表的文章不需要保存到草稿
-                    button(@click="saveAsDraft",v-if="articleId<0") 保存草稿
-            .info-wrapper
+            c-input(v-model.trim="article.title",type="text",placeholder="请输入标题")
+            c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
+        c-col(:span="6")
+            c-panel.info-panel(title="简介")
                 c-input(type="textarea",autoSize,v-model="article.info",placeholder="请输入概要")
             c-panel(title="选择分类")
                 c-row(:gutter="6")
@@ -37,25 +16,29 @@
                         c-select(v-model="article.categoryId")
                             c-option(:label="category.name",:value="category.id",v-for="category in categories",:key="category.id")
                     c-col(:span="6")
-                        button(v-show="!isNewCategory",@click="isNewCategory=true") 新建
+                        c-button(type="primary",v-show="!isNewCategory",@click="isNewCategory=true") 新建
                 transition(name="slide")
-                    .category-create(v-show="isNewCategory")
+                    .panel-item--create(v-show="isNewCategory")
                         c-input(v-model="category.name",placeholder="输入分类名称")
                         c-input(v-model="category.description",placeholder="输入分类描述")
-                        button.primary(@click="addCategory") 提交
-                        button(@click="isNewCategory=false") 取消
+                        c-button(type="primary",@click="addCategory") 提交
+                        c-button(@click="isNewCategory=false") 取消
             c-panel(title="选择标签")
                 c-row(:gutter="6")
                     c-col(:span="18")
                         c-select(remote,multiple,@remote="remoteTagHandler",v-model="article.tagIds")
                             c-option(:label="tag.name",:value="tag.id",v-for="tag in tags",:key="tag.id")
                     c-col(:span="6")
-                        button(v-show="!isNewTag",@click="isNewTag=true") 新建
+                        c-button(type="primary",v-show="!isNewTag",@click="isNewTag=true") 新建
                 transition(name="slide")
-                    .tag-create(v-show="isNewTag")
+                    .panel-item--create(v-show="isNewTag")
                         c-input(v-model="tag.name",placeholder="输入标签名称")
-                        button.primary(@click="addTag") 提交
-                        button(@click="isNewTag=false") 取消
+                        c-button(type="primary",@click="addTag") 提交
+                        c-button(@click="isNewTag=false") 取消
+            c-panel.action-panel(v-fixed="70",title="操作")
+                c-button(long,type="primary",@click="punish") 发表
+                // 已经发表的文章不需要保存到草稿
+                c-button(long,@click="saveAsDraft",v-if="articleId<0") 保存草稿
 </template>
 <script>
   import CEditor from '~/components/common/editor'
@@ -64,10 +47,18 @@
   import { mapState } from 'vuex'
   import CPanel from '~/components/common/panel'
   import { COption, CSelect } from '~/components/common/select'
-  import CPopover from '~/components/common/popover'
   import CButton from '~/components/common/button'
+  import fixed from '~/utils/directive/fixed'
 
   export default {
+    directives: {
+      fixed
+    },
+    head () {
+      return {
+        title: this.loginUser.nickname + '的写作页'
+      }
+    },
     async asyncData ({store, error, query}) {
       if (!store.getters.permissions.includes('POST:/articles')) {
         error({statusCode: 500, message: '你没有权限访问'})
@@ -392,131 +383,104 @@
       CUpload,
       COption,
       CSelect,
-      CPopover,
       CButton
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/application";
-    @import "~assets/scss/mixins";
 
     $height-poster: 15em;
 
-    .article-write-container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        .operation-list {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            > * {
-                margin-top: 1em;
-                width: 100%;
-            }
-        }
-        .slide-enter-active,
-        .slide-leave-active {
-            transform-origin: 0 0;
-            transition: height 0.4s ease, opacity 0.4s ease;
-        }
-        .slide-enter,
-        .slide-leave-to {
-            transform: scaleY(0);
-            opacity: 0;
-        }
-        .slide-leave,
-        .slide-enter-to {
-            transform: scaleY(1);
-            opacity: 1;
-        }
-        .category-create, .tag-create {
-            margin-top: 1em;
-            border-top: 1px dashed $color-border-base;
-            > * {
-                margin-top: 1em;
-            }
-            .primary {
-                margin-right: 1em;
-            }
-        }
-        .article, .action {
-            display: flex;
-            flex-direction: column;
-            > * {
-                margin-bottom: 0.5em;
-            }
-        }
-        .article {
-            flex: 3;
-            margin-right: 1em;
+    .article-write {
 
+        & > * > * {
+            margin-bottom: 1em;
+            width: 100%;
         }
-        .action {
-            flex: 1;
-        }
-        .image-wrapper {
-            position: relative;
-            text-align: center;
-            border: 1px solid $color-border-base;
-            .image {
-                cursor: pointer;
-                background-color: $color-background;
-                /*width: 100%;*/
+        .article-write__poster--wrapper {
+            width: 100%;
+            height: $height-poster;
+            background-color: $bg-color;
+            .article-write__poster {
+                display: block;
                 height: $height-poster;
+                max-width: 100%;
+                margin: 0 auto;
             }
-            .anon {
-                transition: all 0.4s ease;
-                cursor: pointer;
-                width: 100%;
-                height: $height-poster;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                i {
+            .article-write__poster--anon {
+                line-height: $height-poster;
+                text-align: center;
+                .fa {
+                    font-size: 3em;
                     position: relative;
-                    &:before,
                     &:after {
-                        color: $color-text-light;
-                    }
-                    &:before {
-                        font-size: 5em;
-                    }
-                    &:after {
-                        transition: all 0.4s ease;
                         content: '';
-                        font-size: 1em;
                         position: absolute;
-                        transform: translateY(-100%);
                         top: 100%;
-                        left: 0;
-                        right: 0;
-                        text-align: center;
+                        left: 50%;
+                        transform-origin: 100% 0;
+                        transform: translateX(-50%);
+                        font-size: 0.3em;
+                        font-weight: bold;
+                        white-space: nowrap;
+                        margin-top: 1em;
+                        transition: 0.4s ease-in-out;
+                        opacity: 0;
+                        color: $text-color--secondary;
                     }
                 }
                 &:hover {
-                    i {
-                        color: $color-text;
-                        &:after {
-                            content: '添加图片';
-                            transform: translateY(0%);
-                        }
+                    .fa::after {
+                        content: "请上传海报";
+                        opacity: 1;
+                        margin-top: 0.3em;
                     }
-
                 }
             }
         }
-        .title-wrapper {
-            font-size: 1.1em;
-            .title {
-
+        .action-panel {
+            .c-panel__body {
+                margin-bottom: -1em;
+            }
+            .c-button {
+                margin-bottom: 1em;
             }
         }
-        .info-wrapper {
-            background-color: $color-background;
+        .info-panel {
+            .c-input {
+                width: 100%;
+            }
         }
 
+        .panel-item--create {
+            border-top: 1px dotted $border-color;
+            margin-top: 1em;
+            > * {
+                margin-top: 1em;
+            }
+            .c-input {
+                width: 100%;
+            }
+            .c-button {
+                margin-right: 0.5em;
+            }
+        }
+
+        .slide-enter-active,
+        .slide-leave-active {
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+            transform-origin: 0 0;
+        }
+        .slide-enter,
+        .slide-leave-to {
+            opacity: 0;
+            transform: scaleY(0.5);
+        }
+        .slide-enter-to,
+        .slide-leave {
+            opacity: 1;
+            transform: scaleY(1);
+        }
     }
 </style>

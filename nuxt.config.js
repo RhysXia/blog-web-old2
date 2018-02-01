@@ -11,7 +11,7 @@ module.exports = {
       {charset: 'utf-8'},
       {'http-equiv': 'X-UA-Compatible', content: 'IE=edge'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {name: 'author', content: 'Rhys Xia,postmaster@ryths.cn'},
+      {name: 'author', content: 'Rhys Xia,1406974720@qq.com'},
       {name: 'keywords', content: 'blog,Ryths,IT,JAVA,Vue,前端,后端,研究生'},
       {name: 'description', content: '个人技术博客，分享知识，寻找志同道合的朋友'},
       {name: 'copyright', content: 'Rhys Xia'}
