@@ -1,53 +1,50 @@
 <template lang="pug">
-    .c-editor(:style="barPosition==='top'?'border-bottom-width:1px':'border-top-width:1px'")
-        .c-editor__button-list(:style="barStyle",v-fixed="fixedTop",v-if="fixedTop!=undefined")
-            span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
-                i.fa.fa-smile-o
-                .c-editor__emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
-                    span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
-            span(@click="imageClick")
-                i.fa.fa-image
-            span(@click="inputLink")
-                i.fa.fa-link
-            span(@click="inputCode")
-                i.fa.fa-code
-            span(@click.stop="preview=!preview")
-                i.fa.fa-eye
-            .c-editor__slot
-                slot(name="button")
-        .c-editor__button-list(:style="barStyle",v-else)
-            span(@mouseenter="showEmoji=true",@mouseleave="showEmoji=false")
-                i.fa.fa-smile-o
-                .c-editor__emoji-list(:style="barPosition==='top'?'top:100%;':'bottom:100%'",v-show="showEmoji")
-                    span(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
-            span(@click="imageClick")
-                i.fa.fa-image
-            span(@click="inputLink")
-                i.fa.fa-link
-            span(@click="inputCode")
-                i.fa.fa-code
-            span(@click.stop="preview=!preview")
-                i.fa.fa-eye
-            .c-editor__slot
-                slot(name="button")
-        input.c-editor__input(type="file",ref="upload",@change="inputImage")
-        .c-editor__content-wrapper(:style="editorStyle")
-            textarea.c-editor__content(ref="textarea",v-autoheight="textHeight",v-model="content")
+    .c-editor
+        .c-editor__toolbar--wrapper(:class="toolbarClasses",v-if="fixedTop==undefined")
+            .c-editor__toolbar
+                span(@click="showEmoji",v-clickoutside="hideEmoji")
+                    i.fa.fa-smile-o
+                span(@click="imageClick")
+                    i.fa.fa-image
+                span(@click="inputLink")
+                    i.fa.fa-link
+                span(@click="inputCode")
+                    i.fa.fa-code
+                span(@click.stop="preview=!preview")
+                    i.fa.fa-eye
+            ul.c-editor__emoji--popup(v-show="isEmojiShow")
+                li(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
+        .c-editor__toolbar--wrapper(:class="toolbarClasses",v-else,v-fixed="fixedTop")
+            .c-editor__toolbar
+                span(@click="showEmoji",v-clickoutside="hideEmoji")
+                    i.fa.fa-smile-o
+                span(@click="imageClick")
+                    i.fa.fa-image
+                span(@click="inputLink")
+                    i.fa.fa-link
+                span(@click="inputCode")
+                    i.fa.fa-code
+                span(@click.stop="preview=!preview")
+                    i.fa.fa-eye
+            ul.c-editor__emoji--popup(v-show="isEmojiShow")
+                li(v-for="(emoji,index) in emojis",:key="index",v-html="emojiImages[index]",@click="inputEmoji(index)")
+        .c-editor__body(:class="bodyClasses")
+            c-input.c-editor__content(type="textarea",autoSize,:minHeight="minHeight",v-model="content")
             transition(name="c-editor__preview--slide",mode="out-in")
-                .c-editor__content__preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
+                .c-editor__preview(v-html="markdownContent",v-if="preview",v-clickoutside="outClick")
+        input.c-editor__upload(type="file",ref="upload",@change="inputImage")
 
 </template>
 <script>
   import markdown from '~/utils/markdown'
+  import CInput from '~/components/common/input'
   import { getPos, setPos } from '~/utils/clip'
-  import autoheight from '~/utils/directive/auto-height'
   import clickoutside from '~/utils/directive/clickoutside'
   import fixed from '~/utils/directive/fixed'
 
   export default {
     name: 'c-editor',
     directives: {
-      autoheight,
       clickoutside,
       fixed
     },
@@ -59,7 +56,7 @@
         type: String,
         default: ''
       },
-      textHeight: {
+      minHeight: {
         type: Number,
         default: 200
       },
@@ -74,7 +71,7 @@
     },
     data () {
       return {
-        showEmoji: false,
+        isEmojiShow: false,
         content: this.value,
         emojis: [
           ':(', ':")', '</3', ':/', ':,(', ':(', '<3', ']:(',
@@ -86,24 +83,18 @@
       }
     },
     computed: {
-      barStyle () {
+      toolbarClasses () {
         if (this.barPosition === 'top') {
-          return {
-            order: '1'
-          }
-        }
-        return {
-          order: '2'
+          return ['c-editor__toolbar--wrapper--top']
+        } else {
+          return ['c-editor__toolbar--wrapper--bottom']
         }
       },
-      editorStyle () {
+      bodyClasses () {
         if (this.barPosition === 'top') {
-          return {
-            order: '2'
-          }
-        }
-        return {
-          order: '1'
+          return ['c-editor__body--top']
+        } else {
+          return ['c-editor__body--bottom']
         }
       },
       emojiImages () {
@@ -128,6 +119,12 @@
       }
     },
     methods: {
+      showEmoji () {
+        this.isEmojiShow = true
+      },
+      hideEmoji () {
+        this.isEmojiShow = false
+      },
       outClick () {
         this.preview = false
       },
@@ -172,108 +169,160 @@
           setPos(ele, _start, _end)
         })
       }
+    },
+    components: {
+      CInput
     }
   }
 </script>
 <style lang="scss">
     @import "~assets/scss/variables";
 
-    .c-editor__preview--slide-enter-active,
-    .c-editor__preview--slide-leave-active {
-        transform-origin: 0 0;
-        transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-    }
-
-    .c-editor__preview--slide-enter,
-    .c-editor__preview--slide-leave-to {
-        opacity: 0;
-        transform: scaleY(0.5);
-    }
-
-    .c-editor__preview--slide-leave,
-    .c-editor__preview--slide-enter-to {
-        opacity: 1;
-        transform: scaleY(1);
-    }
-    
-    .c-editor{
+    .c-editor {
         display: flex;
         flex-direction: column;
-        background-color: $editor-bg-color;
-        position: relative;
-        border: 1px solid $border-color;
-        border-top-width: 0;
-        border-bottom-width: 0;
-        .c-editor__button-list {
+        .c-editor__toolbar--wrapper {
             position: relative;
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            border: 1px solid $border-color;
-            border-left: none;
-            border-right: none;
-            width: 100%;
             z-index: 1;
-            span {
-                display: inline-block;
-                padding: 0.5em;
-                cursor: pointer;
-                i {
-                    vertical-align: middle;
-                    font-size: 1.4em;
-                }
-                &:hover {
-                    background-color: rgba(200, 200, 200, 0.5);
-                }
-                .c-editor__emoji-list {
-                    z-index: 1;
-                    position: absolute;
-                    left: 0;
-                    width: 100%;
-                    background-color: rgba(200, 200, 200, 0.5);
-                    span {
-                        &:hover {
-                            background-color: rgba(200, 200, 200, 0.5);
-                        }
-                    }
-                }
-            }
-            .c-editor__slot {
-                position: relative;
-                display: block;
-                height: 100%;
-                width: 100%;
-                box-sizing: border-box;
-            }
+            box-sizing: border-box;
         }
-        .c-editor__input {
-            display: none;
-        }
-        .c-editor__content-wrapper {
-            position: relative;
-            .c-editor__content,
-            .c-editor__content__preview {
-                padding: 0.5em;
-                box-sizing: border-box;
+
+        .c-editor__toolbar--wrapper--top {
+            order: 1;
+            .c-editor__toolbar {
+                border-bottom: none;
+
             }
-            .c-editor__content {
-                border: none;
-                outline: none;
-                width: 100%;
-                background-color: transparent;
-                resize: none;
-                display: block;
-            }
-            .c-editor__content__preview {
-                position: absolute;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                left: 0;
-                overflow: auto;
-                background-color: rgba(255, 255, 255, 0.8);
+            .c-editor__emoji--popup {
+                top: 100%;
             }
         }
 
+        .c-editor__toolbar--wrapper--bottom {
+            order: 2;
+            .c-editor__toolbar {
+                border-top: none;
+
+            }
+            .c-editor__emoji--popup {
+                bottom: 100%;
+            }
+        }
+
+        .c-editor__toolbar {
+            position: relative;
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            background-color: $editor-bg-color;
+            border: 1px solid $border-color;
+            span {
+                display: inline-block;
+                box-sizing: border-box;
+                padding: 0.4em 0.8em;
+                cursor: pointer;
+                i {
+                    font-size: 1.2em;
+                }
+                transition: 0.2s ease-in-out;
+                &:hover {
+                    background-color: $editor-toolbar-bg-color--hover;
+                    color: $editor-toolbar-color--hover;
+                }
+            }
+
+            &.c-editor__toolbar--active {
+                span {
+                    background-color: $editor-toolbar-bg-color--hover;
+                    color: $editor-toolbar-color--hover;
+                }
+            }
+        }
+
+        .c-editor__emoji--popup {
+            left: 0;
+            right: 50%;
+            list-style: none;
+            margin: 0.5em;
+            padding: 0;
+            position: absolute;
+            z-index: 1;
+            box-shadow: $editor-toolbar-popup-shadow;
+            background-color: $editor-popup-color;
+            li {
+                display: inline-block;
+                cursor: pointer;
+                width: 1.5em;
+                height: 1.5em;
+                margin: 0.25em;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 1.5em;
+                transition: 0.2s ease-in-out;
+                &:hover {
+                    background-color: $editor-toolbar-bg-color--hover;
+                    transform: scale(1.1, 1.1);
+                }
+            }
+        }
+
+        .c-editor__body {
+            position: relative;
+            display: flex;
+            width: 100%;
+            .c-editor__content{
+                width: 100%;
+            }
+        }
+
+        .c-editor__body--top {
+            order: 2;
+            .c-input__wrapper {
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+        }
+
+        .c-editor__body--bottom {
+            order: 1;
+            textarea {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+
+        .c-editor__preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $editor-preview-bg-color;
+            padding: 0.5em;
+            margin: 1px;
+            overflow: auto;
+        }
+
+        .c-editor__preview--slide-enter-active,
+        .c-editor__preview--slide-leave-active {
+            transform-origin: 0 0;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .c-editor__preview--slide-enter,
+        .c-editor__preview--slide-leave-to {
+            transform: scaleY(0);
+        }
+        .c-editor__preview--slide-enter-to,
+        .c-editor__preview--slide-leave {
+            transform: scaleY(1);
+        }
+
+        .c-editor__upload {
+            display: none;
+        }
     }
+
 </style>

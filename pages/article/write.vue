@@ -1,12 +1,26 @@
 <template lang="pug">
     .article-write-container
+        button(@click="placement='bottom-end'") xx
+        c-popover(:placement="placement")
+            c-button xx
+            .cc(slot="popper")
+                p xxxxxxxxxxxxxxxx
+                p xxxx
+                p xxxx
+                p xxxx
+                p xxxx
+                p xxxx
+                p xxxx
+
         .article
             c-upload.image-wrapper(:action="image.action",:headers="image.headers",:name="image.name",:onSuccess="image.onSuccess")
                 img.image(v-if="article.poster",:src="article.poster")
                 .image.anon(v-else)
                     i.fa.fa-camera
             .title-wrapper
-                c-input.title(v-model.trim="article.title",type="text",placeholder="请输入标题")
+                c-input(v-model.trim="article.title",type="text",placeholder="请输入标题")
+                    span(slot="prepend") xxx
+                    span(slot="append") xxx
             .editor-wrapper
                 c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
         .action
@@ -50,6 +64,8 @@
   import { mapState } from 'vuex'
   import CPanel from '~/components/common/panel'
   import { COption, CSelect } from '~/components/common/select'
+  import CPopover from '~/components/common/popover'
+  import CButton from '~/components/common/button'
 
   export default {
     async asyncData ({store, error, query}) {
@@ -129,6 +145,7 @@
     },
     data () {
       return {
+        placement: 'bottom-start',
         category: {
           name: '',
           description: '',
@@ -374,13 +391,14 @@
       CInput,
       CUpload,
       COption,
-      CSelect
+      CSelect,
+      CPopover,
+      CButton
     }
   }
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/application";
-
     @import "~assets/scss/mixins";
 
     $height-poster: 15em;

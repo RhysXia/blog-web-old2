@@ -1,6 +1,6 @@
 <template lang="pug">
     .c-input(:class="classes")
-        template(v-if="type==='textarea'")
+        .c-input__wrapper(v-if="type==='textarea'")
             textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px',overflow:'hidden'}",@blur="blur",v-if="autoSize",v-autoheight="autoSize",v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
             textarea.c-input__textarea(@focus="focus",:style="{minHeight:minHeight +'px'}",@blur="blur",v-else,v-model="content",:placeholder="placeholder",:disabled="disabled",:readonly="readonly")
         template(v-else)
@@ -103,11 +103,11 @@
     .c-input {
         position: relative;
         display: inline-table;
-        align-items: center;
-        flex-direction: row;
+        vertical-align: middle;
         background-color: $input-bg-color;
-        border-collapse: separate;
-        width: 100%;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
         .c-input__prepend,
         .c-input__append {
             display: table-cell;
@@ -116,7 +116,6 @@
             color: $input-append-color;
             position: relative;
             white-space: nowrap;
-            width: 1px;
             padding: 0 0.5em;
             border: 1px solid $input-border-color;
         }
@@ -137,15 +136,23 @@
             vertical-align: middle;
             border: 1px solid $border-color;
             transition: border-color 0.2s ease-in-out;
-            .c-input__input {
+            .c-input__input,
+            .c-input__textarea {
+                position: relative;
                 width: 100%;
                 box-sizing: border-box;
                 appearance: none;
-                height: 2em;
                 outline: 0;
                 background-color: transparent;
                 padding: 0 0.5em;
+                margin: 0;
                 border: none;
+            }
+            .c-input__input {
+                height: 2em;
+            }
+            .c-input__textarea {
+                resize: none;
             }
             .c-input__close {
                 position: absolute;
@@ -160,6 +167,7 @@
                     color: $input-border-color--hover
                 }
             }
+
             &:hover {
                 border-color: $input-border-color--hover;
                 .c-input__close {
@@ -176,22 +184,9 @@
             border-bottom-right-radius: $border-radius--small;
         }
 
-        .c-input__textarea {
-            border: 1px solid $input-border-color;
-            outline: none;
-            box-sizing: border-box;
-            width: 100%;
-            resize: none;
-            transition: border-color 0.2s ease-in-out, height 0.2s ease;
-            padding: 0.5em;
-            &:hover {
-                border-color: $input-border-color--hover;
-            }
-        }
     }
 
     .c-input--focus {
-        .c-input__textarea,
         .c-input__wrapper {
             border-color: $input-border-color--active !important;
             .c-input__close {
@@ -203,11 +198,6 @@
     .c-input--disabled,
     .c-input--readonly {
         .c-input__wrapper {
-            &:hover {
-                border-color: $input-border-color;
-            }
-        }
-        .c-input__textarea {
             &:hover {
                 border-color: $input-border-color;
             }
