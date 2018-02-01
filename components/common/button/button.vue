@@ -291,6 +291,7 @@
         background-color: $button-bg-color--text;
         color: $button-color--text;
         border: none;
+        .c-button--focused,
         &:hover {
             color: $button-color--text--hover;
         }
