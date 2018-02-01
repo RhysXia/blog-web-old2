@@ -11,11 +11,28 @@ export default {
     init(el, binding, vNode)
     updatePos(el, binding, vNode)
     const scroll = () => {
-      updatePos(el, binding, vNode)
+      if (el.__scrollTimer__) {
+        clearTimeout(el.__scrollTimer__)
+      } else {
+        updatePos(el, binding, vNode)
+      }
+      el.__scrollTimer__ = setTimeout(() => {
+        updatePos(el, binding, vNode)
+        el.__scrollTimer__ = null
+      }, 150)
     }
     const resize = () => {
-      init(el, binding, vNode)
-      updatePos(el, binding, vNode)
+      if (el.__resizeTimer__) {
+        clearTimeout(el.__resizeTimer__)
+      } else {
+        init(el, binding, vNode)
+        updatePos(el, binding, vNode)
+      }
+      el.__resizeTimer__ = setTimeout(() => {
+        init(el, binding, vNode)
+        updatePos(el, binding, vNode)
+        el.__resizeTimer__ = null
+      }, 150)
     }
     el.__scroll__ = scroll
     el.__resize__ = resize
@@ -64,6 +81,7 @@ const init = (el, binding, vNode) => {
 }
 
 const updatePos = (el, binding, vNode) => {
+  console.log(1)
   const top = getOffsetTop(el)
   const scrollTop = (document.documentElement || document.body).scrollTop
   if (top <= el.__initTop__ - scrollTop) {
