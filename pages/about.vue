@@ -1,9 +1,9 @@
 <template lang="pug">
-    .about-container
-        c-row(type="flex",:gutter="16",justify="start")
-            c-col(:span="16")
-                .left-wrapper
-                    ul.left
+    .about
+        c-row(type="flex",:gutter="16")
+            c-col(:span="18")
+                .about-left
+                    ul
                         li
                             span
                                 i.fa.fa-user
@@ -20,8 +20,8 @@
                             span
                                 i.fa.fa-code
                                 | Coding All My Life
-            c-col(:span="8")
-                .right-wrapper
+            c-col(:span="6")
+                .about-right
                     .right
                         .top
                         .bottom
@@ -43,22 +43,23 @@
 <style lang="scss" scoped>
     @import "~assets/scss/application";
 
-
-    .about-container {
-        .left-wrapper,
-        .right-wrapper {
-            display: block;
+    .about {
+        .about-left,
+        .about-right {
+            padding: 1em;
+            background-color: $bg-color;
             height: 100%;
-            background-color: $color-background;
+            box-sizing: border-box;
         }
-        .left,
-        .right {
-            padding: 1rem;
-        }
-        .left {
-            font-size: 1.1rem;
+        .about-left {
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            font-size: 1.1em;
             li {
-                margin-bottom: 2rem;
+                margin-bottom: 2em;
                 &:last-child {
                     margin-bottom: 0;
                 }
@@ -66,7 +67,7 @@
                     i {
                         display: inline-block;
                         color: $primary-color;
-                        width: 2rem;
+                        width: 2em;
                     }
                 }
             }
@@ -74,26 +75,26 @@
         .right {
             position: relative;
             .top {
-                height: 8rem;
-                background-color: $success-color;
+                height: 8em;
+                background-color: $primary-color;
             }
             .bottom {
                 text-align: center;
-                margin-top: 5rem;
+                margin-top: 5em;
                 > * {
-                    margin-bottom: 2rem;
+                    margin-bottom: 2em;
                     &:last-child {
-                        margin-bottom: 5rem;
+                        margin-bottom: 5em;
                     }
                 }
 
             }
             .avatar {
                 position: absolute;
-                top: 9 - 3rem;
-                left: #{'calc(50% - 3rem)'};
-                width: 6rem;
-                height: 6rem;
+                top: 8em - 3;
+                left: calc(50% - 3em);
+                width: 6em;
+                height: 6em;
                 border-radius: 50%;
                 transition: transform 0.4s ease-in-out;
                 cursor: pointer;
@@ -105,11 +106,11 @@
         .map-container {
             width: 100%;
             height: 200px;
-            margin-top: 1rem;
+            margin-top: 1em;
             box-sizing: border-box;
             outline: none;
             border: none;
-            padding: 1rem;
+            padding: 1em;
             background-color: $color-background;
         }
     }
