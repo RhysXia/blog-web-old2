@@ -12,6 +12,17 @@ export default http => {
     })
   }
 
+  comment.getAllByUserId = ({userId, page, size, sort = ''}) => {
+
+    return http.get(`/users/${userId}/comments`, {
+      params: {
+        page,
+        size,
+        sort
+      }
+    })
+  }
+
   comment.add = ({content, contentType, articleId}) => {
     return http.post(`/articles/${articleId}/comments`, {
       content,

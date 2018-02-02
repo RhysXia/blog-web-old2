@@ -84,18 +84,23 @@
         .left-wrapper,
         .right-wrapper {
             padding: 0.5rem;
-            background-color: $color-background;
+            background-color: $bg-color;
         }
         .avatar-wrapper {
             position: relative;
             width: 100%;
             padding-bottom: 100%;
+            overflow: hidden;
             .c-avatar {
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
+                transition: transform 0.4s ease-in-out;
+                &:hover{
+                    transform: scale(1.2) rotate(10deg);
+                }
             }
         }
         .nickname {
@@ -106,24 +111,24 @@
         .info {
             font-size: 0.8rem;
             display: block;
-            color: $color-text-light;
-            border-bottom: 1px solid $color-border-base;
+            color: $text-color--secondary;
+            border-bottom: 1px solid $border-color;
             padding-bottom: 0.5rem;
         }
         .email {
             i {
                 margin-right: 0.5rem;
-                color: $color-text-light;
+                color: $text-color--secondary;
             }
         }
         .tabs {
-            border-bottom: 1px solid $color-border-base;
+            border-bottom: 1px solid $border-color;
             box-sizing: border-box;
             margin-bottom: 1rem;
             .tab {
                 display: inline-block;
                 padding: 0.8rem 1.5rem;
-                color: $color-text;
+                color: $text-color;
                 position: relative;
                 font-weight: bold;
                 &:after {

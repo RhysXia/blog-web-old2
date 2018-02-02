@@ -275,16 +275,16 @@
 
     .c-button--text {
         background-color: $button-bg-color--text;
-        color: $button-color--text;
+        color: inherit;
         border: none;
         &:focus,
         &:hover {
-            color: $button-color--text--hover;
+            color: inherit;
         }
 
         &.c-button--disabled {
             &:hover {
-                color: $button-color--text;
+                color: inherit;
             }
 
         }

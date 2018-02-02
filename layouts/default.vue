@@ -54,7 +54,7 @@
         display: block;
         width: $main-width;
         margin: 1em auto;
-        padding-bottom: $footer-height;
+        padding-bottom: $footer-height + 1;
     }
 
 

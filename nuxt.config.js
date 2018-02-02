@@ -39,7 +39,7 @@ module.exports = {
     '~/assets/scss/public.scss'
   ],
 
-  loading: {color: '#4dce9b', failedColor: '#F56C6C'},
+  loading: {color: '#409eff', failedColor: '#f56c6c'},
   plugins: [
     '~/plugins/http',
     '~/plugins/token',

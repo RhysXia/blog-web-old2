@@ -11,12 +11,11 @@ export default http => {
     })
   }
   article.getAllByUserId = ({userId, page, size, sort = ''}) => {
-    return http.get('/articles', {
+    return http.get(`/users/${userId}/articles`, {
       params: {
         page,
         size,
-        sort,
-        userId
+        sort
       }
     })
   }

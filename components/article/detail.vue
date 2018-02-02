@@ -44,7 +44,8 @@
     },
     props: {
       article: {
-        type: Object
+        type: Object,
+        required: true
       }
     },
     computed: {

@@ -1,79 +1,52 @@
 <template lang="pug">
-    .c-category-item-container
+    .c-category-item
         nuxt-link.category__name(:to="'/category/'+category.id")
-            span.name {{category.name}}
-        .desc {{category.description}}
-        .info {{category.updateAt|formatDate}}更新
+            h2 {{category.name}}
+        .category__desc {{category.description}}
+        .category__info {{category.updateAt|formatDate}}更新
             i.dot
             | {{category.articleNum}}篇文章
 
 </template>
 
 <script>
-  import CButton from '../common/button'
 
   export default {
-    name: 'c-category-item',
+    name: 'c-category-item-show',
     props: {
       category: {
         type: Object,
-        default: {}
+        required: true
       }
-    },
-    components: {
-      CButton
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~assets/scss/application";
 
-    .c-category-item-container {
-        border: 1px solid $color-border-base;
-        padding: 0.5em 1em;
-        border-radius: 0.3em;npm
-        .header {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.5em;
-            .name {
-                font-size: 1em;
+
+
+    .c-category-item {
+        padding: 0.5em;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        .category__name {
+            h2 {
+                font-size: 1.2em;
                 font-weight: bold;
-            }
-            .dropdown {
-                margin-right: -0.5em;
-                .menu, .item {
-                    border: none;
-                    background-color: transparent;
-                }
-                .menu {
-                    padding: 0.5em 1em;
-                    &:hover {
-                        color: $color-text-deep;
-                    }
-                }
-                .item {
-                    padding: 1em 2em;
-                }
+                padding: 0;
+                margin: 0;
             }
         }
-
-        .desc, info {
-            color: $color-text-light;
+        .category__desc {
+            margin: 0.5em 0;
+            height: 3em;
+            overflow: hidden;
         }
-        .info {
-            margin-top: 0.5em;
-
-            .dot {
-                &:after {
-                    content: '\B7';
-                    margin: 0 0.25em;
-
-                }
-            }
+        .category__info {
+            color: $text-color--secondary;
+            font-size: 0.9em;
         }
     }
 </style>

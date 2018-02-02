@@ -27,6 +27,14 @@ a {
   }
 }
 
+.dot {
+  &:after {
+    content: '\B7';
+    margin: 0 0.25em;
+
+  }
+}
+
 ::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
