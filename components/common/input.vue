@@ -62,7 +62,6 @@
     data () {
       return {
         content: this.value,
-        isActive: false,
         isFocus: false
       }
     },
@@ -78,7 +77,6 @@
       classes () {
         return {
           'c-input--focus': this.isFocus && !this.readonly,
-          'c-input--active': this.isActive && !this.readonly,
           'c-input--readonly': this.readonly,
           'c-input--disabled': this.disabled
         }

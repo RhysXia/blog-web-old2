@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import CCategoryItem from '~/components/category/item'
+  import CCategoryItem from '~/components/category/item-show'
   import CPagination from '~/components/common/pagination'
   import CModal from '~/components/common/modal'
   import CInput from '~/components/common/input'

@@ -29,6 +29,13 @@
             .c-breadcrumb__item--separator {
                 display: none;
             }
+            .c-breadcrumb__item--link {
+                font-weight: bold;
+                cursor: text;
+                &:hover {
+                    color: $breadcrumb-color;
+                }
+            }
         }
     }
 

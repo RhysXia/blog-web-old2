@@ -1,14 +1,14 @@
 <template lang="pug">
-    .c-tag-container
-        .tag
+    .c-tag
+        .tag__header
             h1.name {{tag.name}}
             p.count 文章数：{{tag.articleNum}}
-        c-article-item(@delete="deleteArticle(article.id)",:article="article",v-for="article in articles",:key="article.id")
+        c-article-item(:article="article",v-for="article in articles",:key="article.id")
         c-pagination(@change="pageChange",:totalPages="totalPages",:page="page")
 </template>
 
 <script>
-  import CArticleItem from '~/components/article/item'
+  import CArticleItem from '~/components/article/item-show'
   import CPagination from '~/components/common/pagination'
 
   export default {
@@ -56,23 +56,6 @@
       }
     },
     methods: {
-      async deleteArticle (id) {
-        try {
-          await this.$api.article.deleteById(id)
-          await this.pageChange(this.page)
-          this.$message({
-            content: '删除成功',
-            duration: 2000,
-            type: 'success'
-          })
-        } catch (err) {
-          this.$message({
-            content: err.message,
-            duration: 2000,
-            type: 'error'
-          })
-        }
-      },
       async pageChange (val) {
         if (val === this.page) {
           let res = await this.$api.article.getAllByTagId({
@@ -103,12 +86,14 @@
 <style lang="scss" scoped>
     @import "~assets/scss/application";
 
-
-    .c-tag-container {
-        .tag {
-            background-color: $color-background;
-            margin-bottom: 1rem;
-            padding: 1rem;
+    .c-tag {
+        > * {
+            margin-bottom: 1em;
+        }
+        .tag__header {
+            background-color: $bg-color;
+            margin-bottom: 1em;
+            padding: 1em;
             .name {
                 text-align: center;
             }

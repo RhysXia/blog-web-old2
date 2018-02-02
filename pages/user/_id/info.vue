@@ -25,7 +25,7 @@
 </template>
 <script>
   import CArticleItem from '~/components/article/item'
-  import CCategoryItem from '~/components/category/item'
+  import CCategoryItem from '~/components/category/item-show'
   import CDraftItem from '~/components/draft/item'
   import CModal from '~/components/common/modal'
   import CInput from '~/components/common/input'

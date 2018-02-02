@@ -17,7 +17,7 @@
                     c-dropdown(v-if="messages.totalElements>0")
                         c-badge(:value="messages.totalElements")
                             i.fa.fa-comments
-                        c-dropdown-menu(slot="list",maxHeight="10em")
+                        c-dropdown-menu(slot="list",maxHeight="20em")
                             c-dropdown-item(v-for="message in messages.content",:key="message.id")
                                 .c-header__message--wrapper
                                     span.c-header__message

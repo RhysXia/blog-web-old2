@@ -42,20 +42,36 @@ html,body, #__nuxt, #__layout {
   height: 100%;
 }
 
-//page
-.page-enter-active,
-.page-leave-active {
+//slide
+.slide-enter-active,
+.slide-leave-active {
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-.page-enter,
-.page-leave-to {
+.slide-enter,
+.slide-leave-to {
   transform: translateX(100%);
   opacity: 0;
 }
 
-.page-enter-to,
-.page-leave {
+.slide-enter-to,
+.slide-leave {
   transform: translateX(0);
+  opacity: 1;
+}
+
+//fade
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave {
   opacity: 1;
 }

@@ -44,6 +44,9 @@
         background-color: $bg-color;
         padding: 0.5em;
         box-sizing: border-box;
+        &:hover {
+            background-color: lighten($body-bg-color, 5%);
+        }
         .item__left {
             display: block;
             float: left;

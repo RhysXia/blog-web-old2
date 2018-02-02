@@ -62,6 +62,10 @@ module.exports = {
       // }
     }
   },
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
+  },
   router: {
     // scrollBehavior (to, from, savedPosition) {
     //   console.log(from, to,savedPosition)

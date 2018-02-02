@@ -1,24 +1,16 @@
 <template lang="pug">
     .c-category-item-container
-        .header
-            nuxt-link(:to="'/category/'+category.id")
-                span.name {{category.name}}
-            c-dropdown.dropdown(v-if="isSelf",position="right",trigger="click")
-                button.menu
-                    i.fa.fa-cog
-                c-dropdown-menu(slot="list")
-                    c-dropdown-item
-                        button.item(@click="$emit('update')") 修改
-                    c-dropdown-item
-                        button.item(@click="$emit('delete')") 删除
+        nuxt-link.category__name(:to="'/category/'+category.id")
+            span.name {{category.name}}
         .desc {{category.description}}
-        .info
-            i.fa.fa-book
-            | {{category.articleNum}}
+        .info {{category.updateAt|formatDate}}更新
+            i.dot
+            | {{category.articleNum}}篇文章
+
 </template>
 
 <script>
-  import { CDropdown, CDropdownItem, CDropdownMenu } from '../common/dropdown'
+  import CButton from '../common/button'
 
   export default {
     name: 'c-category-item',
@@ -28,21 +20,8 @@
         default: {}
       }
     },
-    computed: {
-      isLogin () {
-        return this.$store.getters.isLogin
-      },
-      loginUser () {
-        return this.$store.state.loginUser
-      },
-      isSelf () {
-        return this.isLogin && this.category.author.id === this.loginUser.id
-      }
-    },
     components: {
-      CDropdown,
-      CDropdownItem,
-      CDropdownMenu
+      CButton
     }
   }
 </script>
@@ -50,11 +29,10 @@
 <style lang="scss" scoped>
     @import "~assets/scss/application";
 
-
     .c-category-item-container {
         border: 1px solid $color-border-base;
         padding: 0.5em 1em;
-        border-radius: 0.3em;
+        border-radius: 0.3em;npm
         .header {
             display: flex;
             flex-direction: row;
@@ -67,17 +45,17 @@
             }
             .dropdown {
                 margin-right: -0.5em;
-                .menu,.item{
+                .menu, .item {
                     border: none;
                     background-color: transparent;
                 }
-                .menu{
+                .menu {
                     padding: 0.5em 1em;
-                    &:hover{
+                    &:hover {
                         color: $color-text-deep;
                     }
                 }
-                .item{
+                .item {
                     padding: 1em 2em;
                 }
             }
@@ -86,8 +64,16 @@
         .desc, info {
             color: $color-text-light;
         }
-        .info{
+        .info {
             margin-top: 0.5em;
+
+            .dot {
+                &:after {
+                    content: '\B7';
+                    margin: 0 0.25em;
+
+                }
+            }
         }
     }
 </style>

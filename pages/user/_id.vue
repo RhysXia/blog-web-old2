@@ -4,7 +4,7 @@
             c-breadcrumb-item(to="/") 首页
             c-breadcrumb-item(:to="'/user/'+user.id") 个人中心
             c-breadcrumb-item {{childName}}
-        c-row(:gutter="20")
+        c-row(:gutter="14")
             c-col(:span="4")
                 .left-wrapper
                     .avatar-wrapper
@@ -76,7 +76,6 @@
 </script>
 <style lang="scss" scoped>
     @import "~assets/scss/application";
-
 
     .user-self-container {
         .breadcrumb {

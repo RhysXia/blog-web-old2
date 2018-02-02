@@ -85,6 +85,12 @@
         if (draftId) {
           res = await store.$api.draft.getById(draftId)
           const draft = res.data
+          let tagIds = []
+          if (draft.tagIds) {
+            tagIds = draft.tagIds.split(',').map(it => {
+              return Number(it)
+            })
+          }
           data.article = {
             title: draft.title || '',
             poster: draft.poster || '',
@@ -92,9 +98,7 @@
             content: draft.content || '',
             contentType: draft.contentType,
             categoryId: draft.categoryId || -1,
-            tagIds: (draft.tagIds || '').split(',').map(it => {
-              return Number(it)
-            })
+            tagIds
           }
           data.draftId = Number(draftId)
         } else {
