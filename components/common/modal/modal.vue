@@ -116,7 +116,7 @@
         })
       }
       this.bodyOverflow = document.body.style.overflow
-      if (this.lockScroll) {
+      if (this.visible && this.lockScroll) {
         document.body.style.overflow = 'hidden'
       }
     },
