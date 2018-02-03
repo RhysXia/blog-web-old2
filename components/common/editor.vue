@@ -119,6 +119,9 @@
       }
     },
     methods: {
+      focus () {
+        this.$refs.textarea.focus()
+      },
       showEmoji () {
         this.isEmojiShow = true
       },

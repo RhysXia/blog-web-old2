@@ -22,7 +22,7 @@
                     b {{article.commentNum}}
                     | 条评论
             .comment__body
-                .comment__write(ref="writer",v-if="isLogin")
+                .comment__write(v-if="isLogin")
                     .comment__write--left
                         c-avatar(:src="loginUser.avatar",shape="square") {{loginUser.nickname}}
                     .comment__write--right
@@ -32,7 +32,7 @@
                             span.reply__close(@click="replyCommentIndex=-1")
                                 i.fa.fa-close
                         .reply__body
-                            c-editor(:minHeight="150",v-model="commentContent",:imageUpload="commentImageUpload")
+                            c-editor(ref="editor",:minHeight="150",v-model="commentContent",:imageUpload="commentImageUpload")
                         .reply__footer
                             c-button(type="primary",@click="commentSubmit") 提交
                 template(v-if="!article.commentNum")
@@ -67,7 +67,7 @@
         }
       }
     },
-    async asyncData ({nuxtState, from, route, params, store, error, query}) {
+    async asyncData ({params, store, error, query}) {
       const page = Number((query.page || 1))
       const size = 8
       const isHotComment = !!(query.isHotComment && (query.isHotComment !== 'false'))
@@ -82,20 +82,17 @@
           totalPages: 0,
           // 文章id
           id,
-          article: {},
           comments: [],
           isVoted: false,
           isHotComment
         }
 
+        // 将article存到vuex中,方便在复用
+        const article = store.state.article.article
         let res
-        // 获取文章
-        // 不重复获取文章
-        if (from && from.name === 'article-id' && nuxtState.data[0].article.id === id) {
-          data.article = nuxtState.data[0].article
-        } else {
+        if (!article || id !== article.id) {
           res = await store.$api.article.getById(id)
-          data.article = res.data
+          store.commit('article/setArticle', res.data)
         }
 
         // 判断是否点赞了该文章
@@ -125,7 +122,8 @@
       } catch (err) {
         error({statusCode: err.statusCode, message: err.message})
       }
-    },
+    }
+    ,
     head () {
       const keywords = this.article.tags.map(it => it.name)
       return {
@@ -134,7 +132,8 @@
           {name: 'keywords', content: keywords.join(',')}
         ]
       }
-    },
+    }
+    ,
     data () {
       return {
         commentContent: '',
@@ -143,7 +142,8 @@
     },
     computed: {
       ...mapState({
-        loginUser: state => state.loginUser
+        loginUser: state => state.loginUser,
+        article: state => state.article.article
       }),
       ...mapGetters([
         'isLogin'
@@ -180,11 +180,13 @@
       replyHandler (index) {
         this.replyCommentIndex = index
         // 滚动到编辑器
-        this.$velocity(this.$refs.writer, 'scroll', {duration: 400, offset: 0})
+        // this.$velocity(this.$refs.writer, 'scroll', {duration: 400, offset: 0})
+        this.$refs.editor.focus()
       },
       async deleteArticle () {
         try {
-          await this.$api.article.deleteById(this.article.id)
+          await
+            this.$api.article.deleteById(this.article.id)
           this.$message({
             content: '删除成功',
             type: 'error',
@@ -202,7 +204,8 @@
       async checkVote () {
         let isVoted = false
         try {
-          const res = await this.$api.article.getVote(this.article.id)
+          const res = await
+            this.$api.article.getVote(this.article.id)
           isVoted = res.data
         } catch (err) {
           isVoted = false
@@ -211,7 +214,7 @@
       },
       async pageChange (val) {
         this.$router.push({
-          path: `/article/${this.article.id}?#comment`,
+          path: `/article/${this.id}?#comment`,
           query: {
             page: val,
             isHotComment: this.isHotComment,
@@ -223,10 +226,12 @@
         try {
           const article = this.article
           if (this.isVoted) {
-            await this.$api.article.deleteVote(article.id)
+            await
+              this.$api.article.deleteVote(article.id)
             article.voteNum--
           } else {
-            await this.$api.article.addVote(article.id)
+            await
+              this.$api.article.addVote(article.id)
             article.voteNum++
           }
           this.isVoted = !this.isVoted
@@ -240,13 +245,15 @@
       },
       async commentDelete (id) {
         try {
-          await this.$api.comment.deleteById(id)
+          await
+            this.$api.comment.deleteById(id)
           this.$message({
             content: '删除成功',
             type: 'success',
             duration: 2000
           })
-          await this.pageChange(this.page)
+          await
+            this.pageChange(this.page)
         } catch (err) {
           this.$message({
             content: err.message,
@@ -270,19 +277,21 @@
           // 如果是回复
           if (this.replyCommentIndex >= 0) {
             const commentId = this.comments[this.replyCommentIndex].id
-            await this.$api.reply.add({
-              content,
-              contentType: 'MARKDOWN',
-              commentId
-            })
+            await
+              this.$api.reply.add({
+                content,
+                contentType: 'MARKDOWN',
+                commentId
+              })
             this.replyCommentIndex = -1
           } else {
             // 如果是评论
-            await this.$api.comment.add({
-              content,
-              contentType: 'MARKDOWN',
-              articleId
-            })
+            await
+              this.$api.comment.add({
+                content,
+                contentType: 'MARKDOWN',
+                articleId
+              })
           }
           this.$message({
             type: 'success',
@@ -307,7 +316,8 @@
         }
         const formData = new FormData()
         formData.append('image', files[0])
-        const {data} = await this.$api.comment.uploadImage(formData)
+        const {data} = await
+          this.$api.comment.uploadImage(formData)
         return data
       }
     },

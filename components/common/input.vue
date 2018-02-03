@@ -92,8 +92,13 @@
         this.$emit('blur', e)
       },
       focus () {
-        const input = (this.$el.getElementsByTagName('input') || this.$el.getElementsByTagName('textarea'))[0]
-        input.focus()
+        let inputs = this.$el.getElementsByTagName('input')
+        if (inputs.length === 0) {
+          inputs = this.$el.getElementsByTagName('textarea')
+        }
+        if (inputs.length > 0) {
+          inputs[0].focus()
+        }
       }
     }
   }
