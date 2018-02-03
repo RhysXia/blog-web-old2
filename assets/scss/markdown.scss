@@ -32,11 +32,12 @@
       background-color: $color-background-dark;
       min-width: 2.5em;
       text-align: center;
-      margin-right: 1em;
+      margin: 0;
     }
     .code-content {
       position: relative;
       overflow-x: auto;
+      margin-left: 0.5em;
     }
   }
 }
