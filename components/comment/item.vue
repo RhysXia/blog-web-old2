@@ -165,6 +165,7 @@
             font-size: 0.8em;
             margin-left: 3em;
             margin-top: 0.5em;
+            background-color: darken($bg-color, 3%);
         }
     }
 </style>

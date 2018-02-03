@@ -115,6 +115,7 @@
         .c-input__append {
             display: table-cell;
             vertical-align: middle;
+            width: 1px;
             background-color: $input-append-bg-color;
             color: $input-append-color;
             position: relative;

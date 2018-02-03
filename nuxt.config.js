@@ -67,13 +67,6 @@ module.exports = {
     mode: 'out-in'
   },
   router: {
-    // scrollBehavior (to, from, savedPosition) {
-    //   console.log(from, to,savedPosition)
-    //   if (savedPosition) {
-    //     return savedPosition
-    //   }
-    //   return {x: 0, y: 0}
-    // },
     middleware: [
       'change-col-page'
     ]

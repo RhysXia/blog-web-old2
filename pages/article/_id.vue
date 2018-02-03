@@ -12,9 +12,11 @@
                 .article__footer--right(v-if="isSelf")
                     c-button(type="warning",@click="$router.push({path:'/article/write',query:{articleId:article.id}})") 修改
                     c-button(type="error",@click="deleteArticle") 删除
-        .comment--wrapper
+        .comment--wrapper(id="comment")
             .comment__header(ref="comment-header")
                 h2.comment__title {{isLogin?'评论列表':'评论列表(登陆后可评论)'}}
+                c-button(type="primary",@click="hotClick",:disabled="isHotComment") 热门
+                c-button(type="success",:disabled="!isHotComment",@click="newClick") 最新
                 span.comment__info(v-if="article.commentNum")
                     | 共
                     b {{article.commentNum}}
@@ -50,15 +52,25 @@
   import { mapGetters, mapState } from 'vuex'
 
   export default {
-    watchQuery: ['page'],
+    // modify主要是用来表示需要重新调用asyncData
+    watchQuery: ['modify'],
     key: to => to.fullPath,
     validate ({params}) {
       const id = Number(params.id)
       return /^\d+$/.test(id)
     },
-    async asyncData ({params, store, error, query}) {
+    // 如果只是本页加载数据，不需要动画
+    transition (to, from) {
+      if (to.query.modify) {
+        return {
+          name: 'no'
+        }
+      }
+    },
+    async asyncData ({nuxtState, from, route, params, store, error, query}) {
       const page = Number((query.page || 1))
       const size = 8
+      const isHotComment = !!(query.isHotComment && (query.isHotComment !== 'false'))
       const id = Number(params.id)
       try {
         const data = {
@@ -72,12 +84,19 @@
           id,
           article: {},
           comments: [],
-          isVoted: false
+          isVoted: false,
+          isHotComment
         }
 
+        let res
         // 获取文章
-        let res = await store.$api.article.getById(id)
-        data.article = res.data
+        // 不重复获取文章
+        if (from && from.name === 'article-id' && nuxtState.data[0].article.id === id) {
+          data.article = nuxtState.data[0].article
+        } else {
+          res = await store.$api.article.getById(id)
+          data.article = res.data
+        }
 
         // 判断是否点赞了该文章
         if (store.getters.isLogin) {
@@ -90,11 +109,15 @@
         }
 
         // 获取评论列表
+        let sort = ['floorNum,DESC']
+        if (data.isHotComment) {
+          sort = ['replyNum,DESC', 'floorNum,DESC']
+        }
         res = await store.$api.comment.getAllByArticleId({
           articleId: id,
           page: page - 1,
           size,
-          sort: 'floorNum,DESC'
+          sort
         })
         data.comments = res.data.content
         data.totalPages = res.data.totalPages
@@ -146,6 +169,14 @@
       }
     },
     methods: {
+      hotClick () {
+        this.isHotComment = true
+        this.pageChange(1)
+      },
+      newClick () {
+        this.isHotComment = false
+        this.pageChange(1)
+      },
       replyHandler (index) {
         this.replyCommentIndex = index
         // 滚动到编辑器
@@ -179,22 +210,12 @@
         this.isVoted = isVoted
       },
       async pageChange (val) {
-        if (val === this.page) {
-          // 获取评论列表
-          let res = await this.$api.comment.getAllByArticleId({
-            articleId: this.article.id,
-            page: val - 1,
-            size: this.size,
-            sort: 'floorNum,DESC'
-          })
-          this.comments = res.data.content
-          this.totalPages = res.data.totalPages
-          return
-        }
         this.$router.push({
-          path: `/article/${this.article.id}`,
+          path: `/article/${this.article.id}?#comment`,
           query: {
-            page: val
+            page: val,
+            isHotComment: this.isHotComment,
+            modify: Date.now()
           }
         })
       },
@@ -335,6 +356,9 @@
                     font-size: 1.2em;
                     font-weight: bold;
                 }
+                .c-button {
+                    margin-left: 0.5em;
+                }
                 .comment__info {
                     float: right;
                 }
@@ -372,19 +396,19 @@
                         background-color: $bg-color;
                         padding: 0.5em;
                         @include clearfix;
-                        .c-button{
+                        .c-button {
                             float: right;
                         }
                     }
 
-                    .reply__body{
+                    .reply__body {
                         padding: 0 1em;
                         background-color: $bg-color;
                     }
                 }
             }
 
-            .comment__content--no{
+            .comment__content--no {
                 background-color: $bg-color;
                 text-align: center;
                 height: 5em;

@@ -61,7 +61,7 @@
     },
     async asyncData ({store, error, query}) {
       if (!store.getters.permissions.includes('POST:/articles')) {
-        error({statusCode: 500, message: '你没有权限访问'})
+        return error({statusCode: 500, message: '你没有权限访问'})
       }
       try {
         const data = {

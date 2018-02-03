@@ -59,13 +59,6 @@
             color: $text-color--secondary;
             margin-top: 0.5em;
             font-size: 0.9em;
-            .dot {
-                &:after {
-                    content: '\B7';
-                    margin: 0 0.25em;
-
-                }
-            }
             .c-button {
                 &:hover {
                     text-decoration: underline;
