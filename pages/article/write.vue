@@ -4,7 +4,8 @@
             c-upload.article-write__poster--wrapper(:action="image.action",:headers="image.headers",:name="image.name",:onSuccess="image.onSuccess")
                 img.article-write__poster(v-if="article.poster",:src="article.poster")
                 .article-write__poster.article-write__poster--anon(v-else)
-                    i.fa.fa-camera
+                    span.icon
+                        i.fa.fa-camera
             c-input(v-model.trim="article.title",type="text",placeholder="请输入标题")
             c-editor(:textHeight="300",barPosition="top",:fixedTop="70",v-model="article.content",:imageUpload="imageUpload")
         c-col(:span="6")
@@ -414,30 +415,30 @@
             .article-write__poster--anon {
                 line-height: $height-poster;
                 text-align: center;
-                .fa {
+                .icon {
                     font-size: 3em;
                     position: relative;
                     &:after {
-                        content: '';
+                        line-height: 1;
+                        content: "请上传海报";
                         position: absolute;
-                        top: 100%;
                         left: 50%;
+                        top: 100%;
                         transform-origin: 100% 0;
                         transform: translateX(-50%);
                         font-size: 0.3em;
                         font-weight: bold;
                         white-space: nowrap;
-                        margin-top: 1em;
+                        margin-top: 0.5em;
                         transition: 0.4s ease-in-out;
                         opacity: 0;
                         color: $text-color--secondary;
                     }
                 }
                 &:hover {
-                    .fa::after {
-                        content: "请上传海报";
+                    .icon:after {
                         opacity: 1;
-                        margin-top: 0.3em;
+                        margin-top: 0;
                     }
                 }
             }

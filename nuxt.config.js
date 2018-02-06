@@ -28,12 +28,6 @@ module.exports = {
       //   href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'
       // }
     ],
-    script: [
-      {
-        src: '/fontawesome-all.min.js',
-        type: 'text/javascript'
-      }
-    ],
     noscript: [
       {innerHTML: 'This website requires JavaScript.'}
     ]

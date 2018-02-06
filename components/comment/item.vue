@@ -13,7 +13,7 @@
                     .content(v-html="content")
                 .bottom
                     span
-                        i.fa.fa-clock
+                        i.fa.fa-clock-o
                         | {{comment.createAt | formatDate}}
                     button(@click="$emit('reply')",v-if="isLogin")
                         i.fa.fa-reply
@@ -22,7 +22,7 @@
                         i.fa.fa-hand-pointer-o
                         | 顶
                     button.delete(@click="$emit('delete')",v-if="showDelete")
-                        i.fa.fa-trash-alt
+                        i.fa.fa-remove
                         | 删除
         .c-reply--wrapper(v-for="reply in comment.replies",:key="reply.id")
             nuxt-link(:to="'/loginUser/'+reply.author.id")

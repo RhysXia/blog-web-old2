@@ -9,7 +9,7 @@
             .item__body {{article.info}}
             .item__footer
                 span.time
-                    i.fa.fa-clock
+                    i.fa.fa-clock-o
                     | {{article.updateAt | formatDate}}
                 span.read
                     i.fa.fa-eye
