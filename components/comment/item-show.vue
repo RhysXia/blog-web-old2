@@ -3,7 +3,7 @@
         .c-comment__content(v-html="content")
         .c-comment__info
             span
-                i.fa.fa-clock-o
+                i.fa.fa-clock
                 | {{comment.createAt|formatDate}}
                 i.dot
                 nuxt-link(:to="`/article/${comment.article.id}`")

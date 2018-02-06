@@ -2,8 +2,10 @@
     .c-carousel(@mouseenter.stop="mouseEnter",@mouseleave.stop="mouseLeave")
         .c-carousel__content--wrapper
             slot
-        i.c-carousel__direction.fa.fa-angle-left(@click="moveTo(activeIndex-1)")
-        i.c-carousel__direction.fa.fa-angle-right(@click="moveTo(activeIndex+1)")
+        span.c-carousel__direction.c-carousel__direction--left(@click="moveTo(activeIndex-1)")
+            i.fa.fa-angle-left
+        span.c-carousel__direction.c-carousel__direction--right(@click="moveTo(activeIndex+1)")
+            i.fa.fa-angle-right
         ul.c-carousel__index--wrapper(v-if="childNum>0")
             li.c-carousel__index(v-for="index in childNum",:key="index",@click="moveTo(index-1)")
                 .c-carousel__index__item(:class="{'c-carousel__index__item--active':index-1===activeIndex}")
@@ -109,20 +111,21 @@
         }
         .c-carousel__direction {
             position: absolute;
+            z-index: 1;
             top: 50%;
             transform: translateY(-50%);
             font-size: 40px;
             color: $carousel-direction-color;
             opacity: 0.5;
             cursor: pointer;
-            &:hover {
-                opacity: 0.8;
-            }
-            &.fa-angle-left {
+            &.c-carousel__direction--left{
                 left: 0.5em;
             }
-            &.fa-angle-right {
+            &.c-carousel__direction--right{
                 right: 0.5em;
+            }
+            &:hover {
+                opacity: 0.8;
             }
         }
         .c-carousel__index--wrapper {

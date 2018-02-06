@@ -14,7 +14,7 @@
                         i.fa.fa-list
                         nuxt-link(:to="'/category/'+article.category.id") {{article.category.name}}
                     li
-                        i.fa.fa-clock-o
+                        i.fa.fa-clock
                         | {{article.createAt | formatDate}}
         .c-article__body
             .content(v-html="content",v-copyright)

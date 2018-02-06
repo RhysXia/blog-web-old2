@@ -20,10 +20,18 @@ module.exports = {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico'
-      },
+      }
+
+      // {
+
+      //   rel: 'stylesheet',
+      //   href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'
+      // }
+    ],
+    script: [
       {
-        rel: 'stylesheet',
-        href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'
+        src: '/fontawesome-all.min.js',
+        type: 'text/javascript'
       }
     ],
     noscript: [
@@ -85,13 +93,12 @@ module.exports = {
         }
         // if link has anchor,  scroll to anchor by returning the selector
         if (to.hash) {
-          console.log(to.hash)
           position = {selector: to.hash}
         }
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(position)
-          }, 500)
+          }, 200)
         })
       }
     },

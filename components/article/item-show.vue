@@ -9,7 +9,7 @@
             .item__body {{article.info}}
             .item__footer
                 span.time
-                    i.fa.fa-clock-o
+                    i.fa.fa-clock
                     | {{article.updateAt | formatDate}}
                 span.read
                     i.fa.fa-eye
@@ -74,13 +74,13 @@
                 }
             }
             .item__body {
-                height: $article-item-height - 3 - 1;
+                height: $article-item-height - 3 - 1.2;
                 padding: 0.5em 0;
                 overflow: hidden;
                 box-sizing: border-box;
             }
             .item__footer {
-                height: 1em;
+                height: 1.2em;
                 overflow: hidden;
                 opacity: 0.8;
                 > * {
